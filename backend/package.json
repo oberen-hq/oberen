@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Simplify backend",
+  "main": "app.js",
+  "repository": "https://github.com/alfiephillips/simplify",
+  "author": "Alfie Phillips",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "chalk": "^4.1.1",
+    "dotenv": "^10.0.0",
+    "morgan": "^1.10.0"
+  }
+}
