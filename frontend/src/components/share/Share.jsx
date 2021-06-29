@@ -20,18 +20,17 @@ export default function Share() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    let newPost;
+    let newPost = {
+      userId: user._id,
+      desc: desc.current.value,
+    };
 
     if (file) {
-      newPost = {
-        userId: user._id,
-        desc: desc.current.value,
-      };
       const data = new FormData();
-      const fileName = Date.now() + file.name;
-      data.append("name", fileName.replace(/\s+/g, ""));
+      const fileName = (Date.now() + file.name).replace(/\s+/g, "");
+      data.append("name", fileName);
       data.append("file", file);
-      newPost.img = fileName.replace(/\s+/g, "");
+      newPost.img = fileName;
       try {
         await axios.post(url + "/upload", data);
       } catch (err) {
@@ -42,11 +41,10 @@ export default function Share() {
     }
 
     try {
-      console.log(newPost);
       await axios.post(url + "/posts", newPost);
       window.location.reload();
     } catch (err) {
-      console.log(err);
+      alert("There has been an error uploading your post!");
     }
   };
 

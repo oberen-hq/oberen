@@ -10,8 +10,6 @@ import moment from "moment";
 const url = "http://localhost:3001/images/";
 
 export default function Post({ post }) {
-  console.log(url + post.img);
-
   const [like, setLike] = useState(post.likes.length);
   const [comment, setComment] = useState(post.comments.length);
   const [isLiked, setIsLiked] = useState(false);
