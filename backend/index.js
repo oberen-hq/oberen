@@ -12,21 +12,19 @@ const router = express.Router();
 const cors = require("cors");
 const path = require("path");
 
+const connectDB = require("./config/db");
+
 dotenv.config();
 
-mongoose.connect(
-  process.env.MONGO_URL,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log("Connected to MongoDB");
-  }
-);
+connectDB();
 
 app.use(cors());
 
+// Used to store post images
+
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
-//middleware
+// Middleware
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
@@ -53,6 +51,6 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 
-app.listen(3001, () => {
+app.listen(process.env.PORT, () => {
   console.log("Backend server is running!");
 });
