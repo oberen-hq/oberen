@@ -11,7 +11,6 @@ const url = "http://localhost:3001/images/";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
-  const [comment, setComment] = useState(post.comments.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -25,6 +24,10 @@ export default function Post({ post }) {
   if (todaysDate === presentedDate) {
     presentedDate = moment(post.createdAt).format("HH:mm");
   }
+
+  const handleComment = (url, id) => {
+    window.location.replace(url + "/post/" + id);
+  };
 
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser._id));
@@ -48,10 +51,6 @@ export default function Post({ post }) {
     } catch (err) {}
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
-  };
-
-  const handleComments = () => {
-    console.log("Handled");
   };
 
   return (
@@ -98,7 +97,10 @@ export default function Post({ post }) {
             <span className="postLikeCounter">{like} likes</span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText" onClick={handleComments}>
+            <span
+              className="postCommentText"
+              onClick={() => handleComment("http://localhost:3000", post._id)}
+            >
               {post.comments.length} comments
             </span>
           </div>
