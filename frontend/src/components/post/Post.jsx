@@ -25,8 +25,8 @@ export default function Post({ post }) {
     presentedDate = moment(post.createdAt).format("HH:mm");
   }
 
-  const handleComment = (url, id) => {
-    window.location.replace(url + "/post/" + id);
+  const handleComment = (url) => {
+    window.location.replace(url + "/user/" + post.userId + "/post/" + post._id);
   };
 
   useEffect(() => {
@@ -52,6 +52,8 @@ export default function Post({ post }) {
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
+
+  console.log(post._id);
 
   return (
     <div className="post">
@@ -99,7 +101,7 @@ export default function Post({ post }) {
           <div className="postBottomRight">
             <span
               className="postCommentText"
-              onClick={() => handleComment("http://localhost:3000", post._id)}
+              onClick={() => handleComment("http://localhost:3000")}
             >
               {post.comments.length} comments
             </span>

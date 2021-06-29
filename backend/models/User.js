@@ -28,6 +28,18 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    friendRequests: {
+      type: Array,
+      default: [],
+    },
+    messagesNotifications: {
+      type: Array,
+      default: [],
+    },
+    pushNotifications: {
+      type: Array,
+      default: [],
+    },
     followers: {
       type: Array,
       default: [],
@@ -43,18 +55,22 @@ const UserSchema = new mongoose.Schema(
     desc: {
       type: String,
       max: 50,
+      default: "Still waiting to be told.",
     },
     city: {
       type: String,
       max: 50,
+      default: "Who knows?",
     },
     from: {
       type: String,
       max: 50,
+      default: "The Unknown",
     },
     relationship: {
       type: Number,
       enum: [1, 2, 3],
+      default: 1,
     },
   },
   { timestamps: true }

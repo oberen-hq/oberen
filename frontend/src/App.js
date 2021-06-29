@@ -2,6 +2,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
+import Post from "./pages/Post/Post";
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,6 +26,9 @@ function App() {
         </Route>
         <Route path="/profile/:username">
           <Profile />
+        </Route>
+        <Route path="/user/:userId/post/:_id">
+          <Post />
         </Route>
       </Switch>
     </Router>

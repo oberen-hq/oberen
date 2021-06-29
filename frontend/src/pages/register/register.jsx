@@ -25,6 +25,7 @@ export default function Register() {
       try {
         await axios.post(url + "/auth/register", user);
         history.push("/login");
+        window.location.replace("/login");
       } catch (err) {
         console.log(err);
       }
@@ -35,12 +36,15 @@ export default function Register() {
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
-          <h3 className="loginLogo">Lamasocial</h3>
+          <h3 className="loginLogo">Simplify</h3>
           <span className="loginDesc">
-            Connect with friends and the world around you on Lamasocial.
+            Connect with your team, and get things done.
           </span>
         </div>
         <div className="loginRight">
+          <div className="loginTitle">
+            <h1 className="loginTitleText">Register</h1>
+          </div>
           <form className="loginBox" onSubmit={handleClick}>
             <input
               placeholder="Username"
