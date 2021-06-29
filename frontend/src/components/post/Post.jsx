@@ -9,6 +9,7 @@ import moment from "moment";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
+  const [comment, setComment] = useState(post.comments.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -46,6 +47,11 @@ export default function Post({ post }) {
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
+
+  const handleComments = () => {
+    console.log("Handled");
+  };
+
   return (
     <div className="post">
       <div className="postWrapper">
@@ -87,10 +93,12 @@ export default function Post({ post }) {
               onClick={likeHandler}
               alt=""
             />
-            <span className="postLikeCounter">{like} people like it</span>
+            <span className="postLikeCounter">{like} likes</span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">{post.comment} comments</span>
+            <span className="postCommentText" onClick={handleComments}>
+              {post.comments.length} comments
+            </span>
           </div>
         </div>
       </div>
