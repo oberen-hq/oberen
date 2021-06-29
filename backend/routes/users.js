@@ -2,8 +2,7 @@ const User = require("../models/User");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 
-// Updating a user
-
+//update user
 router.put("/:id", async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
     if (req.body.password) {
@@ -18,42 +17,30 @@ router.put("/:id", async (req, res) => {
       const user = await User.findByIdAndUpdate(req.params.id, {
         $set: req.body,
       });
-      res.status(200).json({
-        message: "Account has been updated.",
-      });
+      res.status(200).json("Account has been updated");
     } catch (err) {
       return res.status(500).json(err);
     }
   } else {
-    return res.status(403).json({
-      type: "User",
-      message: "You can only update your account.",
-    });
+    return res.status(403).json("You can update only your account!");
   }
 });
 
-// Deleting a user
-
+//delete user
 router.delete("/:id", async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
     try {
       await User.findByIdAndDelete(req.params.id);
-      res.status(200).json({
-        message: "Account has been deleted.",
-      });
+      res.status(200).json("Account has been deleted");
     } catch (err) {
       return res.status(500).json(err);
     }
   } else {
-    return res.status(403).json({
-      type: "User",
-      message: "You can only delete your account.",
-    });
+    return res.status(403).json("You can delete only your account!");
   }
 });
 
-// Getting a user
-
+//get a user
 router.get("/", async (req, res) => {
   const userId = req.query.userId;
   const username = req.query.username;
@@ -68,8 +55,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get friends, I don't have any
-
+//get friends
 router.get("/friends/:userId", async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
@@ -83,13 +69,13 @@ router.get("/friends/:userId", async (req, res) => {
       const { _id, username, profilePicture } = friend;
       friendList.push({ _id, username, profilePicture });
     });
-    res.status(200).json(friendList);
+    res.status(200).json(friendList)
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-// Following a user
+//follow a user
 
 router.put("/:id/follow", async (req, res) => {
   if (req.body.userId !== req.params.id) {
@@ -99,27 +85,19 @@ router.put("/:id/follow", async (req, res) => {
       if (!user.followers.includes(req.body.userId)) {
         await user.updateOne({ $push: { followers: req.body.userId } });
         await currentUser.updateOne({ $push: { followings: req.params.id } });
-        res.status(200).json({
-          message: "User has been followed.",
-        });
+        res.status(200).json("user has been followed");
       } else {
-        res.status(403).json({
-          type: "Following",
-          message: "You already follow this user.",
-        });
+        res.status(403).json("you allready follow this user");
       }
     } catch (err) {
       res.status(500).json(err);
     }
   } else {
-    res.status(403).json({
-      type: "Following",
-      message: "You can't follow yourself.",
-    });
+    res.status(403).json("you cant follow yourself");
   }
 });
 
-// Unfollowing a user
+//unfollow a user
 
 router.put("/:id/unfollow", async (req, res) => {
   if (req.body.userId !== req.params.id) {
@@ -129,23 +107,15 @@ router.put("/:id/unfollow", async (req, res) => {
       if (user.followers.includes(req.body.userId)) {
         await user.updateOne({ $pull: { followers: req.body.userId } });
         await currentUser.updateOne({ $pull: { followings: req.params.id } });
-        res.status(200).json({
-          message: "User has been unfollowed.",
-        });
+        res.status(200).json("user has been unfollowed");
       } else {
-        res.status(403).json({
-          type: "Unfollowing",
-          message: "You don't follow this user.",
-        });
+        res.status(403).json("you dont follow this user");
       }
     } catch (err) {
       res.status(500).json(err);
     }
   } else {
-    res.status(403).json({
-      type: "Unfollowing",
-      message: "You can't unfollow yourself.",
-    });
+    res.status(403).json("you cant unfollow yourself");
   }
 });
 

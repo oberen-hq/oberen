@@ -2,12 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { AuthContextProvider } from "./context/AuthContext";
-import CssBaseline from "@material-ui/core/CssBaseline";
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <CssBaseline />
       <App />
     </AuthContextProvider>
   </React.StrictMode>,

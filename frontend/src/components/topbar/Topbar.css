@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap");
-
 .topbarContainer {
   height: 50px;
   width: 100%;
@@ -9,7 +7,6 @@
   position: sticky;
   top: 0;
   z-index: 999;
-  font-family: "Syne Mono", monospace;
 }
 
 .topbarLeft {
@@ -17,7 +14,7 @@
 }
 
 .logo {
-  font-size: 30px;
+  font-size: 24px;
   margin-left: 20px;
   font-weight: bold;
   color: white;
@@ -98,8 +95,8 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 768px) {
-  .topbarLink {
+@media screen and (max-width: 768px)  {
+  .topbarLink{
     display: none;
   }
 }

@@ -5,21 +5,20 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       require: true,
-      min: 5,
-      max: 30,
+      min: 3,
+      max: 20,
       unique: true,
     },
     email: {
       type: String,
       required: true,
-      min: 3,
       max: 50,
       unique: true,
     },
     password: {
       type: String,
       required: true,
-      min: 8,
+      min: 6,
     },
     profilePicture: {
       type: String,
@@ -41,9 +40,9 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    bio: {
+    desc: {
       type: String,
-      max: 150,
+      max: 50,
     },
     city: {
       type: String,
