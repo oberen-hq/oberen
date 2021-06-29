@@ -2,9 +2,10 @@ import "./post.css";
 import { MoreVert } from "@material-ui/icons";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { format } from "timeago";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+
+import moment from "moment";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
@@ -12,7 +13,15 @@ export default function Post({ post }) {
   const [user, setUser] = useState({});
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext);
-  let url = "http://localhost:3001/api";
+
+  const date = new Date();
+  const todaysDate = moment(date).format("YYYY MM DD");
+
+  let presentedDate = moment(post.createdAt).format("YYYY MM DD");
+
+  if (todaysDate === presentedDate) {
+    presentedDate = moment(post.createdAt).format("HH:mm");
+  }
 
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser._id));
@@ -20,7 +29,9 @@ export default function Post({ post }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(url + `/users?userId=${post.userId}`);
+      const res = await axios.get(
+        `http://localhost:3001/api/users?userId=${post.userId}`
+      );
       setUser(res.data);
     };
     fetchUser();
@@ -28,7 +39,7 @@ export default function Post({ post }) {
 
   const likeHandler = () => {
     try {
-      axios.put(url + "/posts/" + post._id + "/like", {
+      axios.put("http://localhost:3001/api/posts/" + post._id + "/like", {
         userId: currentUser._id,
       });
     } catch (err) {}
@@ -52,7 +63,7 @@ export default function Post({ post }) {
               />
             </Link>
             <span className="postUsername">{user.username}</span>
-            <span className="postDate">{format(post.createdAt)}</span>
+            <span className="postDate">{presentedDate}</span>
           </div>
           <div className="postTopRight">
             <MoreVert />
