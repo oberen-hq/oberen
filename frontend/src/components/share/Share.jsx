@@ -20,25 +20,34 @@ export default function Share() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const newPost = {
-      userId: user._id,
-      desc: desc.current.value,
-    };
+    let newPost;
+
     if (file) {
+      newPost = {
+        userId: user._id,
+        desc: desc.current.value,
+      };
       const data = new FormData();
       const fileName = Date.now() + file.name;
-      data.append("name", fileName);
+      data.append("name", fileName.replace(/\s+/g, ""));
       data.append("file", file);
-      newPost.img = fileName;
-      console.log(newPost);
+      newPost.img = fileName.replace(/\s+/g, "");
       try {
         await axios.post(url + "/upload", data);
-      } catch (err) {}
+      } catch (err) {
+        alert(
+          "There has been an error uploading your image, please try again!"
+        );
+      }
     }
+
     try {
+      console.log(newPost);
       await axios.post(url + "/posts", newPost);
       window.location.reload();
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -55,7 +64,7 @@ export default function Share() {
             alt=""
           />
           <input
-            placeholder={"What's in your mind " + user.username + "?"}
+            placeholder={"What's on your mind " + user.username + "?"}
             className="shareInput"
             ref={desc}
           />

@@ -7,12 +7,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 
+let url = "http://localhost:3001/api";
+
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState({});
   const username = useParams().username;
-
-  let url = "http://localhost:3001/api";
 
   useEffect(() => {
     const fetchUser = async () => {

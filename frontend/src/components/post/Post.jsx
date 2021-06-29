@@ -7,7 +7,11 @@ import { AuthContext } from "../../context/AuthContext";
 
 import moment from "moment";
 
+const url = "http://localhost:3001/images/";
+
 export default function Post({ post }) {
+  console.log(url + post.img);
+
   const [like, setLike] = useState(post.likes.length);
   const [comment, setComment] = useState(post.comments.length);
   const [isLiked, setIsLiked] = useState(false);
@@ -77,7 +81,7 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          <img className="postImg" src={PF + post.img} alt="" />
+          <img className="postImg" src={url + post.img} alt="" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

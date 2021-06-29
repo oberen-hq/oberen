@@ -5,10 +5,11 @@ import "./feed.css";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 
+let url = "http://localhost:3001/api/";
+
 export default function Feed({ username }) {
   const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);
-  let url = "http://localhost:3001/api/";
 
   useEffect(() => {
     const fetchPosts = async () => {
