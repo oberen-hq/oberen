@@ -26,7 +26,7 @@ export default function Post({ post }) {
   }
 
   const handleComment = (url) => {
-    window.location.replace(url + "/user/" + post.userId + "/post/" + post._id);
+    window.location.replace(url + "/post/" + post._id);
   };
 
   useEffect(() => {
@@ -52,8 +52,6 @@ export default function Post({ post }) {
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
-
-  console.log(post._id);
 
   return (
     <div className="post">
