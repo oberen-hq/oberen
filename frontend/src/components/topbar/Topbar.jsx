@@ -4,8 +4,13 @@ import {
   Person,
   Chat,
   Notifications,
-  ArrowDropDownCircleOutlined,
+  ArrowDropDown,
 } from "@material-ui/icons";
+
+import { Avatar } from "@material-ui/core";
+
+import { GroupAdd, Telegram, Assignment } from "@material-ui/icons";
+
 import { Link, useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -31,65 +36,95 @@ export default function Topbar() {
     event.preventDefault();
 
     window.localStorage.clear();
-
     history.push("/logout");
-
     window.location.replace("/login");
   };
 
   return (
-    <div className="topbarContainer">
-      <div className="topbarLeft">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">Simplify</span>
-        </Link>
-      </div>
-      <div className="topbarCenter">
-        <div className="searchbar">
-          <Search className="searchIcon" />
-          <input
-            placeholder="Search for friend, post or video"
-            className="searchInput"
-          />
-        </div>
-      </div>
-      <div className="topbarRight">
-        <div className="topbarLinks">
-          <span className="topbarLink">Homepage</span>
-          <span className="topbarLink">Timeline</span>
-        </div>
-        <div className="topbarIcons">
-          <div className="topbarIconItem">
-            <Person />
-            <span className="topbarIconBadge">{getFriendNotifications()}</span>
-          </div>
-          <div className="topbarIconItem">
-            <Chat />
-            <span className="topbarIconBadge">{getMessageNotifications()}</span>
-          </div>
-          <div className="topbarIconItem">
-            <Notifications />
-            <span className="topbarIconBadge">{getPushNotifications()}</span>
-          </div>
-          <div className="topbarIconItem">
-            <ArrowDropDownCircleOutlined />
-            <div className="dropdown-content">
-              <a onClick={logout}>Logout</a>
-            </div>
-            <span className="topbarIconBadge">{getPushNotifications()}</span>
-          </div>
-        </div>
-        <Link to={`/profile/${user.username}`}>
+    <div className="homeHeader">
+      <div className="homeHeader__left">
+        <Link to="/">
           <img
-            src={
-              user.profilePicture
-                ? PF + user.profilePicture
-                : PF + "person/noAvatar.png"
-            }
-            alt=""
-            className="topbarImg"
+            src="https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png?w=512&h=512"
+            className="homeHeader__logo"
           />
         </Link>
+      </div>
+
+      <div className="homeHeader__inputSearch">
+        <input type="text" placeholder="Search:" />
+        <Search className="homeHeader__inputButton" />
+      </div>
+      <div className="homeHeader__icons">
+        <section>
+          <Link to={`/profile/${user.username}`}>
+            <Avatar
+              className="homeHeader__avatar"
+              alt="User image"
+              src={
+                user.profilePicture
+                  ? PF + user.profilePicture
+                  : PF + "person/noAvatar.png"
+              }
+            />
+          </Link>
+          <h3 className="homeHeader__name">{user.username}</h3>
+        </section>
+
+        <h3 className="homeHeader__dash"> | </h3>
+
+        <section>
+          <h3 className="homeHeader__name">Home</h3>
+        </section>
+
+        <h3 className="homeHeader__dash"> | </h3>
+
+        <section>
+          <h3 className="homeHeader__name">Find Friends</h3>
+        </section>
+
+        <h3 className="homeHeader__dash"> | </h3>
+
+        <section>
+          <h3 className="homeHeader__name">Create</h3>
+        </section>
+
+        <h3 className="homeHeader__dash"> | </h3>
+
+        <section>
+          <span className="topbarIconBadge">{getPushNotifications()}</span>
+          <GroupAdd />
+        </section>
+
+        <h3 className="homeHeader__dash"> | </h3>
+
+        <section>
+          <span className="topbarIconBadge">{getPushNotifications()}</span>
+          <Telegram />
+        </section>
+
+        <h3 className="homeHeader__dash"> | </h3>
+
+        <section>
+          <span className="topbarIconBadge">{getPushNotifications()}</span>
+          <Notifications />
+        </section>
+
+        <h3 className="homeHeader__dash"> | </h3>
+
+        <section>
+          <span className="topbarIconBadge">{getPushNotifications()}</span>
+          <Assignment />
+        </section>
+
+        <section>
+          <div className="dropdown">
+            <ArrowDropDown className="dropdown" />
+            <div className="dropdown-content">
+              ,<a onClick={logout}></a>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
