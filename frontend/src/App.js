@@ -2,7 +2,6 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
-import SinglePost from "./pages/Post/SinglePost";
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,6 +13,8 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
+
+  console.log(user);
   return (
     <Router>
       <Switch>
@@ -25,10 +26,7 @@ function App() {
           {user ? <Redirect to="/" /> : <Register />}
         </Route>
         <Route path="/profile/:username">
-          <Profile />
-        </Route>
-        <Route path="/post/:_id">
-          <SinglePost />
+          {user ? <Profile /> : <Redirect to="/login" />}
         </Route>
       </Switch>
     </Router>

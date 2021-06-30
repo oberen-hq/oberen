@@ -1,12 +1,19 @@
 import "./Topbar.css";
-import { Search, Person, Chat, Notifications } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import {
+  Search,
+  Person,
+  Chat,
+  Notifications,
+  ArrowDropDownCircleOutlined,
+} from "@material-ui/icons";
+import { Link, useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Topbar() {
   const { user } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  let history = useHistory("");
 
   const getFriendNotifications = () => {
     return 1;
@@ -18,6 +25,16 @@ export default function Topbar() {
 
   const getPushNotifications = () => {
     return 1;
+  };
+
+  const logout = (event) => {
+    event.preventDefault();
+
+    window.localStorage.clear();
+
+    history.push("/logout");
+
+    window.location.replace("/login");
   };
 
   return (
@@ -52,6 +69,13 @@ export default function Topbar() {
           </div>
           <div className="topbarIconItem">
             <Notifications />
+            <span className="topbarIconBadge">{getPushNotifications()}</span>
+          </div>
+          <div className="topbarIconItem">
+            <ArrowDropDownCircleOutlined />
+            <div className="dropdown-content">
+              <a onClick={logout}>Logout</a>
+            </div>
             <span className="topbarIconBadge">{getPushNotifications()}</span>
           </div>
         </div>

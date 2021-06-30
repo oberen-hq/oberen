@@ -8,7 +8,7 @@ export default function Register() {
   const email = useRef();
   const password = useRef();
   const passwordAgain = useRef();
-  const history = useHistory();
+  const history = useHistory("");
 
   let url = "http://localhost:3001/api";
 
