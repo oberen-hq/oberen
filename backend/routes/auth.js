@@ -1,22 +1,22 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-
-router.get("/register", (req, res) => {
-  console.log(req.sessionID);
-  res.send("Register");
-});
+const passport = require("passport");
 
 // Register a user
 
 router.post("/register", async (req, res) => {
-  try {
-    // Generating a new hash
+  User.findOne({ email: req.body.email }, async (err, doc) => {
+    if (err) {
+      throw err;
+    }
+
+    if (doc) {
+      res.send("User already exists");
+    }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-    // Creating the user
 
     const newUser = new User({
       username: req.body.username,
@@ -24,45 +24,26 @@ router.post("/register", async (req, res) => {
       password: hashedPassword,
     });
 
-    // Saving the user and sending response
+    await newUser.save();
 
-    const user = await newUser.save();
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+    res.send("User created");
+  });
 });
 
 // Login a user
 
-router.post("/login", async (req, res) => {
-  try {
-    const user = await User.findOne({ email: req.body.email });
-
-    if (!user) {
-      res.status(404).json({
-        type: "User",
-        message: "A user with that email was not found.",
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    if (!user) res.send("No User exists");
+    else {
+      req.login(user, (err) => {
+        if (err) throw err;
+        res.send("Successfully authenticated");
+        console.log(req.user);
       });
     }
-
-    const validPassword = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-
-    if (!validPassword) {
-      res.status(400).json({
-        type: "User",
-        message: "Invalid password.",
-      });
-    }
-
-    res.status(201).json(user);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
+  })(req, res, next);
 });
 
 module.exports = router;

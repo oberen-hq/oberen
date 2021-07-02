@@ -25,9 +25,20 @@ export default function Register() {
         password: password.current.value,
       };
       try {
-        await axios.post(url + "/auth/register", user);
+        axios({
+          method: "post",
+          data: user,
+          withCredentials: true,
+          url: "http://localhost:3001/api/auth/register",
+        })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
         history.push("/login");
-        window.location.replace("/login");
+        // window.location.replace("/login");
       } catch (err) {
         console.log(err);
       }

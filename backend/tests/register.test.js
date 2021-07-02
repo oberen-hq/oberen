@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-let url = "http://localhost:3000/api/auth/register";
+let url = "http://localhost:3001/api/auth/register";
 
 axios
   .post(url, {

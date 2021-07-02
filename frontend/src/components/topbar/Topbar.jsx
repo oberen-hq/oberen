@@ -13,6 +13,8 @@ export default function Topbar() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   let history = useHistory("");
 
+  console.log(user);
+
   const logout = (event) => {
     event.preventDefault();
 
@@ -33,22 +35,14 @@ export default function Topbar() {
         </NavLink>
         <Bars />
         <NavMenu>
-          <NavLink to="/about" activeStyle>
-            About
-          </NavLink>
-          <NavLink to="/docs" activeStyle>
-            Documentation
-          </NavLink>
-          <NavLink to="/services" activeStyle>
-            Our Services
-          </NavLink>
-          <NavLink to="/contact" activeStyle>
-            Contact Us
-          </NavLink>
-          <NavLink to="/login" onClick={logout} activeStyle>
+          <NavLink to="/about">About</NavLink>
+          <NavLink to="/docs">Documentation</NavLink>
+          <NavLink to="/services">Our Services</NavLink>
+          <NavLink to="/contact">Contact Us</NavLink>
+          <NavLink to="/login" onClick={logout}>
             Logout
           </NavLink>
-          <NavLink to={`/profile/${user.username}`} activeStyle>
+          <NavLink to={`/profile/${user.username}`}>
             <Avatar
               className="homeHeader__avatar"
               alt="User image"
