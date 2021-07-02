@@ -10,6 +10,12 @@ const MessageSchema = new mongoose.Schema(
     },
     text: {
       type: String,
+      min: 1,
+      max: 500,
+    },
+    file: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }
