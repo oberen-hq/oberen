@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./Register.css";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const username = useRef();
   const email = useRef();
   const password = useRef();
   const passwordAgain = useRef();
+  const checked = useRef();
   const history = useHistory("");
 
   let url = "http://localhost:3001/api";
@@ -33,37 +35,40 @@ export default function Register() {
   };
 
   return (
-    <div className="login">
-      <div className="loginWrapper">
-        <div className="loginLeft">
-          <h3 className="loginLogo">Simplify</h3>
-          <span className="loginDesc">
+    <div className="register">
+      <div className="registerWrapper">
+        <div className="registerLeft">
+          <h3 className="registerLogo">
+            Simplify <br />
+            Beta
+          </h3>
+          <span className="registerDesc">
             Connect with your team, and get things done.
           </span>
         </div>
-        <div className="loginRight">
-          <div className="loginTitle">
-            <h1 className="loginTitleText">Register</h1>
+        <div className="registerRight">
+          <div className="registerTitle">
+            <h1 className="registerTitleText">Register</h1>
           </div>
-          <form className="loginBox" onSubmit={handleClick}>
+          <form className="registerBox" onSubmit={handleClick}>
             <input
               placeholder="Username"
               required
               ref={username}
-              className="loginInput"
+              className="registerInput"
             />
             <input
               placeholder="Email"
               required
               ref={email}
-              className="loginInput"
+              className="registerInput"
               type="email"
             />
             <input
               placeholder="Password"
               required
               ref={password}
-              className="loginInput"
+              className="registerInput"
               type="password"
               minLength="6"
             />
@@ -71,13 +76,13 @@ export default function Register() {
               placeholder="Password Again"
               required
               ref={passwordAgain}
-              className="loginInput"
+              className="registerInput"
               type="password"
             />
-            <button className="loginButton" type="submit">
+            <button className="registerButton" type="submit">
               Sign Up
             </button>
-            <button className="loginRegisterButton">Log into Account</button>
+            <button className="registerRegisterButton">Log into Account</button>
           </form>
         </div>
       </div>
