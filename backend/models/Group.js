@@ -1,22 +1,21 @@
 const mongoose = require("mongoose");
 
-const MeetingSchema = mongoose.Schema(
+const GroupSchema = mongoose.Schema(
   {
-    meetingId: {
+    name: {
       type: String,
       required: true,
-      unique: true,
+      min: 3,
+      max: 20,
     },
     members: {
       type: Array,
       default: [],
     },
-    messages: {
+    conversation: {
       type: Array,
       default: [],
     },
   },
   { timestamps: true }
 );
-
-module.exports = mongoose.model("Meeting", MeetingSchema);
