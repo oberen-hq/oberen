@@ -1,15 +1,10 @@
 import "./Topbar.css";
-// import { Search, Notifications, ArrowDropDown } from "@material-ui/icons";
 
-// import { Avatar } from "@material-ui/core";
-
-// import { GroupAdd, Telegram, Assignment } from "@material-ui/icons";
-
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
-import { Nav, NavLink, Bars, NavMenu, Input } from "./TopbarElements";
+import { Nav, NavLink, Bars, NavMenu } from "./TopbarElements";
 
 import { Avatar } from "@material-ui/core";
 
@@ -17,18 +12,6 @@ export default function Topbar() {
   const { user } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   let history = useHistory("");
-
-  const getFriendNotifications = () => {
-    return 1;
-  };
-
-  const getMessageNotifications = () => {
-    return 1;
-  };
-
-  const getPushNotifications = () => {
-    return 1;
-  };
 
   const logout = (event) => {
     event.preventDefault();
@@ -42,7 +25,11 @@ export default function Topbar() {
     <>
       <Nav>
         <NavLink to="/">
-          <img src={PF + "logo.png"} className="logo" />
+          <img
+            src={PF + "logo.png"}
+            className="logo"
+            alt="The Logo Of Simplify"
+          />
         </NavLink>
         <Bars />
         <NavMenu>
@@ -57,6 +44,9 @@ export default function Topbar() {
           </NavLink>
           <NavLink to="/contact" activeStyle>
             Contact Us
+          </NavLink>
+          <NavLink to="/login" onClick={logout} activeStyle>
+            Logout
           </NavLink>
           <NavLink to={`/profile/${user.username}`} activeStyle>
             <Avatar
