@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv").config();
+const validator = require("validator");
+const filter = require("leo-profanity");
 
 const secret = process.env.JWT_SECRET;
 
@@ -39,14 +41,54 @@ const login = async (req, res) => {
       token,
     });
   } catch (err) {
+    console.error(err);
     return res.status(500).json({
-      message: "Internal Server Error",
+      message: "Internal Server Error.",
     });
   }
 };
 
 const register = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName } = req.body;
+
+  const validEmail = validator.isEmail(email);
+  const validPassword = validator.isStrongPassword(password, {
+    minLength: 8,
+  });
+
+  if (firstName.length <= 2 || firstName.length > 15) {
+    return res.status(400).json({
+      message: "First name must be above 2-15 characters!",
+    });
+  }
+
+  if (lastName.length <= 4 || lastName.length > 30) {
+    return res.status(400).json({
+      message: "Last name must be 4-30 characters!",
+    });
+  }
+
+  if (
+    filter.check(email) ||
+    filter.check(firstName) ||
+    filter.check(lastName)
+  ) {
+    return res.status(400).json({
+      message: "Bad profanity detected.",
+    });
+  }
+
+  if (!validEmail) {
+    return res.status(400).json({
+      message: "Please provide a valid email address.",
+    });
+  }
+
+  if (!validPassword) {
+    return res.status(400).json({
+      message: "Password is not strong enough. Please use 8 characters.",
+    });
+  }
 
   try {
     const existingUser = await User.findOne({ email: email });
@@ -88,8 +130,9 @@ const register = async (req, res) => {
       token,
     });
   } catch (err) {
+    console.error(err);
     return res.status(500).json({
-      message: "Internal Server Error",
+      message: "Internal Server Error.",
     });
   }
 };

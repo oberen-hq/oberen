@@ -14,6 +14,8 @@ const cors = require("cors");
 
 const authRoute = require("./routes/auth");
 
+const auth = require("./middleware/auth");
+
 connectDB();
 
 app.use(
@@ -45,6 +47,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
 app.post("/api/upload", upload.single("file"), (req, res) => {
   try {
     return res.status(200).json({

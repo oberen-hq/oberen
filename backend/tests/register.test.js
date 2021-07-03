@@ -7,8 +7,9 @@ axios
     firstName: "Alfie",
     lastName: "Phillips",
     email: "thealfiephillips@gmail.com",
-    password: "password",
-    confirmPassword: "password",
+    password: "PasswordH`45nu4j5hsdf9iejrfiefcniJKdxjdfhnHJFhfjHJfhfe9ofuck",
+    confirmPassword:
+      "PasswordH`45nu4j5hsdf9iejrfiefcniJKdxjdfhnHJFhfjHJfhfe9ofuck",
   })
   .then((res) => {
     console.log(res);

@@ -9,13 +9,13 @@ const TeamSchema = new mongoose.Schema(
       max: 30,
       unique: true,
     },
-    teamEmail: {
+    email: {
       type: String,
       require: true,
       min: 5,
       max: 30,
     },
-    teamPhoneNumber: {
+    number: {
       type: String,
       require: true,
       min: 5,
@@ -38,6 +38,10 @@ const TeamSchema = new mongoose.Schema(
       default: [],
     },
     conversations: {
+      type: Array,
+      default: [],
+    },
+    roles: {
       type: Array,
       default: [],
     },
