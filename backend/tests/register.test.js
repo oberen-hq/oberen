@@ -1,6 +1,7 @@
 const axios = require("axios");
 
 let url = "http://localhost:3001/api/auth/register";
+let url2 = "http://localhost:3001/";
 
 axios
   .post(url, {
@@ -17,3 +18,12 @@ axios
   .catch((err) => {
     console.log(err);
   });
+
+// axios
+//   .get(url2)
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });

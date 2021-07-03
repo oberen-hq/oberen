@@ -19,13 +19,13 @@ const auth = async (req, res, next) => {
 
       decodedData = jwt.verify(token, secret);
 
-      res.locals.userId = decodedData?.id;
+      req.userId = decodedData?.id;
     } else {
       // Google
 
       decodedData = jwt.decode(token);
 
-      res.locals.userId = decodedData?.sub;
+      req.userId = decodedData?.sub;
     }
 
     next();

@@ -144,8 +144,8 @@ const edit_user = async (req, res) => {
 const delete_user = async (req, res) => {
   const { email, confirmation } = req.body;
 
-  const requestedUser = User.findOne({ email: email });
-  const currentUser = User.findById(res.locals.userId);
+  const requestedUser = await User.findOne({ email: email });
+  const currentUser = await User.findById(res.locals.userId);
 
   if (currentUser._id !== requestedUser._id) {
     return res.status(400).json({
@@ -161,7 +161,7 @@ const delete_user = async (req, res) => {
   }
 
   try {
-    User.deleteOne(requestedUser);
+    await User.deleteOne(requestedUser);
   } catch (err) {
     return res.status(500).json({
       message: "Internal Server Error.",
@@ -173,4 +173,4 @@ const delete_user = async (req, res) => {
   });
 };
 
-module.exports = { register, login };
+module.exports = { register, login, delete_user };

@@ -13,6 +13,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 const authRoute = require("./routes/auth");
+const teamRoute = require("./routes/team");
 
 const auth = require("./middleware/auth");
 
@@ -59,8 +60,10 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 });
 
 app.use("/api/auth", authRoute);
+app.use("/api/team", teamRoute);
 
 app.get("/", (req, res) => {
+  console.log(res.locals.userId);
   res.status(200).json({
     status: res.statusCode,
     message: "Welcome to the API",
