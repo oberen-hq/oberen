@@ -137,4 +137,40 @@ const register = async (req, res) => {
   }
 };
 
+const edit_user = async (req, res) => {
+  return;
+};
+
+const delete_user = async (req, res) => {
+  const { email, confirmation } = req.body;
+
+  const requestedUser = User.findOne({ email: email });
+  const currentUser = User.findById(res.locals.userId);
+
+  if (currentUser._id !== requestedUser._id) {
+    return res.status(400).json({
+      message: "Unauthorized to delete another users account",
+    });
+  }
+
+  if (confirmation === false) {
+    return res.status(499).json({
+      confirmation,
+      message: "Cancelled deleting account",
+    });
+  }
+
+  try {
+    User.deleteOne(requestedUser);
+  } catch (err) {
+    return res.status(500).json({
+      message: "Internal Server Error.",
+    });
+  }
+
+  return res.status(204).json({
+    message: "Account deleted.",
+  });
+};
+
 module.exports = { register, login };
