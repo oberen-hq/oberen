@@ -1,4 +1,4 @@
-const organization = require("../models/Organization");
+const Organization = require("../../models/Organization");
 const validator = require("validator");
 const filter = require("leo-profanity");
 
@@ -47,9 +47,9 @@ const create_organization = async (req, res) => {
     });
   }
 
-  if (description.length < 10 || description.length > 500) {
+  if (description.length < 10 || description.length > 2000) {
     return res.status(400).json({
-      message: "Description must be 10-500 characters!",
+      message: "Description must be 50-2000 characters!",
     });
   }
 
