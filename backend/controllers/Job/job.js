@@ -60,7 +60,7 @@ const create_organization_job = async (req, res) => {
       { $push: { offeringJobs: newJob } }
     );
 
-    return res.status(204).json({
+    return res.status(200).json({
       message: "Job created!",
     });
   } catch (err) {

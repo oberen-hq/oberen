@@ -10,35 +10,34 @@ const auth = async (req, res, next) => {
 
     let decodedData;
 
-    if (!token) {
-      return next();
-    }
-
     if (token && isCustomAuth) {
       // Local
 
-      decodedData = jwt.verify(token, secret);
+      try {
+        decodedData = jwt.verify(token, secret);
+      } catch (err) {
+        next(err);
+      }
 
       req.userId = decodedData?.id;
+      req.isAuthenticated = true;
     } else {
       // Google
 
-      decodedData = jwt.decode(token);
+      try {
+        decodedData = jwt.decode(token);
+      } catch (err) {
+        next(err);
+      }
 
       req.userId = decodedData?.sub;
+      req.isAuthenticated = true;
     }
 
     next();
   } catch (err) {
     console.error(err);
-  }
-};
-
-const isAtJob = async (req, res, next) => {
-  try {
-    return;
-  } catch (err) {
-    return;
+    next(err);
   }
 };
 

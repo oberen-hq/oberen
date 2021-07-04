@@ -129,7 +129,7 @@ const register = async (req, res) => {
       },
       secret,
       {
-        expiresIn: "1h",
+        expiresIn: "8h",
       }
     );
 

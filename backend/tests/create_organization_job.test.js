@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const url =
-  "http://localhost:3001/api/organization/60e1eefa73956c1da04513b8/jobs/create";
+  "http://localhost:3001/api/organization/60e1fb39347d48286039cefb/jobs/create";
 
 axios
   .post(url, {

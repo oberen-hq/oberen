@@ -16,6 +16,8 @@ const authRoute = require("./routes/Auth/auth");
 const organizationRoute = require("./routes/Organization/organization");
 const organizationsRoute = require("./routes/Organization/organizations");
 
+const auth = require("./middleware/auth");
+
 connectDB();
 
 app.use(
@@ -65,6 +67,13 @@ app.get("/", (req, res) => {
   res.status(200).json({
     status: res.statusCode,
     message: "Welcome to the API",
+  });
+});
+
+app.get("/protected", auth, (req, res) => {
+  res.status(200).json({
+    status: res.statusCode,
+    message: "Authorized",
   });
 });
 
