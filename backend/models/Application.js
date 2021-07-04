@@ -5,4 +5,8 @@ const ApplicationSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  jobId: {
+    type: String,
+    require: true,
+  },
 });
