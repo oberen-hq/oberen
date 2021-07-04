@@ -1,13 +1,14 @@
 const axios = require("axios");
 
-const url = "http://localhost:3001/api/team/create";
+const url = "http://localhost:3001/api/organization/create";
 
 axios
   .post(url, {
-    name: "Thisismyteamname",
+    name: "OrganizationName",
     email: "thealfiephillips@gmail.com",
     number: "07737817933",
     region: "GB",
+    postcode: "TR26 2JE",
     description:
       "iofgeuifghjeiofgjeoifgjeriofghjeiogjeiogfjeiogjeiofgjeiogjeiogjeiogfjeiogjeoigje",
   })

@@ -14,6 +14,7 @@ const cors = require("cors");
 
 const authRoute = require("./routes/Auth/auth");
 const organizationRoute = require("./routes/Organization/organization");
+const organizationsRoute = require("./routes/Organization/organizations");
 
 connectDB();
 

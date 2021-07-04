@@ -15,3 +15,5 @@ const get_organizations = async (req, res) => {
     });
   }
 };
+
+module.exports = { get_organizations };

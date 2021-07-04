@@ -39,7 +39,7 @@ const create_organization = async (req, res) => {
 
   const validEmail = validator.isEmail(email);
   const validNumber = validator.isMobilePhone(number);
-  const validPostcode = validator.isPostalCode(postcode, ["GB", "US"]);
+  const validPostcode = validator.isPostalCode(postcode, "GB");
 
   if (name.length < 4 || name.length > 25) {
     return res.status(400).json({
@@ -92,7 +92,7 @@ const create_organization = async (req, res) => {
       });
     }
 
-    const creatorId = req.userId;
+    const creatorId = "test";
 
     const result = await Organization.create({
       creatorId,

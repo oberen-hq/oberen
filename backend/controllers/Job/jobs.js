@@ -1,5 +1,11 @@
 const Organization = require("../../models/Organization");
 
+// Get all jobs
+
+const get_jobs = async (req, res) => {
+  return;
+};
+
 // Get all of organizations available jobs
 
 const get_organization_jobs = async (req, res) => {
@@ -27,3 +33,5 @@ const get_organization_jobs = async (req, res) => {
     });
   }
 };
+
+module.exports = { get_organization_jobs };

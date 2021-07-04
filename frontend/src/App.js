@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import styled from "styled-components";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Home from "./pages/Home/Home";
 
 const AppContainer = styled.div`
   background-color: #1e1e1e;
@@ -15,13 +14,5 @@ const AppContainer = styled.div`
 `;
 
 export default function App() {
-  return (
-    <Router>
-      <Switch>
-        <AppContainer>
-          <Home />
-        </AppContainer>
-      </Switch>
-    </Router>
-  );
+  return <div>Hello world</div>;
 }
