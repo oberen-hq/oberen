@@ -8,6 +8,8 @@ const secret = process.env.JWT_SECRET;
 
 const User = require("../models/User");
 
+// Login a user
+
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -47,6 +49,8 @@ const login = async (req, res) => {
     });
   }
 };
+
+// Register a user
 
 const register = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName } = req.body;
@@ -137,9 +141,13 @@ const register = async (req, res) => {
   }
 };
 
+// Edit a user
+
 const edit_user = async (req, res) => {
   return;
 };
+
+// Delete a user
 
 const delete_user = async (req, res) => {
   const { email, confirmation } = req.body;

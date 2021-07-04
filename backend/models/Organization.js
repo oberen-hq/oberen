@@ -1,7 +1,16 @@
 const mongoose = require("mongoose");
 
-const TeamSchema = new mongoose.Schema(
+const OrganizationSchema = new mongoose.Schema(
   {
+    creatorId: {
+      type: String,
+      required: true,
+    },
+    employers: {
+      type: Array,
+      default: [],
+      required: true,
+    },
     name: {
       type: String,
       require: true,
@@ -23,30 +32,24 @@ const TeamSchema = new mongoose.Schema(
     },
     region: {
       type: String,
-      default: "Not set.",
+      require: true,
+    },
+    postcode: {
+      type: String,
+      require: true,
     },
     description: {
       type: String,
-      default: "There is no description yet!",
+      required: true,
+      min: 50,
+      max: 2000,
     },
-    members: {
+    offeringJobs: {
       type: Array,
-      default: [],
-    },
-    teamGroups: {
-      type: Array,
-      default: [],
-    },
-    conversations: {
-      type: Array,
-      default: [],
-    },
-    roles: {
-      type: Array,
-      default: [],
+      max: 5,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Team", TeamSchema);
+module.exports = mongoose.model("Organization", OrganizationSchema);

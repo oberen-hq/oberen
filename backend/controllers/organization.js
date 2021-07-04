@@ -1,28 +1,28 @@
-const Team = require("../models/Team");
+const organization = require("../models/Organization");
 const validator = require("validator");
 const filter = require("leo-profanity");
 
-// Get a team
+// Get a organization
 
-const get_team = async (req, res) => {
-  const teamId = req.params.id;
-
-  console.log(teamId);
+const get_organization = async (req, res) => {
+  const organizationId = req.params.id;
 
   try {
-    const team = await Team.findById(teamId);
+    const organization = await Organization.findById(organizationId);
 
-    if (!team) {
+    if (!organization) {
       return res.status(404).json({
-        message: "That team was not found!",
+        message: "That Organization was not found!",
       });
     }
 
     return res.status(200).json({
-      name: team.name,
-      email: team.email,
-      region: team.region,
-      description: team.description,
+      name: organization.name,
+      email: organization.email,
+      region: organization.region,
+      postcode: organization.postcode,
+      description: organization.description,
+      offeringJobs: organization.offeringJobs,
     });
   } catch (err) {
     console.error(err);
@@ -32,13 +32,14 @@ const get_team = async (req, res) => {
   }
 };
 
-// Create a team
+// Create a organization
 
-const create_team = async (req, res) => {
-  const { name, email, number, region, description } = req.body;
+const create_organization = async (req, res) => {
+  const { name, email, number, region, postcode, description } = req.body;
 
   const validEmail = validator.isEmail(email);
   const validNumber = validator.isMobilePhone(number);
+  const validPostcode = validator.isPostalCode(postcode, ["GB", "US"]);
 
   if (name.length < 4 || name.length > 25) {
     return res.status(400).json({
@@ -60,7 +61,7 @@ const create_team = async (req, res) => {
 
   if (filter.check(name)) {
     return res.status(400).json({
-      message: "Bad profanity detected in team name.",
+      message: "Bad profanity detected in organization name.",
     });
   }
 
@@ -76,17 +77,25 @@ const create_team = async (req, res) => {
     });
   }
 
-  try {
-    const existingTeam = await Team.findOne({ name: name });
-    console.log(existingTeam);
+  if (!validPostcode) {
+    return res.status(400).json({
+      message: "Please provide a valid postcode. GB OR US",
+    });
+  }
 
-    if (existingTeam) {
+  try {
+    const existingOrganization = await Organization.findOne({ name: name });
+
+    if (existingOrganization) {
       return res.status(409).json({
-        message: "A team with that name already exists!",
+        message: "A organization with that name already exists!",
       });
     }
 
-    const result = await Team.create({
+    const creatorId = req.userId;
+
+    const result = await Organization.create({
+      creatorId,
       name,
       email,
       number,
@@ -96,7 +105,7 @@ const create_team = async (req, res) => {
 
     return res.status(200).json({
       result,
-      message: "Team created!",
+      message: "Organization created!",
     });
   } catch (err) {
     console.error(err);
@@ -106,16 +115,16 @@ const create_team = async (req, res) => {
   }
 };
 
-// Edit a team
+// Edit a organization
 
-const edit_team = async (req, res) => {
+const edit_organization = async (req, res) => {
   return;
 };
 
-// Delete a team
+// Delete a organization
 
-const delete_team = async (req, res) => {
+const delete_organization = async (req, res) => {
   return;
 };
 
-module.exports = { create_team, get_team };
+module.exports = { create_organization, get_organization };

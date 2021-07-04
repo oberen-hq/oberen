@@ -34,4 +34,12 @@ const auth = async (req, res, next) => {
   }
 };
 
+const isAtJob = async (req, res, next) => {
+  try {
+    return;
+  } catch (err) {
+    return;
+  }
+};
+
 module.exports = auth;

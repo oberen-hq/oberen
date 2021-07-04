@@ -13,7 +13,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 const authRoute = require("./routes/auth");
-const teamRoute = require("./routes/team");
+const organizationRoute = require("./routes/organization");
 
 const auth = require("./middleware/auth");
 
@@ -60,7 +60,7 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 });
 
 app.use("/api/auth", authRoute);
-app.use("/api/team", teamRoute);
+app.use("/api/organization", organizationRoute);
 
 app.get("/", (req, res) => {
   console.log(res.locals.userId);
