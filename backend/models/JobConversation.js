@@ -1,15 +1,14 @@
 const mongoose = require("mongoose");
 
-const MeetingSchema = mongoose.Schema(
+const ConversationSchema = new mongoose.Schema(
   {
-    meetingId: {
+    jobId: {
       type: String,
       required: true,
-      unique: true,
     },
     members: {
       type: Array,
-      default: [],
+      required: true,
     },
     messages: {
       type: Array,
@@ -19,4 +18,4 @@ const MeetingSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Meeting", MeetingSchema);
+module.exports = mongoose.model("Conversation", ConversationSchema);

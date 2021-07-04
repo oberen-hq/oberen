@@ -6,7 +6,11 @@ const filter = require("leo-profanity");
 
 const secret = process.env.JWT_SECRET;
 
-const User = require("../models/User");
+const User = require("../../models/User");
+
+// Get a user
+
+const get_user = async (req, res) => {};
 
 // Login a user
 

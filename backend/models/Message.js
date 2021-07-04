@@ -5,8 +5,13 @@ const MessageSchema = new mongoose.Schema(
     conversationId: {
       type: String,
     },
-    sender: {
+    senderId: {
       type: String,
+      required: true,
+    },
+    senderSocketId: {
+      type: String,
+      required: true,
     },
     text: {
       type: String,

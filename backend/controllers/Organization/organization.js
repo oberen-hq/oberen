@@ -2,7 +2,7 @@ const Organization = require("../../models/Organization");
 const validator = require("validator");
 const filter = require("leo-profanity");
 
-// Get a organization
+// Get an organization
 
 const get_organization = async (req, res) => {
   const organizationId = req.params.id;

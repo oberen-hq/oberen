@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { register, login } = require("../controllers/user");
+const { register, login } = require("../../controllers/User/user");
 
 // Register a user
 

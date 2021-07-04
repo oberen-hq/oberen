@@ -12,10 +12,8 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
 
-const authRoute = require("./routes/auth");
-const organizationRoute = require("./routes/organization");
-
-const auth = require("./middleware/auth");
+const authRoute = require("./routes/Auth/auth");
+const organizationRoute = require("./routes/Organization/organization");
 
 connectDB();
 
@@ -63,13 +61,26 @@ app.use("/api/auth", authRoute);
 app.use("/api/organization", organizationRoute);
 
 app.get("/", (req, res) => {
-  console.log(res.locals.userId);
   res.status(200).json({
     status: res.statusCode,
     message: "Welcome to the API",
   });
 });
 
-app.listen(process.env.PORT, () => {
+const http = require("http").createServer(app);
+
+const io = require("socket.io")(http, {
+  path: "/messages",
+});
+
+io.on("connection", (socket) => {
+  console.log("User connected");
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
+
+http.listen(process.env.PORT, () => {
   console.log("Backend server is running!");
 });
