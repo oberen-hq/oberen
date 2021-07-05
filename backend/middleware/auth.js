@@ -1,43 +1,28 @@
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv").config();
-
-const secret = process.env.JWT_SECRET;
+const constant = require("../config/constants/constants");
 
 const auth = async (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
-    const isCustomAuth = token.length < 500;
 
     let decodedData;
 
-    if (token && isCustomAuth) {
+    if (token) {
       // Local
 
-      try {
-        decodedData = jwt.verify(token, secret);
-      } catch (err) {
-        next(err);
-      }
+      decodedData = jwt.verify(token, constant.jwt_secret());
 
       req.userId = decodedData?.id;
       req.isAuthenticated = true;
-    } else {
-      // Google
-
-      try {
-        decodedData = jwt.decode(token);
-      } catch (err) {
-        next(err);
-      }
-
-      req.userId = decodedData?.sub;
-      req.isAuthenticated = true;
+      next();
     }
 
-    next();
+    throw "Invalid Token";
   } catch (err) {
-    console.error(err);
-    next(err);
+    res.status(401).json({
+      status: 401,
+      message: "Unauthenticated",
+    });
   }
 };
 
