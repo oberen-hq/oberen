@@ -1,6 +1,10 @@
+// IMPORTS
+
 const Organization = require("../../models/Organization");
 const Job = require("../../models/Job");
 const filter = require("leo-profanity");
+
+// Create a job in a certain organization
 
 const create_organization_job = async (req, res) => {
   const organizationId = req.params.id;
@@ -47,7 +51,7 @@ const create_organization_job = async (req, res) => {
 
     const newJob = await Job.create({
       organizationId: organization.id,
-      creatorId: "test",
+      creatorId: req.userId,
       name: name,
       industry: industry,
       description: description,

@@ -1,24 +1,50 @@
+// IMPORTS
+
 const express = require("express");
-
 const app = express();
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, {
+  path: "/messages",
+});
 
+const { createMongooseConnection } = require("./config/db");
 const multer = require("multer");
-const connectDB = require("./config/db");
-
-const dotenv = require("dotenv").config();
 const path = require("path");
-
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
-
 const authRoute = require("./routes/Auth/auth");
 const organizationRoute = require("./routes/Organization/organization");
 const organizationsRoute = require("./routes/Organization/organizations");
-
+const statusRoute = require("./routes/Status/status");
 const auth = require("./middleware/auth");
+const constant = require("./config/constants/constants");
+const Uploader = require("./helpers/upload");
+const Sentry = require("@sentry/node");
+const Tracing = require("@sentry/tracing");
 
-connectDB();
+const config = require("./config/constants/constants");
+
+// SENTRY SETUP
+
+Sentry.init({
+  dsn: config.sentry_dsn(),
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({ tracing: true }),
+    // enable Express.js middleware tracing
+    new Tracing.Integrations.Express({ app }),
+  ],
+  tracesSampleRate: 1.0,
+});
+
+app.use(Sentry.Handlers.requestHandler());
+// TracingHandler creates a trace for every incoming request
+app.use(Sentry.Handlers.tracingHandler());
+
+app.use(Sentry.Handlers.errorHandler());
+
+// CORS SETUP
 
 app.use(
   cors({
@@ -29,39 +55,26 @@ app.use(
 
 // Used to store files from conversations
 
-app.use("/images", express.static(path.join(__dirname, "public/cdn")));
+app.use("/cdn", express.static(path.join(__dirname, "public/cdn")));
 
 // Middleware
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(helmet());
-
 app.use(morgan("dev"));
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/cdn");
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.name);
-  },
+// Await Database connection
+
+createMongooseConnection().then(() => {
+  console.log("Database has connected.");
 });
 
-const upload = multer({ storage: storage });
+// Setup memory storage for cdn
 
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  try {
-    return res.status(200).json({
-      message: "File was uploaded.",
-    });
-  } catch (error) {
-    console.error(error);
-  }
-});
+const uploader = new Uploader();
 
-app.use("/api/auth", authRoute);
-app.use("/api/organization", organizationRoute);
+// Standard endpoints
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -70,18 +83,15 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/protected", auth, (req, res) => {
-  res.status(200).json({
-    status: res.statusCode,
-    message: "Authorized",
-  });
-});
+app.post("/api/upload", uploader.startUpload);
 
-const http = require("http").createServer(app);
+// Routes
 
-const io = require("socket.io")(http, {
-  path: "/messages",
-});
+app.use("/api", statusRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/organization", organizationRoute);
+
+// SocketIO initialization
 
 io.on("connection", (socket) => {
   console.log("User connected");
@@ -91,6 +101,8 @@ io.on("connection", (socket) => {
   });
 });
 
-http.listen(process.env.PORT, () => {
+// Listening on port 3000
+
+http.listen(constant.port(), () => {
   console.log("Backend server is running!");
 });

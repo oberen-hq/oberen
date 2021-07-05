@@ -1,16 +1,13 @@
+// IMPORTS
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv").config();
 const validator = require("validator");
 const filter = require("leo-profanity");
 
-const secret = process.env.JWT_SECRET;
+const config = require("../../config/constants/constants");
 
 const User = require("../../models/User");
-
-// Get a user
-
-const get_user = async (req, res) => {};
 
 // Login a user
 
@@ -36,7 +33,7 @@ const login = async (req, res) => {
 
     const token = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
-      secret,
+      config.jwt_secret(),
       {
         expiresIn: "1h",
       }
@@ -127,7 +124,7 @@ const register = async (req, res) => {
         email: result.email,
         id: result._id,
       },
-      secret,
+      config.jwt_secret(),
       {
         expiresIn: "8h",
       }
@@ -143,6 +140,12 @@ const register = async (req, res) => {
       message: "Internal Server Error.",
     });
   }
+};
+
+// Get a user
+
+const get_user = async (req, res) => {
+  return;
 };
 
 // Edit a user

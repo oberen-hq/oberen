@@ -1,4 +1,8 @@
+// IMPORTS
+
 const mongoose = require("mongoose");
+
+// Schema for user applications to organizations
 
 const ApplicationSchema = mongoose.Schema({
   applicantId: {
@@ -8,5 +12,20 @@ const ApplicationSchema = mongoose.Schema({
   jobId: {
     type: String,
     require: true,
+  },
+  describeInThreeWords: {
+    type: Array,
+    required: true,
+    min: 3,
+    max: 3,
+  },
+  whatYouDo: {
+    type: String,
+    required: true,
+    min: 20,
+    max: 500,
+  },
+  aspirtations: {
+    type: String,
   },
 });

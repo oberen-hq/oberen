@@ -1,4 +1,10 @@
+// IMPORTS
+
 const mongoose = require("mongoose");
+
+// The shift schema will not need a creator id since it is not needed. A basic structure that has the starting time and finishing time
+
+// + Feedback and required rating from the one of the employers after the shift is finished
 
 const ShiftSchema = mongoose.Schema(
   {

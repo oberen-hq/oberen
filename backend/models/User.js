@@ -1,4 +1,8 @@
+// IMPORTS
+
 const mongoose = require("mongoose");
+
+// User schema, more will be added here soon as I understand the whole system.
 
 const userSchema = mongoose.Schema(
   {

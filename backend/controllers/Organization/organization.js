@@ -92,7 +92,7 @@ const create_organization = async (req, res) => {
       });
     }
 
-    const creatorId = "test";
+    const creatorId = req.userId;
 
     const result = await Organization.create({
       creatorId,
