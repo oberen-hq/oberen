@@ -1,0 +1,25 @@
+version: "3"
+name: "Simplify Container"
+
+services:
+  api:
+    restart: always
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    env_file: ./backend/.env
+  ui:
+    restart: always
+    build: ./frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+    env_file: ./frontend/.env
+  mongo:
+    restart: always
+    image: mongo
+    ports:
+      - "27017:27017"

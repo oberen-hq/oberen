@@ -22,6 +22,7 @@ const constant = require("./config/constants/constants");
 const Uploader = require("./helpers/upload");
 const Sentry = require("@sentry/node");
 const Tracing = require("@sentry/tracing");
+const pino = require("express-pino-logger");
 
 const config = require("./config/constants/constants");
 
@@ -42,7 +43,22 @@ app.use(Sentry.Handlers.requestHandler());
 // TracingHandler creates a trace for every incoming request
 app.use(Sentry.Handlers.tracingHandler());
 
-app.use(Sentry.Handlers.errorHandler());
+app.use(
+  Sentry.Handlers.errorHandler({
+    shouldHandleError() {
+      if (
+        error.status !== 404 ||
+        error.status !== 500 ||
+        error.status !== 401 ||
+        error.status !== 409
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  })
+);
 
 // CORS SETUP
 
@@ -62,7 +78,14 @@ app.use("/cdn", express.static(path.join(__dirname, "public/cdn")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(helmet());
-app.use(morgan("dev"));
+
+// Logger
+
+app.use(
+  pino({
+    prettyPrint: { colorize: true },
+  })
+);
 
 // Await Database connection
 

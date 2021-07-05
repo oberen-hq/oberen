@@ -10,6 +10,7 @@ const createMongooseConnection = async () => {
     await mongoose.connect(config.mongo_uri(), {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
     });
   } catch (err) {
     console.error(err);
