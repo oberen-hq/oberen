@@ -1,4 +1,8 @@
+// IMPORTS
+
 const mongoose = require("mongoose");
+
+// Conversation between the employer and the client, option to add extra employer to conversation will be available.
 
 const ConversationSchema = new mongoose.Schema(
   {

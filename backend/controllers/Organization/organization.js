@@ -1,3 +1,5 @@
+// IMPORTS
+
 const Organization = require("../../models/Organization");
 const validator = require("validator");
 const filter = require("leo-profanity");
