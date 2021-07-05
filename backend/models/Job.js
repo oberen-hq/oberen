@@ -1,4 +1,8 @@
+// IMPORTS
+
 const mongoose = require("mongoose");
+
+// Job schema for creating individual jobs as an organization
 
 const JobSchema = new mongoose.Schema(
   {

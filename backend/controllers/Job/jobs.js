@@ -1,3 +1,5 @@
+// IMPORTS
+
 const Organization = require("../../models/Organization");
 
 // Get all jobs

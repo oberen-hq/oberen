@@ -1,3 +1,5 @@
+// IMPORTS
+
 const router = require("express").Router();
 const { register, login } = require("../../controllers/User/user");
 

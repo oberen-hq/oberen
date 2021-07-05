@@ -1,4 +1,8 @@
+// IMPORTS
+
 const mongoose = require("mongoose");
+
+// Schema for user applications to organizations
 
 const ApplicationSchema = mongoose.Schema({
   applicantId: {

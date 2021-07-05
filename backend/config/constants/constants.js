@@ -1,4 +1,8 @@
+// IMPORTs
+
 const dotenv = require("dotenv").config();
+
+// Constant file for easy access to .env config
 
 class Constant {
   constructor() {

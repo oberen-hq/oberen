@@ -1,5 +1,9 @@
+// IMPORTS
+
 const jwt = require("jsonwebtoken");
 const constant = require("../config/constants/constants");
+
+// Authentication for routes that have access to organizations and jobs.
 
 const auth = async (req, res, next) => {
   try {

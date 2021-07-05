@@ -1,3 +1,5 @@
+// IMPORTS
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");

@@ -66,7 +66,7 @@ app.use(morgan("dev"));
 
 // Await Database connection
 
-createMongooseConnection().then((res) => {
+createMongooseConnection().then(() => {
   console.log("Database has connected.");
 });
 

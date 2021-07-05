@@ -1,8 +1,12 @@
+// IMPORTS
+
 const util = require("util");
 const crypto = require("crypto");
 const multer = require("multer");
 
 const constant = require("../config/constants/constants");
+
+// File Uploader class from multer
 
 module.exports = class Uploader {
   constructor() {
