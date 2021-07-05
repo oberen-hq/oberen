@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 
 const multer = require("multer");
-const { connectDB, serverStatus } = require("./config/db");
+const { createMongooseConnection, serverStatus } = require("./config/db");
 
 const dotenv = require("dotenv").config();
 const path = require("path");
@@ -15,10 +15,11 @@ const cors = require("cors");
 const authRoute = require("./routes/Auth/auth");
 const organizationRoute = require("./routes/Organization/organization");
 const organizationsRoute = require("./routes/Organization/organizations");
+// const docsRoute = require("./routes/Docs/docs");
+
+const browserEnv = require("browser-env");
 
 const auth = require("./middleware/auth");
-
-connectDB();
 
 app.use(
   cors({
@@ -38,6 +39,10 @@ app.use(express.json());
 app.use(helmet());
 
 app.use(morgan("dev"));
+
+createMongooseConnection().then((res) => {
+  console.log("Database has connected.");
+});
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -62,6 +67,8 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 
 app.use("/api/auth", authRoute);
 app.use("/api/organization", organizationRoute);
+
+// app.use("/api", docsRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json({

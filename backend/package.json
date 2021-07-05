@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "browser-env": "^3.3.0",
     "connect-mongo": "^4.4.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -24,6 +25,7 @@
     "nodemon": "^2.0.7",
     "path": "^0.12.7",
     "socket.io": "^4.1.2",
+    "swagger-ui-express": "^4.1.6",
     "validator": "^13.6.0"
   },
   "devDependencies": {
