@@ -7,20 +7,22 @@ const {
 const { create_organization_job } = require("../../controllers/Job/job");
 const { get_organization_jobs } = require("../../controllers/Job/jobs");
 
+const auth = require("../../middleware/auth");
+
 // Get an organization
 
-router.get("/:id", get_organization);
+router.get("/:id", auth, get_organization);
 
 // Get an organisations available jobs
 
-router.get("/:id/jobs", get_organization_jobs);
+router.get("/:id/jobs", auth, get_organization_jobs);
 
 // Create an organization
 
-router.post("/create", create_organization);
+router.post("/create", auth, create_organization);
 
 // Create an organization job
 
-router.post("/:id/jobs/create", create_organization_job);
+router.post("/:id/jobs/create", auth, create_organization_job);
 
 module.exports = router;

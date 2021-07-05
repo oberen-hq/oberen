@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 
 const multer = require("multer");
-const connectDB = require("./config/db");
+const { connectDB, serverStatus } = require("./config/db");
 
 const dotenv = require("dotenv").config();
 const path = require("path");
@@ -68,6 +68,32 @@ app.get("/", (req, res) => {
     status: res.statusCode,
     message: "Welcome to the API",
   });
+});
+
+app.get("/status", (req, res) => {
+  const dbStatusCode = serverStatus();
+
+  let databaseStatusMessages = [
+    "Disconnected: Major Outage",
+    "Connected: No issues",
+    "Connecting: Potential outage",
+    "Disconnecting: Potential outage",
+    "Invalid Credentials: Major Outage",
+  ];
+
+  try {
+    res.status(200).json({
+      apiStatus: res.statusCode,
+      databaseStatus: databaseStatusMessages[dbStatusCode],
+      socketIO: "OK",
+    });
+  } catch (err) {
+    res.status(500).json({
+      apiStatus: res.statusCode,
+      databaseStatus: databaseStatusMessages[dbStatusCode],
+      socketIO: "FAILURE",
+    });
+  }
 });
 
 app.get("/protected", auth, (req, res) => {

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
-module.exports = function () {
+const connectDB = () => {
   mongoose.connect(
     process.env.MONGO_URL,
     {
@@ -13,3 +13,9 @@ module.exports = function () {
     }
   );
 };
+
+const serverStatus = () => {
+  return mongoose.connection.readyState;
+};
+
+module.exports = { connectDB, serverStatus };

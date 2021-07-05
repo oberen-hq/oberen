@@ -10,7 +10,9 @@ const User = require("../../models/User");
 
 // Get a user
 
-const get_user = async (req, res) => {};
+const get_user = async (req, res) => {
+  return;
+};
 
 // Login a user
 
