@@ -6,6 +6,7 @@ class Constant {
     this._MONGO_URI = process.env.MONGO_URI;
     this._JWT_SECRET = process.env.JWT_SECRET;
     this._FILE_DESTINATION = process.env.FILE_DESTINATION;
+    this._SENTRY_DSN = process.env.SENTRY_DSN;
   }
 
   port() {
@@ -22,6 +23,10 @@ class Constant {
 
   image_path() {
     return this._FILE_DESTINATION;
+  }
+
+  sentry_dsn() {
+    return this._SENTRY_DSN;
   }
 }
 

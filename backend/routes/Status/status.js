@@ -3,7 +3,7 @@ const serverStatus = require("../../config/db");
 
 // Return status of each component
 
-app.get("/status", (req, res) => {
+router.get("/status", (req, res) => {
   const dbStatusCode = serverStatus();
 
   let databaseStatusMessages = [
