@@ -17,6 +17,7 @@ const authRoute = require("./routes/Auth/auth");
 const organizationRoute = require("./routes/Organization/organization");
 const organizationsRoute = require("./routes/Organization/organizations");
 const statusRoute = require("./routes/Status/status");
+const jobsRoute = require("./routes/Jobs/jobs");
 const auth = require("./middleware/auth");
 const constant = require("./config/constants/constants");
 const Uploader = require("./helpers/upload");
@@ -113,6 +114,8 @@ app.post("/api/upload", uploader.startUpload);
 app.use("/api", statusRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/organization", organizationRoute);
+app.use("/api/status", statusRoute);
+app.use("/api/jobs", jobsRoute);
 
 // SocketIO initialization
 

@@ -26,7 +26,7 @@ const ApplicationSchema = mongoose.Schema(
       min: 20,
       max: 500,
     },
-    aspirtations: {
+    aspirations: {
       type: Array,
       required: true,
     },
