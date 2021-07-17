@@ -35,7 +35,7 @@ const login = async (req, res) => {
       { email: existingUser.email, id: existingUser._id },
       config.jwt_secret(),
       {
-        expiresIn: "1h",
+        expiresIn: "8h",
       }
     );
 
@@ -145,7 +145,29 @@ const register = async (req, res) => {
 // Get a user
 
 const get_user = async (req, res) => {
-  return;
+  const userId = req.params.id;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      res.status(404).json({
+        message: "User not found.",
+      });
+    }
+
+    res.status(200).json({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      industries: user.industries,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Internal Server Error.",
+    });
+  }
 };
 
 // Edit a user

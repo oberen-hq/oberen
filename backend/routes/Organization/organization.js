@@ -21,7 +21,7 @@ router.get("/:id/jobs", auth, get_organization_jobs);
 
 // Create an organization
 
-router.post("/create", auth, create_organization);
+router.post("/create", create_organization);
 
 // Create an organization job
 

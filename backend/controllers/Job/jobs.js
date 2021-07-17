@@ -1,11 +1,22 @@
 // IMPORTS
 
 const Organization = require("../../models/Organization");
+const Job = require("../../models/Job");
 
 // Get all jobs
 
 const get_jobs = async (req, res) => {
-  return;
+  const jobs = Job.find({});
+
+  if (jobs) {
+    res.status(200).json({
+      message: "Test",
+    });
+  } else {
+    res.status(500).json({
+      message: "Internal Server Error.",
+    });
+  }
 };
 
 // Get all of organizations available jobs
@@ -36,4 +47,4 @@ const get_organization_jobs = async (req, res) => {
   }
 };
 
-module.exports = { get_organization_jobs };
+module.exports = { get_organization_jobs, get_jobs };

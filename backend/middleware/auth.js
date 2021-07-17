@@ -5,7 +5,7 @@ const constant = require("../config/constants/constants");
 
 // Authentication for routes that have access to organizations and jobs.
 
-const auth = async (req, res, next) => {
+const auth = (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
 
@@ -15,17 +15,16 @@ const auth = async (req, res, next) => {
       // Local
 
       decodedData = jwt.verify(token, constant.jwt_secret());
-
       req.userId = decodedData?.id;
-      req.isAuthenticated = true;
       next();
     }
 
-    throw "Invalid Token";
+    next();
   } catch (err) {
+    console.log(err);
     res.status(401).json({
       status: 401,
-      message: "Unauthenticated",
+      message: "Invalid Token.",
     });
   }
 };
