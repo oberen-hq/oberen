@@ -8,10 +8,8 @@ const io = require("socket.io")(http, {
 });
 
 const { createMongooseConnection } = require("./config/db");
-const multer = require("multer");
 const path = require("path");
 const helmet = require("helmet");
-const morgan = require("morgan");
 const cors = require("cors");
 const authRoute = require("./routes/Auth/auth");
 const organizationRoute = require("./routes/Organization/organization");
@@ -26,6 +24,7 @@ const Tracing = require("@sentry/tracing");
 const pino = require("express-pino-logger");
 
 const config = require("./config/constants/constants");
+const User = require("./models/User");
 
 // SENTRY SETUP
 
@@ -63,12 +62,12 @@ app.use(
 
 // CORS SETUP
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://localhost:3001",
+//     credentials: true,
+//   })
+// );
 
 // Used to store files from conversations
 
@@ -108,6 +107,22 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/upload", uploader.startUpload);
+
+app.get("/protected", auth, (req, res) => {
+  res.status(200).json({
+    message: "Authorized",
+  });
+});
+
+app.get("/user", auth, (req, res) => {
+  let currentUser = User.findById(req.userId);
+
+  res.status(200).json({
+    name: currentUser.name,
+    email: currentUser.email,
+    industries: currentUser.industries,
+  });
+});
 
 // Routes
 

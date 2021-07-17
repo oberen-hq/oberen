@@ -94,7 +94,10 @@ const create_organization = async (req, res) => {
       });
     }
 
-    const creatorId = req.userId;
+    const creatorId = "test";
+    const employers = ["test", "test"];
+
+    console.log(employers);
 
     const result = await Organization.create({
       creatorId,
