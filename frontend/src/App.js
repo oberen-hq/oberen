@@ -1,7 +1,14 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import styled from "styled-components";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import "./App.css";
 
-export default function App() {
-  return <div>Hello world</div>;
+import { BrowserRouter as Router } from "react-router-dom";
+import Home from "./pages/home";
+
+function App() {
+  return (
+    <Router>
+      <Home />
+    </Router>
+  );
 }
+
+export default App;
