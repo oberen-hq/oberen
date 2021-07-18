@@ -45,7 +45,7 @@ export const homeObjThree = {
     "Get everything ready and setup within 2 minutes. Influence yourself to make change by taking part in our mission, helping many others around the globe.",
   buttonLabel: "Start Now",
   imgStart: false,
-  img: require("../../images/svg-4.svg").default,
+  img: require("../../images/svg-3.svg").default,
   alt: "",
   dark: false,
   primary: false,
