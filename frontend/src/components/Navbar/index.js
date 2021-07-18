@@ -17,7 +17,7 @@ const Navbar = ({ toggle }) => {
     <React.Fragment>
       <Nav>
         <NavbarContainer>
-          <NavLogo to="/">simplify</NavLogo>
+          <NavLogo to="/">Simplify 🤑</NavLogo>
           <MobileIcon onClick={toggle}>
             <FaBars />
           </MobileIcon>

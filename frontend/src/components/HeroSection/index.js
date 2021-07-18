@@ -1,8 +1,25 @@
-import React from "react";
-import { HeroContainer, HeroBg, VideoBg } from "./HeroElements";
+import React, { useState } from "react";
+import {
+  HeroContainer,
+  HeroBg,
+  VideoBg,
+  HeroContent,
+  HeroH1,
+  HeroP,
+  HeroBtnWrapper,
+  ArrowForward,
+  ArrowRight,
+} from "./HeroElements";
+import { Button } from "../ButtonElement";
 import Video from "../../videos/video.mp4";
 
 const HeroSection = () => {
+  const [hover, setHover] = useState(false);
+
+  const onHover = () => {
+    setHover(!hover);
+  };
+
   return (
     <React.Fragment>
       <HeroContainer>
@@ -10,13 +27,19 @@ const HeroSection = () => {
           <VideoBg autoPlay loop muted src={Video} type="video/mp4" />
         </HeroBg>
         <HeroContent>
-          <HeroH1>Making Money Made Easy</HeroH1>
+          <HeroH1>Make Money On The Go</HeroH1>
           <HeroP>
             Sign Up for a new account today and recieve a 7 day trial with extra
-            benefits.
+            to get into the world of work.
           </HeroP>
           <HeroBtnWrapper>
-            <Button to="signup">
+            <Button
+              to="signup"
+              onMouseEnter={onHover}
+              onMouseLeave={onHover}
+              primary="true"
+              dark="true"
+            >
               Get Started {hover ? <ArrowForward /> : <ArrowRight />}
             </Button>
           </HeroBtnWrapper>
