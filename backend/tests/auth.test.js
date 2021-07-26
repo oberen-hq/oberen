@@ -6,7 +6,7 @@ axios
   .get(url, {
     headers: {
       authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoZWFsZmllcGhpbGxpcHNAZ21haWwuY29tIiwiaWQiOiI2MGYwMDljY2FmNDE1NTUzZTg4YTEzNTciLCJpYXQiOjE2MjY0MTg2NDMsImV4cCI6MTYyNjQ0NzQ0M30.oybumaeqIhbPEF1rqEWjuo7Zct0gLmYITfTZdYHmVrg",
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZmVhZTQyM2E0NWE0NDgxODQ3NmZmNiIsIm5hbWUiOiJBbGZpZSBQaGlsbGlwcyIsImVtYWlsIjoidGhlYWxmaWVwaGlsbGlwc0BnbWFpbC5jb20iLCJpYXQiOjE2MjczMDM0OTAsImV4cCI6MTYyNzMzMjI5MH0.rQEDG4-E706YUzJ3P7PTZuFeb3n0i7ds5TL9TLDxeeY",
       Accept: "application/json",
       "Content-Type": "application/json",
     },

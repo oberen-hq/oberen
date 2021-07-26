@@ -39,35 +39,13 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-app.use(Sentry.Handlers.requestHandler());
-// TracingHandler creates a trace for every incoming request
-app.use(Sentry.Handlers.tracingHandler());
-
-app.use(
-  Sentry.Handlers.errorHandler({
-    shouldHandleError() {
-      if (
-        error.status !== 404 ||
-        error.status !== 500 ||
-        error.status !== 401 ||
-        error.status !== 409
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  })
-);
-
 // CORS SETUP
 
-// app.use(
-//   cors({
-//     origin: "http://localhost:3001",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    credentials: true,
+  })
+);
 
 // Used to store files from conversations
 
@@ -81,11 +59,40 @@ app.use(helmet());
 
 // Logger
 
-app.use(
-  pino({
-    prettyPrint: { colorize: true },
-  })
-);
+// app.use(
+//   pino({
+//     prettyPrint: { colorize: true },
+//   })
+// );
+
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
+  // Request methods you wish to allow
+  res.setHeader("Access-Control-Allow-Methods", [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "OPTIONS",
+  ]);
+
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  // Pass to next layer of middleware
+  next();
+});
 
 // Await Database connection
 

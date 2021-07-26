@@ -5,12 +5,9 @@ let url2 = "http://localhost:3001/";
 
 axios
   .post(url, {
-    firstName: "Alfie",
-    lastName: "Phillips",
+    name: "Alfie Phillips",
     email: "thealfiephillips@gmail.com",
     password: "PasswordH`45nu4j5hsdf9iejrfiefcniJKdxjdfhnHJFhfjHJfhfe9ofuck",
-    confirmPassword:
-      "PasswordH`45nu4j5hsdf9iejrfiefcniJKdxjdfhnHJFhfjHJfhfe9ofuck",
   })
   .then((res) => {
     console.log(res);

@@ -16,7 +16,6 @@ const auth = (req, res, next) => {
 
       decodedData = jwt.verify(token, constant.jwt_secret());
       req.userId = decodedData?.id;
-      next();
     }
 
     next();

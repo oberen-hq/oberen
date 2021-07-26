@@ -1,6 +1,8 @@
 // IMPORTS
 
 const mongoose = require("mongoose");
+const validator = require("validator");
+const filter = require("leo-profanity");
 
 // Referencing the creatorId, they can also add other employers to the organization to hire clients
 
@@ -10,7 +12,6 @@ const OrganizationSchema = new mongoose.Schema(
   {
     creatorId: {
       type: String,
-      required: true,
     },
     employers: {
       type: Array,
@@ -22,19 +23,35 @@ const OrganizationSchema = new mongoose.Schema(
       require: true,
       min: 5,
       max: 30,
-      unique: true,
+      validate(value) {
+        if (filter.check(value)) {
+          throw new Error("Bad profanity detected!");
+        }
+      },
     },
     email: {
       type: String,
       require: true,
       min: 5,
       max: 30,
+      trim: true,
+      lowercase: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Please enter a valid email!");
+        }
+      },
     },
     number: {
       type: String,
       require: true,
       min: 5,
       max: 20,
+      validate(value) {
+        if (!validator.isMobilePhone(value)) {
+          throw new Error("Please enter a valid phone number!");
+        }
+      },
     },
     region: {
       type: String,
@@ -43,12 +60,22 @@ const OrganizationSchema = new mongoose.Schema(
     postcode: {
       type: String,
       require: true,
+      validate(value) {
+        if (!validator.isPostalCode(value, "GB")) {
+          throw new Error("Please enter a valid postal code!");
+        }
+      },
     },
     description: {
       type: String,
       required: true,
       min: 50,
       max: 2000,
+      validate(value) {
+        if (filter.check(value)) {
+          throw new Error("Bad profanity detected!");
+        }
+      },
     },
     offeringJobs: {
       type: Array,

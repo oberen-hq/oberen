@@ -54,46 +54,31 @@ const login = async (req, res) => {
 // Register a user
 
 const register = async (req, res) => {
-  const { email, password, confirmPassword, firstName, lastName } = req.body;
+  console.log(req);
+  const { email, password, name } = req.body;
 
-  const validEmail = validator.isEmail(email);
-  const validPassword = validator.isStrongPassword(password, {
-    minLength: 8,
-  });
+  // const validEmail = validator.isEmail(email);
+  // const validPassword = validator.isStrongPassword(password, {
+  //   minLength: 8,
+  // });
 
-  if (firstName.length <= 2 || firstName.length > 15) {
-    return res.status(400).json({
-      message: "First name must be above 2-15 characters!",
-    });
-  }
+  // if (filter.check(email) || filter.check(name)) {
+  //   return res.status(400).json({
+  //     message: "Bad profanity detected.",
+  //   });
+  // }
 
-  if (lastName.length <= 4 || lastName.length > 30) {
-    return res.status(400).json({
-      message: "Last name must be 4-30 characters!",
-    });
-  }
+  // if (!validEmail) {
+  //   return res.status(400).json({
+  //     message: "Please provide a valid email address.",
+  //   });
+  // }
 
-  if (
-    filter.check(email) ||
-    filter.check(firstName) ||
-    filter.check(lastName)
-  ) {
-    return res.status(400).json({
-      message: "Bad profanity detected.",
-    });
-  }
-
-  if (!validEmail) {
-    return res.status(400).json({
-      message: "Please provide a valid email address.",
-    });
-  }
-
-  if (!validPassword) {
-    return res.status(400).json({
-      message: "Password is not strong enough. Please use 8 characters.",
-    });
-  }
+  // if (!validPassword) {
+  //   return res.status(400).json({
+  //     message: "Password is not strong enough. Please use 8 characters.",
+  //   });
+  // }
 
   try {
     const existingUser = await User.findOne({ email: email });
@@ -104,25 +89,20 @@ const register = async (req, res) => {
       });
     }
 
-    if (password !== confirmPassword) {
-      return res.status(400).json({
-        message: "Passwords do not match.",
-      });
-    }
-
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const result = await User.create({
       email,
       password: hashedPassword,
-      name: `${firstName} ${lastName}`,
+      name,
     });
 
     const token = jwt.sign(
       {
-        email: result.email,
         id: result._id,
+        name: result.name,
+        email: result.email,
       },
       config.jwt_secret(),
       {

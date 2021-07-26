@@ -1,17 +1,34 @@
 import "./App.css";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./pages/home";
-import signUp from "./pages/sign-up";
-import signIn from "./pages/sign-in";
+import Home from "./pages/Home/home";
+import SignUpPage from "./pages/SignUp/sign-up";
+import SignIn from "./pages/SignIn/sign-in";
+
+import { useContext } from "react";
+import { AuthContext } from "./context/Auth/AuthContext";
 
 function App() {
+  const { user } = useContext(AuthContext);
   return (
     <Router>
+      <Route exact path="/">
+        <Home />
+      </Route>
       <Switch>
-        <Route path="/" component={Home} exact={true} />
-        <Route path="/sign-up" component={signUp} exact={true} />
-        <Route path="/sign-in" component={signIn} exact={true} />
+        <Route exact path="/sign-up">
+          {user ? <Redirect to="/" /> : <SignUpPage />}
+        </Route>
+      </Switch>
+      <Switch>
+        <Route exact path="/sign-in">
+          {user ? <Redirect to="/" /> : <SignIn />}
+        </Route>
       </Switch>
     </Router>
   );
