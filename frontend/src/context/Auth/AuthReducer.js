@@ -16,7 +16,7 @@ const AuthReducer = (state, action) => {
       return {
         user: null,
         isFetching: false,
-        error: action.payload,
+        error: true,
       };
     case "SIGNIN_START":
       return {
@@ -34,7 +34,7 @@ const AuthReducer = (state, action) => {
       return {
         user: null,
         isFetching: false,
-        error: action.payload,
+        error: true,
       };
     default:
       return state;

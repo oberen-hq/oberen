@@ -32,7 +32,7 @@ const SignUpPage = () => {
     setAgreedToTerms(!agreeToTerms);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (passwordAgain.current.value !== password.current.value) {
       return passwordAgain.current.setCustomValidity("Passwords don't match!");

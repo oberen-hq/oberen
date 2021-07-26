@@ -8,7 +8,7 @@ import {
 
 import Home from "./pages/Home/home";
 import SignUpPage from "./pages/SignUp/sign-up";
-import SignIn from "./pages/SignIn/sign-in";
+import SignInPage from "./pages/SignIn/sign-in";
 
 import { useContext } from "react";
 import { AuthContext } from "./context/Auth/AuthContext";
@@ -27,8 +27,7 @@ function App() {
       </Switch>
       <Switch>
         <Route exact path="/sign-in">
-          {/* {user ? <Redirect to="/" /> : <SignIn />} */}
-          <SignIn />
+          {user ? <Redirect to="/" /> : <SignInPage />}
         </Route>
       </Switch>
     </Router>

@@ -1,42 +1,91 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useRef, useContext, useState } from "react";
+import { useHistory } from "react-router";
+import {
+  SignIn,
+  SignInButton,
+  SignInBox,
+  SignUpButton,
+  SignInDesc,
+  SignInForgot,
+  SignInInput,
+  SignInLeft,
+  SignInLogo,
+  SignInRight,
+  SignInWrapper,
+} from "./SignInElements";
+
+import { CircularProgress } from "@material-ui/core";
 import { AuthContext } from "../../context/Auth/AuthContext";
-import jwt_decode from "jwt-decode";
-import axios from "axios";
+import { signInCall } from "../../apiCalls/signIn";
 
-const SignIn = () => {
-  let { user, error } = useContext(AuthContext);
-  const [organization, setOrganization] = useState(null);
+const SignInPage = () => {
+  const { isFetching, error, dispatch } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const history = useHistory();
+  const email = useRef();
+  const password = useRef();
 
-  user = jwt_decode(user);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  if (error) {
-    console.log(error);
-  }
+    signInCall(
+      {
+        email: email.current.value,
+        password: password.current.value,
+      },
+      dispatch
+    );
 
-  function fetchOrganization() {
-    axios
-      .get("http://localhost:3001/api/organization/60feba8ba99aec5d448847a6")
-      .then((res) => {
-        setOrganization(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
+    if (error) {
+      setErrorMessage("Login Failed.");
+    }
 
-  useEffect(() => {
-    fetchOrganization();
-  }, []);
+    history.push("/dashboard");
+  };
 
   return (
     <React.Fragment>
-      {organization ? (
-        <h1>{organization.name}</h1>
-      ) : (
-        <h1>There isn't a organization</h1>
-      )}
+      <SignIn>
+        <SignInWrapper>
+          <SignInLeft>
+            <SignInLogo>Simplify</SignInLogo>
+            <SignInDesc>TEST</SignInDesc>
+          </SignInLeft>
+          <SignInRight>
+            <SignInBox onSubmit={handleSubmit}>
+              <SignInInput
+                placeholder="Email"
+                type="email"
+                ref={email}
+                required
+              />
+              <SignInInput
+                placeholder="Password"
+                type="password"
+                ref={password}
+                required
+              />
+              <SignInButton type="submit" disable={isFetching}>
+                {isFetching ? (
+                  <CircularProgress color="primary" size="20px" />
+                ) : (
+                  "Sign Up"
+                )}
+              </SignInButton>
+              <SignInForgot>Forgot Password?</SignInForgot>
+            </SignInBox>
+            <SignUpButton>
+              {isFetching ? (
+                <CircularProgress color="primary" size="20px" />
+              ) : (
+                "Don't have an account?"
+              )}
+            </SignUpButton>
+          </SignInRight>
+        </SignInWrapper>
+      </SignIn>
     </React.Fragment>
   );
 };
 
-export default SignIn;
+export default SignInPage;
