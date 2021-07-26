@@ -27,7 +27,8 @@ function App() {
       </Switch>
       <Switch>
         <Route exact path="/sign-in">
-          {user ? <Redirect to="/" /> : <SignIn />}
+          {/* {user ? <Redirect to="/" /> : <SignIn />} */}
+          <SignIn />
         </Route>
       </Switch>
     </Router>
