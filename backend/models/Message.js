@@ -8,11 +8,12 @@ const mongoose = require("mongoose");
 
 const MessageSchema = new mongoose.Schema(
   {
-    conversationId: {
-      type: String,
+    conversation: {
+      type: Object,
+      required: true,
     },
-    senderId: {
-      type: String,
+    sender: {
+      type: Object,
       required: true,
     },
     senderSocketId: {
@@ -23,10 +24,12 @@ const MessageSchema = new mongoose.Schema(
       type: String,
       min: 1,
       max: 500,
+      required: true,
     },
     file: {
       type: String,
       default: "",
+      required: false,
     },
   },
   { timestamps: true }

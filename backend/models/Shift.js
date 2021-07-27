@@ -8,6 +8,10 @@ const mongoose = require("mongoose");
 
 const ShiftSchema = mongoose.Schema(
   {
+    employee: {
+      type: Object,
+      required: true,
+    },
     startingTime: {
       type: Date,
       required: true,
@@ -16,9 +20,9 @@ const ShiftSchema = mongoose.Schema(
       type: Date,
       required: true,
     },
-    jobRole: {
-      type: String,
-      requiredd: true,
+    job: {
+      type: Object,
+      required: true,
     },
     rating: {
       type: Number,
@@ -28,12 +32,14 @@ const ShiftSchema = mongoose.Schema(
     },
     workerFeedback: {
       type: String,
-      require: false,
+      required: false,
     },
     employerFeedback: {
       type: String,
-      require: false,
+      required: false,
     },
   },
   { timestamps: true }
 );
+
+module.exports = mongoose.model("Shift", ShiftSchema);

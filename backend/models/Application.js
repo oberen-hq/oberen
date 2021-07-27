@@ -6,19 +6,13 @@ const mongoose = require("mongoose");
 
 const ApplicationSchema = mongoose.Schema(
   {
-    applicantId: {
-      type: String,
+    applicant: {
+      type: Object,
       require: true,
     },
-    jobId: {
-      type: String,
+    job: {
+      type: Object,
       require: true,
-    },
-    describeInThreeWords: {
-      type: Array,
-      required: true,
-      min: 3,
-      max: 3,
     },
     whatYouDo: {
       type: String,

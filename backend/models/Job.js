@@ -6,12 +6,12 @@ const mongoose = require("mongoose");
 
 const JobSchema = new mongoose.Schema(
   {
-    organizationId: {
-      type: String,
+    organization: {
+      type: Object,
       required: true,
     },
-    creatorId: {
-      type: String,
+    creator: {
+      type: Object,
       required: true,
     },
     name: {
@@ -40,11 +40,11 @@ const JobSchema = new mongoose.Schema(
     },
     shifts: {
       type: Array,
-      required: true,
+      required: false,
     },
-    employeeId: {
-      type: String,
-      default: "",
+    employee: {
+      type: Object,
+      required: false,
     },
   },
   { timestamps: true }
