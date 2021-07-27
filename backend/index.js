@@ -105,6 +105,15 @@ app.use("/api/organization", organizationRoute);
 app.use("/api/status", statusRoute);
 app.use("/api/jobs", jobsRoute);
 
+// 404 Route
+
+app.get("*", (req, res) => {
+  res.status(404).json({
+    path: req.originalUrl,
+    message: "This API Endpoint doesn't exist",
+  });
+});
+
 // SocketIO initialization
 
 io.on("connection", (socket) => {
