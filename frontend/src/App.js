@@ -30,6 +30,11 @@ function App() {
           {user ? <Redirect to="/" /> : <SignInPage />}
         </Route>
       </Switch>
+      <Switch>
+        <Route exact path="/feed">
+          <h1>Hello</h1>
+        </Route>
+      </Switch>
     </Router>
   );
 }
