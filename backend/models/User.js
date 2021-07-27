@@ -65,7 +65,6 @@ const userSchema = mongoose.Schema(
       type: String,
       enum: ["ONLINE", "IDLE", "DND", "OFFLINE"],
       default: "ONLINE",
-      required: true,
     },
     settings: {
       type: Object,

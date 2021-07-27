@@ -41,6 +41,7 @@ const SignUpPage = () => {
       name: fullname.current.value,
       email: email.current.value,
       password: password.current.value,
+      isAdmin: false,
     };
 
     signUpCall(user, dispatch);

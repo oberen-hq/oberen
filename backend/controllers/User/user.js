@@ -14,9 +14,9 @@ const login = async (req, res) => {
   try {
     // Check if user exists
 
-    const existingUser = await User.exists({ email: email });
+    const result = await User.exists({ email: email });
 
-    if (!existingUser)
+    if (!result)
       return res.status(404).json({
         error: "User",
         message: "User does not exist.",
@@ -24,7 +24,7 @@ const login = async (req, res) => {
 
     // Compare password hashes
 
-    const correct = await bcrypt.compare(password, existingUser.password);
+    const correct = await bcrypt.compare(password, result.password);
 
     if (!correct)
       return res.status(400).json({
@@ -34,11 +34,23 @@ const login = async (req, res) => {
 
     // Generate JSON Web Token to be stored in local storage
 
-    const token = genToken(
-      existingUser._id,
-      existingUser.name,
-      existingUser.email
-    );
+    const token = genToken({
+      id: result._id,
+      name: result.name,
+      email: result.email,
+      number: result.number,
+      bio: result.bio,
+      profilePicture: result.profilePicture,
+      gender: result.gender,
+      website: result.website,
+      verified: result.verified,
+      followers: result.followers,
+      following: result.following,
+      roles: result.roles,
+      status: result.status,
+      settings: result.settings,
+      isAdmin: result.isAdmin,
+    });
 
     // Return token, not user data for E-E encryption
 
@@ -109,11 +121,28 @@ const register = async (req, res) => {
       email,
       password: hashedPassword,
       name,
+      isAdmin: false,
     });
 
     // Generate JSON Web Token for local storage.
 
-    const token = genToken(result._id, result.name, result.email);
+    const token = genToken({
+      id: result._id,
+      name: result.name,
+      email: result.email,
+      number: result.number,
+      bio: result.bio,
+      profilePicture: result.profilePicture,
+      gender: result.gender,
+      website: result.website,
+      verified: result.verified,
+      followers: result.followers,
+      following: result.following,
+      roles: result.roles,
+      status: result.status,
+      settings: result.settings,
+      isAdmin: result.isAdmin,
+    });
 
     // Return token and not user data for E-E encryption.
 
