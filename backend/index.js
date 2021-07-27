@@ -21,8 +21,7 @@ const constant = require("./config/constants/constants");
 const Uploader = require("./helpers/upload");
 const Sentry = require("@sentry/node");
 const Tracing = require("@sentry/tracing");
-const pino = require("express-pino-logger");
-
+const morgan = require("morgan");
 const config = require("./config/constants/constants");
 const User = require("./models/User");
 
@@ -59,40 +58,7 @@ app.use(helmet());
 
 // Logger
 
-// app.use(
-//   pino({
-//     prettyPrint: { colorize: true },
-//   })
-// );
-
-app.use(function (req, res, next) {
-  // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-
-  res.setHeader("Access-Control-Allow-Origin", "*");
-
-  // Request methods you wish to allow
-  res.setHeader("Access-Control-Allow-Methods", [
-    "GET",
-    "POST",
-    "PUT",
-    "DELETE",
-    "OPTIONS",
-  ]);
-
-  // Request headers you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader("Access-Control-Allow-Credentials", true);
-
-  // Pass to next layer of middleware
-  next();
-});
+app.use(morgan("dev"));
 
 // Await Database connection
 

@@ -10,9 +10,88 @@ const userSchema = mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     industries: { type: Array, default: [], min: 0, max: 5 },
-    chosenPositions: { type: Array, default: ["Employee"], min: 1, max: 2 },
+    chosenPositions: { type: Array, default: ["Employee"] },
   },
   { timestamps: true }
 );
 
+const userSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      min: 3,
+      max: 30,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      max: 50,
+    },
+    number: {
+      type: String,
+    },
+    password: {
+      type: String,
+      required: true,
+      min: 8,
+      max: 1024,
+    },
+    bio: {
+      type: String,
+      default: "",
+      max: 225,
+    },
+    profilePicture: {
+      type: String,
+      default: "",
+    },
+    gender: {
+      type: String,
+      enum: ["Male", "Female", "Transgender", "Prefer not to say", "Undecided"],
+      default: "Undecided",
+    },
+    website: {
+      type: String,
+    },
+    verified: {
+      type: Boolean,
+      default: false,
+    },
+    posts: {
+      type: Array,
+      default: [],
+    },
+    followers: {
+      type: Array,
+      default: [],
+    },
+    following: {
+      type: Array,
+      default: [],
+    },
+    roles: {
+      type: Array,
+      default: [],
+      max: 10,
+    },
+    status: {
+      type: String,
+      enum: ["ONLINE", "IDLE", "DND", "OFFLINE"],
+      default: "ONLINE",
+      required: true,
+    },
+    settings: {
+      type: Object,
+      required: false,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 module.exports = mongoose.model("User", userSchema);
