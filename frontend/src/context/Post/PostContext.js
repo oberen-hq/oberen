@@ -1,5 +1,4 @@
 import { createContext, useEffect, useReducer } from "react";
-import { FaLockOpen } from "react-icons/fa";
 import PostReducer from "./PostReducer";
 
 const INITIAL_STATE = {
@@ -11,7 +10,7 @@ const INITIAL_STATE = {
 export const PostContext = createContext(INITIAL_STATE);
 
 export const PostContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(PostReducer, INITIAL_STATE);
 
   return (
     <PostContext.Provider

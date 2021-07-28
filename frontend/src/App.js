@@ -13,6 +13,10 @@ import SignInPage from "./pages/SignIn/sign-in";
 import { useContext } from "react";
 import { AuthContext } from "./context/Auth/AuthContext";
 
+import RightPane from "./components/RightPane";
+import LeftPane from "./components/LeftPane";
+import Feed from "./components/Feed";
+
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -31,9 +35,13 @@ function App() {
         </Route>
       </Switch>
       <Switch>
-        <Route exact path="/feed">
-          <h1>Hello</h1>
-        </Route>
+        <div className="main-page-container">
+          <LeftPane />
+          <Route exact path="/feed">
+            <Feed />
+          </Route>
+          <RightPane />
+        </div>
       </Switch>
     </Router>
   );

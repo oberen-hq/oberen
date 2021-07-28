@@ -5,6 +5,14 @@
   font-family: "Encode Sans Expanded", sans-serif;
 }
 
+.main-page-container {
+  background-color: #010606;
+  display: grid;
+  grid-template-columns: 1.1fr 2.1fr 1.4fr;
+  color: #fff;
+  height: 100vh;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

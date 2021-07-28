@@ -13,8 +13,6 @@ import {
 import { FaBars } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
 
-import "./active.css";
-
 const Navbar = ({ toggle }) => {
   const toggleHome = () => {
     scroll.scrollToTop();
@@ -26,7 +24,6 @@ const Navbar = ({ toggle }) => {
     spy: true,
     exact: "true",
     offset: -80,
-    activeClass: "active",
   };
 
   return (
