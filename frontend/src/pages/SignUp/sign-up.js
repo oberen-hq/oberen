@@ -19,15 +19,15 @@ import {
 } from "./SignUpElements";
 
 const SignUpPage = () => {
-  const { isFetching, dispatch } = useContext(AuthContext);
+  const { error, isFetching, dispatch } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [agreeToTerms, setAgreedToTerms] = useState(false);
 
   const fullname = useRef();
   const email = useRef();
   const password = useRef();
   const passwordAgain = useRef();
   const history = useHistory();
-
-  const [agreeToTerms, setAgreedToTerms] = useState(false);
 
   const checkAgreed = () => {
     setAgreedToTerms(!agreeToTerms);
@@ -45,12 +45,24 @@ const SignUpPage = () => {
       isAdmin: false,
     };
 
-    api.signUpCall(user, dispatch);
-    history.push("/");
+    dispatch({ type: "SIGNUP_START" });
+
+    api
+      .signUpCall(user)
+      .then((res) => {
+        dispatch({ type: "SIGNUP_SUCCESS", payload: res.data.token });
+        history.push("/dashboard");
+      })
+      .catch((error) => {
+        dispatch({ type: "SIGNUP_FAILURE", payload: error.response.data });
+        setErrorMessage(error.response.data.message);
+        history.push("/sign-up");
+      });
   };
 
   return (
     <React.Fragment>
+      {error ? errorMessage : null}
       <SignUp>
         <SignUpWrapper>
           <SignUpLeft>

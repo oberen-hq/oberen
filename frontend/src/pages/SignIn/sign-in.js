@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useState } from "react";
+import React, { useRef, useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { CircularProgress } from "@material-ui/core";
 import { AuthContext } from "../../context/Auth/AuthContext";
@@ -28,19 +28,27 @@ const SignInPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    api.signInCall(
-      {
+    dispatch({ type: "SIGNIN_START" });
+
+    api
+      .signInCall({
         email: email.current.value,
         password: password.current.value,
-      },
-      dispatch
-    );
-
-    history.push("/dashboard");
+      })
+      .then((res) => {
+        dispatch({ type: "SIGNIN_SUCCESS", payload: res.data.token });
+        history.push("/dashboard");
+      })
+      .catch((error) => {
+        dispatch({ type: "SIGNIN_FAILURE", payload: error.response.data });
+        setErrorMessage(error.response.data.message);
+        history.push("/sign-in");
+      });
   };
 
   return (
     <React.Fragment>
+      {error ? errorMessage : null}
       <SignIn>
         <SignInWrapper>
           <SignInLeft>
@@ -65,7 +73,7 @@ const SignInPage = () => {
                 {isFetching ? (
                   <CircularProgress color="primary" size="20px" />
                 ) : (
-                  "Sign Up"
+                  "Sign In"
                 )}
               </SignInButton>
               <SignInForgot>Forgot Password?</SignInForgot>
