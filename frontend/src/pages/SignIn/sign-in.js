@@ -1,5 +1,9 @@
 import React, { useRef, useContext, useState } from "react";
 import { useHistory } from "react-router";
+import { CircularProgress } from "@material-ui/core";
+import { AuthContext } from "../../context/Auth/AuthContext";
+import api from "../../api";
+
 import {
   SignIn,
   SignInButton,
@@ -14,10 +18,6 @@ import {
   SignInWrapper,
 } from "./SignInElements";
 
-import { CircularProgress } from "@material-ui/core";
-import { AuthContext } from "../../context/Auth/AuthContext";
-import { signInCall } from "../../apiCalls/signIn";
-
 const SignInPage = () => {
   const { isFetching, error, dispatch } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -28,17 +28,13 @@ const SignInPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    signInCall(
+    api.signInCall(
       {
         email: email.current.value,
         password: password.current.value,
       },
       dispatch
     );
-
-    if (error) {
-      setErrorMessage("Login Failed.");
-    }
 
     history.push("/dashboard");
   };

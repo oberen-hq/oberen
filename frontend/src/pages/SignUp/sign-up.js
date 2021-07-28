@@ -1,8 +1,9 @@
-import { signUpCall } from "../../apiCalls/signUp";
 import React, { useRef, useState, useContext } from "react";
 import { useHistory } from "react-router";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import { CircularProgress } from "@material-ui/core";
+import api from "../../api";
+
 import {
   SignUp,
   SignInButton,
@@ -44,7 +45,7 @@ const SignUpPage = () => {
       isAdmin: false,
     };
 
-    signUpCall(user, dispatch);
+    api.signUpCall(user, dispatch);
     history.push("/");
   };
 
