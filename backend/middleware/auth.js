@@ -9,18 +9,21 @@ const auth = (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
 
-    let decodedData;
-
     if (token) {
       // Local
 
-      decodedData = jwt.verify(token, constant.jwt_secret());
+      const decodedData = jwt.verify(token, constant.jwt_secret());
       req.userId = decodedData?.id;
+
+      next();
     }
 
-    next();
+    res.status(401).json({
+      status: 401,
+      message: "Unauthorized",
+    });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(401).json({
       status: 401,
       message: "Invalid Token.",

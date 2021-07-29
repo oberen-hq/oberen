@@ -3,28 +3,31 @@
 const express = require("express");
 const app = express();
 
-const { createMongooseConnection } = require("./config/db");
 const path = require("path");
 const helmet = require("helmet");
 const cors = require("cors");
+const morgan = require("morgan");
+
 const authRoute = require("./routes/Auth/auth");
 const organizationRoute = require("./routes/Organization/organization");
-const organizationsRoute = require("./routes/Organization/organizations");
 const statusRoute = require("./routes/Status/status");
 const jobsRoute = require("./routes/Jobs/jobs");
+
 const auth = require("./middleware/auth");
-const constant = require("./config/constants/constants");
+
 const Uploader = require("./helpers/upload");
 const Sentry = require("@sentry/node");
 const Tracing = require("@sentry/tracing");
-const morgan = require("morgan");
-const config = require("./config/constants/constants");
+
+const constant = require("./config/constants/constants");
+
+const { createMongooseConnection } = require("./config/db");
 const User = require("./models/User");
 
 // SENTRY SETUP
 
 Sentry.init({
-  dsn: config.sentry_dsn(),
+  dsn: constant.sentry_dsn(),
   integrations: [
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({ tracing: true }),
@@ -77,6 +80,12 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/upload", uploader.startUpload);
+
+app.get("/protected", auth, (req, res) => {
+  res.status(200).json({
+    message: "Authorized",
+  });
+});
 
 app.get("/api/me", auth, (req, res) => {
   let currentUser = User.findById(req.userId);

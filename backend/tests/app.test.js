@@ -1,10 +1,13 @@
 const request = require("supertest");
 const app = require("../index");
 
+const baseRoute = "/";
+const randomRoute = "/random";
+
 describe("app", () => {
   it("responds with a json message", (done) => {
     request(app)
-      .get("/")
+      .get(baseRoute)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(
@@ -18,7 +21,7 @@ describe("app", () => {
 
   it("responds with a 404 message", (done) => {
     request(app)
-      .get("/random")
+      .get(randomRoute)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(404, done);
