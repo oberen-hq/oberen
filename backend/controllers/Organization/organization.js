@@ -82,7 +82,29 @@ const edit_organization = async (req, res) => {
 // Delete a organization
 
 const delete_organization = async (req, res) => {
-  return;
+  const userId = req.userId;
+  const organizationId = req.params.organizationId;
+
+  try {
+    await Organization.findOneAndDelete({
+      _id: organizationId,
+      creatorId: userId,
+    });
+
+    res.status(200).json({
+      message: "Organization deleted successfully.",
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Internal Server Error.",
+    });
+  }
+
+  const organization = await Organization.findOneAndDelete({
+    _id: organizationId,
+    creatorId: userId,
+  });
 };
 
 module.exports = { create_organization, get_organization };
