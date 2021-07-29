@@ -197,7 +197,27 @@ const get_user = async (req, res) => {
 // Edit a user
 
 const edit_user = async (req, res) => {
-  return;
+  const options = req.body;
+  const userId = req.userId;
+
+  try {
+    const result = await User.findOneAndUpdate(
+      { _id: userId },
+      { $set: { options } }
+    );
+
+    res.status(200).json({
+      message: "User updated",
+    });
+
+    return res.sta;
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "User",
+      message: "Internal Server Error.",
+    });
+  }
 };
 
 // Delete a user
@@ -235,4 +255,4 @@ const delete_user = async (req, res) => {
   return res.status(204);
 };
 
-module.exports = { register, login, delete_user };
+module.exports = { register, login, get_user, delete_user };

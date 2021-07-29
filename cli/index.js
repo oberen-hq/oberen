@@ -8,7 +8,7 @@ setup();
 
 const run = async () => {
   const option = await inquirer.askOptions();
-  console.log(option);
+  
 };
 
 setTimeout(() => {
