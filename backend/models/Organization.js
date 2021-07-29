@@ -11,13 +11,13 @@ const filter = require("leo-profanity");
 const OrganizationSchema = new mongoose.Schema(
   {
     creatorId: {
-      type: String
-      required: true,
+      type: String,
+      require: true,
     },
     employers: {
       type: Array,
       default: [],
-      required: true,
+      require: true,
     },
     name: {
       type: String,
@@ -69,7 +69,7 @@ const OrganizationSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
+      require: true,
       min: 50,
       max: 2000,
       validate(value) {

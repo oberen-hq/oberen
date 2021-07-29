@@ -2,10 +2,6 @@
 
 const express = require("express");
 const app = express();
-const http = require("http").createServer(app);
-const io = require("socket.io")(http, {
-  path: "/messages",
-});
 
 const { createMongooseConnection } = require("./config/db");
 const path = require("path");
@@ -76,19 +72,13 @@ const uploader = new Uploader();
 app.get("/", (req, res) => {
   res.status(200).json({
     status: res.statusCode,
-    message: "Welcome to the API",
+    message: "Welcome to the API! 🦄",
   });
 });
 
 app.post("/api/upload", uploader.startUpload);
 
-app.get("/api/protected", auth, (req, res) => {
-  res.status(200).json({
-    message: "Authorized",
-  });
-});
-
-app.get("/api/user", auth, (req, res) => {
+app.get("/api/me", auth, (req, res) => {
   let currentUser = User.findById(req.userId);
 
   res.status(200).json({
@@ -115,18 +105,10 @@ app.get("*", (req, res) => {
   });
 });
 
-// SocketIO initialization
-
-io.on("connection", (socket) => {
-  console.log("User connected");
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected");
-  });
-});
-
 // Listening on port 3000
 
-http.listen(constant.port(), () => {
+app.listen(constant.port(), () => {
   console.log("Backend server is running!");
 });
+
+module.exports = app;
