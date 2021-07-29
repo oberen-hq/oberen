@@ -4,6 +4,26 @@ const Organization = require("../../models/Organization");
 const Job = require("../../models/Job");
 const filter = require("leo-profanity");
 
+// Get a job in a certain organization
+
+const get_job = async (req, res) => {
+  const jobId = req.params.jobId;
+
+  try {
+    const job = await Job.findById(jobId);
+
+    return res.status(200).json({
+      job,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(404).json({
+      type: "Job",
+      message: "That job was not found..",
+    });
+  }
+};
+
 // Create a job in a certain organization
 
 const create_organization_job = async (req, res) => {
