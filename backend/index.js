@@ -42,6 +42,7 @@ Sentry.init({
 
 app.use(
   cors({
+    origin: "*",
     credentials: true,
   })
 );
@@ -81,13 +82,13 @@ app.get("/", (req, res) => {
 
 app.post("/api/upload", uploader.startUpload);
 
-app.get("/protected", auth, (req, res) => {
+app.get("/api/protected", auth, (req, res) => {
   res.status(200).json({
     message: "Authorized",
   });
 });
 
-app.get("/user", auth, (req, res) => {
+app.get("/api/user", auth, (req, res) => {
   let currentUser = User.findById(req.userId);
 
   res.status(200).json({

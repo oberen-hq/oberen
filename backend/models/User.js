@@ -66,8 +66,8 @@ const userSchema = mongoose.Schema(
       enum: ["ONLINE", "IDLE", "DND", "OFFLINE"],
       default: "ONLINE",
     },
-    settings: {
-      type: Object,
+    settingsId: {
+      type: String,
       required: false,
     },
     isAdmin: {

@@ -8,12 +8,12 @@ const mongoose = require("mongoose");
 
 const MessageSchema = new mongoose.Schema(
   {
-    conversation: {
-      type: Object,
+    conversationId: {
+      type: String
       required: true,
     },
-    sender: {
-      type: Object,
+    senderId: {
+      type: String
       required: true,
     },
     senderSocketId: {

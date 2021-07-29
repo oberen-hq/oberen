@@ -10,8 +10,8 @@ const filter = require("leo-profanity");
 
 const OrganizationSchema = new mongoose.Schema(
   {
-    creator: {
-      type: Object,
+    creatorId: {
+      type: String
       required: true,
     },
     employers: {

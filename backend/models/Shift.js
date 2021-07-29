@@ -8,8 +8,8 @@ const mongoose = require("mongoose");
 
 const ShiftSchema = mongoose.Schema(
   {
-    employee: {
-      type: Object,
+    employeeId: {
+      type: String,
       required: true,
     },
     startingTime: {
@@ -20,8 +20,8 @@ const ShiftSchema = mongoose.Schema(
       type: Date,
       required: true,
     },
-    job: {
-      type: Object,
+    jobId: {
+      type: String,
       required: true,
     },
     rating: {

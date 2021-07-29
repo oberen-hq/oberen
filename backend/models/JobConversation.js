@@ -6,8 +6,8 @@ const mongoose = require("mongoose");
 
 const ConversationSchema = new mongoose.Schema(
   {
-    job: {
-      type: Object,
+    jobId: {
+      type: String,
       required: true,
     },
     members: {
