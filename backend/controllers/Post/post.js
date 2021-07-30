@@ -23,6 +23,41 @@ const get_post = async (req, res) => {
       post,
     });
   } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      type: "Post",
+      message: "Internal Server Error.",
+    });
+  }
+};
+
+const create_post = async (req, res) => {
+  const post = req.body;
+
+  const creatorId = req.userId;
+
+  // TODO: Validation checks for profanity
+
+  try {
+    const result = await Post.create({
+      creatorId: creatorId,
+      title: post.title,
+      description: post.description,
+      organizationAttachments: post.organizationAttachments,
+      jobAttachments: post.jobAttachments,
+      shiftAttachments: post.shiftAttachments,
+      fileAttachments: post.fileAttachments,
+      likes: [],
+      comments: [],
+      shares: [],
+    });
+
+    return res.status(200).json({
+      result,
+      message: "Post created.",
+    });
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({
       type: "Post",
       message: "Internal Server Error.",
