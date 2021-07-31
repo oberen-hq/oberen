@@ -41,6 +41,7 @@ const SignInPage = () => {
       })
       .catch((error) => {
         dispatch({ type: "SIGNIN_FAILURE", payload: error.response.data });
+        console.log(error.response.data);
         setErrorMessage(error.response.data.message);
         history.push("/sign-in");
       });

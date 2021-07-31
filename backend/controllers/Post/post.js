@@ -64,3 +64,5 @@ const create_post = async (req, res) => {
     });
   }
 };
+
+module.exports = { get_post, create_post };

@@ -12,6 +12,7 @@ const authRoute = require("./routes/Auth/auth");
 const organizationRoute = require("./routes/Organization/organization");
 const statusRoute = require("./routes/Status/status");
 const jobsRoute = require("./routes/Jobs/jobs");
+const postRoute = require("./routes/Post/post");
 
 const auth = require("./middleware/auth");
 
@@ -104,6 +105,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/organization", organizationRoute);
 app.use("/api/status", statusRoute);
 app.use("/api/jobs", jobsRoute);
+app.use("/api/post", postRoute);
 
 // 404 Route
 
