@@ -1,0 +1,12 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "API for simplify",
+  "main": "dist/index.js",
+  "repository": "https://github.com/alfiephillips/simplify",
+  "author": "Alfie Phillips",
+  "license": "MIT",
+  "dependencies": {
+    "prisma": "^2.28.0"
+  }
+}
