@@ -2,15 +2,14 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { NestedEnumRoleFilter } from "../inputs/NestedEnumRoleFilter";
-import { NestedEnumRoleWithAggregatesFilter } from "../inputs/NestedEnumRoleWithAggregatesFilter";
-import { NestedIntFilter } from "../inputs/NestedIntFilter";
+import { NestedEnumRoleNullableFilter } from "../inputs/NestedEnumRoleNullableFilter";
+import { NestedIntNullableFilter } from "../inputs/NestedIntNullableFilter";
 import { Role } from "../../enums/Role";
 
 @TypeGraphQL.InputType({
   isAbstract: true
 })
-export class EnumRoleWithAggregatesFilter {
+export class NestedEnumRoleNullableWithAggregatesFilter {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
@@ -26,23 +25,23 @@ export class EnumRoleWithAggregatesFilter {
   })
   notIn?: Array<"USER" | "ADMIN"> | undefined;
 
-  @TypeGraphQL.Field(_type => NestedEnumRoleWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => NestedEnumRoleNullableWithAggregatesFilter, {
     nullable: true
   })
-  not?: NestedEnumRoleWithAggregatesFilter | undefined;
+  not?: NestedEnumRoleNullableWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => NestedIntFilter, {
+  @TypeGraphQL.Field(_type => NestedIntNullableFilter, {
     nullable: true
   })
-  _count?: NestedIntFilter | undefined;
+  _count?: NestedIntNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => NestedEnumRoleFilter, {
+  @TypeGraphQL.Field(_type => NestedEnumRoleNullableFilter, {
     nullable: true
   })
-  _min?: NestedEnumRoleFilter | undefined;
+  _min?: NestedEnumRoleNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => NestedEnumRoleFilter, {
+  @TypeGraphQL.Field(_type => NestedEnumRoleNullableFilter, {
     nullable: true
   })
-  _max?: NestedEnumRoleFilter | undefined;
+  _max?: NestedEnumRoleNullableFilter | undefined;
 }

@@ -2,12 +2,13 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { NestedEnumRoleNullableFilter } from "../inputs/NestedEnumRoleNullableFilter";
 import { Role } from "../../enums/Role";
 
 @TypeGraphQL.InputType({
   isAbstract: true
 })
-export class NestedEnumRoleFilter {
+export class EnumRoleNullableFilter {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
@@ -23,8 +24,8 @@ export class NestedEnumRoleFilter {
   })
   notIn?: Array<"USER" | "ADMIN"> | undefined;
 
-  @TypeGraphQL.Field(_type => NestedEnumRoleFilter, {
+  @TypeGraphQL.Field(_type => NestedEnumRoleNullableFilter, {
     nullable: true
   })
-  not?: NestedEnumRoleFilter | undefined;
+  not?: NestedEnumRoleNullableFilter | undefined;
 }

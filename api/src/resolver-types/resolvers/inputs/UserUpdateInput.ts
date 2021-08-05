@@ -3,7 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
-import { EnumRoleFieldUpdateOperationsInput } from "../inputs/EnumRoleFieldUpdateOperationsInput";
+import { NullableEnumRoleFieldUpdateOperationsInput } from "../inputs/NullableEnumRoleFieldUpdateOperationsInput";
 import { PostCommentUpdateManyWithoutCreatorInput } from "../inputs/PostCommentUpdateManyWithoutCreatorInput";
 import { PostCommentUpdateManyWithoutLikersInput } from "../inputs/PostCommentUpdateManyWithoutLikersInput";
 import { PostUpdateManyWithoutCreatorInput } from "../inputs/PostUpdateManyWithoutCreatorInput";
@@ -36,10 +36,15 @@ export class UserUpdateInput {
   })
   email?: StringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => EnumRoleFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  UserRole?: EnumRoleFieldUpdateOperationsInput | undefined;
+  password?: StringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => NullableEnumRoleFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  userRole?: NullableEnumRoleFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => UserProfileUpdateOneRequiredWithoutUserInput, {
     nullable: true
@@ -61,13 +66,13 @@ export class UserUpdateInput {
   })
   likedComments?: PostCommentUpdateManyWithoutLikersInput | undefined;
 
-  @TypeGraphQL.Field(_type => PostUpdateOneWithoutLikersInput, {
-    nullable: true
-  })
-  Post?: PostUpdateOneWithoutLikersInput | undefined;
-
   @TypeGraphQL.Field(_type => PostCommentUpdateManyWithoutCreatorInput, {
     nullable: true
   })
   PostComment?: PostCommentUpdateManyWithoutCreatorInput | undefined;
+
+  @TypeGraphQL.Field(_type => PostUpdateOneWithoutLikersInput, {
+    nullable: true
+  })
+  Post?: PostUpdateOneWithoutLikersInput | undefined;
 }

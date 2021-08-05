@@ -21,6 +21,11 @@ export class UserProfileOrderByInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
+  userId?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
   avatarUrl?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {

@@ -3,7 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
-import { EnumRoleFilter } from "../inputs/EnumRoleFilter";
+import { EnumRoleNullableFilter } from "../inputs/EnumRoleNullableFilter";
 import { PostCommentListRelationFilter } from "../inputs/PostCommentListRelationFilter";
 import { PostListRelationFilter } from "../inputs/PostListRelationFilter";
 import { PostRelationFilter } from "../inputs/PostRelationFilter";
@@ -55,10 +55,15 @@ export class UserWhereInput {
   })
   email?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => EnumRoleFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  UserRole?: EnumRoleFilter | undefined;
+  password?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => EnumRoleNullableFilter, {
+    nullable: true
+  })
+  userRole?: EnumRoleNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => UserProfileRelationFilter, {
     nullable: true
@@ -85,6 +90,11 @@ export class UserWhereInput {
   })
   likedComments?: PostCommentListRelationFilter | undefined;
 
+  @TypeGraphQL.Field(_type => PostCommentListRelationFilter, {
+    nullable: true
+  })
+  PostComment?: PostCommentListRelationFilter | undefined;
+
   @TypeGraphQL.Field(_type => PostRelationFilter, {
     nullable: true
   })
@@ -94,9 +104,4 @@ export class UserWhereInput {
     nullable: true
   })
   postId?: StringNullableFilter | undefined;
-
-  @TypeGraphQL.Field(_type => PostCommentListRelationFilter, {
-    nullable: true
-  })
-  PostComment?: PostCommentListRelationFilter | undefined;
 }

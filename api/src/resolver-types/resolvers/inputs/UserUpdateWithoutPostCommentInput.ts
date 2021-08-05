@@ -3,7 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
-import { EnumRoleFieldUpdateOperationsInput } from "../inputs/EnumRoleFieldUpdateOperationsInput";
+import { NullableEnumRoleFieldUpdateOperationsInput } from "../inputs/NullableEnumRoleFieldUpdateOperationsInput";
 import { PostCommentUpdateManyWithoutLikersInput } from "../inputs/PostCommentUpdateManyWithoutLikersInput";
 import { PostUpdateManyWithoutCreatorInput } from "../inputs/PostUpdateManyWithoutCreatorInput";
 import { PostUpdateManyWithoutUserInput } from "../inputs/PostUpdateManyWithoutUserInput";
@@ -35,10 +35,15 @@ export class UserUpdateWithoutPostCommentInput {
   })
   email?: StringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => EnumRoleFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  UserRole?: EnumRoleFieldUpdateOperationsInput | undefined;
+  password?: StringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => NullableEnumRoleFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  userRole?: NullableEnumRoleFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => UserProfileUpdateOneRequiredWithoutUserInput, {
     nullable: true

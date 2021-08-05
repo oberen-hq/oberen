@@ -36,10 +36,15 @@ export class User {
   })
   email!: string;
 
-  @TypeGraphQL.Field(_type => Role, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  UserRole!: "USER" | "ADMIN";
+  password!: string;
+
+  @TypeGraphQL.Field(_type => Role, {
+    nullable: true
+  })
+  userRole?: "USER" | "ADMIN" | null;
 
   profile?: UserProfile;
 
@@ -54,12 +59,12 @@ export class User {
 
   likedComments?: PostComment[];
 
+  PostComment?: PostComment[];
+
   Post?: Post | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   postId?: string | null;
-
-  PostComment?: PostComment[];
 }

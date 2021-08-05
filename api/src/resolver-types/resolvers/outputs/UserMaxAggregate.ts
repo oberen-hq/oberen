@@ -33,10 +33,15 @@ export class UserMaxAggregate {
   })
   email!: string | null;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  password!: string | null;
+
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
-  UserRole!: "USER" | "ADMIN" | null;
+  userRole!: "USER" | "ADMIN" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

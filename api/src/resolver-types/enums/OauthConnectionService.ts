@@ -8,7 +8,8 @@ export enum OauthConnectionService {
   facebook = "facebook",
   apple = "apple",
   instagram = "instagram",
-  linkedin = "linkedin"
+  linkedin = "linkedin",
+  local = "local"
 }
 TypeGraphQL.registerEnumType(OauthConnectionService, {
   name: "OauthConnectionService",

@@ -33,15 +33,20 @@ export class UserCreateManyInput {
   })
   email!: string;
 
-  @TypeGraphQL.Field(_type => Role, {
-    nullable: true
-  })
-  UserRole?: "USER" | "ADMIN" | undefined;
-
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  profileId!: string;
+  password!: string;
+
+  @TypeGraphQL.Field(_type => Role, {
+    nullable: true
+  })
+  userRole?: "USER" | "ADMIN" | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  profileId?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

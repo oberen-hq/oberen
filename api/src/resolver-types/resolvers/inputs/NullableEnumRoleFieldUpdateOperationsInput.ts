@@ -7,7 +7,7 @@ import { Role } from "../../enums/Role";
 @TypeGraphQL.InputType({
   isAbstract: true
 })
-export class EnumRoleFieldUpdateOperationsInput {
+export class NullableEnumRoleFieldUpdateOperationsInput {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })

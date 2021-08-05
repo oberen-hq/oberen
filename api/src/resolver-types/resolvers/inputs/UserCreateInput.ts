@@ -39,15 +39,20 @@ export class UserCreateInput {
   })
   email!: string;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  password!: string;
+
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
-  UserRole?: "USER" | "ADMIN" | undefined;
+  userRole?: "USER" | "ADMIN" | undefined;
 
   @TypeGraphQL.Field(_type => UserProfileCreateNestedOneWithoutUserInput, {
-    nullable: false
+    nullable: true
   })
-  profile!: UserProfileCreateNestedOneWithoutUserInput;
+  profile?: UserProfileCreateNestedOneWithoutUserInput | undefined;
 
   @TypeGraphQL.Field(_type => PostCreateNestedManyWithoutCreatorInput, {
     nullable: true
@@ -64,13 +69,13 @@ export class UserCreateInput {
   })
   likedComments?: PostCommentCreateNestedManyWithoutLikersInput | undefined;
 
-  @TypeGraphQL.Field(_type => PostCreateNestedOneWithoutLikersInput, {
-    nullable: true
-  })
-  Post?: PostCreateNestedOneWithoutLikersInput | undefined;
-
   @TypeGraphQL.Field(_type => PostCommentCreateNestedManyWithoutCreatorInput, {
     nullable: true
   })
   PostComment?: PostCommentCreateNestedManyWithoutCreatorInput | undefined;
+
+  @TypeGraphQL.Field(_type => PostCreateNestedOneWithoutLikersInput, {
+    nullable: true
+  })
+  Post?: PostCreateNestedOneWithoutLikersInput | undefined;
 }

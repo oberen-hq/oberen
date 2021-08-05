@@ -20,6 +20,11 @@ export class UserProfileMinAggregate {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
+  userId!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
   avatarUrl!: string | null;
 
   @TypeGraphQL.Field(_type => String, {

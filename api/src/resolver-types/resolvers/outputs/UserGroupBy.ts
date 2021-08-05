@@ -36,10 +36,15 @@ export class UserGroupBy {
   })
   email!: string;
 
-  @TypeGraphQL.Field(_type => Role, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  UserRole!: "USER" | "ADMIN";
+  password!: string;
+
+  @TypeGraphQL.Field(_type => Role, {
+    nullable: true
+  })
+  userRole!: "USER" | "ADMIN" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

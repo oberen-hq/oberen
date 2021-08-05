@@ -43,6 +43,11 @@ export class UserProfileWhereInput {
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
+  userId?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true
+  })
   avatarUrl?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {

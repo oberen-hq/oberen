@@ -12,8 +12,8 @@ generator client {
 }
 
 generator typegraphql {
-  provider           = "typegraphql-prisma"
-  output             = "../src/resolver-types"
+  provider = "typegraphql-prisma"
+  output   = "../src/resolver-types"
 }
 
 enum OauthConnectionService {
@@ -68,27 +68,29 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
   email     String   @unique
-  UserRole  Role     @default(value: USER)
+  password  String
+  userRole  Role?    @default(value: USER)
 
   // Profile
 
   profile   UserProfile @relation("UserProfileRelation", fields: [profileId], references: [id])
-  profileId String      @db.ObjectId
+  profileId String      @default(dbgenerated()) @db.ObjectId
 
   // Posts
 
   posts         Post[]        @relation("UserOwnedPostsRelation")
   likedPosts    Post[]        @relation("UserLikedPostsRelation")
   likedComments PostComment[] @relation("UserLikedCommentsRelation")
+  PostComment   PostComment[] @relation("UserCommentsPostsRelation")
   Post          Post?         @relation(fields: [postId], references: [id])
   postId        String?       @db.ObjectId
-  PostComment   PostComment[]
 }
 
 model UserProfile {
   id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   updatedAt DateTime @updatedAt
   user      User?    @relation("UserProfileRelation")
+  userId    String   @db.ObjectId
   avatarUrl String
   bio       String
 }
@@ -125,7 +127,7 @@ model PostComment {
 
   // Creator
 
-  creator   User   @relation(fields: [creatorId], references: [id])
+  creator   User   @relation("UserCommentsPostsRelation", fields: [creatorId], references: [id])
   creatorId String @db.ObjectId
 
   post      Post     @relation(fields: [postId], references: [id])

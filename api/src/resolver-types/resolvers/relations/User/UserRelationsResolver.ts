@@ -55,17 +55,6 @@ export class UserRelationsResolver {
     }).likedComments(args);
   }
 
-  @TypeGraphQL.FieldResolver(_type => Post, {
-    nullable: true
-  })
-  async Post(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any): Promise<Post | null> {
-    return getPrismaFromContext(ctx).user.findUnique({
-      where: {
-        id: user.id,
-      },
-    }).Post({});
-  }
-
   @TypeGraphQL.FieldResolver(_type => [PostComment], {
     nullable: false
   })
@@ -75,5 +64,16 @@ export class UserRelationsResolver {
         id: user.id,
       },
     }).PostComment(args);
+  }
+
+  @TypeGraphQL.FieldResolver(_type => Post, {
+    nullable: true
+  })
+  async Post(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any): Promise<Post | null> {
+    return getPrismaFromContext(ctx).user.findUnique({
+      where: {
+        id: user.id,
+      },
+    }).Post({});
   }
 }
