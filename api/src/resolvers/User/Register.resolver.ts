@@ -1,21 +1,9 @@
-import {
-  Resolver,
-  Mutation,
-  Arg,
-  Field,
-  Ctx,
-  ObjectType,
-  Query,
-  FieldResolver,
-  Root,
-} from "type-graphql";
+import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 
 import bcrypt from "bcrypt";
 
 import { User } from "../../resolver-types/models";
 import RegisterArgs from "./args/RegisterArgs";
-
-import { Prisma } from "@prisma/client";
 
 import { Context } from "../../context";
 import { ApolloError } from "apollo-server-errors";
@@ -38,25 +26,27 @@ export default class RegisterResolver {
 
     const profile: userProfileType = {};
 
-    const createdProfile = await prisma.userProfile.create({
-      data: profile,
-    });
+    return executeOrFail(async () => {
+      const createdProfile = await prisma.userProfile.create({
+        data: profile,
+      });
 
-    const user: userType = {
-      username: args.username,
-      email: args.email,
-      password: hashedPassword,
-      profile: {
-        connect: {
-          id: profile.id,
+      const user: userType = {
+        username: args.username,
+        email: args.email,
+        password: hashedPassword,
+        profile: {
+          connect: {
+            id: createdProfile.id,
+          },
         },
-      },
-    };
+      };
 
-    const createdUser = await prisma.user.create({
-      data: user,
+      const createdUser = await prisma.user.create({
+        data: user,
+      });
+
+      return createdUser;
     });
-
-    return createdUser;
   }
 }

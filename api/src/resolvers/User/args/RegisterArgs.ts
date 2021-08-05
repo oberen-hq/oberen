@@ -1,6 +1,5 @@
 import { Length } from "class-validator";
 import { InputType, Field } from "type-graphql";
-import { Role } from "../../../resolver-types/enums/Role";
 
 @InputType()
 export default class RegisterArgs {
