@@ -7,7 +7,7 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["mongoDb"]
 }
 
@@ -62,28 +62,76 @@ enum PostType {
 }
 
 model User {
-  id        String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now())
-  username  String    @unique 
-  email     String    @unique
-  isAdmin   Boolean   @default(false)
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+  email     String   @unique
+  isAdmin   Boolean  @default(false)
 
   // Profile
 
   profile   UserProfile @relation("UserProfileRelation", fields: [profileId], references: [id])
-  profileId String    @db.ObjectId()
+  profileId String      @db.ObjectId
 
   // Posts
 
   posts         Post[]        @relation("UserOwnedPostsRelation")
   likedPosts    Post[]        @relation("UserLikedPostsRelation")
   likedComments PostComment[] @relation("UserLikedCommentsRelation")
+  Post          Post?         @relation(fields: [postId], references: [id])
+  postId        String?       @db.ObjectId
+  PostComment   PostComment[]
 }
 
 model UserProfile {
-  id        String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  user      User? @relation("UserProfileRelation")
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  updatedAt DateTime @updatedAt
+  user      User?    @relation("UserProfileRelation")
   avatarUrl String
   bio       String
+}
+
+model Post {
+  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  title       String
+  description String?
+  type        PostType
+
+  // Likes and Comments
+
+  likers   User[]
+  comments PostComment[]
+
+  // TODO: Attachments and labels
+
+  // Creator
+
+  creator   User   @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
+  creatorId String @db.ObjectId
+
+  // Created at and Updated at
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User?    @relation("UserLikedPostsRelation", fields: [userId], references: [id])
+  userId    String?  @db.ObjectId
+}
+
+model PostComment {
+  id   String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  body String
+
+  // Creator
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String @db.ObjectId
+
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  edited    Boolean  @default(false)
+  likers    User[]   @relation("UserLikedCommentsRelation")
+  likes     Int      @default(0)
 }
