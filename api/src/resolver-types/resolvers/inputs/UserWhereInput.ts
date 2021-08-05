@@ -4,9 +4,9 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumRoleNullableFilter } from "../inputs/EnumRoleNullableFilter";
+import { LabelListRelationFilter } from "../inputs/LabelListRelationFilter";
 import { PostCommentListRelationFilter } from "../inputs/PostCommentListRelationFilter";
 import { PostListRelationFilter } from "../inputs/PostListRelationFilter";
-import { PostRelationFilter } from "../inputs/PostRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { UserProfileRelationFilter } from "../inputs/UserProfileRelationFilter";
@@ -100,13 +100,8 @@ export class UserWhereInput {
   })
   PostComment?: PostCommentListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => PostRelationFilter, {
+  @TypeGraphQL.Field(_type => LabelListRelationFilter, {
     nullable: true
   })
-  Post?: PostRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  postId?: StringNullableFilter | undefined;
+  createdLabels?: LabelListRelationFilter | undefined;
 }

@@ -46,11 +46,6 @@ export class PostGroupBy {
   })
   updatedAt!: Date;
 
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  userId!: string | null;
-
   @TypeGraphQL.Field(_type => PostCountAggregate, {
     nullable: true
   })

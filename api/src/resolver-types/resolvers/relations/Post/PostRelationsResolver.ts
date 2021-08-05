@@ -40,15 +40,4 @@ export class PostRelationsResolver {
       },
     }).creator({});
   }
-
-  @TypeGraphQL.FieldResolver(_type => User, {
-    nullable: true
-  })
-  async User(@TypeGraphQL.Root() post: Post, @TypeGraphQL.Ctx() ctx: any): Promise<User | null> {
-    return getPrismaFromContext(ctx).post.findUnique({
-      where: {
-        id: post.id,
-      },
-    }).User({});
-  }
 }

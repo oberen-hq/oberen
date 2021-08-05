@@ -60,9 +60,4 @@ export class PostScalarWhereWithAggregatesInput {
     nullable: true
   })
   updatedAt?: DateTimeWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
-    nullable: true
-  })
-  userId?: StringNullableWithAggregatesFilter | undefined;
 }

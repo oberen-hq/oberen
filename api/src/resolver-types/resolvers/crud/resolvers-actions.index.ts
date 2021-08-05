@@ -1,3 +1,15 @@
+export { FindUniqueLabelResolver } from "./Label/FindUniqueLabelResolver";
+export { FindFirstLabelResolver } from "./Label/FindFirstLabelResolver";
+export { FindManyLabelResolver } from "./Label/FindManyLabelResolver";
+export { CreateLabelResolver } from "./Label/CreateLabelResolver";
+export { CreateManyLabelResolver } from "./Label/CreateManyLabelResolver";
+export { DeleteLabelResolver } from "./Label/DeleteLabelResolver";
+export { UpdateLabelResolver } from "./Label/UpdateLabelResolver";
+export { DeleteManyLabelResolver } from "./Label/DeleteManyLabelResolver";
+export { UpdateManyLabelResolver } from "./Label/UpdateManyLabelResolver";
+export { UpsertLabelResolver } from "./Label/UpsertLabelResolver";
+export { AggregateLabelResolver } from "./Label/AggregateLabelResolver";
+export { GroupByLabelResolver } from "./Label/GroupByLabelResolver";
 export { FindUniquePostResolver } from "./Post/FindUniquePostResolver";
 export { FindFirstPostResolver } from "./Post/FindFirstPostResolver";
 export { FindManyPostResolver } from "./Post/FindManyPostResolver";

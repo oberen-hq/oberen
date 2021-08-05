@@ -3,6 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
+import { LabelUpdateManyWithoutProfileInput } from "../inputs/LabelUpdateManyWithoutProfileInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { UserUpdateOneWithoutProfileInput } from "../inputs/UserUpdateOneWithoutProfileInput";
 
@@ -29,4 +30,9 @@ export class UserProfileUpdateInput {
     nullable: true
   })
   user?: UserUpdateOneWithoutProfileInput | undefined;
+
+  @TypeGraphQL.Field(_type => LabelUpdateManyWithoutProfileInput, {
+    nullable: true
+  })
+  labels?: LabelUpdateManyWithoutProfileInput | undefined;
 }

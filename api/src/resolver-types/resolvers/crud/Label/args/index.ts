@@ -1,0 +1,12 @@
+export { AggregateLabelArgs } from "./AggregateLabelArgs";
+export { CreateLabelArgs } from "./CreateLabelArgs";
+export { CreateManyLabelArgs } from "./CreateManyLabelArgs";
+export { DeleteLabelArgs } from "./DeleteLabelArgs";
+export { DeleteManyLabelArgs } from "./DeleteManyLabelArgs";
+export { FindFirstLabelArgs } from "./FindFirstLabelArgs";
+export { FindManyLabelArgs } from "./FindManyLabelArgs";
+export { FindUniqueLabelArgs } from "./FindUniqueLabelArgs";
+export { GroupByLabelArgs } from "./GroupByLabelArgs";
+export { UpdateLabelArgs } from "./UpdateLabelArgs";
+export { UpdateManyLabelArgs } from "./UpdateManyLabelArgs";
+export { UpsertLabelArgs } from "./UpsertLabelArgs";

@@ -52,9 +52,4 @@ export class UserCreateManyInput {
     nullable: true
   })
   profileId?: string | undefined;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  postId?: string | undefined;
 }

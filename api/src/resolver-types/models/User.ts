@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Label } from "../models/Label";
 import { Post } from "../models/Post";
 import { PostComment } from "../models/PostComment";
 import { UserProfile } from "../models/UserProfile";
@@ -66,10 +67,5 @@ export class User {
 
   PostComment?: PostComment[];
 
-  Post?: Post | null;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  postId?: string | null;
+  createdLabels?: Label[];
 }

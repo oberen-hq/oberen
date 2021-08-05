@@ -78,14 +78,4 @@ export class PostWhereInput {
     nullable: true
   })
   updatedAt?: DateTimeFilter | undefined;
-
-  @TypeGraphQL.Field(_type => UserRelationFilter, {
-    nullable: true
-  })
-  User?: UserRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  userId?: StringNullableFilter | undefined;
 }

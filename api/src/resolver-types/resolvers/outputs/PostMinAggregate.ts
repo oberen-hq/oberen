@@ -42,9 +42,4 @@ export class PostMinAggregate {
     nullable: true
   })
   updatedAt!: Date | null;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  userId!: string | null;
 }

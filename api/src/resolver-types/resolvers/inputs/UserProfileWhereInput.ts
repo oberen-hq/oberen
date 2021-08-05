@@ -3,6 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
+import { LabelListRelationFilter } from "../inputs/LabelListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { UserRelationFilter } from "../inputs/UserRelationFilter";
 
@@ -49,4 +50,9 @@ export class UserProfileWhereInput {
     nullable: true
   })
   bio?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => LabelListRelationFilter, {
+    nullable: true
+  })
+  labels?: LabelListRelationFilter | undefined;
 }

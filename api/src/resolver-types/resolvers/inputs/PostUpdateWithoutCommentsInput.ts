@@ -6,9 +6,8 @@ import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdat
 import { EnumPostTypeFieldUpdateOperationsInput } from "../inputs/EnumPostTypeFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
-import { UserUpdateManyWithoutPostInput } from "../inputs/UserUpdateManyWithoutPostInput";
+import { UserUpdateManyWithoutLikedPostsInput } from "../inputs/UserUpdateManyWithoutLikedPostsInput";
 import { UserUpdateOneRequiredWithoutPostsInput } from "../inputs/UserUpdateOneRequiredWithoutPostsInput";
-import { UserUpdateOneWithoutLikedPostsInput } from "../inputs/UserUpdateOneWithoutLikedPostsInput";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -39,18 +38,13 @@ export class PostUpdateWithoutCommentsInput {
   })
   updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserUpdateManyWithoutPostInput, {
+  @TypeGraphQL.Field(_type => UserUpdateManyWithoutLikedPostsInput, {
     nullable: true
   })
-  likers?: UserUpdateManyWithoutPostInput | undefined;
+  likers?: UserUpdateManyWithoutLikedPostsInput | undefined;
 
   @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutPostsInput, {
     nullable: true
   })
   creator?: UserUpdateOneRequiredWithoutPostsInput | undefined;
-
-  @TypeGraphQL.Field(_type => UserUpdateOneWithoutLikedPostsInput, {
-    nullable: true
-  })
-  User?: UserUpdateOneWithoutLikedPostsInput | undefined;
 }

@@ -70,9 +70,4 @@ export class UserScalarWhereInput {
     nullable: true
   })
   profileId?: StringNullableFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  postId?: StringNullableFilter | undefined;
 }

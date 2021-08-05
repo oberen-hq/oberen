@@ -1,8 +1,15 @@
 export { AffectedRowsOutput } from "./AffectedRowsOutput";
+export { AggregateLabel } from "./AggregateLabel";
 export { AggregatePost } from "./AggregatePost";
 export { AggregatePostComment } from "./AggregatePostComment";
 export { AggregateUser } from "./AggregateUser";
 export { AggregateUserProfile } from "./AggregateUserProfile";
+export { LabelAvgAggregate } from "./LabelAvgAggregate";
+export { LabelCountAggregate } from "./LabelCountAggregate";
+export { LabelGroupBy } from "./LabelGroupBy";
+export { LabelMaxAggregate } from "./LabelMaxAggregate";
+export { LabelMinAggregate } from "./LabelMinAggregate";
+export { LabelSumAggregate } from "./LabelSumAggregate";
 export { PostCommentAvgAggregate } from "./PostCommentAvgAggregate";
 export { PostCommentCountAggregate } from "./PostCommentCountAggregate";
 export { PostCommentGroupBy } from "./PostCommentGroupBy";

@@ -1,5 +1,6 @@
 export { AttachmentType } from "./AttachmentType";
 export { BugReportSeverity } from "./BugReportSeverity";
+export { LabelScalarFieldEnum } from "./LabelScalarFieldEnum";
 export { OauthConnectionService } from "./OauthConnectionService";
 export { PostCommentScalarFieldEnum } from "./PostCommentScalarFieldEnum";
 export { PostScalarFieldEnum } from "./PostScalarFieldEnum";

@@ -70,9 +70,4 @@ export class UserScalarWhereWithAggregatesInput {
     nullable: true
   })
   profileId?: StringNullableWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
-    nullable: true
-  })
-  postId?: StringNullableWithAggregatesFilter | undefined;
 }

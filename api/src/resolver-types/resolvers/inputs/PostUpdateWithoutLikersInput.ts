@@ -8,7 +8,6 @@ import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStri
 import { PostCommentUpdateManyWithoutPostInput } from "../inputs/PostCommentUpdateManyWithoutPostInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { UserUpdateOneRequiredWithoutPostsInput } from "../inputs/UserUpdateOneRequiredWithoutPostsInput";
-import { UserUpdateOneWithoutLikedPostsInput } from "../inputs/UserUpdateOneWithoutLikedPostsInput";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -48,9 +47,4 @@ export class PostUpdateWithoutLikersInput {
     nullable: true
   })
   creator?: UserUpdateOneRequiredWithoutPostsInput | undefined;
-
-  @TypeGraphQL.Field(_type => UserUpdateOneWithoutLikedPostsInput, {
-    nullable: true
-  })
-  User?: UserUpdateOneWithoutLikedPostsInput | undefined;
 }

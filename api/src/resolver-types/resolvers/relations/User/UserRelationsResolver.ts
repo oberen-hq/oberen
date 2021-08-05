@@ -1,8 +1,10 @@
 import * as TypeGraphQL from "type-graphql";
+import { Label } from "../../../models/Label";
 import { Post } from "../../../models/Post";
 import { PostComment } from "../../../models/PostComment";
 import { User } from "../../../models/User";
 import { UserProfile } from "../../../models/UserProfile";
+import { UserCreatedLabelsArgs } from "./args/UserCreatedLabelsArgs";
 import { UserLikedCommentsArgs } from "./args/UserLikedCommentsArgs";
 import { UserLikedPostsArgs } from "./args/UserLikedPostsArgs";
 import { UserPostCommentArgs } from "./args/UserPostCommentArgs";
@@ -66,14 +68,14 @@ export class UserRelationsResolver {
     }).PostComment(args);
   }
 
-  @TypeGraphQL.FieldResolver(_type => Post, {
-    nullable: true
+  @TypeGraphQL.FieldResolver(_type => [Label], {
+    nullable: false
   })
-  async Post(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any): Promise<Post | null> {
+  async createdLabels(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserCreatedLabelsArgs): Promise<Label[]> {
     return getPrismaFromContext(ctx).user.findUnique({
       where: {
         id: user.id,
       },
-    }).Post({});
+    }).createdLabels(args);
   }
 }

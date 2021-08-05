@@ -3,12 +3,12 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
+import { LabelUpdateManyWithoutCreatorInput } from "../inputs/LabelUpdateManyWithoutCreatorInput";
 import { NullableEnumRoleFieldUpdateOperationsInput } from "../inputs/NullableEnumRoleFieldUpdateOperationsInput";
 import { PostCommentUpdateManyWithoutCreatorInput } from "../inputs/PostCommentUpdateManyWithoutCreatorInput";
 import { PostCommentUpdateManyWithoutLikersInput } from "../inputs/PostCommentUpdateManyWithoutLikersInput";
 import { PostUpdateManyWithoutCreatorInput } from "../inputs/PostUpdateManyWithoutCreatorInput";
-import { PostUpdateManyWithoutUserInput } from "../inputs/PostUpdateManyWithoutUserInput";
-import { PostUpdateOneWithoutLikersInput } from "../inputs/PostUpdateOneWithoutLikersInput";
+import { PostUpdateManyWithoutLikersInput } from "../inputs/PostUpdateManyWithoutLikersInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 
 @TypeGraphQL.InputType({
@@ -55,10 +55,10 @@ export class UserUpdateWithoutProfileInput {
   })
   posts?: PostUpdateManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => PostUpdateManyWithoutUserInput, {
+  @TypeGraphQL.Field(_type => PostUpdateManyWithoutLikersInput, {
     nullable: true
   })
-  likedPosts?: PostUpdateManyWithoutUserInput | undefined;
+  likedPosts?: PostUpdateManyWithoutLikersInput | undefined;
 
   @TypeGraphQL.Field(_type => PostCommentUpdateManyWithoutLikersInput, {
     nullable: true
@@ -70,8 +70,8 @@ export class UserUpdateWithoutProfileInput {
   })
   PostComment?: PostCommentUpdateManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => PostUpdateOneWithoutLikersInput, {
+  @TypeGraphQL.Field(_type => LabelUpdateManyWithoutCreatorInput, {
     nullable: true
   })
-  Post?: PostUpdateOneWithoutLikersInput | undefined;
+  createdLabels?: LabelUpdateManyWithoutCreatorInput | undefined;
 }

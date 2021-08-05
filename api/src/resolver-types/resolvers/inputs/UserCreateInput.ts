@@ -2,11 +2,11 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { LabelCreateNestedManyWithoutCreatorInput } from "../inputs/LabelCreateNestedManyWithoutCreatorInput";
 import { PostCommentCreateNestedManyWithoutCreatorInput } from "../inputs/PostCommentCreateNestedManyWithoutCreatorInput";
 import { PostCommentCreateNestedManyWithoutLikersInput } from "../inputs/PostCommentCreateNestedManyWithoutLikersInput";
 import { PostCreateNestedManyWithoutCreatorInput } from "../inputs/PostCreateNestedManyWithoutCreatorInput";
-import { PostCreateNestedManyWithoutUserInput } from "../inputs/PostCreateNestedManyWithoutUserInput";
-import { PostCreateNestedOneWithoutLikersInput } from "../inputs/PostCreateNestedOneWithoutLikersInput";
+import { PostCreateNestedManyWithoutLikersInput } from "../inputs/PostCreateNestedManyWithoutLikersInput";
 import { UserProfileCreateNestedOneWithoutUserInput } from "../inputs/UserProfileCreateNestedOneWithoutUserInput";
 import { Role } from "../../enums/Role";
 
@@ -64,10 +64,10 @@ export class UserCreateInput {
   })
   posts?: PostCreateNestedManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => PostCreateNestedManyWithoutUserInput, {
+  @TypeGraphQL.Field(_type => PostCreateNestedManyWithoutLikersInput, {
     nullable: true
   })
-  likedPosts?: PostCreateNestedManyWithoutUserInput | undefined;
+  likedPosts?: PostCreateNestedManyWithoutLikersInput | undefined;
 
   @TypeGraphQL.Field(_type => PostCommentCreateNestedManyWithoutLikersInput, {
     nullable: true
@@ -79,8 +79,8 @@ export class UserCreateInput {
   })
   PostComment?: PostCommentCreateNestedManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => PostCreateNestedOneWithoutLikersInput, {
+  @TypeGraphQL.Field(_type => LabelCreateNestedManyWithoutCreatorInput, {
     nullable: true
   })
-  Post?: PostCreateNestedOneWithoutLikersInput | undefined;
+  createdLabels?: LabelCreateNestedManyWithoutCreatorInput | undefined;
 }

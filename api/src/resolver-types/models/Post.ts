@@ -50,11 +50,4 @@ export class Post {
     nullable: false
   })
   updatedAt!: Date;
-
-  User?: User | null;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  userId?: string | null;
 }

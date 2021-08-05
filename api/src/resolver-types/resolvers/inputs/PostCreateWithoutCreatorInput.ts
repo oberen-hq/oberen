@@ -3,8 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { PostCommentCreateNestedManyWithoutPostInput } from "../inputs/PostCommentCreateNestedManyWithoutPostInput";
-import { UserCreateNestedManyWithoutPostInput } from "../inputs/UserCreateNestedManyWithoutPostInput";
-import { UserCreateNestedOneWithoutLikedPostsInput } from "../inputs/UserCreateNestedOneWithoutLikedPostsInput";
+import { UserCreateNestedManyWithoutLikedPostsInput } from "../inputs/UserCreateNestedManyWithoutLikedPostsInput";
 import { PostType } from "../../enums/PostType";
 
 @TypeGraphQL.InputType({
@@ -41,18 +40,13 @@ export class PostCreateWithoutCreatorInput {
   })
   updatedAt?: Date | undefined;
 
-  @TypeGraphQL.Field(_type => UserCreateNestedManyWithoutPostInput, {
+  @TypeGraphQL.Field(_type => UserCreateNestedManyWithoutLikedPostsInput, {
     nullable: true
   })
-  likers?: UserCreateNestedManyWithoutPostInput | undefined;
+  likers?: UserCreateNestedManyWithoutLikedPostsInput | undefined;
 
   @TypeGraphQL.Field(_type => PostCommentCreateNestedManyWithoutPostInput, {
     nullable: true
   })
   comments?: PostCommentCreateNestedManyWithoutPostInput | undefined;
-
-  @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutLikedPostsInput, {
-    nullable: true
-  })
-  User?: UserCreateNestedOneWithoutLikedPostsInput | undefined;
 }

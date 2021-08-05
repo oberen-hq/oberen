@@ -9,8 +9,7 @@ export enum UserScalarFieldEnum {
   email = "email",
   password = "password",
   userRole = "userRole",
-  profileId = "profileId",
-  postId = "postId"
+  profileId = "profileId"
 }
 TypeGraphQL.registerEnumType(UserScalarFieldEnum, {
   name: "UserScalarFieldEnum",

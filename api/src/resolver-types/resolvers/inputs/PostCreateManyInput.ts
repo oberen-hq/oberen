@@ -42,9 +42,4 @@ export class PostCreateManyInput {
     nullable: true
   })
   updatedAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  userId?: string | undefined;
 }

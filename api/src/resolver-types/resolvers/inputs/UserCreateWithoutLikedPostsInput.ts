@@ -2,10 +2,10 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { LabelCreateNestedManyWithoutCreatorInput } from "../inputs/LabelCreateNestedManyWithoutCreatorInput";
 import { PostCommentCreateNestedManyWithoutCreatorInput } from "../inputs/PostCommentCreateNestedManyWithoutCreatorInput";
 import { PostCommentCreateNestedManyWithoutLikersInput } from "../inputs/PostCommentCreateNestedManyWithoutLikersInput";
 import { PostCreateNestedManyWithoutCreatorInput } from "../inputs/PostCreateNestedManyWithoutCreatorInput";
-import { PostCreateNestedOneWithoutLikersInput } from "../inputs/PostCreateNestedOneWithoutLikersInput";
 import { UserProfileCreateNestedOneWithoutUserInput } from "../inputs/UserProfileCreateNestedOneWithoutUserInput";
 import { Role } from "../../enums/Role";
 
@@ -73,8 +73,8 @@ export class UserCreateWithoutLikedPostsInput {
   })
   PostComment?: PostCommentCreateNestedManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => PostCreateNestedOneWithoutLikersInput, {
+  @TypeGraphQL.Field(_type => LabelCreateNestedManyWithoutCreatorInput, {
     nullable: true
   })
-  Post?: PostCreateNestedOneWithoutLikersInput | undefined;
+  createdLabels?: LabelCreateNestedManyWithoutCreatorInput | undefined;
 }
