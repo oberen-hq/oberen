@@ -36,20 +36,25 @@ export default class RegisterResolver {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(args.password, salt);
 
+    const profile: userProfileType = {};
+
+    const createdProfile = await prisma.userProfile.create({
+      data: profile,
+    });
+
     const user: userType = {
       username: args.username,
       email: args.email,
       password: hashedPassword,
+      profile: {
+        connect: {
+          id: profile.id,
+        },
+      },
     };
-
-    const profile: userProfileType = {};
 
     const createdUser = await prisma.user.create({
       data: user,
-    });
-
-    await prisma.userProfile.create({
-      data: profile,
     });
 
     return createdUser;
