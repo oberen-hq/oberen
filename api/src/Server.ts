@@ -69,9 +69,7 @@ export default class Server {
     const url = `${host}:${port}`;
     this.app.listen(port, () => {
       console.log(`Navigate to ${url}`);
-      if (process.env.NODE_ENV === "production") {
-        open(`${host}:${port}`);
-      }
+      open(url);
     });
   }
 }
