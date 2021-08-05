@@ -47,8 +47,8 @@ enum BugReportSeverity {
 }
 
 enum Role {
-  Admin
-  User
+  USER
+  ADMIN
 }
 
 enum PostType {
@@ -67,7 +67,7 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
   email     String   @unique
-  isAdmin   Boolean  @default(false)
+  UserRole  Role     @default(value: USER)
 
   // Profile
 
