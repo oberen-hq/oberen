@@ -6,6 +6,7 @@ import express, { Application } from "express";
 import { Context } from "./context";
 import cors from "cors";
 import dotenv from "dotenv";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
 export default class Server {
   public app: Application;
@@ -31,6 +32,7 @@ export default class Server {
         res,
         prisma: this.prisma,
       }),
+      plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
     });
 
     await this.gqlserver.start();
