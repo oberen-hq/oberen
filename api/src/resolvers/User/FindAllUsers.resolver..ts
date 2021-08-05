@@ -9,13 +9,13 @@ import executeOrFail from "../../utils/executeOrFail";
 const localUser = new LocalUserRepo();
 
 @Resolver()
-export default class FindAllUsersArgs {
+export default class FindAllUsers {
   @Query(() => [User])
   async register(
     @Arg("args") args: FindAllUsersArgs
-  ): Promise<[User] | ApolloError> {
+  ): Promise<User[] | ApolloError> {
     return executeOrFail(async () => {
-      return localUser.findAllUsers();
+      return localUser.findAllUsers(args);
     });
   }
 }

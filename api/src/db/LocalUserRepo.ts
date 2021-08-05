@@ -3,11 +3,7 @@ import { User } from "../resolver-types/models/User";
 import bcrypt from "bcrypt";
 import executeOrFail from "../utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
-
-type UserData = {
-  username: String;
-  email: String;
-};
+import { userOptions } from "./types";
 
 export default class LocalUserRepo extends PrismaClient {
   createUser = async (userData: any): Promise<User | ApolloError> => {
@@ -33,6 +29,7 @@ export default class LocalUserRepo extends PrismaClient {
           username: userData.username,
           email: userData.email,
           password: hashedPassword,
+          type: "LOCAL",
           profile: {
             create: {
               avatarUrl: userData?.avatarUrl || "",
@@ -68,9 +65,14 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
-  findAllUsers = async (): Promise<User[] | ApolloError> => {
+  findAllUsers = async (
+    userOptions: userOptions
+  ): Promise<User[] | ApolloError> => {
     return executeOrFail(async () => {
-      const users = await this.user.findMany();
+      const users = await this.user.findMany({
+        skip: userOptions.skip,
+        take: userOptions.limit,
+      });
 
       if (users) {
         return users;

@@ -10,3 +10,4 @@ export { Role } from "./Role";
 export { SortOrder } from "./SortOrder";
 export { UserProfileScalarFieldEnum } from "./UserProfileScalarFieldEnum";
 export { UserScalarFieldEnum } from "./UserScalarFieldEnum";
+export { UserType } from "./UserType";

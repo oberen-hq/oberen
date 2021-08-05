@@ -7,6 +7,7 @@ import { Post } from "../models/Post";
 import { PostComment } from "../models/PostComment";
 import { UserProfile } from "../models/UserProfile";
 import { Role } from "../enums/Role";
+import { UserType } from "../enums/UserType";
 
 @TypeGraphQL.ObjectType({
   isAbstract: true
@@ -27,6 +28,11 @@ export class User {
   })
   updatedAt!: Date;
 
+  @TypeGraphQL.Field(_type => UserType, {
+    nullable: true
+  })
+  type?: "LOCAL" | "OAUTH" | null;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
@@ -43,9 +49,9 @@ export class User {
   email!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  password!: string;
+  password?: string | null;
 
   @TypeGraphQL.Field(_type => Role, {
     nullable: true

@@ -3,6 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { Role } from "../../enums/Role";
+import { UserType } from "../../enums/UserType";
 
 @TypeGraphQL.ObjectType({
   isAbstract: true
@@ -22,6 +23,11 @@ export class UserMinAggregate {
     nullable: true
   })
   updatedAt!: Date | null;
+
+  @TypeGraphQL.Field(_type => UserType, {
+    nullable: true
+  })
+  type!: "LOCAL" | "OAUTH" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

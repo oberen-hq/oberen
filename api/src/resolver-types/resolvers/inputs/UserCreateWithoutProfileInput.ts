@@ -8,6 +8,7 @@ import { PostCommentCreateNestedManyWithoutLikersInput } from "../inputs/PostCom
 import { PostCreateNestedManyWithoutCreatorInput } from "../inputs/PostCreateNestedManyWithoutCreatorInput";
 import { PostCreateNestedManyWithoutLikersInput } from "../inputs/PostCreateNestedManyWithoutLikersInput";
 import { Role } from "../../enums/Role";
+import { UserType } from "../../enums/UserType";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -28,6 +29,11 @@ export class UserCreateWithoutProfileInput {
   })
   updatedAt?: Date | undefined;
 
+  @TypeGraphQL.Field(_type => UserType, {
+    nullable: true
+  })
+  type?: "LOCAL" | "OAUTH" | undefined;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
@@ -44,9 +50,9 @@ export class UserCreateWithoutProfileInput {
   email!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  password!: string;
+  password?: string | undefined;
 
   @TypeGraphQL.Field(_type => Role, {
     nullable: true

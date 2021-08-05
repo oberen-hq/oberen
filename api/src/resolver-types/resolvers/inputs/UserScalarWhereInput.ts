@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumRoleNullableFilter } from "../inputs/EnumRoleNullableFilter";
+import { EnumUserTypeNullableFilter } from "../inputs/EnumUserTypeNullableFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 
@@ -41,6 +42,11 @@ export class UserScalarWhereInput {
   })
   updatedAt?: DateTimeFilter | undefined;
 
+  @TypeGraphQL.Field(_type => EnumUserTypeNullableFilter, {
+    nullable: true
+  })
+  type?: EnumUserTypeNullableFilter | undefined;
+
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
@@ -56,10 +62,10 @@ export class UserScalarWhereInput {
   })
   email?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  password?: StringFilter | undefined;
+  password?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => EnumRoleNullableFilter, {
     nullable: true
