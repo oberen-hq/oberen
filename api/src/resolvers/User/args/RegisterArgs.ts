@@ -1,11 +1,6 @@
 import { Length } from "class-validator";
 import { InputType, Field } from "type-graphql";
 
-type ProfileType = {
-  avatarUrl?: string;
-  bio?: string;
-};
-
 @InputType()
 export default class RegisterArgs {
   @Length(5, 30)

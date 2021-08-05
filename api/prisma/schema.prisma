@@ -68,15 +68,15 @@ enum PostType {
 }
 
 model User {
-  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  type        UserType? 
-  username    String   @unique
-  displayName String   @default("")
-  email       String   @unique
+  id          String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  type        UserType? @default(value: LOCAL)
+  username    String    @unique
+  displayName String    @default("")
+  email       String    @unique
   password    String?
-  userRole    Role?    @default(value: USER)
+  userRole    Role?     @default(value: USER)
 
   // Profile
 
@@ -157,8 +157,8 @@ model Label {
 
   // Creator
 
-  creator       User         @relation(fields: [creatorId], references: [id])
-  creatorId     String       @db.ObjectId
-  profile       UserProfile? @relation(fields: [profileId], references: [id])
-  profileId     String?      @db.ObjectId
+  creator   User         @relation(fields: [creatorId], references: [id])
+  creatorId String       @db.ObjectId
+  profile   UserProfile? @relation(fields: [profileId], references: [id])
+  profileId String?      @db.ObjectId
 }
