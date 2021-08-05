@@ -6,9 +6,17 @@
   "repository": "https://github.com/alfiephillips/simplify",
   "author": "Alfie Phillips",
   "license": "MIT",
+  "scripts": {
+    "watch": "tsc -w",
+    "start:prod": "node dist/index.js",
+    "start:dev": "nodemon dist/index.js",
+    "db:generate": "npx prisma generate"
+  },
   "dependencies": {
     "@prisma/client": "~2.27.0",
     "apollo-server-express": "^3.1.2",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
@@ -19,6 +27,7 @@
     "graphql-fields": "^2.0.3",
     "graphql-scalars": "^1.10.0",
     "prisma": "~2.27.0",
+    "reflect-metadata": "^0.1.13",
     "ts-node": "^10.1.0",
     "ts-node-dev": "^1.1.8",
     "type-graphql": "^1.1.1",

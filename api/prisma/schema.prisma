@@ -14,7 +14,6 @@ generator client {
 generator typegraphql {
   provider           = "typegraphql-prisma"
   output             = "../src/resolver-types"
-  emitTranspiledCode = true
 }
 
 enum OauthConnectionService {
