@@ -25,6 +25,7 @@ enum OauthConnectionService {
   apple
   instagram
   linkedin
+  local
 }
 
 enum AttachmentType {
