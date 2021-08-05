@@ -150,7 +150,7 @@ export { UserProfileRelationFilter } from "./UserProfileRelationFilter";
 export { UserProfileScalarWhereWithAggregatesInput } from "./UserProfileScalarWhereWithAggregatesInput";
 export { UserProfileUpdateInput } from "./UserProfileUpdateInput";
 export { UserProfileUpdateManyMutationInput } from "./UserProfileUpdateManyMutationInput";
-export { UserProfileUpdateOneRequiredWithoutUserInput } from "./UserProfileUpdateOneRequiredWithoutUserInput";
+export { UserProfileUpdateOneWithoutUserInput } from "./UserProfileUpdateOneWithoutUserInput";
 export { UserProfileUpdateWithoutUserInput } from "./UserProfileUpdateWithoutUserInput";
 export { UserProfileUpsertWithoutUserInput } from "./UserProfileUpsertWithoutUserInput";
 export { UserProfileWhereInput } from "./UserProfileWhereInput";

@@ -20,11 +20,6 @@ export class UserProfileCountAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  userId!: number;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
-  })
   avatarUrl!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {

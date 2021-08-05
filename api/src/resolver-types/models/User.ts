@@ -34,6 +34,11 @@ export class User {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
+  displayName!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
   email!: string;
 
   @TypeGraphQL.Field(_type => String, {
@@ -46,12 +51,12 @@ export class User {
   })
   userRole?: "USER" | "ADMIN" | null;
 
-  profile?: UserProfile;
+  profile?: UserProfile | null;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  profileId!: string;
+  profileId?: string | null;
 
   posts?: Post[];
 

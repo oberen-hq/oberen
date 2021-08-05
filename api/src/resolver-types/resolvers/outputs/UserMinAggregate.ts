@@ -31,6 +31,11 @@ export class UserMinAggregate {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
+  displayName!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
   email!: string | null;
 
   @TypeGraphQL.Field(_type => String, {

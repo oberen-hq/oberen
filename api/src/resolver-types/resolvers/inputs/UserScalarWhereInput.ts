@@ -49,6 +49,11 @@ export class UserScalarWhereInput {
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
+  displayName?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true
+  })
   email?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
@@ -61,10 +66,10 @@ export class UserScalarWhereInput {
   })
   userRole?: EnumRoleNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  profileId?: StringFilter | undefined;
+  profileId?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true

@@ -67,14 +67,15 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   username  String   @unique
+  displayName String @default("")
   email     String   @unique
   password  String
   userRole  Role?    @default(value: USER)
 
   // Profile
 
-  profile   UserProfile @relation("UserProfileRelation", fields: [profileId], references: [id])
-  profileId String      @default(dbgenerated()) @db.ObjectId
+  profile   UserProfile? @relation("UserProfileRelation", fields: [profileId], references: [id])
+  profileId String?      @db.ObjectId
 
   // Posts
 
@@ -87,12 +88,11 @@ model User {
 }
 
 model UserProfile {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  updatedAt DateTime @updatedAt
-  user      User?    @relation("UserProfileRelation")
-  userId    String   @db.ObjectId
-  avatarUrl String
-  bio       String
+  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  updatedAt   DateTime @updatedAt
+  user        User?    @relation("UserProfileRelation")
+  avatarUrl   String   @default("")
+  bio         String   @default("Bio not set yet.")
 }
 
 model Post {

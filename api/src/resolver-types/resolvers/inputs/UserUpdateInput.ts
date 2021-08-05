@@ -10,7 +10,7 @@ import { PostUpdateManyWithoutCreatorInput } from "../inputs/PostUpdateManyWitho
 import { PostUpdateManyWithoutUserInput } from "../inputs/PostUpdateManyWithoutUserInput";
 import { PostUpdateOneWithoutLikersInput } from "../inputs/PostUpdateOneWithoutLikersInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
-import { UserProfileUpdateOneRequiredWithoutUserInput } from "../inputs/UserProfileUpdateOneRequiredWithoutUserInput";
+import { UserProfileUpdateOneWithoutUserInput } from "../inputs/UserProfileUpdateOneWithoutUserInput";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -34,6 +34,11 @@ export class UserUpdateInput {
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
+  displayName?: StringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
   email?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
@@ -46,10 +51,10 @@ export class UserUpdateInput {
   })
   userRole?: NullableEnumRoleFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserProfileUpdateOneRequiredWithoutUserInput, {
+  @TypeGraphQL.Field(_type => UserProfileUpdateOneWithoutUserInput, {
     nullable: true
   })
-  profile?: UserProfileUpdateOneRequiredWithoutUserInput | undefined;
+  profile?: UserProfileUpdateOneWithoutUserInput | undefined;
 
   @TypeGraphQL.Field(_type => PostUpdateManyWithoutCreatorInput, {
     nullable: true

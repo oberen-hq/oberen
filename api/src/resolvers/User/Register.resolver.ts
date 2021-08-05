@@ -29,6 +29,9 @@ export default class RegisterResolver {
     @Ctx() { req, prisma }: Context
   ) {
     type userType = Parameters<typeof prisma.user.create>[0]["data"];
+    type userProfileType = Parameters<
+      typeof prisma.userProfile.create
+    >[0]["data"];
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(args.password, salt);
@@ -39,8 +42,14 @@ export default class RegisterResolver {
       password: hashedPassword,
     };
 
+    const profile: userProfileType = {};
+
     const createdUser = await prisma.user.create({
       data: user,
+    });
+
+    await prisma.userProfile.create({
+      data: profile,
     });
 
     return createdUser;

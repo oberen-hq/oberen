@@ -19,19 +19,14 @@ export class UserProfileCreateInput {
   updatedAt?: Date | undefined;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  userId!: string;
+  avatarUrl?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  avatarUrl!: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  bio!: string;
+  bio?: string | undefined;
 
   @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutProfileInput, {
     nullable: true
