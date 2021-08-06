@@ -76,16 +76,42 @@ export default class LocalUserRepo extends PrismaClient {
 
   loginUser = async (
     userData: LoginUserDataType
-  ): Promise<LocalUserResponse | ApolloError> => {
+  ): Promise<LocalUserResponse> => {
     return executeOrFail(async () => {
       const user = await this.user.findUnique({
         where: {
-          username: userData.username,
-        },
-        include: {
-          profile: true,
+          email: userData.email,
         },
       });
+
+      let correctPassword;
+      let token;
+
+      if (user) {
+        correctPassword = await bcrypt.compare(
+          userData.password,
+          user.password as string
+        );
+      } else {
+        throw new ApolloError("A user with that email does not exist!", "404");
+      }
+
+      if (!correctPassword) {
+        throw new ApolloError("Invalid Credentials.", "400");
+      }
+
+      try {
+        token = await jwt.sign(user, process.env.JWT_SECRET as string, {
+          expiresIn: "8h",
+        });
+      } catch (err) {
+        throw new ApolloError(err.message, err.code);
+      }
+
+      return {
+        token: `Bearer ${token}`,
+        user: user,
+      };
     });
   };
 

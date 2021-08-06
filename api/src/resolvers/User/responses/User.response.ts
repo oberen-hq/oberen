@@ -4,7 +4,7 @@ import { ObjectType, Field } from "type-graphql";
 @ObjectType()
 export class LocalUserResponse {
   @Field(() => String, { nullable: false })
-  token?: string;
-  @Field(() => User, { nullable: true })
-  user?: User;
+  token: string;
+  @Field(() => User, { nullable: false })
+  user: User;
 }
