@@ -10,14 +10,17 @@ BREAKPOINTS:
 */
 
 :root {
-  --bg: #f9f8fe;
+  --bg: #0c0c0c;
   --bg-inverted: #23272a;
+  --primary: #fff;
 }
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Recursives", sans-serif;
+  box-sizing: border-box;
+  font-family: "Recursive", sans-serif;
+  scroll-behavior: smooth;
 }
 
 html,
