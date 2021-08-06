@@ -7,13 +7,13 @@ import executeOrFail from "../utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
 import { userOptions } from "./types";
 import { LocalUserResponse } from "../resolvers/User/responses/User.response";
-import { UserDataType } from "./types/index";
+import { RegisterUserDataType, LoginUserDataType } from "./types/index";
 
 dotenv.config();
 
 export default class LocalUserRepo extends PrismaClient {
   createUser = async (
-    userData: UserDataType
+    userData: RegisterUserDataType
   ): Promise<LocalUserResponse | ApolloError> => {
     return executeOrFail(async () => {
       const existingUser = await this.user.findMany({
@@ -71,6 +71,21 @@ export default class LocalUserRepo extends PrismaClient {
         token: `Bearer  ${token}`,
         user,
       };
+    });
+  };
+
+  loginUser = async (
+    userData: LoginUserDataType
+  ): Promise<LocalUserResponse | ApolloError> => {
+    return executeOrFail(async () => {
+      const user = await this.user.findUnique({
+        where: {
+          username: userData.username,
+        },
+        include: {
+          profile: true,
+        },
+      });
     });
   };
 

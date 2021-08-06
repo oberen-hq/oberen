@@ -3,10 +3,15 @@ export interface userOptions {
   skip?: number;
 }
 
-export interface UserDataType {
+export interface RegisterUserDataType {
   username: string;
   email: string;
   password: string;
   avatarUrl?: string;
   bio?: string;
+}
+
+export interface LoginUserDataType {
+  email: string;
+  password: string;
 }
