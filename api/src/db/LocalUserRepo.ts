@@ -1,29 +1,33 @@
 import { PrismaClient } from "@prisma/client";
 import { User } from "../resolver-types/models/User";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import executeOrFail from "../utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
 import { userOptions } from "./types";
+import { LocalUserResponse } from "~/resolvers/User/responses/User.response";
+import { UserDataType } from "./types/index";
+
+dotenv.config();
 
 export default class LocalUserRepo extends PrismaClient {
-  createUser = async (userData: any): Promise<User | ApolloError> => {
+  createUser = async (
+    userData: UserDataType
+  ): Promise<LocalUserResponse | ApolloError> => {
     return executeOrFail(async () => {
       const existingUser = await this.user.findFirst({
         where: {
-          username: userData.username,
+          username: userData?.username,
         },
       });
 
       if (existingUser) {
-        return new ApolloError(
-          "A user with that username already exists.",
-          "400"
-        );
+        throw new ApolloError("User already exists!", "400");
       }
 
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(userData.password, salt);
-
       const user = await this.user.create({
         data: {
           username: userData.username,
@@ -32,8 +36,8 @@ export default class LocalUserRepo extends PrismaClient {
           type: "LOCAL",
           profile: {
             create: {
-              avatarUrl: userData?.avatarUrl || "",
-              bio: userData?.bio || "",
+              avatarUrl: userData?.avatarUrl,
+              bio: userData?.bio,
             },
           },
         },
@@ -42,8 +46,21 @@ export default class LocalUserRepo extends PrismaClient {
         },
       });
 
-      return user;
-    }, "Error creating user!");
+      let token;
+
+      try {
+        token = await jwt.sign(user, process.env.JWT_SECRET as string, {
+          expiresIn: "8h",
+        });
+      } catch (err) {
+        throw new ApolloError(err.message, err.code);
+      }
+
+      return {
+        token,
+        user,
+      };
+    });
   };
 
   findUserById = async (userId: string): Promise<User | ApolloError> => {
@@ -60,7 +77,7 @@ export default class LocalUserRepo extends PrismaClient {
       if (user) {
         return user;
       } else {
-        return new ApolloError("That user does not exist.", "404");
+        throw new ApolloError("That user does not exist.", "404");
       }
     });
   };
@@ -70,14 +87,14 @@ export default class LocalUserRepo extends PrismaClient {
   ): Promise<User[] | ApolloError> => {
     return executeOrFail(async () => {
       const users = await this.user.findMany({
-        skip: userOptions.skip,
-        take: userOptions.limit,
+        skip: userOptions?.skip,
+        take: userOptions?.limit,
       });
 
       if (users) {
         return users;
       } else {
-        return new ApolloError("Error finding users.", "500");
+        throw new ApolloError("Error finding users.", "500");
       }
     });
   };
