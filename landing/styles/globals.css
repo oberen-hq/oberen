@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Recursive:wght@300;400;500;600;700;800;900&display=swap");
+
+/* 
+BREAKPOINTS:
+  Mobiles - 500px
+  Tablets - 768px
+  Laptop:small - 1024px
+  Laptop:large to desktops - 1280px
+  Large:TV - 1536px
+*/
+
+:root {
+  --bg: #0c0c0c;
+  --bg-inverted: #23272a;
+  --primary: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Recursive", sans-serif;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background-color: var(--bg);
+  color: var(--primary);
+  scroll-behavior: smooth;
+}
+
+img,
+a {
+  user-select: none !important;
+}
