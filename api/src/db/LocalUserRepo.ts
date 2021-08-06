@@ -7,13 +7,13 @@ import executeOrFail from "../utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
 import { userOptions } from "./types";
 import { LocalUserResponse } from "../resolvers/User/responses/User.response";
-import { UserDataType } from "./types/index";
+import { RegisterUserDataType, LoginUserDataType } from "./types/index";
 
 dotenv.config();
 
 export default class LocalUserRepo extends PrismaClient {
   createUser = async (
-    userData: UserDataType
+    userData: RegisterUserDataType
   ): Promise<LocalUserResponse | ApolloError> => {
     return executeOrFail(async () => {
       const existingUser = await this.user.findMany({
@@ -70,6 +70,47 @@ export default class LocalUserRepo extends PrismaClient {
       return {
         token: `Bearer  ${token}`,
         user,
+      };
+    });
+  };
+
+  loginUser = async (
+    userData: LoginUserDataType
+  ): Promise<LocalUserResponse> => {
+    return executeOrFail(async () => {
+      const user = await this.user.findUnique({
+        where: {
+          email: userData.email,
+        },
+      });
+
+      let correctPassword;
+      let token;
+
+      if (user) {
+        correctPassword = await bcrypt.compare(
+          userData.password,
+          user.password as string
+        );
+      } else {
+        throw new ApolloError("A user with that email does not exist!", "404");
+      }
+
+      if (!correctPassword) {
+        throw new ApolloError("Invalid Credentials.", "400");
+      }
+
+      try {
+        token = await jwt.sign(user, process.env.JWT_SECRET as string, {
+          expiresIn: "8h",
+        });
+      } catch (err) {
+        throw new ApolloError(err.message, err.code);
+      }
+
+      return {
+        token: `Bearer ${token}`,
+        user: user,
       };
     });
   };
