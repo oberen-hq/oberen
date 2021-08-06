@@ -6,12 +6,16 @@ class API {
     this.options = options;
   }
 
-  signUpCall(userCredential) {
-    return axios.post(`${this.baseUrl}/auth/register`, userCredential);
+  async signUpCall(userCredential) {
+    return await axios.post(`${this.baseUrl}/auth/register`, userCredential);
   }
 
-  signInCall(userCredential) {
-    return axios.post(`${this.baseUrl}/auth/login`, userCredential);
+  async signInCall(userCredential) {
+    return await axios.post(`${this.baseUrl}/auth/login`, userCredential);
+  }
+
+  async createPostCall(postCredential) {
+    return await axios.post(`${this.baseUrl}/post`, postCredential);
   }
 }
 

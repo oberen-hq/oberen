@@ -3,7 +3,9 @@ import Navbar from "../../components/Home/Navbar";
 import HeroSection from "../../components/Home/HeroSection";
 import InfoSection from "../../components/Home/InfoSection";
 import Services from "../../components/Home/Services";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+import { AuthContext } from "../../context/Auth/AuthContext";
 import {
   homeObjOne,
   homeObjTwo,
@@ -12,6 +14,7 @@ import {
 import Footer from "../../components/Home/Footer";
 
 const Home = () => {
+  const { user, error, dispatch } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {

@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
+  useHistory,
 } from "react-router-dom";
 
 import Home from "./pages/Home/home";
@@ -13,12 +14,11 @@ import SignInPage from "./pages/SignIn/sign-in";
 import { useContext } from "react";
 import { AuthContext } from "./context/Auth/AuthContext";
 
-import RightPane from "./components/RightPane";
-import LeftPane from "./components/LeftPane";
-import Feed from "./components/Feed";
+import signOut from "./utils/signOut";
 
 function App() {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
+  const history = useHistory();
   return (
     <Router>
       <Route exact path="/">
@@ -35,13 +35,13 @@ function App() {
         </Route>
       </Switch>
       <Switch>
-        <div className="main-page-container">
-          <LeftPane />
-          <Route exact path="/feed">
-            <Feed />
-          </Route>
-          <RightPane />
-        </div>
+        <Route exact path="/signout">
+          {user ? (
+            <Redirect to="/" />
+          ) : (
+            localStorage.removeItem("SIMPLIFY_USER")
+          )}
+        </Route>
       </Switch>
     </Router>
   );
