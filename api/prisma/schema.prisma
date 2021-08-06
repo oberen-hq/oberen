@@ -99,8 +99,8 @@ model UserProfile {
   id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   updatedAt DateTime @updatedAt
   user      User?    @relation("UserProfileRelation")
-  avatarUrl String   @default("")
-  bio       String   @default("Bio not set yet.")
+  avatarUrl String?   @default("")
+  bio       String?   @default("Bio not set yet.")
 
   labels Label[]
 }

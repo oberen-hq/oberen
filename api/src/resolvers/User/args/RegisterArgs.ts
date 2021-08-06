@@ -12,9 +12,9 @@ export default class RegisterArgs {
   @Length(8, 1024)
   @Field()
   password: string;
-  @Field()
+  @Field({ nullable: true })
   avatarUrl?: string;
-  @Length(5, 1000)
-  @Field()
+  @Length(0, 1000)
+  @Field({ nullable: true })
   bio?: string;
 }

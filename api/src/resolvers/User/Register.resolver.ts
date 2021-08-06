@@ -1,5 +1,4 @@
 import { Resolver, Mutation, Arg } from "type-graphql";
-import { User } from "../../resolver-types/models";
 import { LocalUserResponse } from "./responses/User.response";
 import RegisterArgs from "./args/RegisterArgs";
 import LocalUserRepo from "../../db/LocalUserRepo";

@@ -21,14 +21,14 @@ export class UserProfileGroupBy {
   updatedAt!: Date;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  avatarUrl!: string;
+  avatarUrl!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  bio!: string;
+  bio!: string | null;
 
   @TypeGraphQL.Field(_type => UserProfileCountAggregate, {
     nullable: true

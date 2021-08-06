@@ -5,6 +5,7 @@ import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { LabelListRelationFilter } from "../inputs/LabelListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
+import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { UserRelationFilter } from "../inputs/UserRelationFilter";
 
 @TypeGraphQL.InputType({
@@ -41,15 +42,15 @@ export class UserProfileWhereInput {
   })
   user?: UserRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  avatarUrl?: StringFilter | undefined;
+  avatarUrl?: StringNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  bio?: StringFilter | undefined;
+  bio?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => LabelListRelationFilter, {
     nullable: true
