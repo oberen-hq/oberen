@@ -14,7 +14,7 @@ export class LoginResolver {
     @Arg("args") args: LoginArgs
   ): Promise<LocalUserResponse | ApolloError> {
     return executeOrFail(async () => {
-      return Lo;
+      return localUser.loginUser(args);
     });
   }
 }
