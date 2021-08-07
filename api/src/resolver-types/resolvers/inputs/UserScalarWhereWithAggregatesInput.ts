@@ -2,9 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { BoolWithAggregatesFilter } from "../inputs/BoolWithAggregatesFilter";
 import { DateTimeWithAggregatesFilter } from "../inputs/DateTimeWithAggregatesFilter";
 import { EnumRoleNullableWithAggregatesFilter } from "../inputs/EnumRoleNullableWithAggregatesFilter";
-import { EnumUserTypeNullableWithAggregatesFilter } from "../inputs/EnumUserTypeNullableWithAggregatesFilter";
 import { StringNullableWithAggregatesFilter } from "../inputs/StringNullableWithAggregatesFilter";
 import { StringWithAggregatesFilter } from "../inputs/StringWithAggregatesFilter";
 
@@ -42,10 +42,10 @@ export class UserScalarWhereWithAggregatesInput {
   })
   updatedAt?: DateTimeWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => EnumUserTypeNullableWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => BoolWithAggregatesFilter, {
     nullable: true
   })
-  type?: EnumUserTypeNullableWithAggregatesFilter | undefined;
+  isLocal?: BoolWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true

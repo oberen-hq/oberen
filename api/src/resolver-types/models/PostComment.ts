@@ -14,6 +14,16 @@ export class PostComment {
   })
   id!: string;
 
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  createdAt!: Date;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  updatedAt!: Date;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
@@ -32,16 +42,6 @@ export class PostComment {
     nullable: false
   })
   postId!: string;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: false
-  })
-  createdAt!: Date;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: false
-  })
-  updatedAt!: Date;
 
   @TypeGraphQL.Field(_type => Boolean, {
     nullable: false

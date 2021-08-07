@@ -13,11 +13,6 @@ import { UserUpdateManyWithoutLikedCommentsInput } from "../inputs/UserUpdateMan
   isAbstract: true
 })
 export class PostCommentUpdateWithoutCreatorInput {
-  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  body?: StringFieldUpdateOperationsInput | undefined;
-
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
@@ -27,6 +22,11 @@ export class PostCommentUpdateWithoutCreatorInput {
     nullable: true
   })
   updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  body?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
     nullable: true

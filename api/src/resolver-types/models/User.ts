@@ -3,11 +3,12 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
 import { Label } from "../models/Label";
+import { OauthConnection } from "../models/OauthConnection";
 import { Post } from "../models/Post";
 import { PostComment } from "../models/PostComment";
+import { TokenPair } from "../models/TokenPair";
 import { UserProfile } from "../models/UserProfile";
 import { Role } from "../enums/Role";
-import { UserType } from "../enums/UserType";
 
 @TypeGraphQL.ObjectType({
   isAbstract: true
@@ -28,10 +29,10 @@ export class User {
   })
   updatedAt!: Date;
 
-  @TypeGraphQL.Field(_type => UserType, {
-    nullable: true
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: false
   })
-  type?: "LOCAL" | "OAUTH" | null;
+  isLocal!: boolean;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -56,7 +57,7 @@ export class User {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
-  userRole?: "USER" | "ADMIN" | null;
+  userRole?: "user" | "staff" | "admin" | null;
 
   profile?: UserProfile | null;
 
@@ -67,11 +68,15 @@ export class User {
 
   posts?: Post[];
 
+  createdComments?: PostComment[];
+
   likedPosts?: Post[];
 
   likedComments?: PostComment[];
 
-  PostComment?: PostComment[];
-
   createdLabels?: Label[];
+
+  oauthConnections?: OauthConnection[];
+
+  tokens?: TokenPair[];
 }

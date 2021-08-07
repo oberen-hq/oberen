@@ -35,5 +35,5 @@ export class FindFirstUserProfileArgs {
   @TypeGraphQL.Field(_type => [UserProfileScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "updatedAt" | "avatarUrl" | "bio"> | undefined;
+  distinct?: Array<"id" | "updatedAt" | "status" | "avatarUrl" | "bio"> | undefined;
 }

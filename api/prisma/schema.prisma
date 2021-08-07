@@ -46,8 +46,17 @@ enum BugReportSeverity {
 }
 
 enum Role {
-  USER
-  ADMIN
+  user
+  staff
+  admin
+}
+
+enum Status {
+  online
+  idle
+  dnd
+  other
+  offline
 }
 
 enum PostType {
@@ -61,126 +70,136 @@ enum PostType {
 }
 
 model OauthConnection {
-  id                  String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt           DateTime  @default(now())
-  updatedAt           DateTime  @updatedAt
+  id                  String            @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
   oauthService        ConnectionService
   email               String
   username            String
-  oauthServiceUserId  String    @db.ObjectId
+  oauthServiceUserId  String            @db.ObjectId
   isPrimary           Boolean
 
   // Connection user
 
-  user                User      @relation(fields: [userId], references: [id])
-  userId              String    @db.ObjectId
+  user                User              @relation(fields: [userId], references: [id])
+  userId              String            @db.ObjectId
 }
 
 model TokenPair {
-  id            String      @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  accessToken   String      @unique
-  refreshToken  String      @unique
+  id                  String            @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  accessToken         String            @unique
+  refreshToken        String            @unique
 
   // Connection user
 
-  user            User      @relation(fields: [userId], references: [id])
-  userId          String    @db.ObjectId
+  user                User              @relation(fields: [userId], references: [id])
+  userId              String            @db.ObjectId
 }
 
 model User {
-  id          String              @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
-  isLocal     Boolean             @default(true)
-  username    String              @unique
-  displayName String              @default("")
-  email       String              @unique
-  password    String?
-  userRole    Role?               @default(value: USER)
+  id                  String            @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  isLocal             Boolean           @default(true)
+  username            String            @unique
+  displayName         String            @default("")
+  email               String            @unique
+  password            String?
+  userRole            Role?             @default(value: user)
 
   // Profile
 
-  profile   UserProfile? @relation("UserProfileRelation", fields: [profileId], references: [id])
-  profileId String?      @db.ObjectId
+  profile             UserProfile?      @relation("UserProfileRelation", fields: [profileId], references: [id])
+  profileId           String?           @db.ObjectId
 
   // Posts
 
-  posts         Post[]        @relation("UserOwnedPostsRelation")
-  likedPosts    Post[]        @relation("UserLikedPostsRelation")
-  likedComments PostComment[] @relation("UserLikedCommentsRelation")
-  PostComment   PostComment[] @relation("UserCommentsPostsRelation")
+  posts               Post[]            @relation("UserOwnedPostsRelation")
+  createdComments     PostComment[]     @relation("UserCommentsRelation")
+  likedPosts          Post[]            @relation("UserLikedPostsRelation")
+  likedComments       PostComment[]     @relation("UserLikedCommentsRelation")
 
   // Labels
 
-  createdLabels Label[]
+  createdLabels       Label[]
+
+  // OauthConnections
+
+  oauthConnections    OauthConnection[]
+  tokens              TokenPair[]
 }
 
 model UserProfile {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  updatedAt DateTime @updatedAt
-  user      User?    @relation("UserProfileRelation")
-  avatarUrl String?   @default("")
-  bio       String?   @default("Bio not set yet.")
+  id                  String           @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  updatedAt           DateTime         @updatedAt
+  user                User?            @relation("UserProfileRelation")
+  status              Status           @default(value: online)
+  avatarUrl           String?          @default("")
+  bio                 String?          @default("Something amazing to go here...")
 
-  labels Label[]
+  labels              Label[]
 }
 
 model Post {
-  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  title       String
-  description String?
-  type        PostType
+  id                  String          @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  title               String
+  description         String?
+  type                PostType
 
   // Likes and Comments
 
-  likers   User[]        @relation("UserLikedPostsRelation")
-  comments PostComment[]
+  likers              User[]          @relation("UserLikedPostsRelation")
+  comments            PostComment[]
 
   // TODO: Attachments and labels
 
   // Creator
 
-  creator   User   @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
-  creatorId String @db.ObjectId
-
-  // Created at and Updated at
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  creator             User            @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
+  creatorId           String          @db.ObjectId
 }
 
 model PostComment {
-  id   String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  body String
+  id                  String          @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  body                String
 
   // Creator
 
-  creator   User   @relation("UserCommentsPostsRelation", fields: [creatorId], references: [id])
-  creatorId String @db.ObjectId
+  creator             User            @relation("UserCommentsRelation", fields: [creatorId], references: [id])
+  creatorId           String          @db.ObjectId
 
-  post      Post     @relation(fields: [postId], references: [id])
-  postId    String   @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  edited    Boolean  @default(false)
-  likers    User[]   @relation("UserLikedCommentsRelation")
-  likes     Int      @default(0)
+  // References
+  post               Post             @relation(fields: [postId], references: [id])
+  postId             String           @db.ObjectId
+  edited             Boolean          @default(false)
+  likers             User[]           @relation("UserLikedCommentsRelation")
+  likes              Int              @default(0)
 }
 
 model Label {
-  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  name        String
-  description String?
-  uses        Int      @default(0)
+  id                String            @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  // Description
+
+  name              String
+  description       String?
+
+  // Incremental usage
+
+  uses              Int               @default(0)
 
   // Creator
 
-  creator   User         @relation(fields: [creatorId], references: [id])
-  creatorId String       @db.ObjectId
-  profile   UserProfile? @relation(fields: [profileId], references: [id])
-  profileId String?      @db.ObjectId
+  creator           User              @relation(fields: [creatorId], references: [id])
+  creatorId         String            @db.ObjectId
+  profile           UserProfile?      @relation(fields: [profileId], references: [id])
+  profileId         String?           @db.ObjectId
 }

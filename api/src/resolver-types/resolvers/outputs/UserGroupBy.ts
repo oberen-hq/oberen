@@ -6,7 +6,6 @@ import { UserCountAggregate } from "../outputs/UserCountAggregate";
 import { UserMaxAggregate } from "../outputs/UserMaxAggregate";
 import { UserMinAggregate } from "../outputs/UserMinAggregate";
 import { Role } from "../../enums/Role";
-import { UserType } from "../../enums/UserType";
 
 @TypeGraphQL.ObjectType({
   isAbstract: true
@@ -27,10 +26,10 @@ export class UserGroupBy {
   })
   updatedAt!: Date;
 
-  @TypeGraphQL.Field(_type => UserType, {
-    nullable: true
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: false
   })
-  type!: "LOCAL" | "OAUTH" | null;
+  isLocal!: boolean;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -55,7 +54,7 @@ export class UserGroupBy {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
-  userRole!: "USER" | "ADMIN" | null;
+  userRole!: "user" | "staff" | "admin" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

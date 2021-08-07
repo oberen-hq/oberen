@@ -3,7 +3,6 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { Role } from "../../enums/Role";
-import { UserType } from "../../enums/UserType";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -24,10 +23,10 @@ export class UserCreateManyInput {
   })
   updatedAt?: Date | undefined;
 
-  @TypeGraphQL.Field(_type => UserType, {
+  @TypeGraphQL.Field(_type => Boolean, {
     nullable: true
   })
-  type?: "LOCAL" | "OAUTH" | undefined;
+  isLocal?: boolean | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -52,7 +51,7 @@ export class UserCreateManyInput {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
-  userRole?: "USER" | "ADMIN" | undefined;
+  userRole?: "user" | "staff" | "admin" | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
