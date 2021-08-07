@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Element, scroller } from "react-scroll";
 
 import Meta from "../components/Meta";
+import Navbar from "../components/Navbar";
 
 import styles from "~/styles/index.module.css";
 import TextLoop from "react-text-loop";
@@ -16,6 +18,7 @@ const Home: React.FC = () => {
         url="https://oberon.sh"
         keywords="open source, oberon, temporary work, organizations, discovery, employment"
       />
+      <Navbar />
     </React.Fragment>
   );
 };
