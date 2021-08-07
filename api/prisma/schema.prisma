@@ -16,7 +16,7 @@ generator typegraphql {
   output   = "../src/resolver-types"
 }
 
-enum OauthConnectionService {
+enum ConnectionService {
   github
   google
   discord
@@ -31,10 +31,8 @@ enum OauthConnectionService {
 enum AttachmentType {
   image
   video
-  job
   organization
   post
-  shift
   other
 }
 
@@ -45,11 +43,6 @@ enum BugReportSeverity {
   medium
   low
   info
-}
-
-enum UserType {
-  LOCAL
-  OAUTH
 }
 
 enum Role {
@@ -67,16 +60,45 @@ enum PostType {
   poll
 }
 
+model OauthConnection {
+  id                  String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  oauthService        ConnectionService
+  email               String
+  username            String
+  oauthServiceUserId  String    @db.ObjectId
+  isPrimary           Boolean
+
+  // Connection user
+
+  user                User      @relation(fields: [userId], references: [id])
+  userId              String    @db.ObjectId
+}
+
+model TokenPair {
+  id            String      @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  accessToken   String      @unique
+  refreshToken  String      @unique
+
+  // Connection user
+
+  user            User      @relation(fields: [userId], references: [id])
+  userId          String    @db.ObjectId
+}
+
 model User {
-  id          String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  type        UserType? @default(value: LOCAL)
-  username    String    @unique
-  displayName String    @default("")
-  email       String    @unique
+  id          String              @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  isLocal     Boolean             @default(true)
+  username    String              @unique
+  displayName String              @default("")
+  email       String              @unique
   password    String?
-  userRole    Role?     @default(value: USER)
+  userRole    Role?               @default(value: USER)
 
   // Profile
 
