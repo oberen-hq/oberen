@@ -1,15 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
+
+import Meta from "../components/Meta";
+
 import styles from "~/styles/index.module.css";
 import TextLoop from "react-text-loop";
 
 // import Meta from "~/components/Meta";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <React.Fragment>
-      <div>
-        <h1>Hello World?</h1>
-      </div>
+      <Meta
+        title="Oberon"
+        description="Oberon is a brand new open source platform which allows you to hire temporary employers, or become a temporary employee to try new things; see what you like in a job!"
+        url="https://oberon.sh"
+        keywords="open source, oberon, temporary work, organizations, discovery, employment"
+      />
     </React.Fragment>
   );
-}
+};
+
+export default Home;
