@@ -13,6 +13,10 @@ BREAKPOINTS:
   --bg: #0c0c0c;
   --bg-inverted: #23272a;
   --primary: #fff;
+  --muted: #d3d3d3;
+  --purple: #7c2ae8;
+  --blue: #00c4cc;
+  --title: linear-gradient(to left, #7c2ae8 0%, #00c4cc 100%);
 }
 
 * {

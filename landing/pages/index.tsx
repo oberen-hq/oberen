@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Element, scroller } from "react-scroll";
+import React from "react";
 
 import Meta from "../components/Meta";
-import Navbar from "../components/Navbar";
+import Navbar from "~/components/Navbar";
 
 import styles from "~/styles/index.module.css";
 import TextLoop from "react-text-loop";
-
-// import Meta from "~/components/Meta";
 
 const Home: React.FC = () => {
   return (
