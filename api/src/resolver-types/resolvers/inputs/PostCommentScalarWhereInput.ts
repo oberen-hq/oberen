@@ -31,6 +31,16 @@ export class PostCommentScalarWhereInput {
   })
   id?: StringFilter | undefined;
 
+  @TypeGraphQL.Field(_type => DateTimeFilter, {
+    nullable: true
+  })
+  createdAt?: DateTimeFilter | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeFilter, {
+    nullable: true
+  })
+  updatedAt?: DateTimeFilter | undefined;
+
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
@@ -45,16 +55,6 @@ export class PostCommentScalarWhereInput {
     nullable: true
   })
   postId?: StringFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFilter, {
-    nullable: true
-  })
-  createdAt?: DateTimeFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFilter, {
-    nullable: true
-  })
-  updatedAt?: DateTimeFilter | undefined;
 
   @TypeGraphQL.Field(_type => BoolFilter, {
     nullable: true

@@ -1,8 +1,9 @@
 import * as TypeGraphQL from "type-graphql";
 
 export enum Role {
-  USER = "USER",
-  ADMIN = "ADMIN"
+  user = "user",
+  staff = "staff",
+  admin = "admin"
 }
 TypeGraphQL.registerEnumType(Role, {
   name: "Role",

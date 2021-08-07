@@ -11,5 +11,5 @@ export class NullableEnumRoleFieldUpdateOperationsInput {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
-  set?: "USER" | "ADMIN" | undefined;
+  set?: "user" | "staff" | "admin" | undefined;
 }

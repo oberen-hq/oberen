@@ -16,6 +16,16 @@ export class PostGroupBy {
   })
   id!: string;
 
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  createdAt!: Date;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  updatedAt!: Date;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
@@ -35,16 +45,6 @@ export class PostGroupBy {
     nullable: false
   })
   creatorId!: string;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: false
-  })
-  createdAt!: Date;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: false
-  })
-  updatedAt!: Date;
 
   @TypeGraphQL.Field(_type => PostCountAggregate, {
     nullable: true

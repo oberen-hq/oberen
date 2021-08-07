@@ -7,17 +7,12 @@ import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdat
 import { IntFieldUpdateOperationsInput } from "../inputs/IntFieldUpdateOperationsInput";
 import { PostUpdateOneRequiredWithoutCommentsInput } from "../inputs/PostUpdateOneRequiredWithoutCommentsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
-import { UserUpdateOneRequiredWithoutPostCommentInput } from "../inputs/UserUpdateOneRequiredWithoutPostCommentInput";
+import { UserUpdateOneRequiredWithoutCreatedCommentsInput } from "../inputs/UserUpdateOneRequiredWithoutCreatedCommentsInput";
 
 @TypeGraphQL.InputType({
   isAbstract: true
 })
 export class PostCommentUpdateWithoutLikersInput {
-  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  body?: StringFieldUpdateOperationsInput | undefined;
-
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
@@ -27,6 +22,11 @@ export class PostCommentUpdateWithoutLikersInput {
     nullable: true
   })
   updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  body?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
     nullable: true
@@ -38,10 +38,10 @@ export class PostCommentUpdateWithoutLikersInput {
   })
   likes?: IntFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutPostCommentInput, {
+  @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutCreatedCommentsInput, {
     nullable: true
   })
-  creator?: UserUpdateOneRequiredWithoutPostCommentInput | undefined;
+  creator?: UserUpdateOneRequiredWithoutCreatedCommentsInput | undefined;
 
   @TypeGraphQL.Field(_type => PostUpdateOneRequiredWithoutCommentsInput, {
     nullable: true

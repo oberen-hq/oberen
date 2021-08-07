@@ -134,7 +134,7 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
-  findAllUsers = async (
+  findUsersInMass = async (
     userOptions: userOptions
   ): Promise<User[] | ApolloError> => {
     return executeOrFail(async () => {

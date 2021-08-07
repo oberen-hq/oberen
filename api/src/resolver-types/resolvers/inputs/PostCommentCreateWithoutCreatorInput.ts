@@ -14,11 +14,6 @@ export class PostCommentCreateWithoutCreatorInput {
   })
   id?: string | undefined;
 
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  body!: string;
-
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
@@ -28,6 +23,11 @@ export class PostCommentCreateWithoutCreatorInput {
     nullable: true
   })
   updatedAt?: Date | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  body!: string;
 
   @TypeGraphQL.Field(_type => Boolean, {
     nullable: true

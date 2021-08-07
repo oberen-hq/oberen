@@ -69,7 +69,7 @@ export default class Server {
     const url = `${host}:${port}`;
     this.app.listen(port, () => {
       console.log(`Navigate to ${url}`);
-      // open(url);
+      open(url);
     });
   }
 }

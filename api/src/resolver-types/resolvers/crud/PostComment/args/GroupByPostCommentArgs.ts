@@ -20,7 +20,7 @@ export class GroupByPostCommentArgs {
   @TypeGraphQL.Field(_type => [PostCommentScalarFieldEnum], {
     nullable: false
   })
-  by!: Array<"id" | "body" | "creatorId" | "postId" | "createdAt" | "updatedAt" | "edited" | "likes">;
+  by!: Array<"id" | "createdAt" | "updatedAt" | "body" | "creatorId" | "postId" | "edited" | "likes">;
 
   @TypeGraphQL.Field(_type => PostCommentScalarWhereWithAggregatesInput, {
     nullable: true

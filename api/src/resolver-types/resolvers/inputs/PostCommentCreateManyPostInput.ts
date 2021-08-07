@@ -12,16 +12,6 @@ export class PostCommentCreateManyPostInput {
   })
   id?: string | undefined;
 
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  body!: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  creatorId!: string;
-
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
@@ -31,6 +21,16 @@ export class PostCommentCreateManyPostInput {
     nullable: true
   })
   updatedAt?: Date | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  body!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  creatorId!: string;
 
   @TypeGraphQL.Field(_type => Boolean, {
     nullable: true

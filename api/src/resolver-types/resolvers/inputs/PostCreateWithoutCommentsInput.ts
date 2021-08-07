@@ -15,6 +15,16 @@ export class PostCreateWithoutCommentsInput {
   })
   id?: string | undefined;
 
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  createdAt?: Date | undefined;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt?: Date | undefined;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
@@ -29,16 +39,6 @@ export class PostCreateWithoutCommentsInput {
     nullable: false
   })
   type!: "post" | "job" | "organization" | "shift" | "article" | "feedback" | "poll";
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  createdAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updatedAt?: Date | undefined;
 
   @TypeGraphQL.Field(_type => UserCreateNestedManyWithoutLikedPostsInput, {
     nullable: true

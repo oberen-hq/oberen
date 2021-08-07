@@ -26,7 +26,7 @@ export class UserOrderByInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  type?: "asc" | "desc" | undefined;
+  isLocal?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
