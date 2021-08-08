@@ -29,7 +29,11 @@ BREAKPOINTS:
 
 html,
 body {
-  background-color: var(--bg);
+  background: url("/assets/bg.jpg") no-repeat center center fixed;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: cover;
   color: var(--primary);
   scroll-behavior: smooth;
 }

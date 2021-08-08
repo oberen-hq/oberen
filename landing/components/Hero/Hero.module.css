@@ -1,0 +1,24 @@
+.hero__background {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/assets/bg.jpg") no-repeat center center fixed;
+  display: flex;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.hero__container {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}

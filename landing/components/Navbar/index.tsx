@@ -27,21 +27,21 @@ class Navbar extends React.Component {
           duration={500}
           onClick={() => this.scrollToTop()}
         >
-          home
+          Home
         </Link>
         <a
           href={config.githubLink}
           className={styles.navbar__link}
           target="_new"
         >
-          github
+          Github
         </a>
         <a
           href={config.twitterLink}
           className={styles.navbar__link}
           target="_new"
         >
-          twitter
+          Twitter
         </a>
         <Link
           className={`${styles.navbar__link} ${styles.highlighted}`}
@@ -51,7 +51,7 @@ class Navbar extends React.Component {
           smooth={true}
           duration={500}
         >
-          join waitlist
+          Join Waitlist
         </Link>
       </nav>
     );

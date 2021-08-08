@@ -1,12 +1,15 @@
 import React from "react";
 
-import Meta from "../components/Meta";
-import Navbar from "~/components/Navbar";
+import Meta from "~/components/Meta";
+import Layout from "~/components/Layout";
+import Hero from "~/components/Hero";
 
 import styles from "~/styles/index.module.css";
 import TextLoop from "react-text-loop";
 
 const Home: React.FC = () => {
+  const adjectives = ["Hello", "World"];
+
   return (
     <React.Fragment>
       <Meta
@@ -15,7 +18,25 @@ const Home: React.FC = () => {
         url="https://oberon.sh"
         keywords="open source, oberon, temporary work, organizations, discovery, employment"
       />
-      <Navbar />
+      <Layout>
+        {/* <div className={styles.main}>
+          <div className={styles.main__sub}>
+            <h1 className={styles.main__text}>
+              The Place for Developers <br />
+              to{" "}
+              <TextLoop interval={2000}>
+                {adjectives.map((word, index) => (
+                  <span key={index} className={styles.main__text_Gradient}>
+                    {word}
+                  </span>
+                ))}
+              </TextLoop>{" "}
+              Software
+            </h1>
+          </div>
+        </div> */}
+        <Hero />
+      </Layout>
     </React.Fragment>
   );
 };
