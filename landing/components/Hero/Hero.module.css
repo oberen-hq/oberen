@@ -1,3 +1,12 @@
+/* 
+BREAKPOINTS:
+  Mobiles - 500px
+  Tablets - 768px
+  Laptop:small - 1024px
+  Laptop:large to desktops - 1280px
+  Large:TV - 1536px
+*/
+
 .hero__background {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("/assets/bg.jpg") no-repeat center center fixed;
@@ -8,17 +17,41 @@
   background-size: cover;
   position: relative;
   z-index: 1;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero__container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  overflow: hidden;
+  justify-content: center;
+}
+
+.hero__slogan {
+  font-size: 4rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 4.3rem;
+}
+
+.hero__slogan_adjective {
+  background: var(--title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero__description {
+  color: var(--muted);
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  max-width: 40rem;
+  text-align: center;
+  margin-bottom: 2rem;
 }
