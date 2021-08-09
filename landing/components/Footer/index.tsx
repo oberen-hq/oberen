@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./Footer.module.css";
 import { animateScroll as scroll } from "react-scroll";
 
