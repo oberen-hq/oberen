@@ -13,6 +13,7 @@ const Icon = ({
     <img
       className={className}
       src={`/icons/${name}.svg`}
+      alt={name}
       draggable="false"
       style={{
         userSelect: "none",
