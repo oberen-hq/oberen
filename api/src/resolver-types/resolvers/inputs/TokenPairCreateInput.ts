@@ -33,6 +33,11 @@ export class TokenPairCreateInput {
   })
   refreshToken!: string;
 
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  isExpired?: boolean | undefined;
+
   @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutTokensInput, {
     nullable: false
   })

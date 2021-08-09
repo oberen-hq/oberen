@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { AttachmentCreateNestedManyWithoutPostInput } from "../inputs/AttachmentCreateNestedManyWithoutPostInput";
 import { UserCreateNestedManyWithoutLikedPostsInput } from "../inputs/UserCreateNestedManyWithoutLikedPostsInput";
 import { UserCreateNestedOneWithoutPostsInput } from "../inputs/UserCreateNestedOneWithoutPostsInput";
 import { PostType } from "../../enums/PostType";
@@ -44,6 +45,11 @@ export class PostCreateWithoutCommentsInput {
     nullable: true
   })
   likers?: UserCreateNestedManyWithoutLikedPostsInput | undefined;
+
+  @TypeGraphQL.Field(_type => AttachmentCreateNestedManyWithoutPostInput, {
+    nullable: true
+  })
+  attachments?: AttachmentCreateNestedManyWithoutPostInput | undefined;
 
   @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutPostsInput, {
     nullable: false

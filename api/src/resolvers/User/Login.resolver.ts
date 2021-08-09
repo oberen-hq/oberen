@@ -1,5 +1,5 @@
 import { Resolver, Mutation, Arg } from "type-graphql";
-import { LocalUserResponse } from "./responses/User.response";
+import { UserResponse } from "./responses/User.response";
 import LoginArgs from "./args/LoginArgs";
 import LocalUserRepo from "../../db/LocalUserRepo";
 import executeOrFail from "../..//utils/executeOrFail";
@@ -9,12 +9,12 @@ const localUser = new LocalUserRepo();
 
 @Resolver()
 export class LoginResolver {
-  @Mutation(() => LocalUserResponse)
+  @Mutation(() => UserResponse)
   async login(
     @Arg("args") args: LoginArgs
-  ): Promise<LocalUserResponse | ApolloError> {
+  ): Promise<UserResponse | ApolloError> {
     return executeOrFail(async () => {
-      return localUser.loginUser(args);
+      return localUser.login(args);
     });
   }
 }

@@ -6,7 +6,8 @@ export enum TokenPairScalarFieldEnum {
   updatedAt = "updatedAt",
   accessToken = "accessToken",
   refreshToken = "refreshToken",
-  userId = "userId"
+  userId = "userId",
+  isExpired = "isExpired"
 }
 TypeGraphQL.registerEnumType(TokenPairScalarFieldEnum, {
   name: "TokenPairScalarFieldEnum",

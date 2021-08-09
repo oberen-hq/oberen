@@ -8,13 +8,13 @@ import executeOrFail from "../../utils/executeOrFail";
 const localUser = new LocalUserRepo();
 
 @Resolver()
-export default class FindUsersInMass {
+export default class FindUsersInMassResolver {
   @Query(() => [User])
   async findAllUsers(
     @Arg("args") args: FindUsersInMassArgs
   ): Promise<User[] | ApolloError> {
     return executeOrFail(async () => {
-      return localUser.findUsersInMass(args);
+      return localUser.findInMass(args);
     });
   }
 }

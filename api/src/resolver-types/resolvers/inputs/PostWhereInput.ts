@@ -2,9 +2,10 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { AttachmentListRelationFilter } from "../inputs/AttachmentListRelationFilter";
+import { CommentListRelationFilter } from "../inputs/CommentListRelationFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumPostTypeFilter } from "../inputs/EnumPostTypeFilter";
-import { PostCommentListRelationFilter } from "../inputs/PostCommentListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { UserListRelationFilter } from "../inputs/UserListRelationFilter";
@@ -64,10 +65,15 @@ export class PostWhereInput {
   })
   likers?: UserListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => PostCommentListRelationFilter, {
+  @TypeGraphQL.Field(_type => CommentListRelationFilter, {
     nullable: true
   })
-  comments?: PostCommentListRelationFilter | undefined;
+  comments?: CommentListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => AttachmentListRelationFilter, {
+    nullable: true
+  })
+  attachments?: AttachmentListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => UserRelationFilter, {
     nullable: true

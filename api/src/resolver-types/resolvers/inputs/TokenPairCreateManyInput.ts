@@ -36,4 +36,9 @@ export class TokenPairCreateManyInput {
     nullable: false
   })
   userId!: string;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  isExpired?: boolean | undefined;
 }

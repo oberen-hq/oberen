@@ -39,4 +39,9 @@ export class TokenPair {
     nullable: false
   })
   userId!: string;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: false
+  })
+  isExpired!: boolean;
 }

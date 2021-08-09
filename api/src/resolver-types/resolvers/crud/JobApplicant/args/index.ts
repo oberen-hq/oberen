@@ -1,0 +1,11 @@
+export { AggregateJobApplicantArgs } from "./AggregateJobApplicantArgs";
+export { CreateJobApplicantArgs } from "./CreateJobApplicantArgs";
+export { CreateManyJobApplicantArgs } from "./CreateManyJobApplicantArgs";
+export { DeleteJobApplicantArgs } from "./DeleteJobApplicantArgs";
+export { DeleteManyJobApplicantArgs } from "./DeleteManyJobApplicantArgs";
+export { FindFirstJobApplicantArgs } from "./FindFirstJobApplicantArgs";
+export { FindManyJobApplicantArgs } from "./FindManyJobApplicantArgs";
+export { FindUniqueJobApplicantArgs } from "./FindUniqueJobApplicantArgs";
+export { GroupByJobApplicantArgs } from "./GroupByJobApplicantArgs";
+export { UpdateJobApplicantArgs } from "./UpdateJobApplicantArgs";
+export { UpdateManyJobApplicantArgs } from "./UpdateManyJobApplicantArgs";

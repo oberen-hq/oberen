@@ -1,5 +1,5 @@
 import { Resolver, Mutation, Arg } from "type-graphql";
-import { LocalUserResponse } from "./responses/User.response";
+import { UserResponse } from "./responses/User.response";
 import RegisterArgs from "./args/RegisterArgs";
 import LocalUserRepo from "../../db/LocalUserRepo";
 import executeOrFail from "../..//utils/executeOrFail";
@@ -9,14 +9,14 @@ const localUser = new LocalUserRepo();
 
 @Resolver()
 export default class RegisterResolver {
-  @Mutation(() => LocalUserResponse)
+  @Mutation(() => UserResponse)
   async register(
     @Arg("args") args: RegisterArgs
-  ): Promise<LocalUserResponse | ApolloError> {
+  ): Promise<UserResponse | ApolloError> {
     // TODO: Add Oauth Register
 
     return executeOrFail(async () => {
-      return localUser.createUser(args);
+      return localUser.create(args);
     });
   }
 }
