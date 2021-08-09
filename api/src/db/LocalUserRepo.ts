@@ -44,7 +44,7 @@ export default class LocalUserRepo extends PrismaClient {
           username: userData.username,
           email: userData.email,
           password: hashedPassword,
-          type: "LOCAL",
+          isLocal: true,
           profile: {
             create: {
               avatarUrl: userData?.avatarUrl || "",
