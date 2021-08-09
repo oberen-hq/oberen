@@ -96,6 +96,10 @@ model TokenPair {
 
   user                User              @relation(fields: [userId], references: [id])
   userId              String            @db.ObjectId
+
+  // Expiry
+
+  isExpired           Boolean           @default(false)
 }
 
 model User {
@@ -121,9 +125,35 @@ model User {
   likedPosts          Post[]            @relation("UserLikedPostsRelation")
   likedComments       PostComment[]     @relation("UserLikedCommentsRelation")
 
+  // Followers
+
+  following           User[]            @relation("UserFollowRelation", references: [id])
+  followers           User[]            @relation("UserFollowRelation", references: [id])
+
   // Labels
 
   createdLabels       Label[]
+
+  // Reporting system
+
+  bugReports          BugReport[]
+  userReports         UserReport[]
+  featureRequests     FeatureRequest[]
+  tickets             Ticket[]
+
+  // Organizations
+
+  organizations       Organization[]  @relation("UserOwnedOrganizationsRelation")
+
+  // Jobs
+
+  completedJobs       Job[]           @relation("UserCompletedJobs")
+  appliedJobs         JobApplicant[]  
+
+  // Shifts
+
+  completedShifts     Shift[]         @relation("UserCompletedShifts")
+  unavailableShifts   Shift[]
 
   // OauthConnections
 
