@@ -19,22 +19,6 @@ const Home: React.FC = () => {
         keywords="open source, oberon, temporary work, organizations, discovery, employment"
       />
       <Layout>
-        {/* <div className={styles.main}>
-          <div className={styles.main__sub}>
-            <h1 className={styles.main__text}>
-              The Place for Developers <br />
-              to{" "}
-              <TextLoop interval={2000}>
-                {adjectives.map((word, index) => (
-                  <span key={index} className={styles.main__text_Gradient}>
-                    {word}
-                  </span>
-                ))}
-              </TextLoop>{" "}
-              Software
-            </h1>
-          </div>
-        </div> */}
         <Hero />
       </Layout>
     </React.Fragment>

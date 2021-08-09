@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Footer.module.css";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { animateScroll as scroll } from "react-scroll";
 
 class Footer extends React.Component {
   scrollToTop() {
@@ -13,6 +13,7 @@ class Footer extends React.Component {
         <img
           src="/logo.png"
           alt="Oberon"
+          draggable={false}
           className={styles.footer__logo}
           onClick={() => this.scrollToTop()}
         />

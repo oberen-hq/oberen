@@ -37,6 +37,8 @@ BREAKPOINTS:
   text-align: center;
   margin-bottom: 1rem;
   line-height: 4.3rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero__slogan_adjective {
@@ -54,4 +56,6 @@ BREAKPOINTS:
   max-width: 40rem;
   text-align: center;
   margin-bottom: 2rem;
+  align-items: center;
+  justify-content: center;
 }
