@@ -2,7 +2,7 @@ import { ApolloError } from "apollo-server-express";
 import { createMethodDecorator } from "type-graphql";
 import { Context } from "../context";
 
-export const isAuthenticated = () => {
+export const isAuthenticated = (): any => {
   createMethodDecorator<Context>(async ({ context: { req, prisma } }, next) => {
     const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
@@ -39,14 +39,14 @@ export const isAuthenticated = () => {
     }
 
     if (tokenPair.user.isLocal) {
-      req.user = tokenPair.user;
-      return next();
+      req.user = tokenPair.user as any;
+      next();
     }
 
     // Check if token exceeds 8 hours
 
-    req.user = tokenPair.user;
+    req.user = tokenPair.user as any;
 
-    return next();
+    next();
   });
 };
