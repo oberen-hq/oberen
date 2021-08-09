@@ -1,8 +1,7 @@
 import { ApolloError } from "apollo-server-express";
-import { Post } from "~/resolver-types/models";
 import { PostResponse } from "./responses/Post.response";
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Resolver, Ctx, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg } from "type-graphql";
 import CreatePostArgs from "./args/CreatePostArgs";
 import PostRepo from "../../db/PostRepo";
 import executeOrFail from "../../utils/executeOrFail";
