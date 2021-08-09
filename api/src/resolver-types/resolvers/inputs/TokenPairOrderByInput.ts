@@ -37,4 +37,9 @@ export class TokenPairOrderByInput {
     nullable: true
   })
   userId?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  isExpired?: "asc" | "desc" | undefined;
 }

@@ -2,7 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { PostComment } from "../models/PostComment";
+import { Attachment } from "../models/Attachment";
+import { Comment } from "../models/Comment";
 import { User } from "../models/User";
 import { PostType } from "../enums/PostType";
 
@@ -42,7 +43,9 @@ export class Post {
 
   likers?: User[];
 
-  comments?: PostComment[];
+  comments?: Comment[];
+
+  attachments?: Attachment[];
 
   creator?: User;
 

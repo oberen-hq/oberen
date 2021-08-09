@@ -40,6 +40,11 @@ export class TokenPairGroupBy {
   })
   userId!: string;
 
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: false
+  })
+  isExpired!: boolean;
+
   @TypeGraphQL.Field(_type => TokenPairCountAggregate, {
     nullable: true
   })

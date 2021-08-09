@@ -36,4 +36,9 @@ export class TokenPairMinAggregate {
     nullable: true
   })
   userId!: string | null;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  isExpired!: boolean | null;
 }

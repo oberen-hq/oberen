@@ -1,7 +1,10 @@
 export { UserCreatedCommentsArgs } from "./UserCreatedCommentsArgs";
 export { UserCreatedLabelsArgs } from "./UserCreatedLabelsArgs";
+export { UserFollowersArgs } from "./UserFollowersArgs";
+export { UserFollowingArgs } from "./UserFollowingArgs";
 export { UserLikedCommentsArgs } from "./UserLikedCommentsArgs";
 export { UserLikedPostsArgs } from "./UserLikedPostsArgs";
 export { UserOauthConnectionsArgs } from "./UserOauthConnectionsArgs";
 export { UserPostsArgs } from "./UserPostsArgs";
+export { UserReportsArgs } from "./UserReportsArgs";
 export { UserTokensArgs } from "./UserTokensArgs";

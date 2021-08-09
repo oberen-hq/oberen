@@ -2,10 +2,11 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Comment } from "../models/Comment";
 import { Label } from "../models/Label";
 import { OauthConnection } from "../models/OauthConnection";
 import { Post } from "../models/Post";
-import { PostComment } from "../models/PostComment";
+import { Report } from "../models/Report";
 import { TokenPair } from "../models/TokenPair";
 import { UserProfile } from "../models/UserProfile";
 import { Role } from "../enums/Role";
@@ -68,13 +69,19 @@ export class User {
 
   posts?: Post[];
 
-  createdComments?: PostComment[];
+  createdComments?: Comment[];
 
   likedPosts?: Post[];
 
-  likedComments?: PostComment[];
+  likedComments?: Comment[];
+
+  following?: User[];
+
+  followers?: User[];
 
   createdLabels?: Label[];
+
+  reports?: Report[];
 
   oauthConnections?: OauthConnection[];
 

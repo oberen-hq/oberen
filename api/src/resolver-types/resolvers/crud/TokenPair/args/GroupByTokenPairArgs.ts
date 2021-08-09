@@ -20,7 +20,7 @@ export class GroupByTokenPairArgs {
   @TypeGraphQL.Field(_type => [TokenPairScalarFieldEnum], {
     nullable: false
   })
-  by!: Array<"id" | "createdAt" | "updatedAt" | "accessToken" | "refreshToken" | "userId">;
+  by!: Array<"id" | "createdAt" | "updatedAt" | "accessToken" | "refreshToken" | "userId" | "isExpired">;
 
   @TypeGraphQL.Field(_type => TokenPairScalarWhereWithAggregatesInput, {
     nullable: true
