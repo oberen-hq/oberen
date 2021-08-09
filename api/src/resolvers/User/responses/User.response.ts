@@ -2,7 +2,7 @@ import { User } from "../../../resolver-types/models/User";
 import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
-export class LocalUserResponse {
+export class UserResponse {
   @Field(() => String, { nullable: false })
   token: string;
   @Field(() => User, { nullable: false })

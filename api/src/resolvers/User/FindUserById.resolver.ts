@@ -8,13 +8,13 @@ import executeOrFail from "../../utils/executeOrFail";
 const localUser = new LocalUserRepo();
 
 @Resolver()
-export default class FindUserById {
+export default class FindUserByIdResolver {
   @Query(() => User)
   async findUserById(
     @Arg("args") args: FindUserByIdArgs
   ): Promise<User | ApolloError> {
     return executeOrFail(async () => {
-      return localUser.findUserById(args.id);
+      return localUser.findById(args.id);
     });
   }
 }

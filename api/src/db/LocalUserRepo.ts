@@ -12,7 +12,7 @@ import { RegisterUserDataType, LoginUserDataType } from "./types/index";
 dotenv.config();
 
 export default class LocalUserRepo extends PrismaClient {
-  createUser = async (
+  create = async (
     userData: RegisterUserDataType
   ): Promise<LocalUserResponse | ApolloError> => {
     return executeOrFail(async () => {
@@ -74,9 +74,7 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
-  loginUser = async (
-    userData: LoginUserDataType
-  ): Promise<LocalUserResponse> => {
+  login = async (userData: LoginUserDataType): Promise<LocalUserResponse> => {
     return executeOrFail(async () => {
       const user = await this.user.findUnique({
         where: {
@@ -115,7 +113,7 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
-  findUserById = async (userId: string): Promise<User | ApolloError> => {
+  findById = async (userId: string): Promise<User | ApolloError> => {
     return executeOrFail(async () => {
       const user = await this.user.findFirst({
         where: {
@@ -134,7 +132,7 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
-  findUsersInMass = async (
+  findInMass = async (
     userOptions: userOptions
   ): Promise<User[] | ApolloError> => {
     return executeOrFail(async () => {
