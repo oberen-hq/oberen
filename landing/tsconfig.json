@@ -26,6 +26,6 @@
     },
     "allowSyntheticDefaultImports": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "redux/Actionsts"],
   "exclude": ["node_modules"]
 }
