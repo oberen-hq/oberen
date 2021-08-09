@@ -11,6 +11,7 @@ const post = new PostRepo();
 
 @Resolver()
 export default class CreatePostResolver {
+  @isAuthenticated()
   @Mutation(() => PostResponse)
   async register(
     @Arg("args") args: CreatePostArgs

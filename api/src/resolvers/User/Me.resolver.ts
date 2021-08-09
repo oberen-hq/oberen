@@ -1,5 +1,4 @@
 import { ApolloError } from "apollo-server-errors";
-import { userInfo } from "os";
 import { Ctx, Query, Resolver } from "type-graphql";
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { User } from "~/resolver-types/models";
