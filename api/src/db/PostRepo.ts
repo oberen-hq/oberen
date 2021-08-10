@@ -13,12 +13,15 @@ export default class PostRepo extends PrismaClient {
   ): Promise<PostResponse | ApolloError> => {
     return executeOrFail(async () => {
       try {
-        const post = await this.post.create(postData);
-
-        return {
-          post,
-          user: currentUser,
+        const createPostType = this.post.create;
+        type PostType = Parameters<typeof createPostType>[0]["data"];
+        const post: PostType = {
+          title: postData.title,
+          description: postData.description,
+          type: postData.type,
         };
+
+        throw new ApolloError("error", "500");
       } catch (err) {
         throw new ApolloError(err.message, "500");
       }
