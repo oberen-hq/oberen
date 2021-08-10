@@ -6,11 +6,12 @@ import { Attachment } from "~/resolver-types/models";
 @InputType()
 export default class CreatePostArgs {
   @Field()
+  @Length(3, 50)
   title: string;
   @Field({ nullable: true })
   description?: string;
   @Field()
   type: PostType;
   @Field({ nullable: true })
-  attachments: Attachment[];
+  attachments?: Attachment[];
 }
