@@ -1,9 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { Post } from "~/resolver-types/models";
 import executeOrFail from "../utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
-import { userOptions } from "./types";
 import { PostResponse } from "../resolvers/Post/responses/Post.response";
+import connectIdArray from "src/utils/connectIdArray";
 import { PostDataType } from "./types/index";
 
 export default class PostRepo extends PrismaClient {
@@ -19,9 +18,18 @@ export default class PostRepo extends PrismaClient {
           title: postData.title,
           description: postData.description,
           type: postData.type,
+          attachments: connectIdArray(postData.attachmentIds),
+          creator: { connect: { id: currentUser.id } },
         };
 
-        throw new ApolloError("error", "500");
+        const createdPost = await this.post.create({
+          data: post,
+        });
+
+        return {
+          post: createdPost,
+          user: currentUser,
+        };
       } catch (err) {
         throw new ApolloError(err.message, "500");
       }

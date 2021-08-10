@@ -23,5 +23,5 @@ export interface PostDataType {
   title: string;
   description?: string;
   type: PostType;
-  attachments?: Attachment[];
+  attachmentIds?: string[];
 }
