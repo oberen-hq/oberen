@@ -14,6 +14,7 @@ export default class PostRepo extends PrismaClient {
       try {
         const createPostType = this.post.create;
         type PostType = Parameters<typeof createPostType>[0]["data"];
+
         const post: PostType = {
           title: postData.title,
           description: postData.description,

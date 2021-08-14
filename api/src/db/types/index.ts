@@ -1,5 +1,4 @@
 import { PostType } from "~/resolver-types/enums";
-import { Attachment } from "~/resolver-types/models";
 
 export interface userOptions {
   limit?: number;
@@ -9,9 +8,10 @@ export interface userOptions {
 export interface RegisterUserDataType {
   username: string;
   email: string;
-  password: string;
+  password?: string;
   avatarUrl?: string;
   bio?: string;
+  isLocal: boolean;
 }
 
 export interface LoginUserDataType {

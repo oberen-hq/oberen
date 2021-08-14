@@ -13,7 +13,7 @@ const post = new PostRepo();
 export default class CreatePostResolver {
   @isAuthenticated()
   @Mutation(() => PostResponse)
-  async register(
+  async createPost(
     @Ctx() { req }: Context,
     @Arg("args") args: CreatePostArgs
   ): Promise<PostResponse | ApolloError> {

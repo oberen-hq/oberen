@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { User } from "../resolver-types/models/User";
+import { User } from "../resolver-types";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -38,7 +38,7 @@ export default class LocalUserRepo extends PrismaClient {
       }
 
       const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(userData.password, salt);
+      const hashedPassword = await bcrypt.hash(userData.password as any, salt);
       const user = await this.user.create({
         data: {
           username: userData.username,

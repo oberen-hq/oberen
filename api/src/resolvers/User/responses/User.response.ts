@@ -1,4 +1,4 @@
-import { User } from "~/resolver-types/models";
+import { User } from "../../../resolver-types/models";
 import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
