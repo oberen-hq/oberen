@@ -1,12 +1,12 @@
 import { PrismaClient } from "@prisma/client";
-import { User } from "../resolver-types/models/User";
+import { User } from "../resolver-types";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import executeOrFail from "../utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
 import { userOptions } from "./types";
-import { LocalUserResponse } from "../resolvers/User/responses/User.response";
+import { UserResponse } from "../resolvers/User/responses/User.response";
 import { RegisterUserDataType, LoginUserDataType } from "./types/index";
 
 dotenv.config();
@@ -14,7 +14,7 @@ dotenv.config();
 export default class LocalUserRepo extends PrismaClient {
   create = async (
     userData: RegisterUserDataType
-  ): Promise<LocalUserResponse | ApolloError> => {
+  ): Promise<UserResponse | ApolloError> => {
     return executeOrFail(async () => {
       const existingUser = await this.user.findMany({
         where: {
@@ -38,7 +38,7 @@ export default class LocalUserRepo extends PrismaClient {
       }
 
       const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(userData.password, salt);
+      const hashedPassword = await bcrypt.hash(userData.password as any, salt);
       const user = await this.user.create({
         data: {
           username: userData.username,
@@ -74,7 +74,7 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
-  login = async (userData: LoginUserDataType): Promise<LocalUserResponse> => {
+  login = async (userData: LoginUserDataType): Promise<UserResponse> => {
     return executeOrFail(async () => {
       const user = await this.user.findUnique({
         where: {

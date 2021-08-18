@@ -2,10 +2,12 @@ import { Resolver, Mutation, Arg } from "type-graphql";
 import { UserResponse } from "./responses/User.response";
 import RegisterArgs from "./args/RegisterArgs";
 import LocalUserRepo from "../../db/LocalUserRepo";
+// import OauthUserRepo from "../../db/OAuthUserRepo";
 import executeOrFail from "../..//utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
 
 const localUser = new LocalUserRepo();
+// const oauthUser = new OauthUserRepo();
 
 @Resolver()
 export default class RegisterResolver {
@@ -13,10 +15,15 @@ export default class RegisterResolver {
   async register(
     @Arg("args") args: RegisterArgs
   ): Promise<UserResponse | ApolloError> {
-    // TODO: Add Oauth Register
-
-    return executeOrFail(async () => {
-      return localUser.create(args);
-    });
+    if (args.isLocal) {
+      return executeOrFail(async () => {
+        return localUser.create(args);
+      });
+    } else {
+      // return executeOrFail(async () => {
+      //   return oauthUser.create(args);
+      // });
+      throw new ApolloError("Test", "404");
+    }
   }
 }

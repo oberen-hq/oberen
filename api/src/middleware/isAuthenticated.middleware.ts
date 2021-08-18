@@ -2,7 +2,7 @@ import { ApolloError } from "apollo-server-express";
 import { createMethodDecorator } from "type-graphql";
 import { Context } from "../context";
 
-export const isAuthenticated = (): any => {
+export function isAuthenticated(): any {
   createMethodDecorator<Context>(async ({ context: { req, prisma } }, next) => {
     const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
@@ -49,4 +49,4 @@ export const isAuthenticated = (): any => {
 
     next();
   });
-};
+}

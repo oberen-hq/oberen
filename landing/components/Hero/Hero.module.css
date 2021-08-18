@@ -31,7 +31,16 @@ BREAKPOINTS:
   justify-content: center;
 }
 
+.hero__title {
+  color: var(--purple);
+  font-weight: 800;
+  text-transform: capitalize;
+  letter-spacing: 2.5px;
+  margin-bottom: 2rem;
+}
+
 .hero__slogan {
+  margin-top: 2rem;
   font-size: 4rem;
   font-weight: 800;
   text-align: center;
@@ -50,8 +59,8 @@ BREAKPOINTS:
 
 .hero__description {
   color: var(--muted);
-  margin-top: 1rem;
-  font-weight: 600;
+  margin-top: 2rem;
+  font-weight: 300;
   font-size: 1rem;
   max-width: 40rem;
   text-align: center;

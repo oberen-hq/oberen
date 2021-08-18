@@ -11,10 +11,12 @@ export default class RegisterArgs {
   email: string;
   @Length(8, 1024)
   @Field()
-  password: string;
+  password?: string;
   @Field({ nullable: true })
   avatarUrl?: string;
   @Length(0, 1000)
   @Field({ nullable: true })
   bio?: string;
+  @Field({ nullable: false })
+  isLocal: boolean;
 }
