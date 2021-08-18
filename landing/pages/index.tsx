@@ -3,6 +3,7 @@ import React from "react";
 import Meta from "~/components/Meta";
 import Layout from "~/components/Layout";
 import Hero from "~/components/Hero";
+import Waitlist from "~/components/Waitlist";
 
 import styles from "~/styles/index.module.css";
 import TextLoop from "react-text-loop";
@@ -20,6 +21,7 @@ const Home: React.FC = () => {
       />
       <Layout>
         <Hero />
+        <Waitlist />
       </Layout>
     </React.Fragment>
   );

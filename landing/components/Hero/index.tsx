@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Hero.module.css";
 import TextLoop from "react-text-loop";
-
 import data from "./data";
 
 class Hero extends React.Component {
@@ -28,6 +27,7 @@ class Hero extends React.Component {
                 Blah blah blah, lorem ipsum don't know what to say here ya de ya
                 de yada.
               </p>
+              <button>Test</button>
             </div>
           </div>
         </div>

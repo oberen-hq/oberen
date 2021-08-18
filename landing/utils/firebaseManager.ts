@@ -24,7 +24,7 @@ export default class FirebaseManager {
         .then((querySnapshot) => {
           querySnapshot.forEach((document) => {
             if (document) {
-              res("Duplicate waitlist has been identified");
+              res(1);
             }
           });
         })
@@ -34,9 +34,9 @@ export default class FirebaseManager {
         });
 
       if (validator.isEmail(email)) {
-        res("Added to waitlist.");
+        res(0);
       } else {
-        res("Invalid Email Address.");
+        res(1);
       }
     });
   }
@@ -49,9 +49,6 @@ export default class FirebaseManager {
       .doc(email)
       .set({
         email: email,
-      })
-      .then(() => {
-        console.log("Document successfully written.");
       })
       .catch((error) => {
         console.error("Error writing document: ", error);

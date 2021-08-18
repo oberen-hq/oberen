@@ -1,8 +1,5 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 const firebaseConfig = {
-  apiKey: process.env.fireBaseApiKey as string,
+  apiKey: "AIzaSyCf7EtdRzM20pq_2zI3Wy6D1Yw3M4DXt_I",
   authDomain: "landing-page-69.firebaseapp.com",
   projectId: "landing-page-69",
   storageBucket: "landing-page-69.appspot.com",
