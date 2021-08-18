@@ -68,8 +68,8 @@ export default class Server {
     const port = process.env.PORT || 8000;
     const url = `${host}:${port}`;
     this.app.listen(port, () => {
-      console.log(`Navigate to ${url}`);
-      open(url);
+      console.log(`Navigate to ${url + "/graphql"}`);
+      open(url + "/graphql");
     });
   }
 }

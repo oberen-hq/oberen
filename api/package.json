@@ -8,13 +8,15 @@
   "license": "MIT",
   "scripts": {
     "watch": "tsc -w",
-    "start:prod": "node dist/index.js",
-    "start:dev": "nodemon dist/index.js",
+    "start:prod": "node dist/src/index.js",
+    "start:dev": "nodemon dist/src/index.js",
     "test:auth": "node dist/tests/auth.test.js",
-    "db:generate": "npx prisma generate"
+    "db:generate": "npx prisma generate",
+    "db:seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "~2.27.0",
+    "@types/faker": "^5.5.8",
     "apollo-server-core": "^3.1.2",
     "apollo-server-express": "^3.1.2",
     "bcrypt": "^5.0.1",
@@ -22,6 +24,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "faker": "^5.5.3",
     "graphql": "^15.5.1",
     "graphql-fields": "^2.0.3",
     "graphql-query-complexity": "^0.8.1",
