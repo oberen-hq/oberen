@@ -30,10 +30,16 @@ BREAKPOINTS:
 html,
 body {
   color: var(--primary);
+  background-color: var(--purple);
   scroll-behavior: smooth;
+  user-select: none !important;
+  height: 100vh;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 img,
 a {
   user-select: none !important;
+  -moz-user-select: none !important;
 }

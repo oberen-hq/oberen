@@ -1,16 +1,12 @@
 import React from "react";
 
-import Meta from "~/components/Meta";
-import Layout from "~/components/Layout";
-import Hero from "~/components/Hero";
-import Waitlist from "~/components/Waitlist";
+import Meta from "../partials/Meta";
+import Navbar from "~/components/Navbar";
 
 import styles from "~/styles/index.module.css";
-import TextLoop from "react-text-loop";
+import { ToastContainer } from "react-toastify";
 
 const Home: React.FC = () => {
-  const adjectives = ["Hello", "World"];
-
   return (
     <React.Fragment>
       <Meta
@@ -19,10 +15,20 @@ const Home: React.FC = () => {
         url="https://oberon.sh"
         keywords="open source, oberon, temporary work, organizations, discovery, employment"
       />
-      <Layout>
-        <Hero />
-        <Waitlist />
-      </Layout>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={true}
+        limit={1}
+        className={styles.toast}
+      />
+      <Navbar />
     </React.Fragment>
   );
 };

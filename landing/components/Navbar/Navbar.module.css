@@ -1,46 +1,9 @@
-/* 
-BREAKPOINTS:
-  Mobiles - 500px
-  Tablets - 768px
-  Laptop:small - 1024px
-  Laptop:large to desktops - 1280px
-  Large:TV - 1536px
-*/
-
-@keyframes bounce {
-  0%,
-  100%,
-  20%,
-  50%,
-  80% {
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-  }
-  40% {
-    -webkit-transform: translateY(-15px);
-    -ms-transform: translateY(-15px);
-    transform: translateY(-15px);
-  }
-  60% {
-    -webkit-transform: translateY(-7.5px);
-    -ms-transform: translateY(-7.5px);
-    transform: translateY(-7.5px);
-  }
-}
-
-.active {
-  border-bottom: 1px solid #fff;
-}
-
 .navbar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  backdrop-filter: blur(30px);
+  background: transparent;
   position: fixed;
   top: 0;
-  padding: 10px 0;
+  padding: 30px 0;
   z-index: 999;
   width: 100%;
   margin: 0;
@@ -50,86 +13,22 @@ BREAKPOINTS:
   height: 4rem;
   width: 4rem;
   object-fit: contain;
-  margin-left: 40px;
-  cursor: pointer;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-timing-function: ease-in-out;
-  animation-timing-function: ease-in-out;
+  margin-left: 30px;
+  user-select: none;
+  -moz-user-select: none;
 }
 
-.navbar__logo:hover {
-  animation-name: bounce;
-  -moz-animation-name: bounce;
-}
-
-.navbar__link {
-  color: var(--muted);
-  text-decoration: none;
-  font-weight: 700;
-  opacity: 0.7;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-right: 40px;
-  transition: all 0.4s ease-in-out;
-  text-align: center;
+.navbar__icons {
+  display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 75rem;
 }
 
-.navbar__link:hover {
-  color: var(--blue);
-  opacity: 1;
-}
-
-.highlighted {
-  color: var(--blue);
-  opacity: 1;
-}
-
-.highlighted:hover {
-  transition: all 0.4s ease-in-out;
-  color: #fff;
-}
-
-@media screen and (max-width: 568px) {
-  .navbar {
-    padding-top: 10px;
-  }
-
-  .navbar__logo {
-    height: 3rem;
-    width: 3rem;
-    margin-left: 30px;
-    margin-right: 20px;
-  }
-
-  .navbar__link {
-    font-size: 0.8rem;
-    margin-right: 40px;
-    text-align: center;
-  }
-
-  .highlighted {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .navbar {
-    padding-top: 10px;
-  }
-
-  .navbar__logo {
-    height: 3.5rem;
-    width: 3.5rem;
-    margin-left: 35px;
-    margin-right: 25px;
-  }
-
-  .navbar__link {
-    margin-right: 50px;
-  }
+.navbar__icon {
+  padding: 10px;
+  margin: 10px;
+  font-size: 1.5rem;
+  background: red;
+  border-radius: 20%;
 }

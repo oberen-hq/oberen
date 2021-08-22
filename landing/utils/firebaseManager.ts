@@ -24,7 +24,7 @@ export default class FirebaseManager {
         .then((querySnapshot) => {
           querySnapshot.forEach((document) => {
             if (document) {
-              res(1);
+              res(2);
             }
           });
         })
