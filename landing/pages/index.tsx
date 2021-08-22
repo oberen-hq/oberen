@@ -1,6 +1,7 @@
 import React from "react";
 import Meta from "partials/Meta";
 import Navbar from "~/components/Navbar";
+import Main from "~/components/Main";
 import styles from "~/styles/index.module.css";
 import { ToastContainer } from "react-toastify";
 
@@ -26,8 +27,14 @@ const Home: React.FC = () => {
         limit={1}
         className={styles.toast}
       />
-      <div className={styles.main__container}>
+      <div className={styles.container}>
         <Navbar />
+        <Main />
+        <img
+          src="/assets/vector.png"
+          className={styles.image}
+          draggable={false}
+        />
       </div>
     </React.Fragment>
   );

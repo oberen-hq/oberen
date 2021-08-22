@@ -1,12 +1,3 @@
-/* 
-BREAKPOINTS:
-  Mobiles - 500px
-  Tablets - 768px
-  Laptop:small - 1024px
-  Laptop:large to desktops - 1280px
-  Large:TV - 1536px
-*/
-
 .toast {
   height: 16px;
   font-size: 1rem;
@@ -15,11 +6,36 @@ BREAKPOINTS:
   margin: 0;
 }
 
-.main__container {
+.container {
   height: 100vh;
   padding-top: 2rem;
   padding-right: 2rem;
   padding-left: 2rem;
   overflow: hidden;
   position: relative;
+}
+
+.image {
+  overflow: hidden;
+  height: 30rem;
+  width: 30rem;
+  position: absolute;
+  bottom: 4rem;
+  right: 0;
+}
+
+/* 
+BREAKPOINTS:
+  Small - 280px
+  Mobiles - 568px
+  Tablets - 768px
+  Laptop:small - 1024px
+  Laptop:large to desktops - 1280px
+  Large:TV - 1920px
+*/
+
+@media screen and (max-width: 768px) {
+  .image {
+    display: none;
+  }
 }
