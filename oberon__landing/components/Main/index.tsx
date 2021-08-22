@@ -1,4 +1,5 @@
 import React from "react";
+import Waitlist from "../Waitlist";
 import styles from "./Main.module.css";
 
 class Main extends React.Component {
@@ -14,6 +15,7 @@ class Main extends React.Component {
             meet your tastes; move forward with our platform to communicate,
             apprieciate, and replicate. This is Oberon.
           </p>
+          <Waitlist />
         </div>
       </React.Fragment>
     );

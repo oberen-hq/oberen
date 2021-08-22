@@ -14,7 +14,22 @@ const Home: React.FC = () => {
         url="https://oberon-test.vercel.app"
         keywords="open source, oberon, temporary work, organizations, discovery, employment"
       />
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={16}
+        containerClassName={styles.toast}
+        toastOptions={{
+          duration: 5000,
+          success: {
+            duration: 3000,
+            theme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
+        }}
+      />
       <div className={styles.container}>
         <Navbar />
         <Main />

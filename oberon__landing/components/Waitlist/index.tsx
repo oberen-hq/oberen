@@ -6,8 +6,7 @@ import toast from "react-hot-toast";
 const firebase = new FirebaseManager();
 
 const error = (msg: any) => toast.error(msg);
-const success = (email: string) =>
-  toast.success(`${email} has been waitlisted.`);
+const success = (email: string) => toast.success(`${email} waitlisted 🔥.`);
 
 async function handleSubmit(email: string) {
   const result = await firebase.validateEmail(email);
@@ -28,7 +27,26 @@ export default function Waitlist() {
       <form
         className={styles.waitlist__form}
         onSubmit={(e) => e.preventDefault()}
-      ></form>
+      >
+        <div className={styles.waitlist__form_container}>
+          <span className={styles.waitlist__form_container_span}>
+            Email Address
+          </span>
+          <input
+            className={styles.waitlist__form_container_input}
+            placeholder="eg: test@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <button
+          type="submit"
+          className={styles.waitlist__form_submit}
+          onClick={() => handleSubmit(email)}
+        >
+          Join Waitlist
+        </button>
+      </form>
     </React.Fragment>
   );
 }

@@ -9,19 +9,20 @@
 .container {
   height: 100vh;
   padding-top: 2rem;
-  padding-right: 2rem;
-  padding-left: 2rem;
+  padding-right: 4rem;
+  padding-left: 4rem;
   overflow: hidden;
   position: relative;
 }
 
 .image {
   overflow: hidden;
-  height: 30rem;
-  width: 30rem;
+  height: 40rem;
+  width: 40rem;
   position: absolute;
-  bottom: 4rem;
+  bottom: 0;
   right: 0;
+  /* margin-bottom: 5rem; */
 }
 
 /* 
@@ -34,8 +35,15 @@ BREAKPOINTS:
   Large:TV - 1920px
 */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .image {
     display: none;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .image {
+    height: 30rem;
+    width: 30rem;
   }
 }

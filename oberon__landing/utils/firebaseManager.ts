@@ -40,7 +40,7 @@ export default class FirebaseManager {
       if (validator.isEmail(email)) {
         res("success");
       } else {
-        res("Invalid email.");
+        res("Invalid email address.");
       }
     });
   }
