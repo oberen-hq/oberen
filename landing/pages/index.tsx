@@ -1,8 +1,6 @@
 import React from "react";
-
-import Meta from "../partials/Meta";
+import Meta from "partials/Meta";
 import Navbar from "~/components/Navbar";
-
 import styles from "~/styles/index.module.css";
 import { ToastContainer } from "react-toastify";
 
@@ -28,7 +26,9 @@ const Home: React.FC = () => {
         limit={1}
         className={styles.toast}
       />
-      <Navbar />
+      <div className={styles.main__container}>
+        <Navbar />
+      </div>
     </React.Fragment>
   );
 };
