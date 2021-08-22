@@ -21,8 +21,8 @@ class Navbar extends React.Component {
 const SocialButtons = (): any => {
   const socials = [
     { icon: FaGithub, link: "https://github.com/alfiephillips/oberon" },
-    { icon: FaTwitter, link: "/" },
-    { icon: FaDiscord, link: "/" },
+    { icon: FaTwitter, link: "https://twitter.com/alfieephillipss" },
+    { icon: FaDiscord, link: "https://discord.gg/7gUa76R6U2" },
   ];
 
   return (
