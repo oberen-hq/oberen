@@ -3,7 +3,7 @@ import Meta from "partials/Meta";
 import Navbar from "~/components/Navbar";
 import Main from "~/components/Main";
 import styles from "~/styles/index.module.css";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 const Home: React.FC = () => {
   return (
@@ -14,19 +14,7 @@ const Home: React.FC = () => {
         url="https://oberon-test.vercel.app"
         keywords="open source, oberon, temporary work, organizations, discovery, employment"
       />
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable={false}
-        pauseOnHover={true}
-        limit={1}
-        className={styles.toast}
-      />
+      <Toaster position="top-center" reverseOrder={false} />
       <div className={styles.container}>
         <Navbar />
         <Main />

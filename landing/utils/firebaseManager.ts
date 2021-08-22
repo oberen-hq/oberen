@@ -12,6 +12,10 @@ export default class FirebaseManager {
     }
   }
 
+  get email(): string {
+    return this.email;
+  }
+
   validateEmail(email: string) {
     return new Promise(async (res, _) => {
       this.initialize();
@@ -24,7 +28,7 @@ export default class FirebaseManager {
         .then((querySnapshot) => {
           querySnapshot.forEach((document) => {
             if (document) {
-              res(2);
+              res("Email has already been added to waitlist.");
             }
           });
         })
@@ -34,9 +38,9 @@ export default class FirebaseManager {
         });
 
       if (validator.isEmail(email)) {
-        res(0);
+        res("success");
       } else {
-        res(1);
+        res("Invalid email.");
       }
     });
   }
