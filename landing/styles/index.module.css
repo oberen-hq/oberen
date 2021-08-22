@@ -17,4 +17,9 @@ BREAKPOINTS:
 
 .main__container {
   height: 100vh;
+  padding-top: 2rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  overflow: hidden;
+  position: relative;
 }

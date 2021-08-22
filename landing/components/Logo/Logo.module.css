@@ -1,0 +1,58 @@
+.logo {
+  height: 4rem;
+  width: 4rem;
+  object-fit: contain;
+  box-shadow: 0px 0px 68px 0px var(--purple);
+}
+
+/* 
+BREAKPOINTS:
+  Small - 280px
+  Mobiles - 568px
+  Tablets - 768px
+  Laptop:small - 1024px
+  Laptop:large to desktops - 1280px
+  Large:TV - 1920px
+*/
+
+@media screen and (max-width: 280px) {
+  .logo {
+    height: 1rem;
+    width: 1rem;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .logo {
+    height: 3rem;
+    width: 3rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .logo {
+    height: 4rem;
+    width: 4rem;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .logo {
+    height: 4.5rem;
+    width: 4.5rem;
+  }
+}
+
+@media screen and (max-width: 1920px) {
+  .logo {
+    height: 5rem;
+    width: 5rem;
+  }
+}

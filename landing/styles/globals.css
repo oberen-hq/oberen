@@ -15,6 +15,7 @@ BREAKPOINTS:
   --primary: #fff;
   --muted: #d3d3d3;
   --purple: #7c2ae8;
+  --light-purple: #8c35fd;
   --blue: #00c4cc;
   --title: linear-gradient(to left, #7c2ae8 0%, #00c4cc 100%);
 }
