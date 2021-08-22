@@ -38,24 +38,24 @@ BREAKPOINTS:
 
 @media screen and (max-width: 280px) {
   .navbar__social {
-    font-size: 1rem;
+    font-size: 0.25rem;
   }
 }
 
 @media screen and (max-width: 568px) {
   .navbar__social {
-    font-size: 1.5rem;
+    font-size: 0.5rem;
   }
 }
 
 @media screen and (max-width: 768px) {
   .navbar__social {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 
 @media screen and (max-width: 1024px) {
   .navbar__social {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 }

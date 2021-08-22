@@ -17,42 +17,42 @@ BREAKPOINTS:
 
 @media screen and (max-width: 280px) {
   .logo {
-    height: 1rem;
-    width: 1rem;
+    height: 1.5rem;
+    width: 1.5rem;
   }
 }
 
 @media screen and (max-width: 568px) {
+  .logo {
+    height: 2rem;
+    width: 2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
   .logo {
     height: 3rem;
     width: 3rem;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1280px) {
   .logo {
     height: 3.5rem;
     width: 3.5rem;
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1920px) {
   .logo {
     height: 4rem;
     width: 4rem;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .logo {
-    height: 4.5rem;
-    width: 4.5rem;
-  }
-}
-
-@media screen and (max-width: 1920px) {
-  .logo {
-    height: 5rem;
-    width: 5rem;
   }
 }
