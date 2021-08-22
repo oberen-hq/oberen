@@ -29,23 +29,26 @@ export default function Waitlist() {
         onSubmit={(e) => e.preventDefault()}
       >
         <div className={styles.waitlist__form_container}>
-          <span className={styles.waitlist__form_container_span}>
+          <label
+            htmlFor="email"
+            className={styles.waitlist__form_container_label}
+          >
             Email Address
-          </span>
+          </label>
           <input
             className={styles.waitlist__form_container_input}
             placeholder="eg: test@gmail.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <button
+            type="submit"
+            className={styles.waitlist__form_submit}
+            onClick={() => handleSubmit(email)}
+          >
+            Join Waitlist
+          </button>
         </div>
-        <button
-          type="submit"
-          className={styles.waitlist__form_submit}
-          onClick={() => handleSubmit(email)}
-        >
-          Join Waitlist
-        </button>
       </form>
     </React.Fragment>
   );

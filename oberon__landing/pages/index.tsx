@@ -18,15 +18,10 @@ const Home: React.FC = () => {
         position="top-center"
         reverseOrder={false}
         gutter={16}
-        containerClassName={styles.toast}
         toastOptions={{
           duration: 5000,
           success: {
             duration: 3000,
-            theme: {
-              primary: "green",
-              secondary: "black",
-            },
           },
         }}
       />
