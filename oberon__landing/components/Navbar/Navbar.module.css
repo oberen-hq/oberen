@@ -24,6 +24,15 @@
   border-radius: 20%;
   text-decoration: none;
   color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar__social:hover {
+  color: black;
+}
+
+.navbar__social:active {
+  color: var(--muted);
 }
 
 /* 
