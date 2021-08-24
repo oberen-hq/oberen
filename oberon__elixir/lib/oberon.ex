@@ -11,6 +11,7 @@ defmodule Oberon do
   end
 
   ## OTP Callbacks
+  @impl true
   def init(child_spec_list) do
     Process.flag(:trap_exit, true)
     state = child_spec_list
@@ -19,10 +20,18 @@ defmodule Oberon do
     {:ok, state}
   end
 
-  def handle_call(:list, _from, state) do
-    {:reply, state, state}
+
+  @impl true
+  def handle_call(:pop, _from, [head | tail]) do
+    {:reply, head, tail}
   end
 
+  @impl true
+  def handle_cast({:push, element}, state) do
+    {:noreply, [element | state]}
+  end
+
+  @impl true
   def handle_info({:EXIT, dead_pid, _reason}, state) do
     # State a new process based on the spec we have stored for the dead_pid
     {new_pid, child_spec} = state

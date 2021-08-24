@@ -11,7 +11,6 @@ const post = new PostRepo();
 
 @Resolver()
 export default class CreatePostResolver {
-  @isAuthenticated()
   @Mutation(() => PostResponse)
   async createPost(
     @Ctx() { req }: Context,
