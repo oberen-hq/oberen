@@ -13,7 +13,7 @@ class Main extends React.Component {
           <p className={styles.main__description}>
             Dive deep into any of your interests, mediated with precision to
             meet your tastes; move forward with our platform to communicate,
-            apprieciate, and replicate. This is Oberon.
+            apprieciate, and replicate. This is Oberen.
           </p>
           <Waitlist />
         </div>
