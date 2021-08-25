@@ -28,4 +28,6 @@ export interface PostDataType {
   description?: string;
   type: PostType;
   attachmentIds?: string[];
+  likerIds?: string[];
+  commentIds?: string[];
 }

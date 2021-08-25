@@ -20,6 +20,8 @@ export default class PostRepo extends PrismaClient {
           description: postData.description,
           type: postData.type,
           attachments: connectIdArray(postData.attachmentIds),
+          likers: connectIdArray(postData.likerIds),
+          comments: connectIdArray(postData.commentIds),
           creator: { connect: { id: "611cdd0500097547004e430e" } },
         };
 
@@ -38,7 +40,7 @@ export default class PostRepo extends PrismaClient {
 
   findById = async (postId: string): Promise<Post | ApolloError> => {
     return executeOrFail(async () => {
-      const post = await this.post.findUnique({
+      const post = await this.post.findFirst({
         where: {
           id: postId,
         },
