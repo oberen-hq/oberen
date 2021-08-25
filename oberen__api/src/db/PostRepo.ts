@@ -44,12 +44,6 @@ export default class PostRepo extends PrismaClient {
         where: {
           id: postId,
         },
-        include: {
-          attachments: true,
-          likers: true,
-          comments: true,
-          creator: true,
-        },
       });
 
       if (post) {
