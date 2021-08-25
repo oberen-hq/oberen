@@ -14,7 +14,7 @@ export default class CreatePostResolver {
     @Arg("args") args: CreatePostArgs
   ): Promise<PostResponse | ApolloError> {
     return executeOrFail(async () => {
-      return post.create(args);
+      return await post.create(args);
     });
   }
 }

@@ -17,7 +17,7 @@ export default class RegisterResolver {
   ): Promise<UserResponse | ApolloError> {
     if (args.isLocal) {
       return executeOrFail(async () => {
-        return localUser.create(args);
+        return await localUser.create(args);
       });
     } else {
       // return executeOrFail(async () => {

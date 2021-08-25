@@ -4,6 +4,7 @@ import { ApolloError } from "apollo-server-core";
 import { PostResponse } from "../resolvers/Post/responses/Post.response";
 import connectIdArray from "../utils/connectIdArray";
 import { PostDataType } from "./types/index";
+import { Post } from "../resolver-types/models";
 
 export default class PostRepo extends PrismaClient {
   create = async (
@@ -31,6 +32,28 @@ export default class PostRepo extends PrismaClient {
         };
       } catch (err) {
         throw new ApolloError(err.message, "500");
+      }
+    });
+  };
+
+  findById = async (postId: string): Promise<Post | ApolloError> => {
+    return executeOrFail(async () => {
+      const post = await this.post.findUnique({
+        where: {
+          id: postId,
+        },
+        include: {
+          attachments: true,
+          likers: true,
+          comments: true,
+          creator: true,
+        },
+      });
+
+      if (post) {
+        return post;
+      } else {
+        throw new ApolloError("That post does not exist", "404");
       }
     });
   };

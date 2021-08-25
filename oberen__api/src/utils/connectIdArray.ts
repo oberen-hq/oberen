@@ -1,3 +1,3 @@
-export default function connectIdArray(arr: string[] | undefined): any {
-  return { connect: arr || [].map((id) => ({ id })) };
+export default function connectIdArray(arr: string[] | undefined) {
+  return { connect: (arr || []).map((id) => ({ id })) };
 }
