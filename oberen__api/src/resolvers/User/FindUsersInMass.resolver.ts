@@ -1,7 +1,7 @@
 import { ApolloError } from "apollo-server-errors";
 import { Resolver, Query, Arg } from "type-graphql";
 import LocalUserRepo from "../../db/LocalUserRepo";
-import { User } from "../../resolver-types/models/User";
+import { User } from "../../resolver-types/models";
 import FindUsersInMassArgs from "./args/FindUsersInMass";
 import executeOrFail from "../../utils/executeOrFail";
 

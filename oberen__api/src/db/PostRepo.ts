@@ -2,12 +2,11 @@ import { PrismaClient } from "@prisma/client";
 import executeOrFail from "../utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
 import { PostResponse } from "../resolvers/Post/responses/Post.response";
-import connectIdArray from "src/utils/connectIdArray";
+import connectIdArray from "../utils/connectIdArray";
 import { PostDataType } from "./types/index";
 
 export default class PostRepo extends PrismaClient {
   create = async (
-    currentUser: any,
     postData: PostDataType
   ): Promise<PostResponse | ApolloError> => {
     return executeOrFail(async () => {
@@ -20,7 +19,7 @@ export default class PostRepo extends PrismaClient {
           description: postData.description,
           type: postData.type,
           attachments: connectIdArray(postData.attachmentIds),
-          creator: { connect: { id: currentUser.id } },
+          creator: { connect: { id: "611cdd0500097547004e430e" } },
         };
 
         const createdPost = await this.post.create({
@@ -29,7 +28,6 @@ export default class PostRepo extends PrismaClient {
 
         return {
           post: createdPost,
-          user: currentUser,
         };
       } catch (err) {
         throw new ApolloError(err.message, "500");

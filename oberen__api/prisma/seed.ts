@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client/";
 import executeOrFail from "../src/utils/executeOrFail";
 import faker from "faker";
-import { User } from "~/resolver-types/models";
+import { User } from "../src/resolver-types/models";
 
 class Seeder extends PrismaClient {
   deleteAll = async (): Promise<void> => {

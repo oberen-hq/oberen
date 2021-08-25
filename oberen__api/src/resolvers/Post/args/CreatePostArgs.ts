@@ -1,7 +1,7 @@
 import { Length } from "class-validator";
-import { PostType } from "~/resolver-types/enums";
+import { PostType } from "../../../resolver-types/enums";
 import { InputType, Field } from "type-graphql";
-import { Attachment } from "~/resolver-types/models";
+import { Attachment } from "../../../resolver-types/models";
 
 @InputType()
 export default class CreatePostArgs {
@@ -12,6 +12,6 @@ export default class CreatePostArgs {
   description?: string;
   @Field()
   type: PostType;
-  @Field({ nullable: true })
-  attachments?: Attachment[];
+  @Field(() => [String], { nullable: true })
+  attachmentIds?: string[];
 }

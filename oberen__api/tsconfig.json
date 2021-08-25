@@ -20,17 +20,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/resolvers/*": ["./src/resolvers/*"],
-      "~/util/*": ["./src/util/*"],
-      "~/auth/*": ["./src/auth/*"],
-      "~/types/*": ["./src/types/*"],
-      "~/config/*": ["./src/config/*"],
-      "~/resolver-types/*": ["./src/resolver-types/*"],
-      "~/db/*": ["./src/db/*"],
-      "~/middleware/*": ["./src/middleware/*"]
-    }
+    "baseUrl": "."
   },
   "exclude": ["node_modules"],
   "include": ["./src/**/*.tsx", "./src/**/*.ts", "prisma/seed.ts"]
