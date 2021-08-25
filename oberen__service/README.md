@@ -1,21 +1,11 @@
-# Oberon
+# Elixir tutorial part 3
+# GenServer and Supervisor
 
-**TODO: Add description**
+### In this tutorial, look at GenServer and Supervisor and we build a simple chat app.   
+## Run `iex -S mix` to run the app in the repl. 
 
-## Installation
+### Check out the Youtube Tutorial for this [Go Program](https://youtu.be/3EjRvaCOl94). Here is our [Youtube Channel](https://www.youtube.com/channel/UCYqCZOwHbnPwyjawKfE21wg) Subscribe for more content.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `oberon__elixir` to your list of dependencies in `mix.exs`:
+### Check out our blog at [tensor-programming.com](http://tensor-programming.com/).
 
-```elixir
-def deps do
-  [
-    {:oberon__elixir, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/oberon__elixir](https://hexdocs.pm/oberon__elixir).
-
+### Our [Twitter](https://twitter.com/TensorProgram) and our [facebook](https://www.facebook.com/Tensor-Programming-1197847143611799/).
