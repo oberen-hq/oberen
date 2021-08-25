@@ -14,7 +14,7 @@ export default class FindUserByIdResolver {
     @Arg("args") args: FindUserByIdArgs
   ): Promise<User | ApolloError> {
     return executeOrFail(async () => {
-      return localUser.findById(args.id);
+      return await localUser.findById(args.id);
     });
   }
 }
