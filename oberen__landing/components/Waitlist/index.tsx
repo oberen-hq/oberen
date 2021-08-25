@@ -13,7 +13,7 @@ init("user_bHXqZaAY9AYBC9P0KrB4y");
 
 function sendEmail(e: any) {
   e.preventDefault();
-  console.log("Email would be sent but its capped so um yeah lol.");
+  return;
   // emailjs
   //   .sendForm("service_l85s7ab", "template_3s09cax", e.target)
   //   .then(function (response) {
@@ -25,6 +25,10 @@ function sendEmail(e: any) {
 }
 
 async function handleSubmit(email: string) {
+  if (email.length === 0) {
+    return;
+  }
+
   const result = await firebase.validateEmail(email);
 
   if (result === "success") {
