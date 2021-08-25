@@ -75,4 +75,18 @@ BREAKPOINTS:
     margin-top: 1rem;
     margin-bottom: 1rem;
   }
+
+  .waitlist__form_container_input {
+    width: 50%;
+  }
+
+  .waitlist__form_submit {
+    width: 7rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .waitlist__form_container_input {
+    width: 65%;
+  }
 }
