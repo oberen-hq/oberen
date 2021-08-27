@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { PostCreateNestedOneWithoutAttachmentsInput } from "../inputs/PostCreateNestedOneWithoutAttachmentsInput";
 import { ReportCreateNestedOneWithoutAttachmentsInput } from "../inputs/ReportCreateNestedOneWithoutAttachmentsInput";
+import { UserCreateNestedOneWithoutCreatedAttachmentsInput } from "../inputs/UserCreateNestedOneWithoutCreatedAttachmentsInput";
 import { AttachmentType } from "../../enums/AttachmentType";
 
 @TypeGraphQL.InputType({
@@ -14,6 +15,16 @@ export class AttachmentCreateInput {
     nullable: true
   })
   id?: string | undefined;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  createdAt?: Date | undefined;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt?: Date | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -31,7 +42,12 @@ export class AttachmentCreateInput {
   post?: PostCreateNestedOneWithoutAttachmentsInput | undefined;
 
   @TypeGraphQL.Field(_type => ReportCreateNestedOneWithoutAttachmentsInput, {
+    nullable: true
+  })
+  report?: ReportCreateNestedOneWithoutAttachmentsInput | undefined;
+
+  @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutCreatedAttachmentsInput, {
     nullable: false
   })
-  report!: ReportCreateNestedOneWithoutAttachmentsInput;
+  creator!: UserCreateNestedOneWithoutCreatedAttachmentsInput;
 }

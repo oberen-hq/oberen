@@ -72,8 +72,8 @@ export class UserScalarWhereWithAggregatesInput {
   })
   userRole?: EnumRoleNullableWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
-  profileId?: StringNullableWithAggregatesFilter | undefined;
+  profileId?: StringWithAggregatesFilter | undefined;
 }

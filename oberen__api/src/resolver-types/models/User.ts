@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Attachment } from "../models/Attachment";
 import { Comment } from "../models/Comment";
 import { Label } from "../models/Label";
 import { OauthConnection } from "../models/OauthConnection";
@@ -60,12 +61,12 @@ export class User {
   })
   userRole?: "user" | "staff" | "admin" | null;
 
-  profile?: UserProfile | null;
+  profile?: UserProfile;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  profileId?: string | null;
+  profileId!: string;
 
   posts?: Post[];
 
@@ -80,6 +81,8 @@ export class User {
   followers?: User[];
 
   createdLabels?: Label[];
+
+  createdAttachments?: Attachment[];
 
   reports?: Report[];
 

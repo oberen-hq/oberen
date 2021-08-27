@@ -13,6 +13,16 @@ export class AttachmentMaxAggregate {
   })
   id!: string | null;
 
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  createdAt!: Date | null;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt!: Date | null;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
@@ -32,4 +42,9 @@ export class AttachmentMaxAggregate {
     nullable: true
   })
   reportId!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  creatorId!: string | null;
 }

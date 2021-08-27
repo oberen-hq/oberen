@@ -35,5 +35,5 @@ export class ReportAttachmentsArgs {
   @TypeGraphQL.Field(_type => [AttachmentScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "attachmentUrl" | "type" | "postId" | "reportId"> | undefined;
+  distinct?: Array<"id" | "createdAt" | "updatedAt" | "attachmentUrl" | "type" | "postId" | "reportId" | "creatorId"> | undefined;
 }

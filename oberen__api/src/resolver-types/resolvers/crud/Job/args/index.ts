@@ -9,3 +9,4 @@ export { FindUniqueJobArgs } from "./FindUniqueJobArgs";
 export { GroupByJobArgs } from "./GroupByJobArgs";
 export { UpdateJobArgs } from "./UpdateJobArgs";
 export { UpdateManyJobArgs } from "./UpdateManyJobArgs";
+export { UpsertJobArgs } from "./UpsertJobArgs";

@@ -9,3 +9,4 @@ export { FindUniqueJobApplicantArgs } from "./FindUniqueJobApplicantArgs";
 export { GroupByJobApplicantArgs } from "./GroupByJobApplicantArgs";
 export { UpdateJobApplicantArgs } from "./UpdateJobApplicantArgs";
 export { UpdateManyJobApplicantArgs } from "./UpdateManyJobApplicantArgs";
+export { UpsertJobApplicantArgs } from "./UpsertJobApplicantArgs";

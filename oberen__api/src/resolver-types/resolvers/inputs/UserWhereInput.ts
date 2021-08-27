@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { AttachmentListRelationFilter } from "../inputs/AttachmentListRelationFilter";
 import { BoolFilter } from "../inputs/BoolFilter";
 import { CommentListRelationFilter } from "../inputs/CommentListRelationFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
@@ -85,10 +86,10 @@ export class UserWhereInput {
   })
   profile?: UserProfileRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  profileId?: StringNullableFilter | undefined;
+  profileId?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => PostListRelationFilter, {
     nullable: true
@@ -124,6 +125,11 @@ export class UserWhereInput {
     nullable: true
   })
   createdLabels?: LabelListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => AttachmentListRelationFilter, {
+    nullable: true
+  })
+  createdAttachments?: AttachmentListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => ReportListRelationFilter, {
     nullable: true

@@ -129,8 +129,8 @@ model User {
 
   // Profile
 
-  profile   UserProfile? @relation("UserProfileRelation", fields: [profileId], references: [id])
-  profileId String?      @db.ObjectId
+  profile   UserProfile @relation("UserProfileRelation", fields: [profileId], references: [id])
+  profileId String      @db.ObjectId
 
   // Posts
 
@@ -147,6 +147,10 @@ model User {
   // Labels
 
   createdLabels Label[]
+
+  // Attachments
+
+  createdAttachments Attachment[]
 
   // Reporting system
 
@@ -235,18 +239,25 @@ model Comment {
 
 model Attachment {
   id            String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   attachmentUrl String
   type          AttachmentType
 
   // Post
 
   post   Post?  @relation(fields: [postId], references: [id])
-  postId String @db.ObjectId
+  postId String? @db.ObjectId
 
   // Report
 
-  report   Report @relation(fields: [reportId], references: [id])
-  reportId String @db.ObjectId
+  report   Report? @relation(fields: [reportId], references: [id])
+  reportId String? @db.ObjectId
+
+  // Creator
+
+  creator   User         @relation(fields: [creatorId], references: [id])
+  creatorId String       @db.ObjectId
 }
 
 model Label {
@@ -304,16 +315,24 @@ model Report {
 
 model Organization {
   id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Job {
   id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model JobApplicant {
   id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Shift {
   id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -1,4 +1,5 @@
 import * as TypeGraphQL from "type-graphql";
+import { Attachment } from "../../../models/Attachment";
 import { Comment } from "../../../models/Comment";
 import { Label } from "../../../models/Label";
 import { OauthConnection } from "../../../models/OauthConnection";
@@ -7,6 +8,7 @@ import { Report } from "../../../models/Report";
 import { TokenPair } from "../../../models/TokenPair";
 import { User } from "../../../models/User";
 import { UserProfile } from "../../../models/UserProfile";
+import { UserCreatedAttachmentsArgs } from "./args/UserCreatedAttachmentsArgs";
 import { UserCreatedCommentsArgs } from "./args/UserCreatedCommentsArgs";
 import { UserCreatedLabelsArgs } from "./args/UserCreatedLabelsArgs";
 import { UserFollowersArgs } from "./args/UserFollowersArgs";
@@ -22,9 +24,9 @@ import { transformFields, getPrismaFromContext, transformCountFieldIntoSelectRel
 @TypeGraphQL.Resolver(_of => User)
 export class UserRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => UserProfile, {
-    nullable: true
+    nullable: false
   })
-  async profile(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any): Promise<UserProfile | null> {
+  async profile(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any): Promise<UserProfile> {
     return getPrismaFromContext(ctx).user.findUnique({
       where: {
         id: user.id,
@@ -107,6 +109,17 @@ export class UserRelationsResolver {
         id: user.id,
       },
     }).createdLabels(args);
+  }
+
+  @TypeGraphQL.FieldResolver(_type => [Attachment], {
+    nullable: false
+  })
+  async createdAttachments(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserCreatedAttachmentsArgs): Promise<Attachment[]> {
+    return getPrismaFromContext(ctx).user.findUnique({
+      where: {
+        id: user.id,
+      },
+    }).createdAttachments(args);
   }
 
   @TypeGraphQL.FieldResolver(_type => [Report], {

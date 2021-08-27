@@ -20,7 +20,7 @@ export class GroupByShiftArgs {
   @TypeGraphQL.Field(_type => [ShiftScalarFieldEnum], {
     nullable: false
   })
-  by!: "id"[];
+  by!: Array<"id" | "createdAt" | "updatedAt">;
 
   @TypeGraphQL.Field(_type => ShiftScalarWhereWithAggregatesInput, {
     nullable: true

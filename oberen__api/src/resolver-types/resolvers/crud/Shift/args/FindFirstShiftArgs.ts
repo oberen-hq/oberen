@@ -35,5 +35,5 @@ export class FindFirstShiftArgs {
   @TypeGraphQL.Field(_type => [ShiftScalarFieldEnum], {
     nullable: true
   })
-  distinct?: "id"[] | undefined;
+  distinct?: Array<"id" | "createdAt" | "updatedAt"> | undefined;
 }

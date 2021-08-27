@@ -12,6 +12,7 @@ import { FindUniqueOrganizationArgs } from "./args/FindUniqueOrganizationArgs";
 import { GroupByOrganizationArgs } from "./args/GroupByOrganizationArgs";
 import { UpdateManyOrganizationArgs } from "./args/UpdateManyOrganizationArgs";
 import { UpdateOrganizationArgs } from "./args/UpdateOrganizationArgs";
+import { UpsertOrganizationArgs } from "./args/UpsertOrganizationArgs";
 import { transformFields, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Organization } from "../../../models/Organization";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
@@ -132,6 +133,19 @@ export class OrganizationCrudResolver {
       graphqlFields(info as any)
     );
     return getPrismaFromContext(ctx).organization.updateMany({
+      ...args,
+      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
+    });
+  }
+
+  @TypeGraphQL.Mutation(_returns => Organization, {
+    nullable: false
+  })
+  async upsertOrganization(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOrganizationArgs): Promise<Organization> {
+    const { _count } = transformFields(
+      graphqlFields(info as any)
+    );
+    return getPrismaFromContext(ctx).organization.upsert({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });

@@ -20,7 +20,7 @@ export class GroupByJobApplicantArgs {
   @TypeGraphQL.Field(_type => [JobApplicantScalarFieldEnum], {
     nullable: false
   })
-  by!: "id"[];
+  by!: Array<"id" | "createdAt" | "updatedAt">;
 
   @TypeGraphQL.Field(_type => JobApplicantScalarWhereWithAggregatesInput, {
     nullable: true

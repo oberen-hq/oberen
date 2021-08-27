@@ -1,3 +1,4 @@
+export { UserCreatedAttachmentsArgs } from "./UserCreatedAttachmentsArgs";
 export { UserCreatedCommentsArgs } from "./UserCreatedCommentsArgs";
 export { UserCreatedLabelsArgs } from "./UserCreatedLabelsArgs";
 export { UserFollowersArgs } from "./UserFollowersArgs";

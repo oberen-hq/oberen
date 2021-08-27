@@ -13,6 +13,16 @@ export class AttachmentCreateManyReportInput {
   })
   id?: string | undefined;
 
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  createdAt?: Date | undefined;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt?: Date | undefined;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
@@ -24,7 +34,12 @@ export class AttachmentCreateManyReportInput {
   type!: "image" | "video" | "organization" | "post" | "other";
 
   @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  postId?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  postId!: string;
+  creatorId!: string;
 }

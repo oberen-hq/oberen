@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
 import { Post } from "../models/Post";
 import { Report } from "../models/Report";
+import { User } from "../models/User";
 import { AttachmentType } from "../enums/AttachmentType";
 
 @TypeGraphQL.ObjectType({
@@ -14,6 +15,16 @@ export class Attachment {
     nullable: false
   })
   id!: string;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  createdAt!: Date;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  updatedAt!: Date;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -28,14 +39,21 @@ export class Attachment {
   post?: Post | null;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  postId!: string;
+  postId?: string | null;
 
-  report?: Report;
+  report?: Report | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  reportId?: string | null;
+
+  creator?: User;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  reportId!: string;
+  creatorId!: string;
 }

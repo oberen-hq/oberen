@@ -9,3 +9,4 @@ export { FindUniqueOrganizationArgs } from "./FindUniqueOrganizationArgs";
 export { GroupByOrganizationArgs } from "./GroupByOrganizationArgs";
 export { UpdateManyOrganizationArgs } from "./UpdateManyOrganizationArgs";
 export { UpdateOrganizationArgs } from "./UpdateOrganizationArgs";
+export { UpsertOrganizationArgs } from "./UpsertOrganizationArgs";

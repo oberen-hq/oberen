@@ -9,3 +9,4 @@ export { FindUniqueShiftArgs } from "./FindUniqueShiftArgs";
 export { GroupByShiftArgs } from "./GroupByShiftArgs";
 export { UpdateManyShiftArgs } from "./UpdateManyShiftArgs";
 export { UpdateShiftArgs } from "./UpdateShiftArgs";
+export { UpsertShiftArgs } from "./UpsertShiftArgs";

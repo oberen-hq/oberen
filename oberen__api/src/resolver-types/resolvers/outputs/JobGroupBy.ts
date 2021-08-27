@@ -15,6 +15,16 @@ export class JobGroupBy {
   })
   id!: string;
 
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  createdAt!: Date;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  updatedAt!: Date;
+
   @TypeGraphQL.Field(_type => JobCountAggregate, {
     nullable: true
   })

@@ -12,6 +12,7 @@ import { FindUniqueShiftArgs } from "./args/FindUniqueShiftArgs";
 import { GroupByShiftArgs } from "./args/GroupByShiftArgs";
 import { UpdateManyShiftArgs } from "./args/UpdateManyShiftArgs";
 import { UpdateShiftArgs } from "./args/UpdateShiftArgs";
+import { UpsertShiftArgs } from "./args/UpsertShiftArgs";
 import { transformFields, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Shift } from "../../../models/Shift";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
@@ -132,6 +133,19 @@ export class ShiftCrudResolver {
       graphqlFields(info as any)
     );
     return getPrismaFromContext(ctx).shift.updateMany({
+      ...args,
+      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
+    });
+  }
+
+  @TypeGraphQL.Mutation(_returns => Shift, {
+    nullable: false
+  })
+  async upsertShift(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertShiftArgs): Promise<Shift> {
+    const { _count } = transformFields(
+      graphqlFields(info as any)
+    );
+    return getPrismaFromContext(ctx).shift.upsert({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });

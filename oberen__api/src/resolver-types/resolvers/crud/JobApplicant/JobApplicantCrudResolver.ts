@@ -12,6 +12,7 @@ import { FindUniqueJobApplicantArgs } from "./args/FindUniqueJobApplicantArgs";
 import { GroupByJobApplicantArgs } from "./args/GroupByJobApplicantArgs";
 import { UpdateJobApplicantArgs } from "./args/UpdateJobApplicantArgs";
 import { UpdateManyJobApplicantArgs } from "./args/UpdateManyJobApplicantArgs";
+import { UpsertJobApplicantArgs } from "./args/UpsertJobApplicantArgs";
 import { transformFields, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { JobApplicant } from "../../../models/JobApplicant";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
@@ -132,6 +133,19 @@ export class JobApplicantCrudResolver {
       graphqlFields(info as any)
     );
     return getPrismaFromContext(ctx).jobApplicant.updateMany({
+      ...args,
+      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
+    });
+  }
+
+  @TypeGraphQL.Mutation(_returns => JobApplicant, {
+    nullable: false
+  })
+  async upsertJobApplicant(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertJobApplicantArgs): Promise<JobApplicant> {
+    const { _count } = transformFields(
+      graphqlFields(info as any)
+    );
+    return getPrismaFromContext(ctx).jobApplicant.upsert({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });

@@ -16,6 +16,16 @@ export class AttachmentGroupBy {
   })
   id!: string;
 
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  createdAt!: Date;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  updatedAt!: Date;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
@@ -27,14 +37,19 @@ export class AttachmentGroupBy {
   type!: "image" | "video" | "organization" | "post" | "other";
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  postId!: string;
+  postId!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  reportId!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  reportId!: string;
+  creatorId!: string;
 
   @TypeGraphQL.Field(_type => AttachmentCountAggregate, {
     nullable: true

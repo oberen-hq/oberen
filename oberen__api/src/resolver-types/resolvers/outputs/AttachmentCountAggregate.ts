@@ -15,6 +15,16 @@ export class AttachmentCountAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
+  createdAt!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  updatedAt!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
   attachmentUrl!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
@@ -31,6 +41,11 @@ export class AttachmentCountAggregate {
     nullable: false
   })
   reportId!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  creatorId!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false

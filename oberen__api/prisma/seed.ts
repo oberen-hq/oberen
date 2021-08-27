@@ -4,17 +4,9 @@ import faker from "faker";
 import { User } from "../src/resolver-types/models";
 
 class Seeder extends PrismaClient {
-  deleteAll = async (): Promise<void> => {
-    executeOrFail(async () => {
-      await this.user.deleteMany({});
-      await this.userProfile.deleteMany({});
-    });
-    console.log("All documents deleted.");
-  };
-
-  createLocalUsers = async (amount: number = 30): Promise<void> => {
+  createLocalUsersAndPosts = async (amount: number = 30): Promise<void> => {
     return executeOrFail(async () => {
-      let data: User[] = [];
+      let data: any = [];
 
       for (let i = 0; i <= amount; i++) {
         const username = faker.internet.userName();
@@ -41,7 +33,22 @@ class Seeder extends PrismaClient {
           },
         });
 
+        const post = await this.post.create({
+          data: {
+            title: faker.random.word(),
+            description: faker.random.words(),
+            type: "post",
+            creator: {
+              connect: { id: user.id },
+            },
+          },
+          include: {
+            attachments: true,
+          },
+        });
+
         data.push(user);
+        data.push(post);
       }
 
       console.table(data);
@@ -53,8 +60,7 @@ const main = async () => {
   const seed = new Seeder();
 
   await seed.$connect();
-  await seed.deleteAll();
-  await seed.createLocalUsers();
+  await seed.createLocalUsersAndPosts();
   await seed.$disconnect();
   process.exit(0);
 };

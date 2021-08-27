@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { AttachmentCreateNestedManyWithoutCreatorInput } from "../inputs/AttachmentCreateNestedManyWithoutCreatorInput";
 import { CommentCreateNestedManyWithoutLikersInput } from "../inputs/CommentCreateNestedManyWithoutLikersInput";
 import { LabelCreateNestedManyWithoutCreatorInput } from "../inputs/LabelCreateNestedManyWithoutCreatorInput";
 import { OauthConnectionCreateNestedManyWithoutUserInput } from "../inputs/OauthConnectionCreateNestedManyWithoutUserInput";
@@ -64,9 +65,9 @@ export class UserCreateWithoutCreatedCommentsInput {
   userRole?: "user" | "staff" | "admin" | undefined;
 
   @TypeGraphQL.Field(_type => UserProfileCreateNestedOneWithoutUserInput, {
-    nullable: true
+    nullable: false
   })
-  profile?: UserProfileCreateNestedOneWithoutUserInput | undefined;
+  profile!: UserProfileCreateNestedOneWithoutUserInput;
 
   @TypeGraphQL.Field(_type => PostCreateNestedManyWithoutCreatorInput, {
     nullable: true
@@ -97,6 +98,11 @@ export class UserCreateWithoutCreatedCommentsInput {
     nullable: true
   })
   createdLabels?: LabelCreateNestedManyWithoutCreatorInput | undefined;
+
+  @TypeGraphQL.Field(_type => AttachmentCreateNestedManyWithoutCreatorInput, {
+    nullable: true
+  })
+  createdAttachments?: AttachmentCreateNestedManyWithoutCreatorInput | undefined;
 
   @TypeGraphQL.Field(_type => ReportCreateNestedManyWithoutCreatorInput, {
     nullable: true

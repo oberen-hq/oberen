@@ -11,7 +11,7 @@ import { ReportWhereUniqueInput } from "../inputs/ReportWhereUniqueInput";
 @TypeGraphQL.InputType({
   isAbstract: true
 })
-export class ReportUpdateOneRequiredWithoutAttachmentsInput {
+export class ReportUpdateOneWithoutAttachmentsInput {
   @TypeGraphQL.Field(_type => ReportCreateWithoutAttachmentsInput, {
     nullable: true
   })
@@ -31,6 +31,16 @@ export class ReportUpdateOneRequiredWithoutAttachmentsInput {
     nullable: true
   })
   connect?: ReportWhereUniqueInput | undefined;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  disconnect?: boolean | undefined;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  delete?: boolean | undefined;
 
   @TypeGraphQL.Field(_type => ReportUpdateWithoutAttachmentsInput, {
     nullable: true

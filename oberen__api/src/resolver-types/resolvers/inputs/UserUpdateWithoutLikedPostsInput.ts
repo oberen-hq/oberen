@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { AttachmentUpdateManyWithoutCreatorInput } from "../inputs/AttachmentUpdateManyWithoutCreatorInput";
 import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperationsInput";
 import { CommentUpdateManyWithoutCreatorInput } from "../inputs/CommentUpdateManyWithoutCreatorInput";
 import { CommentUpdateManyWithoutLikersInput } from "../inputs/CommentUpdateManyWithoutLikersInput";
@@ -14,7 +15,7 @@ import { PostUpdateManyWithoutCreatorInput } from "../inputs/PostUpdateManyWitho
 import { ReportUpdateManyWithoutCreatorInput } from "../inputs/ReportUpdateManyWithoutCreatorInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { TokenPairUpdateManyWithoutUserInput } from "../inputs/TokenPairUpdateManyWithoutUserInput";
-import { UserProfileUpdateOneWithoutUserInput } from "../inputs/UserProfileUpdateOneWithoutUserInput";
+import { UserProfileUpdateOneRequiredWithoutUserInput } from "../inputs/UserProfileUpdateOneRequiredWithoutUserInput";
 import { UserUpdateManyWithoutFollowersInput } from "../inputs/UserUpdateManyWithoutFollowersInput";
 import { UserUpdateManyWithoutFollowingInput } from "../inputs/UserUpdateManyWithoutFollowingInput";
 
@@ -62,10 +63,10 @@ export class UserUpdateWithoutLikedPostsInput {
   })
   userRole?: NullableEnumRoleFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserProfileUpdateOneWithoutUserInput, {
+  @TypeGraphQL.Field(_type => UserProfileUpdateOneRequiredWithoutUserInput, {
     nullable: true
   })
-  profile?: UserProfileUpdateOneWithoutUserInput | undefined;
+  profile?: UserProfileUpdateOneRequiredWithoutUserInput | undefined;
 
   @TypeGraphQL.Field(_type => PostUpdateManyWithoutCreatorInput, {
     nullable: true
@@ -96,6 +97,11 @@ export class UserUpdateWithoutLikedPostsInput {
     nullable: true
   })
   createdLabels?: LabelUpdateManyWithoutCreatorInput | undefined;
+
+  @TypeGraphQL.Field(_type => AttachmentUpdateManyWithoutCreatorInput, {
+    nullable: true
+  })
+  createdAttachments?: AttachmentUpdateManyWithoutCreatorInput | undefined;
 
   @TypeGraphQL.Field(_type => ReportUpdateManyWithoutCreatorInput, {
     nullable: true

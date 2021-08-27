@@ -20,7 +20,7 @@ export class GroupByOrganizationArgs {
   @TypeGraphQL.Field(_type => [OrganizationScalarFieldEnum], {
     nullable: false
   })
-  by!: "id"[];
+  by!: Array<"id" | "createdAt" | "updatedAt">;
 
   @TypeGraphQL.Field(_type => OrganizationScalarWhereWithAggregatesInput, {
     nullable: true

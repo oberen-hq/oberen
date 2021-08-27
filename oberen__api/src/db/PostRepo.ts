@@ -20,17 +20,19 @@ export default class PostRepo extends PrismaClient {
           description: postData.description,
           type: postData.type,
           attachments: connectIdArray(postData.attachmentIds),
-          likers: connectIdArray(postData.likerIds),
-          comments: connectIdArray(postData.commentIds),
           creator: { connect: { id: "611cdd0500097547004e430e" } },
         };
 
         const createdPost = await this.post.create({
           data: post,
+          include: {
+            attachments: true,
+          },
         });
 
         return {
           post: createdPost,
+          attachments: createdPost.attachments,
         };
       } catch (err) {
         throw new ApolloError(err.message, "500");
@@ -38,16 +40,22 @@ export default class PostRepo extends PrismaClient {
     });
   };
 
-  findById = async (postId: string): Promise<Post | ApolloError> => {
+  findById = async (postId: string): Promise<PostResponse | ApolloError> => {
     return executeOrFail(async () => {
       const post = await this.post.findFirst({
         where: {
           id: postId,
         },
+        include: {
+          attachments: true,
+        },
       });
 
       if (post) {
-        return post;
+        return {
+          post: post,
+          attachments: post.attachments,
+        };
       } else {
         throw new ApolloError("That post does not exist", "404");
       }

@@ -35,5 +35,5 @@ export class FindManyJobArgs {
   @TypeGraphQL.Field(_type => [JobScalarFieldEnum], {
     nullable: true
   })
-  distinct?: "id"[] | undefined;
+  distinct?: Array<"id" | "createdAt" | "updatedAt"> | undefined;
 }

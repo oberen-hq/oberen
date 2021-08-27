@@ -13,4 +13,8 @@ export default class CreatePostArgs {
   type: PostType;
   @Field(() => [String], { nullable: true })
   attachmentIds?: string[];
+  @Field(() => [String], { nullable: true })
+  likerIds?: string[];
+  @Field(() => [String], { nullable: true })
+  commentIds?: string[];
 }

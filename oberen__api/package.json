@@ -12,7 +12,7 @@
     "start:dev": "nodemon dist/src/index.js",
     "test:auth": "node dist/tests/auth.test.js",
     "db:generate": "npx prisma generate",
-    "db:seed": "ts-node prisma/seed.ts"
+    "db:seed": "node dist/prisma/seed.js"
   },
   "dependencies": {
     "@prisma/client": "~2.29.0",

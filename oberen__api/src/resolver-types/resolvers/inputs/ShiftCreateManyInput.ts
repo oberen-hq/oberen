@@ -11,4 +11,14 @@ export class ShiftCreateManyInput {
     nullable: true
   })
   id?: string | undefined;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  createdAt?: Date | undefined;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt?: Date | undefined;
 }
