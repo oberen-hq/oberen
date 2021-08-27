@@ -13,8 +13,6 @@ export default class FindUserByIdResolver {
   async findUserById(
     @Arg("args") args: FindUserByIdArgs
   ): Promise<User | ApolloError> {
-    return executeOrFail(async () => {
-      return await localUser.findById(args.id);
-    });
+    return await localUser.findById(args.id);
   }
 }

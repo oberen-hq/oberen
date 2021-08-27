@@ -16,9 +16,7 @@ export default class RegisterResolver {
     @Arg("args") args: RegisterArgs
   ): Promise<UserResponse | ApolloError> {
     if (args.isLocal) {
-      return executeOrFail(async () => {
-        return await localUser.create(args);
-      });
+      return await localUser.create(args);
     } else {
       // return executeOrFail(async () => {
       //   return oauthUser.create(args);

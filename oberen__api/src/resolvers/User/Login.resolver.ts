@@ -13,8 +13,6 @@ export class LoginResolver {
   async login(
     @Arg("args") args: LoginArgs
   ): Promise<UserResponse | ApolloError> {
-    return executeOrFail(async () => {
-      return await localUser.login(args);
-    });
+    return await localUser.login(args);
   }
 }
