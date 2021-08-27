@@ -61,7 +61,7 @@ export class UserUpdateWithoutCreatedAttachmentsInput {
   @TypeGraphQL.Field(_type => NullableEnumRoleFieldUpdateOperationsInput, {
     nullable: true
   })
-  userRole?: NullableEnumRoleFieldUpdateOperationsInput | undefined;
+  role?: NullableEnumRoleFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => UserProfileUpdateOneRequiredWithoutUserInput, {
     nullable: true

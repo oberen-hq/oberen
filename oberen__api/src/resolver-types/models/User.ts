@@ -59,7 +59,7 @@ export class User {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
-  userRole?: "user" | "staff" | "admin" | null;
+  role?: "user" | "staff" | "admin" | null;
 
   profile?: UserProfile;
 

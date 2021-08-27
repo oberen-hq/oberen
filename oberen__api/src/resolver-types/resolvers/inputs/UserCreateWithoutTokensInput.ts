@@ -62,7 +62,7 @@ export class UserCreateWithoutTokensInput {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
-  userRole?: "user" | "staff" | "admin" | undefined;
+  role?: "user" | "staff" | "admin" | undefined;
 
   @TypeGraphQL.Field(_type => UserProfileCreateNestedOneWithoutUserInput, {
     nullable: false

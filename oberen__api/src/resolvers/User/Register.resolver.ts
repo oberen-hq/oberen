@@ -23,7 +23,7 @@ export default class RegisterResolver {
       // return executeOrFail(async () => {
       //   return oauthUser.create(args);
       // });
-      throw new ApolloError("Test", "404");
+      throw new ApolloError("Oauth Service is not setup yet!", "400");
     }
   }
 }

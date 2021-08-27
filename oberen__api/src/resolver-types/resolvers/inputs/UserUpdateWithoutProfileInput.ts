@@ -61,7 +61,7 @@ export class UserUpdateWithoutProfileInput {
   @TypeGraphQL.Field(_type => NullableEnumRoleFieldUpdateOperationsInput, {
     nullable: true
   })
-  userRole?: NullableEnumRoleFieldUpdateOperationsInput | undefined;
+  role?: NullableEnumRoleFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => PostUpdateManyWithoutCreatorInput, {
     nullable: true

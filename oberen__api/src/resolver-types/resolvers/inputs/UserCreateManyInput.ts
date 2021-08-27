@@ -51,7 +51,7 @@ export class UserCreateManyInput {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
-  userRole?: "user" | "staff" | "admin" | undefined;
+  role?: "user" | "staff" | "admin" | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

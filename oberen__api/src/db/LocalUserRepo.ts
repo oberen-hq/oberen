@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { User } from "../resolver-types";
+import { User } from "../resolver-types/models/";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -16,7 +16,7 @@ export default class LocalUserRepo extends PrismaClient {
     userData: RegisterUserDataType
   ): Promise<UserResponse | ApolloError> => {
     return executeOrFail(async () => {
-      const existingUser = await this.user.findMany({
+      const existingUser = await this.user.findFirst({
         where: {
           OR: [
             {

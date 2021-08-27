@@ -70,7 +70,7 @@ export class UserScalarWhereInput {
   @TypeGraphQL.Field(_type => EnumRoleNullableFilter, {
     nullable: true
   })
-  userRole?: EnumRoleNullableFilter | undefined;
+  role?: EnumRoleNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true

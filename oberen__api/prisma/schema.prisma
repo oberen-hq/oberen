@@ -83,6 +83,90 @@ enum ReportStatus {
   accepted
 }
 
+model Attachment {
+  id            String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  attachmentUrl String
+  type          AttachmentType
+
+  // Post
+
+  post   Post?   @relation(fields: [postId], references: [id])
+  postId String? @db.ObjectId
+
+  // Report
+
+  report   Report? @relation(fields: [reportId], references: [id])
+  reportId String? @db.ObjectId
+
+  // Creator
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String @db.ObjectId
+}
+
+model Comment {
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  body      String
+
+  // Creator
+
+  creator   User   @relation("UserCommentsRelation", fields: [creatorId], references: [id])
+  creatorId String @db.ObjectId
+
+  // Posts
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String @db.ObjectId
+
+  // Report
+
+  report   Report @relation(fields: [reportId], references: [id])
+  reportId String @db.ObjectId
+
+  // Extras
+
+  edited Boolean @default(false)
+  likers User[]  @relation("UserLikedCommentsRelation")
+  likes  Int     @default(0)
+}
+
+model Job {
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model JobApplicant {
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Label {
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Description
+
+  name        String
+  description String?
+
+  // Incremental usage
+
+  uses Int @default(0)
+
+  // Creator
+
+  creator   User         @relation(fields: [creatorId], references: [id])
+  creatorId String       @db.ObjectId
+  profile   UserProfile? @relation(fields: [profileId], references: [id])
+  profileId String?      @db.ObjectId
+}
+
 model OauthConnection {
   id                 String            @id @default(dbgenerated()) @map("_id") @db.ObjectId
   createdAt          DateTime          @default(now())
@@ -97,6 +181,66 @@ model OauthConnection {
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @db.ObjectId
+}
+
+model Post {
+  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  description String?
+  type        PostType
+
+  // Likes and Comments
+
+  likers   User[]    @relation("UserLikedPostsRelation")
+  comments Comment[]
+
+  // TODO: Attachments and labels
+
+  attachments Attachment[]
+
+  // Creator
+
+  creator   User   @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
+  creatorId String @db.ObjectId
+}
+
+model Report {
+  id          String            @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  name        String
+  description String
+  severity    BugReportSeverity @default(value: low)
+
+  // Type
+
+  type RequestType
+
+  // Creator
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String @db.ObjectId
+
+
+  // Attachments
+
+  attachments Attachment[]
+
+  // Comments
+
+  comments Comment[]
+
+  // Extras
+
+  status ReportStatus @default(value: pending)
+}
+
+model Shift {
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model TokenPair {
@@ -125,7 +269,7 @@ model User {
   displayName String   @default("")
   email       String   @unique
   password    String?
-  userRole    Role?    @default(value: user)
+  role        Role?    @default(value: user)
 
   // Profile
 
@@ -185,154 +329,4 @@ model UserProfile {
   bio       String?  @default("Something amazing to go here...")
 
   labels Label[]
-}
-
-model Post {
-  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  title       String
-  description String?
-  type        PostType
-
-  // Likes and Comments
-
-  likers   User[]    @relation("UserLikedPostsRelation")
-  comments Comment[]
-
-  // TODO: Attachments and labels
-
-  attachments Attachment[]
-
-  // Creator
-
-  creator   User   @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
-  creatorId String @db.ObjectId
-}
-
-model Comment {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  body      String
-
-  // Creator
-
-  creator   User   @relation("UserCommentsRelation", fields: [creatorId], references: [id])
-  creatorId String @db.ObjectId
-
-  // Posts
-  post   Post   @relation(fields: [postId], references: [id])
-  postId String @db.ObjectId
-
-  // Report
-
-  report   Report @relation(fields: [reportId], references: [id])
-  reportId String @db.ObjectId
-
-  // Extras
-
-  edited Boolean @default(false)
-  likers User[]  @relation("UserLikedCommentsRelation")
-  likes  Int     @default(0)
-}
-
-model Attachment {
-  id            String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  attachmentUrl String
-  type          AttachmentType
-
-  // Post
-
-  post   Post?  @relation(fields: [postId], references: [id])
-  postId String? @db.ObjectId
-
-  // Report
-
-  report   Report? @relation(fields: [reportId], references: [id])
-  reportId String? @db.ObjectId
-
-  // Creator
-
-  creator   User         @relation(fields: [creatorId], references: [id])
-  creatorId String       @db.ObjectId
-}
-
-model Label {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Description
-
-  name        String
-  description String?
-
-  // Incremental usage
-
-  uses Int @default(0)
-
-  // Creator
-
-  creator   User         @relation(fields: [creatorId], references: [id])
-  creatorId String       @db.ObjectId
-  profile   UserProfile? @relation(fields: [profileId], references: [id])
-  profileId String?      @db.ObjectId
-}
-
-model Report {
-  id          String            @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  name        String
-  description String
-  severity    BugReportSeverity @default(value: low)
-
-  // Type
-
-  type RequestType
-
-  // Creator
-
-  creator   User   @relation(fields: [creatorId], references: [id])
-  creatorId String @db.ObjectId
-
-
-  // Attachments
-
-  attachments Attachment[]
-
-  // Comments
-
-  comments Comment[]
-
-  // Extras
-
-  status ReportStatus @default(value: pending)
-}
-
-model Organization {
-  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Job {
-  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model JobApplicant {
-  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Shift {
-  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

@@ -4,7 +4,6 @@ export { Job } from "./Job";
 export { JobApplicant } from "./JobApplicant";
 export { Label } from "./Label";
 export { OauthConnection } from "./OauthConnection";
-export { Organization } from "./Organization";
 export { Post } from "./Post";
 export { Report } from "./Report";
 export { Shift } from "./Shift";

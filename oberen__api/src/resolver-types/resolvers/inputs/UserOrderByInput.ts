@@ -51,7 +51,7 @@ export class UserOrderByInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  userRole?: "asc" | "desc" | undefined;
+  role?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true

@@ -4,7 +4,6 @@ export * from "./Job/args";
 export * from "./JobApplicant/args";
 export * from "./Label/args";
 export * from "./OauthConnection/args";
-export * from "./Organization/args";
 export * from "./Post/args";
 export * from "./Report/args";
 export * from "./Shift/args";

@@ -51,7 +51,7 @@ export class UserMinAggregate {
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
-  userRole!: "user" | "staff" | "admin" | null;
+  role!: "user" | "staff" | "admin" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

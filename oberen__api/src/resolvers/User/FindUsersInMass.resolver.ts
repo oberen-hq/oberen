@@ -10,7 +10,7 @@ const localUser = new LocalUserRepo();
 @Resolver()
 export default class FindUsersInMassResolver {
   @Query(() => [User])
-  async findAllUsers(
+  async findUsersInMass(
     @Arg("args") args: FindUsersInMassArgs
   ): Promise<User[] | ApolloError> {
     return executeOrFail(async () => {

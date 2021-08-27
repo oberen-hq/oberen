@@ -214,14 +214,6 @@ export { OauthConnectionUpdateWithoutUserInput } from "./OauthConnectionUpdateWi
 export { OauthConnectionUpsertWithWhereUniqueWithoutUserInput } from "./OauthConnectionUpsertWithWhereUniqueWithoutUserInput";
 export { OauthConnectionWhereInput } from "./OauthConnectionWhereInput";
 export { OauthConnectionWhereUniqueInput } from "./OauthConnectionWhereUniqueInput";
-export { OrganizationCreateInput } from "./OrganizationCreateInput";
-export { OrganizationCreateManyInput } from "./OrganizationCreateManyInput";
-export { OrganizationOrderByInput } from "./OrganizationOrderByInput";
-export { OrganizationScalarWhereWithAggregatesInput } from "./OrganizationScalarWhereWithAggregatesInput";
-export { OrganizationUpdateInput } from "./OrganizationUpdateInput";
-export { OrganizationUpdateManyMutationInput } from "./OrganizationUpdateManyMutationInput";
-export { OrganizationWhereInput } from "./OrganizationWhereInput";
-export { OrganizationWhereUniqueInput } from "./OrganizationWhereUniqueInput";
 export { PostCreateInput } from "./PostCreateInput";
 export { PostCreateManyCreatorInput } from "./PostCreateManyCreatorInput";
 export { PostCreateManyCreatorInputEnvelope } from "./PostCreateManyCreatorInputEnvelope";

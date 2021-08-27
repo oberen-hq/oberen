@@ -7,7 +7,6 @@ export { JobApplicantScalarFieldEnum } from "./JobApplicantScalarFieldEnum";
 export { JobScalarFieldEnum } from "./JobScalarFieldEnum";
 export { LabelScalarFieldEnum } from "./LabelScalarFieldEnum";
 export { OauthConnectionScalarFieldEnum } from "./OauthConnectionScalarFieldEnum";
-export { OrganizationScalarFieldEnum } from "./OrganizationScalarFieldEnum";
 export { PostScalarFieldEnum } from "./PostScalarFieldEnum";
 export { PostType } from "./PostType";
 export { QueryMode } from "./QueryMode";
