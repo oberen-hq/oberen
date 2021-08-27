@@ -5,6 +5,7 @@ import { PostResponse } from "../resolvers/Post/responses/Post.response";
 import connectIdArray from "../utils/connectIdArray";
 import { PostDataType } from "./types/index";
 import { Post } from "../resolver-types/models";
+import { massOptions } from "./types";
 
 export default class PostRepo extends PrismaClient {
   create = async (
@@ -58,6 +59,23 @@ export default class PostRepo extends PrismaClient {
         };
       } else {
         throw new ApolloError("That post does not exist", "404");
+      }
+    });
+  };
+
+  findInMass = async (
+    massOptions: massOptions
+  ): Promise<Post[] | ApolloError> => {
+    return executeOrFail(async () => {
+      const posts = await this.post.findMany({
+        skip: massOptions?.skip,
+        take: massOptions?.limit,
+      });
+
+      if (posts) {
+        return posts;
+      } else {
+        throw new ApolloError("Error finding users.", "500");
       }
     });
   };

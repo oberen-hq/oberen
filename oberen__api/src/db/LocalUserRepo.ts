@@ -5,9 +5,9 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import executeOrFail from "../utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
-import { userOptions } from "./types";
+import { massOptions } from "./types";
 import { UserResponse } from "../resolvers/User/responses/User.response";
-import { RegisterUserDataType, LoginUserDataType } from "./types/index";
+import { RegisterUserDataType, LoginUserDataType } from "./types";
 
 dotenv.config();
 
@@ -133,7 +133,7 @@ export default class LocalUserRepo extends PrismaClient {
   };
 
   findInMass = async (
-    userOptions: userOptions
+    userOptions: massOptions
   ): Promise<User[] | ApolloError> => {
     return executeOrFail(async () => {
       const users = await this.user.findMany({

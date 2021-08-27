@@ -1,6 +1,6 @@
 import { PostType } from "../../resolver-types/enums";
 
-export interface userOptions {
+export interface massOptions {
   limit?: number;
   skip?: number;
 }
@@ -18,10 +18,6 @@ export interface LoginUserDataType {
   email: string;
   password: string;
 }
-
-type AttachmentId = {
-  id: string;
-};
 
 export interface PostDataType {
   title: string;
