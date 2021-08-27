@@ -13,8 +13,6 @@ export default class FindUsersInMassResolver {
   async findUsersInMass(
     @Arg("args") args: FindUsersInMassArgs
   ): Promise<User[] | ApolloError> {
-    return executeOrFail(async () => {
-      return await localUser.findInMass(args);
-    });
+    return await localUser.findInMass(args);
   }
 }

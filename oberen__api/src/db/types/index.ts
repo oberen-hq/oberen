@@ -1,3 +1,4 @@
+import { StringFilter } from "src/resolver-types";
 import { PostType } from "../../resolver-types/enums";
 
 export interface massOptions {
@@ -26,4 +27,12 @@ export interface PostDataType {
   attachmentIds?: string[];
   likerIds?: string[];
   commentIds?: string[];
+}
+
+export interface UpdatePostType {
+  id: string;
+  title?: string;
+  description?: string;
+  type?: PostType;
+  attachmentIds?: string[];
 }

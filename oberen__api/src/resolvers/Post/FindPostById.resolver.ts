@@ -1,10 +1,8 @@
 import { ApolloError } from "apollo-server-express";
 import { Resolver, Query, Arg } from "type-graphql";
 import PostRepo from "../../db/PostRepo";
-import { Post } from "../../resolver-types/models";
 import { PostResponse } from "./responses/Post.response";
 import FindPostByIdArgs from "./args/FindPostByIdArgs";
-import executeOrFail from "../../utils/executeOrFail";
 
 const post = new PostRepo();
 
@@ -14,8 +12,6 @@ export default class FindPostByIdResolver {
   async findPostById(
     @Arg("args") { postId }: FindPostByIdArgs
   ): Promise<PostResponse | ApolloError> {
-    return executeOrFail(async () => {
-      return post.findById(postId);
-    });
+    return post.findById(postId);
   }
 }
