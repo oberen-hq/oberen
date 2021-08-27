@@ -3,7 +3,6 @@ import { Resolver, Query, Arg } from "type-graphql";
 import PostRepo from "../../db/PostRepo";
 import { Post } from "../../resolver-types/models";
 import FindPostsInMassArgs from "./args/FindPostInMassArgs";
-import executeOrFail from "../../utils/executeOrFail";
 
 const post = new PostRepo();
 

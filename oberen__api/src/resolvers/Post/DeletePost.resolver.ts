@@ -2,7 +2,6 @@ import { ApolloError } from "apollo-server-express";
 import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import DeletePostArgs from "./args/DeletePostArgs";
 import PostRepo from "../../db/PostRepo";
-import executeOrFail from "../../utils/executeOrFail";
 
 const post = new PostRepo();
 

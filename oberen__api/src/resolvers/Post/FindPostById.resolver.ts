@@ -3,7 +3,6 @@ import { Resolver, Query, Arg } from "type-graphql";
 import PostRepo from "../../db/PostRepo";
 import { PostResponse } from "./responses/Post.response";
 import FindPostByIdArgs from "./args/FindPostByIdArgs";
-import executeOrFail from "../../utils/executeOrFail";
 
 const post = new PostRepo();
 
