@@ -3,6 +3,10 @@ import Head from "next/head";
 const Meta = (props: any) => (
   <Head>
     <title>{props.title}</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    ></meta>
     <meta name="description" content={props.description} />
     <meta property="og:type" content="website" />
     <meta name="og:title" property="og:title" content={props.title} />
