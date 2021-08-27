@@ -13,8 +13,6 @@ export default class FindPostByIdResolver {
   async findPostById(
     @Arg("args") { postId }: FindPostByIdArgs
   ): Promise<PostResponse | ApolloError> {
-    return executeOrFail(async () => {
-      return post.findById(postId);
-    });
+    return post.findById(postId);
   }
 }

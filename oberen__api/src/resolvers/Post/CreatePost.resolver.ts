@@ -13,8 +13,6 @@ export default class CreatePostResolver {
   async createPost(
     @Arg("args") args: CreatePostArgs
   ): Promise<PostResponse | ApolloError> {
-    return executeOrFail(async () => {
-      return await post.create(args);
-    });
+    return await post.create(args);
   }
 }

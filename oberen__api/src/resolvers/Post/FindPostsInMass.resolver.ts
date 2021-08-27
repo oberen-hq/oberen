@@ -5,7 +5,7 @@ import { Post } from "../../resolver-types/models";
 import FindPostsInMassArgs from "./args/FindPostInMassArgs";
 import executeOrFail from "../../utils/executeOrFail";
 
-const posts = new PostRepo();
+const post = new PostRepo();
 
 @Resolver()
 export default class FindPostsInMassResolver {
@@ -13,8 +13,6 @@ export default class FindPostsInMassResolver {
   async findPostsInMass(
     @Arg("args") args: FindPostsInMassArgs
   ): Promise<Post[] | ApolloError> {
-    return executeOrFail(async () => {
-      return await posts.findInMass(args);
-    });
+    return await post.findInMass(args);
   }
 }
