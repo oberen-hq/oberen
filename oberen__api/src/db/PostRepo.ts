@@ -36,7 +36,7 @@ export default class PostRepo extends PrismaClient {
           attachments: createdPost.attachments,
         };
       } catch (err) {
-        throw new ApolloError(err.message, "500");
+        throw new ApolloError(err.message, "internal_server_error");
       }
     });
   };
@@ -58,7 +58,7 @@ export default class PostRepo extends PrismaClient {
           attachments: post.attachments,
         };
       } else {
-        throw new ApolloError("That post does not exist", "404");
+        throw new ApolloError("That post does not exist", "post_doesn't_exist");
       }
     });
   };
@@ -75,8 +75,25 @@ export default class PostRepo extends PrismaClient {
       if (posts) {
         return posts;
       } else {
-        throw new ApolloError("Error finding users.", "500");
+        throw new ApolloError("No posts were found", "no_data");
       }
     });
+  };
+
+  _userIsCreator = async (
+    creatorId: string,
+    postId: string,
+    validate = true
+  ) => {
+    const userInPost = !!(await this.post.findFirst({
+      where: {
+        id: postId,
+        creatorId: creatorId,
+      },
+    }));
+
+    if (validate && !userInPost) {
+      throw new ApolloError("User does not own post", "invalid_id");
+    }
   };
 }

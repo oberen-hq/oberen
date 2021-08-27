@@ -34,7 +34,7 @@ export default class LocalUserRepo extends PrismaClient {
       });
 
       if (existingUser) {
-        throw new ApolloError("User already exists!", "400");
+        throw new ApolloError("User already exists!", "already_exists");
       }
 
       const salt = await bcrypt.genSalt(10);
@@ -64,7 +64,7 @@ export default class LocalUserRepo extends PrismaClient {
           expiresIn: "8h",
         });
       } catch (err) {
-        throw new ApolloError(err.message, err.code);
+        throw new ApolloError(err.message, "internal_server_error");
       }
 
       return {
@@ -91,11 +91,14 @@ export default class LocalUserRepo extends PrismaClient {
           user.password as string
         );
       } else {
-        throw new ApolloError("A user with that email does not exist!", "404");
+        throw new ApolloError(
+          "User with that email does not exist",
+          "user_doesn't_exist"
+        );
       }
 
       if (!correctPassword) {
-        throw new ApolloError("Invalid Credentials.", "400");
+        throw new ApolloError("Incorrect password", "invalid_credentials");
       }
 
       try {
@@ -103,7 +106,7 @@ export default class LocalUserRepo extends PrismaClient {
           expiresIn: "8h",
         });
       } catch (err) {
-        throw new ApolloError(err.message, err.code);
+        throw new ApolloError(err.message, "internal_server_error");
       }
 
       return {
@@ -127,7 +130,7 @@ export default class LocalUserRepo extends PrismaClient {
       if (user) {
         return user;
       } else {
-        throw new ApolloError("That user does not exist.", "404");
+        throw new ApolloError("That user does not exist", "user_doesn't_exist");
       }
     });
   };
@@ -144,7 +147,7 @@ export default class LocalUserRepo extends PrismaClient {
       if (users) {
         return users;
       } else {
-        throw new ApolloError("Error finding users.", "500");
+        throw new ApolloError("No users were found", "no_data");
       }
     });
   };
