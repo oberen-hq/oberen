@@ -4,7 +4,7 @@ import { ApolloError } from "apollo-server-core";
 import { PostResponse } from "../resolvers/Post/responses/Post.response";
 import connectIdArray from "../utils/connectIdArray";
 import { PostDataType } from "./types/index";
-import { Post } from "../resolver-types/models";
+import { Post, User } from "../resolver-types/models";
 import { massOptions } from "./types";
 
 export default class PostRepo extends PrismaClient {
@@ -37,6 +37,38 @@ export default class PostRepo extends PrismaClient {
         };
       } catch (err) {
         throw new ApolloError(err.message, "internal_server_error");
+      }
+    });
+  };
+
+  delete = async (
+    userId: string,
+    postId: string
+  ): Promise<string | ApolloError> => {
+    return executeOrFail(async () => {
+      const post = await this.post.findFirst({
+        where: {
+          id: postId,
+        },
+      });
+
+      if (!post) {
+        throw new ApolloError("That post does not exist", "post_doesn't exist");
+      }
+
+      if (this._userIsCreator(userId, postId)) {
+        await this.post.delete({
+          where: {
+            id: postId,
+          },
+        });
+
+        return "Post deleted";
+      } else {
+        throw new ApolloError(
+          "Unauthenticated for this action",
+          "not_authenticated"
+        );
       }
     });
   };
