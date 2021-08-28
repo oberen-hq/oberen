@@ -3,7 +3,6 @@ import { Resolver, Query, Arg } from "type-graphql";
 import LocalUserRepo from "../../db/LocalUserRepo";
 import { User } from "../../resolver-types/models";
 import FindUsersInMassArgs from "./args/FindUsersInMass";
-import executeOrFail from "../../utils/executeOrFail";
 
 const localUser = new LocalUserRepo();
 
