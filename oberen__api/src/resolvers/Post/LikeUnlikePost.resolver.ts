@@ -34,4 +34,27 @@ export default class LikeUnlikePostResolver {
       throw new ApolloError("Error liking post", "liked_post_error");
     }
   }
+
+  @Mutation(() => Post)
+  async unlikePost(
+    @Arg("args") { postId }: LikeUnlikePostArgs,
+    @Ctx() { req, prisma }: Context
+  ) {
+    const userId = "randomTextbecauseauthdontworkyet";
+
+    const unlikedPost = prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        likers: {
+          disconnect: {
+            id: userId,
+          },
+        },
+      },
+    });
+
+    return unlikedPost;
+  }
 }
