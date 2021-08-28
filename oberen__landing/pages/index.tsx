@@ -1,7 +1,5 @@
 import React from "react";
 import Meta from "partials/Meta";
-import Navbar from "~/components/Navbar";
-import Main from "~/components/Main";
 import styles from "~/styles/index.module.css";
 import { Toaster } from "react-hot-toast";
 
@@ -25,15 +23,6 @@ const Home: React.FC = () => {
           },
         }}
       />
-      <div className={styles.container}>
-        <Navbar />
-        <Main />
-        <img
-          src="/assets/vector.png"
-          className={styles.image}
-          draggable={false}
-        />
-      </div>
     </React.Fragment>
   );
 };

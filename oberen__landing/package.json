@@ -18,11 +18,14 @@
     "react-google-recaptcha-v3": "^1.9.5",
     "react-hot-toast": "^2.1.0",
     "react-icons": "^4.2.0",
+    "theme": "^0.1.0",
+    "theme-ui": "^0.11.1",
     "validator": "^13.6.0"
   },
   "devDependencies": {
     "@types/react": "17.0.16",
     "@types/react-icons": "^3.0.0",
+    "@types/theme-ui": "^0.6.0",
     "@types/validator": "^13.6.3",
     "eslint": "7.32.0",
     "eslint-config-next": "11.0.1",
