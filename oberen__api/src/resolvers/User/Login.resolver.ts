@@ -2,7 +2,6 @@ import { Resolver, Mutation, Arg } from "type-graphql";
 import { UserResponse } from "./responses/User.response";
 import LoginArgs from "./args/LoginArgs";
 import LocalUserRepo from "../../db/LocalUserRepo";
-import executeOrFail from "../..//utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
 
 const localUser = new LocalUserRepo();

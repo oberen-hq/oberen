@@ -1,7 +1,7 @@
 import { ApolloError } from "apollo-server-errors";
 import { Ctx, Query, Resolver } from "type-graphql";
 import { User } from "../../resolver-types/models";
-import { Context } from "../../context";
+import { Context } from "../../types";
 
 @Resolver()
 export default class MeResolver {
