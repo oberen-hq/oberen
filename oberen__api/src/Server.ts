@@ -3,7 +3,7 @@ import { ApolloServer } from "apollo-server-express";
 import { GraphQLSchema } from "graphql";
 import createSchema from "./utils/createSchema";
 import express, { Application } from "express";
-import { Context } from "./context";
+import { Context } from "./types";
 import { host } from "./constants";
 import cors from "cors";
 import morgan from "morgan";

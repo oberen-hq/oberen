@@ -1,6 +1,6 @@
 import { ApolloError } from "apollo-server-express";
 import { createMethodDecorator } from "type-graphql";
-import { Context } from "../context";
+import { Context } from "../types";
 
 export function isAuthenticated(): any {
   createMethodDecorator<Context>(async ({ context: { req, prisma } }, next) => {
