@@ -1,4 +1,6 @@
 import React from "react";
+import { ThemeProvider } from "theme-ui";
+import { theme } from "../theme";
 import Meta from "partials/Meta";
 import styles from "~/styles/index.module.css";
 import { Toaster } from "react-hot-toast";
