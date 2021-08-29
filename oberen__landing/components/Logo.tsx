@@ -1,5 +1,5 @@
 import { jsx } from "theme-ui";
-import { Link } from "components/link";
+import { Link } from "./Link";
 
 const styles = {
   logo: {
@@ -15,6 +15,7 @@ const styles = {
 
 export default function Logo({ ...props }) {
   return (
+    //@ts-ignore
     <Link path="/" sx={styles.logo} {...props}>
       <img src="/assets/vector.png" />
     </Link>

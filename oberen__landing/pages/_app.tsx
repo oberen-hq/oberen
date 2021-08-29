@@ -1,5 +1,7 @@
 import React from "react";
-import "~/styles/globals.css";
+import "rc-drawer/assets/index.css";
+import "rc-tabs/assets/index.css";
+import "swiper/swiper-bundle.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
@@ -15,7 +17,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         reCaptchaKey="6Le2Nx4cAAAAADwuAZOwfA3DFOQ7JJifvJE2KISM"
         language="en"
       >
-        <Head>{/* You found me! */}</Head>
         <Component {...pageProps} />
       </GoogleReCaptchaProvider>
     </React.Fragment>
