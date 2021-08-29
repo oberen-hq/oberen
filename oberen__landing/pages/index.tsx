@@ -1,9 +1,8 @@
 import React from "react";
-import { ThemeProvider } from "theme-ui";
-import { theme } from "../theme";
 import Meta from "partials/Meta";
+import Layout from "../components/Layout";
+import styles from "../styles/index.module.css";
 import { Toaster } from "react-hot-toast";
-import Layout from "~/components/Layout";
 
 const Home: React.FC = () => {
   return (
@@ -25,9 +24,15 @@ const Home: React.FC = () => {
           },
         }}
       />
-      <ThemeProvider theme={theme}>
-        <Layout></Layout>
-      </ThemeProvider>
+      {/* <Layout>
+        <div className={styles.main}>
+
+        </div>
+        
+      </Layout> */}
+      <section className={styles.maintenanceWrapper}>
+        <h1 className={styles.maintenanceText}>Unavailable right now!</h1>
+      </section>
     </React.Fragment>
   );
 };

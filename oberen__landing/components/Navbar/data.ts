@@ -4,19 +4,19 @@ export default [
     label: "Home",
   },
   {
-    path: "documentation",
-    label: "Documentation",
+    path: "support",
+    label: "Support",
   },
   {
     path: "features",
-    label: "Features",
+    label: "Feature",
   },
   {
     path: "pricing",
     label: "Pricing",
   },
   {
-    path: "contact",
-    label: "Contact",
+    path: "testimonials",
+    label: "Testimonials",
   },
 ];

@@ -1,31 +1,11 @@
-import { jsx, Flex } from "theme-ui";
 import React from "react";
-import Header from "./Header/";
-// import Footer from "./Footer/";
+import Navbar from "./Navbar";
 
-interface Props {
-  children: JSX.Element[] | JSX.Element;
-}
-
-export default function Layout({ children }: Props) {
+export default function Layout({ children }: { children?: any }): any {
   return (
-    <Flex
-      sx={{
-        minHeight: "100vh",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
-      <Header />
-      <main
-        //@ts-ignore
-        sx={{
-          variant: "layout.main",
-        }}
-      >
-        {children}
-      </main>
-      {/* <Footer /> */}
-    </Flex>
+    <React.Fragment>
+      <Navbar />
+      {children}
+    </React.Fragment>
   );
 }

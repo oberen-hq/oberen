@@ -1,0 +1,26 @@
+:root {
+  --text: #fff;
+  --muted: #dcdcdc;
+  --background: #7c2ae8;
+  --backgroundsecondary: #8c35fd;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+html,
+body {
+  background-color: var(--background);
+  color: var(--primary);
+  scroll-behavior: smooth;
+}
+
+img,
+a {
+  user-select: none;
+  text-decoration: none;
+}

@@ -1,14 +1,7 @@
 import React from "react";
-import "rc-drawer/assets/index.css";
-import "rc-tabs/assets/index.css";
-import "swiper/swiper-bundle.css";
+import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import Head from "next/head";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-
-function onChange(e: any) {
-  console.log(e);
-}
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
