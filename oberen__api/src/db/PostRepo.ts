@@ -9,7 +9,7 @@ import { massOptions } from "./types";
 
 export default class PostRepo extends PrismaClient {
   create = async (
-    userId,
+    userId: string,
     postData: PostDataType
   ): Promise<PostResponse | ApolloError> => {
     return executeOrFail(async () => {

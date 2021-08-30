@@ -18,18 +18,20 @@ export const IsAuthenticated = (): any => {
       const tokenType = token[0];
       const accessToken = token[1];
 
-      if (tokenType.toLowerCase() !== "bearer") {
-        throw new ApolloError("Not Authenticated.", "not_authenticated");
+      if (tokenType.toLowerCase() === "bearer") {
+        const decodedData = await jwt.verify(
+          accessToken,
+          process.env.JWT_SECRET as string
+        );
+
+        req.user = decodedData as User;
+
+        return next();
+      } else if (tokenType.toLowerCase() === "oauth") {
+        return next();
       }
 
-      const decodedData = jwt.verify(
-        accessToken,
-        process.env.JWT_SECRET as string
-      );
-
-      req.user = decodedData as User;
-
-      return next();
+      throw new ApolloError("Not Authenticated.", "not_authenticated");
     }
   );
 };

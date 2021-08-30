@@ -14,7 +14,7 @@ export default class CreatePostResolver {
   @IsAuthenticated()
   @Mutation(() => PostResponse)
   async createPost(
-    @Arg("args") args: CreatePostArgs
+    @Arg("args") args: CreatePostArgs,
     @Ctx() {req}: Context
   ): Promise<PostResponse | ApolloError> {
     const user = req.user
