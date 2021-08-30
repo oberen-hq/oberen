@@ -11,7 +11,7 @@ export default class LikeUnlikePostResolver {
     @Arg("args") { postId }: LikeUnlikePostArgs,
     @Ctx() { req, prisma }: Context
   ): Promise<Post | ApolloError> {
-    const userId = "randomTextbecauseauthdontworkyet";
+    const userId = "6129ebca0050dd980091365e";
 
     const likedPost = prisma.post.update({
       where: {
@@ -40,7 +40,7 @@ export default class LikeUnlikePostResolver {
     @Arg("args") { postId }: LikeUnlikePostArgs,
     @Ctx() { req, prisma }: Context
   ) {
-    const userId = "randomTextbecauseauthdontworkyet";
+    const userId = "6129ebca0050dd980091365e";
 
     const unlikedPost = prisma.post.update({
       where: {

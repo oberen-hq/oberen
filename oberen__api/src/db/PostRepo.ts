@@ -7,6 +7,8 @@ import { PostDataType, UpdatePostType } from "./types/index";
 import { Post, User } from "../resolver-types/models";
 import { massOptions } from "./types";
 
+import mongoose from "mongoose";
+
 export default class PostRepo extends PrismaClient {
   create = async (
     postData: PostDataType
@@ -21,7 +23,7 @@ export default class PostRepo extends PrismaClient {
           description: postData.description,
           type: postData.type,
           attachments: connectIdArray(postData.attachmentIds),
-          creator: { connect: { id: "611cdd0500097547004e430e" } },
+          creator: { connect: { id: "6129ebca0050dd980091365e" } },
         };
 
         const createdPost = await this.post.create({
@@ -41,7 +43,10 @@ export default class PostRepo extends PrismaClient {
     });
   };
 
-  update = async (userId: string, args: UpdatePostType) => {
+  update = async (
+    userId: string,
+    args: UpdatePostType
+  ): Promise<PostResponse | ApolloError> => {
     return executeOrFail(async () => {
       await this._userIsCreator(userId, args.id);
 
@@ -58,12 +63,18 @@ export default class PostRepo extends PrismaClient {
       const updatedPost = await this.post.update({
         where: { id: args.id },
         data: post,
+        include: {
+          attachments: true,
+        },
       });
 
       if (updatedPost) {
-        return updatedPost;
+        return {
+          post: updatedPost,
+          attachments: updatedPost?.attachments,
+        };
       } else {
-        throw new ApolloError("Failed updating post", "internal_server_error");
+        return new ApolloError("Failed updating post", "internal_server_error");
       }
     });
   };
@@ -145,14 +156,11 @@ export default class PostRepo extends PrismaClient {
     validate = true
   ) => {
     const userInPost = !!(await this.post.findFirst({
-      where: {
-        id: postId,
-        creatorId: creatorId,
-      },
+      where: { id: postId, creatorId: creatorId },
     }));
-
-    if (validate && !userInPost) {
+    if (validate && !userInPost)
       throw new ApolloError("User does not own post", "invalid_id");
-    }
+
+    return userInPost;
   };
 }

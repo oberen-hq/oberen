@@ -11,6 +11,7 @@ export default class DeletePostResolver {
   async deletePost(
     @Arg("args") args: DeletePostArgs
   ): Promise<string | ApolloError> {
-    return await post.delete(args.userId, args.postId);
+    const userId = "6129ebca0050dd980091365e";
+    return await post.delete(userId, args.postId);
   }
 }
