@@ -135,6 +135,25 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
+  findByName = async (username: string): Promise<User | ApolloError> => {
+    return executeOrFail(async () => {
+      const user = await this.user.findFirst({
+        where: {
+          username: username,
+        },
+        include: {
+          profile: true,
+        },
+      });
+
+      if (user) {
+        return user;
+      } else {
+        throw new ApolloError("That user doesn't exist", "user_doesn't_exist");
+      }
+    });
+  };
+
   findInMass = async (
     userOptions: massOptions
   ): Promise<User[] | ApolloError> => {
