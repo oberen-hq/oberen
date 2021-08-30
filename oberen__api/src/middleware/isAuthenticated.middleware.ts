@@ -18,9 +18,6 @@ export const IsAuthenticated = (): any => {
       const tokenType = token[0];
       const accessToken = token[1];
 
-      console.log(tokenType.toLowerCase());
-      console.log(typeof tokenType);
-
       if (tokenType.toLowerCase() !== "bearer") {
         throw new ApolloError("Not Authenticated.", "not_authenticated");
       }
@@ -33,34 +30,6 @@ export const IsAuthenticated = (): any => {
       req.user = decodedData as User;
 
       return next();
-
-      // const tokenPair = await prisma.tokenPair.findUnique({
-      //   where: {
-      //     accessToken,
-      //   },
-      //   include: {
-      //     user: {
-      //       include: {
-      //         posts: true,
-      //         likedPosts: true,
-      //         createdComments: true,
-      //         likedComments: true,
-      //         oauthConnections: true,
-      //         profile: true,
-      //       },
-      //     },
-      //   },
-      // });
-      // if (!tokenPair) {
-      //   throw new ApolloError("Not Authenticated", "401");
-      // }
-      // if (tokenPair.user.isLocal) {
-      //   req.user = tokenPair.user as any;
-      //   next();
-      // }
-      // // Check if token exceeds 8 hours
-      // req.user = tokenPair.user as any;
-      // next();
     }
   );
 };
