@@ -7,10 +7,9 @@ import { PostDataType, UpdatePostType } from "./types/index";
 import { Post, User } from "../resolver-types/models";
 import { massOptions } from "./types";
 
-import mongoose from "mongoose";
-
 export default class PostRepo extends PrismaClient {
   create = async (
+    userId,
     postData: PostDataType
   ): Promise<PostResponse | ApolloError> => {
     return executeOrFail(async () => {
@@ -23,7 +22,7 @@ export default class PostRepo extends PrismaClient {
           description: postData.description,
           type: postData.type,
           attachments: connectIdArray(postData.attachmentIds),
-          creator: { connect: { id: "6129ebca0050dd980091365e" } },
+          creator: { connect: { id: userId } },
         };
 
         const createdPost = await this.post.create({

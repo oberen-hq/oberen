@@ -1,17 +1,20 @@
 import { ApolloError } from "apollo-server-core";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
-import { Post, User } from "../../resolver-types/models";
+import { Post } from "../../resolver-types/models";
 import { Context } from "../../types";
 import LikeUnlikePostArgs from "./args/LikeUnlikePostArgs";
 
+import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
+
 @Resolver()
 export default class LikeUnlikePostResolver {
+  @IsAuthenticated()
   @Mutation(() => Post)
   async likePost(
     @Arg("args") { postId }: LikeUnlikePostArgs,
     @Ctx() { req, prisma }: Context
   ): Promise<Post | ApolloError> {
-    const userId = "6129ebca0050dd980091365e";
+    const user = req.user;
 
     const likedPost = prisma.post.update({
       where: {
@@ -21,7 +24,7 @@ export default class LikeUnlikePostResolver {
         likers: {
           connect: [
             {
-              id: userId,
+              id: user.id,
             },
           ],
         },
@@ -40,7 +43,7 @@ export default class LikeUnlikePostResolver {
     @Arg("args") { postId }: LikeUnlikePostArgs,
     @Ctx() { req, prisma }: Context
   ) {
-    const userId = "6129ebca0050dd980091365e";
+    const user = req.user;
 
     const unlikedPost = prisma.post.update({
       where: {
@@ -49,7 +52,7 @@ export default class LikeUnlikePostResolver {
       data: {
         likers: {
           disconnect: {
-            id: userId,
+            id: user.id,
           },
         },
       },

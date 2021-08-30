@@ -4,6 +4,8 @@ import PostRepo from "../../db/PostRepo";
 import { Post } from "../../resolver-types/models";
 import FindPostsInMassArgs from "./args/FindPostInMassArgs";
 
+import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
+
 const post = new PostRepo();
 
 @Resolver()
