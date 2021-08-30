@@ -16,7 +16,18 @@ export default class LikeUnlikePostResolver {
   ): Promise<Post | ApolloError> {
     const user = req.user;
 
-    const likedPost = prisma.post.update({
+    const userOwnsPost = await prisma.post.findFirst({
+      where: {
+        id: postId,
+        creatorId: user.id,
+      },
+    });
+
+    if (userOwnsPost) {
+      throw new ApolloError("You can't like your own post", "user_owns_post");
+    }
+
+    const likedPost = await prisma.post.update({
       where: {
         id: postId,
       },
@@ -45,7 +56,18 @@ export default class LikeUnlikePostResolver {
   ) {
     const user = req.user;
 
-    const unlikedPost = prisma.post.update({
+    const userOwnsPost = await prisma.post.findFirst({
+      where: {
+        id: postId,
+        creatorId: user.id,
+      },
+    });
+
+    if (userOwnsPost) {
+      throw new ApolloError("You can't like your own post", "user_owns_post");
+    }
+
+    const unlikedPost = await prisma.post.update({
       where: {
         id: postId,
       },
