@@ -82,8 +82,37 @@ enum ReportStatus {
   accepted
 }
 
+model Post {
+  id                  String               @id @default(uuid())
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @default(now())
+  title               String
+  description         String?
+  type                PostType
+  likers              User[]               @relation("UserLikedPostsRelation")
+  likes               BigInt               @default(0)
+  comments            PostComment[]   
+  attachments         Attachment[]  
+  hashtags            Hashtag[]
+  creator             User                @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
+  creatorId           String  
+}
+
 model PostComment {
   id                  String               @id @default(uuid())
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @default(now())
+  body                String
+  creator             User                 @relation(fields: [userId], references: [id])
+  creatorId           String
+  post                Post                 @relation(fields: [postId], references: [id])
+  postId              String
+  edited              Boolean              @default(false)
+  likers              User[]               @relation("UserLikedCommentsRelation")
+  likes               BigInt               @default(0)
+  isReply             Boolean              @default(false)
+  mentions            User[]
+  replies             PostComment[]
 }
 
 model User {
