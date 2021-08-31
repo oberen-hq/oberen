@@ -25,6 +25,7 @@ class Seeder extends PrismaClient {
             isLocal: true,
           },
         });
+      }
     });
   };
 }
