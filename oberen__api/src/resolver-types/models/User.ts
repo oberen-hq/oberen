@@ -2,6 +2,11 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Hashtag } from "../models/Hashtag";
+import { Label } from "../models/Label";
+import { Post } from "../models/Post";
+import { PostComment } from "../models/PostComment";
+import { UserProfile } from "../models/UserProfile";
 import { Role } from "../enums/Role";
 
 @TypeGraphQL.ObjectType({
@@ -52,4 +57,27 @@ export class User {
     nullable: true
   })
   role?: "user" | "staff" | "admin" | null;
+
+  profile?: UserProfile | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  profileId?: string | null;
+
+  posts?: Post[];
+
+  likedPosts?: Post[];
+
+  likedComments?: PostComment[];
+
+  createdPostComments?: PostComment[];
+
+  following?: User[];
+
+  followers?: User[];
+
+  createdLabels?: Label[];
+
+  createdHashtags?: Hashtag[];
 }

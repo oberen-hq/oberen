@@ -4,7 +4,9 @@ import { ObjectType, Field } from "type-graphql";
 @ObjectType()
 export class UserResponse {
   @Field(() => String, { nullable: false })
-  token: string;
+  accessToken: string;
+  @Field(() => String, { nullable: false })
+  refreshToken: string;
   @Field(() => User, { nullable: false })
   user: User;
 }

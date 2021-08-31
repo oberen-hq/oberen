@@ -83,113 +83,113 @@ enum ReportStatus {
 }
 
 model Attachment {
-  id                  String               @id @default(uuid())
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @default(now())
-  url                 String
-  type                AttachmentType
-  post                Post?                @relation(fields: [postId], references: [id])
-  postId              String?
+  id        String         @id @default(uuid())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @default(now())
+  url       String
+  type      AttachmentType
+  post      Post?          @relation(fields: [postId], references: [id])
+  postId    String?
 }
 
 model Hashtag {
-  id                  String               @id @default(uuid())
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @default(now())
-  name                String               @unique
-  uses                BigInt
-  creator             User                 @relation(fields: [creatorId], references: [id])
-  creatorId           String 
-  posts               Post[]
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  name      String   @unique
+  uses      BigInt
+  creator   User     @relation(fields: [creatorId], references: [id])
+  creatorId String
+  posts     Post[]
 }
 
 model Label {
-  id                  String               @id @default(uuid())
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @default(now())
-  title               String
-  color               String               @default("fff")
-  description         String?
-  creator             User                 @relation(fields: [creatorId], references: [id])
-  creatorId           String
-  posts               Post[]
-  profile             UserProfile          @relation(fields: [profileId], references: [id])
-  profileId           String              
+  id          String      @id @default(uuid())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @default(now())
+  title       String
+  color       String      @default("fff")
+  description String?
+  creator     User        @relation(fields: [creatorId], references: [id])
+  creatorId   String
+  posts       Post[]
+  profile     UserProfile @relation(fields: [profileId], references: [id])
+  profileId   String
 }
 
 model Post {
-  id                  String               @id @default(uuid())
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @default(now())
-  title               String
-  description         String?
-  type                PostType
-  likers              User[]               @relation("UserLikedPostsRelation")
-  likes               BigInt               @default(0)
-  comments            PostComment[]   
-  attachments         Attachment[]  
-  hashtags            Hashtag[]
-  labels              Label[]
-  creator             User                @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
-  creatorId           String  
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now())
+  title       String
+  description String?
+  type        PostType
+  likers      User[]        @relation("UserLikedPostsRelation")
+  likes       BigInt        @default(0)
+  comments    PostComment[]
+  attachments Attachment[]
+  hashtags    Hashtag[]
+  labels      Label[]
+  creator     User          @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
+  creatorId   String
 }
 
 model PostComment {
-  id                  String               @id @default(uuid())
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @default(now())
-  body                String
-  creator             User                 @relation(fields: [creatorId], references: [id])
-  creatorId           String
-  post                Post                 @relation(fields: [postId], references: [id])
-  postId              String
-  edited              Boolean              @default(false)
-  likers              User[]               @relation("UserLikedCommentsRelation")
-  likes               BigInt               @default(0)
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  body      String
+  creator   User     @relation(fields: [creatorId], references: [id])
+  creatorId String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+  edited    Boolean  @default(false)
+  likers    User[]   @relation("UserLikedCommentsRelation")
+  likes     BigInt   @default(0)
 }
 
 model User {
-  id                  String                @id @default(uuid())
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime              @updatedAt
-  displayName         String?               @default("")
-  username            String                @unique
-  email               String
-  password            String?
-  isLocal             Boolean               @default(true)
-  role                Role?                 @default(value: user)
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  displayName String?  @default("")
+  username    String   @unique
+  email       String
+  password    String?
+  isLocal     Boolean  @default(true)
+  role        Role?    @default(value: user)
 
-  // Profile         
-  profile             UserProfile           @relation("UserProfileRelation", fields: [profileId], references: [id])
-  profileId           String                
+  // Profile
+  profile  UserProfile? @relation("UserProfileRelation", fields: [profileId], references: [id])
+  profileId String?      @unique
 
   // Posts
 
-  posts               Post[]                @relation("UserOwnedPostsRelation")
-  likedPosts          Post[]                @relation("UserLikedPostsRelation")
-  likedComments       PostComment[]         @relation("UserLikedCommentsRelation")
-  createdPostComments PostComment[]         
+  posts               Post[]        @relation("UserOwnedPostsRelation")
+  likedPosts          Post[]        @relation("UserLikedPostsRelation")
+  likedComments       PostComment[] @relation("UserLikedCommentsRelation")
+  createdPostComments PostComment[]
 
   // Followers
 
-  following           User[]                @relation("UserFollowRelation", references: [id])
-  followers           User[]                @relation("UserFollowRelation", references: [id])
+  following User[] @relation("UserFollowRelation", references: [id])
+  followers User[] @relation("UserFollowRelation", references: [id])
 
   // Labels
 
-  createdLabels       Label[]
+  createdLabels Label[]
 
   // Hashtags
 
-  createdHashtags     Hashtag[]
+  createdHashtags Hashtag[]
 }
 
 model UserProfile {
-  id                  String                @id @default(uuid())
-  user                User?                 @relation("UserProfileRelation")
-  avatarURL           String
-  bio                 String
-  labels              Label[]
+  id        String  @id @default(uuid())
+  user      User?   @relation("UserProfileRelation")
+  avatarURL String?
+  bio       String? @default("Bio has not been set yet!")
+  labels    Label[]
 }
 
 // model TokenPair {

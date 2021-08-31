@@ -56,6 +56,11 @@ export class UserGroupBy {
   })
   role!: "user" | "staff" | "admin" | null;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  profileId!: string | null;
+
   @TypeGraphQL.Field(_type => UserCountAggregate, {
     nullable: true
   })

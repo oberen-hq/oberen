@@ -52,4 +52,9 @@ export class UserMaxAggregate {
     nullable: true
   })
   role!: "user" | "staff" | "admin" | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  profileId!: string | null;
 }
