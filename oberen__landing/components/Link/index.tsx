@@ -4,7 +4,6 @@ import { Link as MenuLink } from "react-scroll";
 interface LinkProps {
   path: string;
   label: string;
-  onClick: any;
 }
 
 export function NavLink({ path, label, ...props }: LinkProps) {
@@ -12,7 +11,7 @@ export function NavLink({ path, label, ...props }: LinkProps) {
     <MenuLink
       to={path}
       spy={true}
-      offset={-70}
+      offset={0}
       smooth={true}
       duration={500}
       className={styles.navbar__navlink}

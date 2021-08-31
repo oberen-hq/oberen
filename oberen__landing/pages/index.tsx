@@ -24,15 +24,9 @@ const Home: React.FC = () => {
           },
         }}
       />
-      {/* <Layout>
-        <div className={styles.main}>
-
-        </div>
-        
-      </Layout> */}
-      <section className={styles.maintenanceWrapper}>
-        <h1 className={styles.maintenanceText}>Unavailable right now!</h1>
-      </section>
+      <div className={styles.main} id="home">
+        <Layout></Layout>
+      </div>
     </React.Fragment>
   );
 };
