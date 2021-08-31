@@ -1,7 +1,8 @@
-.logo__wrapper {
-  object-fit: cover;
-}
-
 .logo {
-  margin-right: 30px;
+  position: relative;
+  height: 5rem;
+  width: 5rem;
+  object-fit: contain;
+  cursor: pointer;
+  float: left;
 }
