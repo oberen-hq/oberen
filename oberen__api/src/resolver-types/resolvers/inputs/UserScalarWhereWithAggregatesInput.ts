@@ -42,20 +42,15 @@ export class UserScalarWhereWithAggregatesInput {
   })
   updatedAt?: DateTimeWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => BoolWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
   })
-  isLocal?: BoolWithAggregatesFilter | undefined;
+  displayName?: StringNullableWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
   username?: StringWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
-    nullable: true
-  })
-  displayName?: StringWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
@@ -67,13 +62,13 @@ export class UserScalarWhereWithAggregatesInput {
   })
   password?: StringNullableWithAggregatesFilter | undefined;
 
+  @TypeGraphQL.Field(_type => BoolWithAggregatesFilter, {
+    nullable: true
+  })
+  isLocal?: BoolWithAggregatesFilter | undefined;
+
   @TypeGraphQL.Field(_type => EnumRoleNullableWithAggregatesFilter, {
     nullable: true
   })
   role?: EnumRoleNullableWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
-    nullable: true
-  })
-  profileId?: StringWithAggregatesFilter | undefined;
 }

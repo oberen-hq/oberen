@@ -23,20 +23,15 @@ export class UserCreateManyInput {
   })
   updatedAt?: Date | undefined;
 
-  @TypeGraphQL.Field(_type => Boolean, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  isLocal?: boolean | undefined;
+  displayName?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   username!: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  displayName?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -48,13 +43,13 @@ export class UserCreateManyInput {
   })
   password?: string | undefined;
 
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  isLocal?: boolean | undefined;
+
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
   role?: "user" | "staff" | "admin" | undefined;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  profileId!: string;
 }
