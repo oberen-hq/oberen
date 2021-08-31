@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { User } from "../resolver-types/models";
 
 import Token from "../utils/token";
+import { nextTick } from "process";
 
 const tokenGen = new Token();
 
@@ -20,7 +21,10 @@ interface CreatedTokens {
 export const IsAuthenticated = (): any => {
   return createMethodDecorator<Context>(
     async ({ context: { req, res } }, next) => {
-      const accessToken = req.headers["x-token"];
+      const access = req.headers["x-token"] as string;
+      const accessToken = access.split(" ")[1];
+
+      console.log(accessToken);
 
       if (accessToken) {
         try {
@@ -30,8 +34,11 @@ export const IsAuthenticated = (): any => {
           );
 
           req.user = user as User;
+
+          return next();
         } catch (err) {
-          const refreshToken = req.headers["x-access-token"] as string;
+          const refresh = req.headers["x-refresh-token"] as string;
+          const refreshToken = refresh[1];
           const accessSecret = process.env.ACCESS_SECRET as string;
           const refreshSecret = process.env.REFRESH_SECRET as string;
           const data: CreatedTokens | any = await tokenGen.refreshTokens(
@@ -54,8 +61,11 @@ export const IsAuthenticated = (): any => {
           }
 
           req.user = data.user as User;
+          return next();
         }
       }
+
+      throw new ApolloError("Not authenticated", "not_authenticated");
     }
   );
 };

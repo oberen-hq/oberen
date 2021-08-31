@@ -9,8 +9,9 @@ import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
 export default class MeResolver {
   @IsAuthenticated()
   @Query(() => User)
-  me(@Ctx() { req }: Context): Promise<User | ApolloError> {
-    const user = req.user as any;
+  me(@Ctx() { req }: Context): Promise<User> {
+    const user = req.user as User;
+    //@ts-ignore
     return user;
   }
 }
