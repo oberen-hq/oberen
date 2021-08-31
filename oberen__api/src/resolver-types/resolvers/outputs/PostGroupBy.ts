@@ -2,9 +2,11 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { PostAvgAggregate } from "../outputs/PostAvgAggregate";
 import { PostCountAggregate } from "../outputs/PostCountAggregate";
 import { PostMaxAggregate } from "../outputs/PostMaxAggregate";
 import { PostMinAggregate } from "../outputs/PostMinAggregate";
+import { PostSumAggregate } from "../outputs/PostSumAggregate";
 import { PostType } from "../../enums/PostType";
 
 @TypeGraphQL.ObjectType({
@@ -41,6 +43,11 @@ export class PostGroupBy {
   })
   type!: "post" | "job" | "organization" | "shift" | "article" | "feedback" | "poll";
 
+  @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
+    nullable: false
+  })
+  likes!: bigint;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
@@ -50,6 +57,16 @@ export class PostGroupBy {
     nullable: true
   })
   _count!: PostCountAggregate | null;
+
+  @TypeGraphQL.Field(_type => PostAvgAggregate, {
+    nullable: true
+  })
+  _avg!: PostAvgAggregate | null;
+
+  @TypeGraphQL.Field(_type => PostSumAggregate, {
+    nullable: true
+  })
+  _sum!: PostSumAggregate | null;
 
   @TypeGraphQL.Field(_type => PostMinAggregate, {
     nullable: true

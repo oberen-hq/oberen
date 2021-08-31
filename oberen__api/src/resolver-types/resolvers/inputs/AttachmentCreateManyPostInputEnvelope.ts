@@ -12,4 +12,9 @@ export class AttachmentCreateManyPostInputEnvelope {
     nullable: false
   })
   data!: AttachmentCreateManyPostInput[];
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  skipDuplicates?: boolean | undefined;
 }

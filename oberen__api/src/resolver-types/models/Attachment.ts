@@ -3,8 +3,6 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
 import { Post } from "../models/Post";
-import { Report } from "../models/Report";
-import { User } from "../models/User";
 import { AttachmentType } from "../enums/AttachmentType";
 
 @TypeGraphQL.ObjectType({
@@ -29,7 +27,7 @@ export class Attachment {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  attachmentUrl!: string;
+  url!: string;
 
   @TypeGraphQL.Field(_type => AttachmentType, {
     nullable: false
@@ -42,18 +40,4 @@ export class Attachment {
     nullable: true
   })
   postId?: string | null;
-
-  report?: Report | null;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  reportId?: string | null;
-
-  creator?: User;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  creatorId!: string;
 }

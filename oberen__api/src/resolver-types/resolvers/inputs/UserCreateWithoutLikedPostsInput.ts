@@ -2,14 +2,11 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { AttachmentCreateNestedManyWithoutCreatorInput } from "../inputs/AttachmentCreateNestedManyWithoutCreatorInput";
-import { CommentCreateNestedManyWithoutCreatorInput } from "../inputs/CommentCreateNestedManyWithoutCreatorInput";
-import { CommentCreateNestedManyWithoutLikersInput } from "../inputs/CommentCreateNestedManyWithoutLikersInput";
+import { HashtagCreateNestedManyWithoutCreatorInput } from "../inputs/HashtagCreateNestedManyWithoutCreatorInput";
 import { LabelCreateNestedManyWithoutCreatorInput } from "../inputs/LabelCreateNestedManyWithoutCreatorInput";
-import { OauthConnectionCreateNestedManyWithoutUserInput } from "../inputs/OauthConnectionCreateNestedManyWithoutUserInput";
+import { PostCommentCreateNestedManyWithoutCreatorInput } from "../inputs/PostCommentCreateNestedManyWithoutCreatorInput";
+import { PostCommentCreateNestedManyWithoutLikersInput } from "../inputs/PostCommentCreateNestedManyWithoutLikersInput";
 import { PostCreateNestedManyWithoutCreatorInput } from "../inputs/PostCreateNestedManyWithoutCreatorInput";
-import { ReportCreateNestedManyWithoutCreatorInput } from "../inputs/ReportCreateNestedManyWithoutCreatorInput";
-import { TokenPairCreateNestedManyWithoutUserInput } from "../inputs/TokenPairCreateNestedManyWithoutUserInput";
 import { UserCreateNestedManyWithoutFollowersInput } from "../inputs/UserCreateNestedManyWithoutFollowersInput";
 import { UserCreateNestedManyWithoutFollowingInput } from "../inputs/UserCreateNestedManyWithoutFollowingInput";
 import { UserProfileCreateNestedOneWithoutUserInput } from "../inputs/UserProfileCreateNestedOneWithoutUserInput";
@@ -34,20 +31,15 @@ export class UserCreateWithoutLikedPostsInput {
   })
   updatedAt?: Date | undefined;
 
-  @TypeGraphQL.Field(_type => Boolean, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  isLocal?: boolean | undefined;
+  displayName?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   username!: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  displayName?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -59,30 +51,35 @@ export class UserCreateWithoutLikedPostsInput {
   })
   password?: string | undefined;
 
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  isLocal?: boolean | undefined;
+
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
   role?: "user" | "staff" | "admin" | undefined;
 
   @TypeGraphQL.Field(_type => UserProfileCreateNestedOneWithoutUserInput, {
-    nullable: false
+    nullable: true
   })
-  profile!: UserProfileCreateNestedOneWithoutUserInput;
+  profile?: UserProfileCreateNestedOneWithoutUserInput | undefined;
 
   @TypeGraphQL.Field(_type => PostCreateNestedManyWithoutCreatorInput, {
     nullable: true
   })
   posts?: PostCreateNestedManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => CommentCreateNestedManyWithoutCreatorInput, {
+  @TypeGraphQL.Field(_type => PostCommentCreateNestedManyWithoutLikersInput, {
     nullable: true
   })
-  createdComments?: CommentCreateNestedManyWithoutCreatorInput | undefined;
+  likedComments?: PostCommentCreateNestedManyWithoutLikersInput | undefined;
 
-  @TypeGraphQL.Field(_type => CommentCreateNestedManyWithoutLikersInput, {
+  @TypeGraphQL.Field(_type => PostCommentCreateNestedManyWithoutCreatorInput, {
     nullable: true
   })
-  likedComments?: CommentCreateNestedManyWithoutLikersInput | undefined;
+  createdPostComments?: PostCommentCreateNestedManyWithoutCreatorInput | undefined;
 
   @TypeGraphQL.Field(_type => UserCreateNestedManyWithoutFollowersInput, {
     nullable: true
@@ -99,23 +96,8 @@ export class UserCreateWithoutLikedPostsInput {
   })
   createdLabels?: LabelCreateNestedManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => AttachmentCreateNestedManyWithoutCreatorInput, {
+  @TypeGraphQL.Field(_type => HashtagCreateNestedManyWithoutCreatorInput, {
     nullable: true
   })
-  createdAttachments?: AttachmentCreateNestedManyWithoutCreatorInput | undefined;
-
-  @TypeGraphQL.Field(_type => ReportCreateNestedManyWithoutCreatorInput, {
-    nullable: true
-  })
-  reports?: ReportCreateNestedManyWithoutCreatorInput | undefined;
-
-  @TypeGraphQL.Field(_type => OauthConnectionCreateNestedManyWithoutUserInput, {
-    nullable: true
-  })
-  oauthConnections?: OauthConnectionCreateNestedManyWithoutUserInput | undefined;
-
-  @TypeGraphQL.Field(_type => TokenPairCreateNestedManyWithoutUserInput, {
-    nullable: true
-  })
-  tokens?: TokenPairCreateNestedManyWithoutUserInput | undefined;
+  createdHashtags?: HashtagCreateNestedManyWithoutCreatorInput | undefined;
 }

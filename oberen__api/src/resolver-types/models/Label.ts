@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Post } from "../models/Post";
 import { User } from "../models/User";
 import { UserProfile } from "../models/UserProfile";
 
@@ -27,17 +28,17 @@ export class Label {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  name!: string;
+  title!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  color!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   description?: string | null;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
-  })
-  uses!: number;
 
   creator?: User;
 
@@ -46,10 +47,12 @@ export class Label {
   })
   creatorId!: string;
 
-  profile?: UserProfile | null;
+  posts?: Post[];
+
+  profile?: UserProfile;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  profileId?: string | null;
+  profileId!: string;
 }

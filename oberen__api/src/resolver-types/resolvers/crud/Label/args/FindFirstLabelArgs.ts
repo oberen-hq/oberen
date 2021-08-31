@@ -35,5 +35,5 @@ export class FindFirstLabelArgs {
   @TypeGraphQL.Field(_type => [LabelScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "createdAt" | "updatedAt" | "name" | "description" | "uses" | "creatorId" | "profileId"> | undefined;
+  distinct?: Array<"id" | "createdAt" | "updatedAt" | "title" | "color" | "description" | "creatorId" | "profileId"> | undefined;
 }

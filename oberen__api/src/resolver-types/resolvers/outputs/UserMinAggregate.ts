@@ -23,20 +23,15 @@ export class UserMinAggregate {
   })
   updatedAt!: Date | null;
 
-  @TypeGraphQL.Field(_type => Boolean, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  isLocal!: boolean | null;
+  displayName!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   username!: string | null;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  displayName!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
@@ -47,6 +42,11 @@ export class UserMinAggregate {
     nullable: true
   })
   password!: string | null;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  isLocal!: boolean | null;
 
   @TypeGraphQL.Field(_type => Role, {
     nullable: true

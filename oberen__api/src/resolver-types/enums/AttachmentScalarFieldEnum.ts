@@ -4,11 +4,9 @@ export enum AttachmentScalarFieldEnum {
   id = "id",
   createdAt = "createdAt",
   updatedAt = "updatedAt",
-  attachmentUrl = "attachmentUrl",
+  url = "url",
   type = "type",
-  postId = "postId",
-  reportId = "reportId",
-  creatorId = "creatorId"
+  postId = "postId"
 }
 TypeGraphQL.registerEnumType(AttachmentScalarFieldEnum, {
   name: "AttachmentScalarFieldEnum",

@@ -37,4 +37,9 @@ export class PostCreateManyCreatorInput {
     nullable: false
   })
   type!: "post" | "job" | "organization" | "shift" | "article" | "feedback" | "poll";
+
+  @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
+    nullable: true
+  })
+  likes?: bigint | undefined;
 }

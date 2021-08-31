@@ -5,10 +5,8 @@ import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumAttachmentTypeFilter } from "../inputs/EnumAttachmentTypeFilter";
 import { PostRelationFilter } from "../inputs/PostRelationFilter";
-import { ReportRelationFilter } from "../inputs/ReportRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
-import { UserRelationFilter } from "../inputs/UserRelationFilter";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -47,7 +45,7 @@ export class AttachmentWhereInput {
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  attachmentUrl?: StringFilter | undefined;
+  url?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => EnumAttachmentTypeFilter, {
     nullable: true
@@ -63,24 +61,4 @@ export class AttachmentWhereInput {
     nullable: true
   })
   postId?: StringNullableFilter | undefined;
-
-  @TypeGraphQL.Field(_type => ReportRelationFilter, {
-    nullable: true
-  })
-  report?: ReportRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  reportId?: StringNullableFilter | undefined;
-
-  @TypeGraphQL.Field(_type => UserRelationFilter, {
-    nullable: true
-  })
-  creator?: UserRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringFilter, {
-    nullable: true
-  })
-  creatorId?: StringFilter | undefined;
 }

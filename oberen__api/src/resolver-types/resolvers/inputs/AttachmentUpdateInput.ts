@@ -5,14 +5,17 @@ import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumAttachmentTypeFieldUpdateOperationsInput } from "../inputs/EnumAttachmentTypeFieldUpdateOperationsInput";
 import { PostUpdateOneWithoutAttachmentsInput } from "../inputs/PostUpdateOneWithoutAttachmentsInput";
-import { ReportUpdateOneWithoutAttachmentsInput } from "../inputs/ReportUpdateOneWithoutAttachmentsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
-import { UserUpdateOneRequiredWithoutCreatedAttachmentsInput } from "../inputs/UserUpdateOneRequiredWithoutCreatedAttachmentsInput";
 
 @TypeGraphQL.InputType({
   isAbstract: true
 })
 export class AttachmentUpdateInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
@@ -26,7 +29,7 @@ export class AttachmentUpdateInput {
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  attachmentUrl?: StringFieldUpdateOperationsInput | undefined;
+  url?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => EnumAttachmentTypeFieldUpdateOperationsInput, {
     nullable: true
@@ -37,14 +40,4 @@ export class AttachmentUpdateInput {
     nullable: true
   })
   post?: PostUpdateOneWithoutAttachmentsInput | undefined;
-
-  @TypeGraphQL.Field(_type => ReportUpdateOneWithoutAttachmentsInput, {
-    nullable: true
-  })
-  report?: ReportUpdateOneWithoutAttachmentsInput | undefined;
-
-  @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutCreatedAttachmentsInput, {
-    nullable: true
-  })
-  creator?: UserUpdateOneRequiredWithoutCreatedAttachmentsInput | undefined;
 }

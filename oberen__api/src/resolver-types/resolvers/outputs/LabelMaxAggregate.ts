@@ -25,17 +25,17 @@ export class LabelMaxAggregate {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  name!: string | null;
+  title!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  color!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   description!: string | null;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: true
-  })
-  uses!: number | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

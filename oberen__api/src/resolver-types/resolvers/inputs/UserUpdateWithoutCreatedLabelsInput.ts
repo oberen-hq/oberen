@@ -2,20 +2,17 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { AttachmentUpdateManyWithoutCreatorInput } from "../inputs/AttachmentUpdateManyWithoutCreatorInput";
 import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperationsInput";
-import { CommentUpdateManyWithoutCreatorInput } from "../inputs/CommentUpdateManyWithoutCreatorInput";
-import { CommentUpdateManyWithoutLikersInput } from "../inputs/CommentUpdateManyWithoutLikersInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
+import { HashtagUpdateManyWithoutCreatorInput } from "../inputs/HashtagUpdateManyWithoutCreatorInput";
 import { NullableEnumRoleFieldUpdateOperationsInput } from "../inputs/NullableEnumRoleFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
-import { OauthConnectionUpdateManyWithoutUserInput } from "../inputs/OauthConnectionUpdateManyWithoutUserInput";
+import { PostCommentUpdateManyWithoutCreatorInput } from "../inputs/PostCommentUpdateManyWithoutCreatorInput";
+import { PostCommentUpdateManyWithoutLikersInput } from "../inputs/PostCommentUpdateManyWithoutLikersInput";
 import { PostUpdateManyWithoutCreatorInput } from "../inputs/PostUpdateManyWithoutCreatorInput";
 import { PostUpdateManyWithoutLikersInput } from "../inputs/PostUpdateManyWithoutLikersInput";
-import { ReportUpdateManyWithoutCreatorInput } from "../inputs/ReportUpdateManyWithoutCreatorInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
-import { TokenPairUpdateManyWithoutUserInput } from "../inputs/TokenPairUpdateManyWithoutUserInput";
-import { UserProfileUpdateOneRequiredWithoutUserInput } from "../inputs/UserProfileUpdateOneRequiredWithoutUserInput";
+import { UserProfileUpdateOneWithoutUserInput } from "../inputs/UserProfileUpdateOneWithoutUserInput";
 import { UserUpdateManyWithoutFollowersInput } from "../inputs/UserUpdateManyWithoutFollowersInput";
 import { UserUpdateManyWithoutFollowingInput } from "../inputs/UserUpdateManyWithoutFollowingInput";
 
@@ -23,6 +20,11 @@ import { UserUpdateManyWithoutFollowingInput } from "../inputs/UserUpdateManyWit
   isAbstract: true
 })
 export class UserUpdateWithoutCreatedLabelsInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
@@ -33,20 +35,15 @@ export class UserUpdateWithoutCreatedLabelsInput {
   })
   updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
   })
-  isLocal?: BoolFieldUpdateOperationsInput | undefined;
+  displayName?: NullableStringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
   username?: StringFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  displayName?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
@@ -58,35 +55,40 @@ export class UserUpdateWithoutCreatedLabelsInput {
   })
   password?: NullableStringFieldUpdateOperationsInput | undefined;
 
+  @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  isLocal?: BoolFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => NullableEnumRoleFieldUpdateOperationsInput, {
     nullable: true
   })
   role?: NullableEnumRoleFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserProfileUpdateOneRequiredWithoutUserInput, {
+  @TypeGraphQL.Field(_type => UserProfileUpdateOneWithoutUserInput, {
     nullable: true
   })
-  profile?: UserProfileUpdateOneRequiredWithoutUserInput | undefined;
+  profile?: UserProfileUpdateOneWithoutUserInput | undefined;
 
   @TypeGraphQL.Field(_type => PostUpdateManyWithoutCreatorInput, {
     nullable: true
   })
   posts?: PostUpdateManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => CommentUpdateManyWithoutCreatorInput, {
-    nullable: true
-  })
-  createdComments?: CommentUpdateManyWithoutCreatorInput | undefined;
-
   @TypeGraphQL.Field(_type => PostUpdateManyWithoutLikersInput, {
     nullable: true
   })
   likedPosts?: PostUpdateManyWithoutLikersInput | undefined;
 
-  @TypeGraphQL.Field(_type => CommentUpdateManyWithoutLikersInput, {
+  @TypeGraphQL.Field(_type => PostCommentUpdateManyWithoutLikersInput, {
     nullable: true
   })
-  likedComments?: CommentUpdateManyWithoutLikersInput | undefined;
+  likedComments?: PostCommentUpdateManyWithoutLikersInput | undefined;
+
+  @TypeGraphQL.Field(_type => PostCommentUpdateManyWithoutCreatorInput, {
+    nullable: true
+  })
+  createdPostComments?: PostCommentUpdateManyWithoutCreatorInput | undefined;
 
   @TypeGraphQL.Field(_type => UserUpdateManyWithoutFollowersInput, {
     nullable: true
@@ -98,23 +100,8 @@ export class UserUpdateWithoutCreatedLabelsInput {
   })
   followers?: UserUpdateManyWithoutFollowingInput | undefined;
 
-  @TypeGraphQL.Field(_type => AttachmentUpdateManyWithoutCreatorInput, {
+  @TypeGraphQL.Field(_type => HashtagUpdateManyWithoutCreatorInput, {
     nullable: true
   })
-  createdAttachments?: AttachmentUpdateManyWithoutCreatorInput | undefined;
-
-  @TypeGraphQL.Field(_type => ReportUpdateManyWithoutCreatorInput, {
-    nullable: true
-  })
-  reports?: ReportUpdateManyWithoutCreatorInput | undefined;
-
-  @TypeGraphQL.Field(_type => OauthConnectionUpdateManyWithoutUserInput, {
-    nullable: true
-  })
-  oauthConnections?: OauthConnectionUpdateManyWithoutUserInput | undefined;
-
-  @TypeGraphQL.Field(_type => TokenPairUpdateManyWithoutUserInput, {
-    nullable: true
-  })
-  tokens?: TokenPairUpdateManyWithoutUserInput | undefined;
+  createdHashtags?: HashtagUpdateManyWithoutCreatorInput | undefined;
 }

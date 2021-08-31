@@ -20,7 +20,7 @@ export class GroupByLabelArgs {
   @TypeGraphQL.Field(_type => [LabelScalarFieldEnum], {
     nullable: false
   })
-  by!: Array<"id" | "createdAt" | "updatedAt" | "name" | "description" | "uses" | "creatorId" | "profileId">;
+  by!: Array<"id" | "createdAt" | "updatedAt" | "title" | "color" | "description" | "creatorId" | "profileId">;
 
   @TypeGraphQL.Field(_type => LabelScalarWhereWithAggregatesInput, {
     nullable: true

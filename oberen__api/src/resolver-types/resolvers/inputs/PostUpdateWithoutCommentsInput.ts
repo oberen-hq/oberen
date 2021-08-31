@@ -3,8 +3,11 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AttachmentUpdateManyWithoutPostInput } from "../inputs/AttachmentUpdateManyWithoutPostInput";
+import { BigIntFieldUpdateOperationsInput } from "../inputs/BigIntFieldUpdateOperationsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumPostTypeFieldUpdateOperationsInput } from "../inputs/EnumPostTypeFieldUpdateOperationsInput";
+import { HashtagUpdateManyWithoutPostsInput } from "../inputs/HashtagUpdateManyWithoutPostsInput";
+import { LabelUpdateManyWithoutPostsInput } from "../inputs/LabelUpdateManyWithoutPostsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { UserUpdateManyWithoutLikedPostsInput } from "../inputs/UserUpdateManyWithoutLikedPostsInput";
@@ -14,6 +17,11 @@ import { UserUpdateOneRequiredWithoutPostsInput } from "../inputs/UserUpdateOneR
   isAbstract: true
 })
 export class PostUpdateWithoutCommentsInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
@@ -39,6 +47,11 @@ export class PostUpdateWithoutCommentsInput {
   })
   type?: EnumPostTypeFieldUpdateOperationsInput | undefined;
 
+  @TypeGraphQL.Field(_type => BigIntFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  likes?: BigIntFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => UserUpdateManyWithoutLikedPostsInput, {
     nullable: true
   })
@@ -48,6 +61,16 @@ export class PostUpdateWithoutCommentsInput {
     nullable: true
   })
   attachments?: AttachmentUpdateManyWithoutPostInput | undefined;
+
+  @TypeGraphQL.Field(_type => HashtagUpdateManyWithoutPostsInput, {
+    nullable: true
+  })
+  hashtags?: HashtagUpdateManyWithoutPostsInput | undefined;
+
+  @TypeGraphQL.Field(_type => LabelUpdateManyWithoutPostsInput, {
+    nullable: true
+  })
+  labels?: LabelUpdateManyWithoutPostsInput | undefined;
 
   @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutPostsInput, {
     nullable: true

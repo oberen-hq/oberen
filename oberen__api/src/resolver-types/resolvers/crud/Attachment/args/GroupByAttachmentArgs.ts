@@ -20,7 +20,7 @@ export class GroupByAttachmentArgs {
   @TypeGraphQL.Field(_type => [AttachmentScalarFieldEnum], {
     nullable: false
   })
-  by!: Array<"id" | "createdAt" | "updatedAt" | "attachmentUrl" | "type" | "postId" | "reportId" | "creatorId">;
+  by!: Array<"id" | "createdAt" | "updatedAt" | "url" | "type" | "postId">;
 
   @TypeGraphQL.Field(_type => AttachmentScalarWhereWithAggregatesInput, {
     nullable: true

@@ -8,4 +8,9 @@ export class CreateManyAttachmentArgs {
     nullable: false
   })
   data!: AttachmentCreateManyInput[];
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  skipDuplicates?: boolean | undefined;
 }

@@ -44,7 +44,7 @@ export class AttachmentScalarWhereInput {
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  attachmentUrl?: StringFilter | undefined;
+  url?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => EnumAttachmentTypeFilter, {
     nullable: true
@@ -55,14 +55,4 @@ export class AttachmentScalarWhereInput {
     nullable: true
   })
   postId?: StringNullableFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  reportId?: StringNullableFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringFilter, {
-    nullable: true
-  })
-  creatorId?: StringFilter | undefined;
 }

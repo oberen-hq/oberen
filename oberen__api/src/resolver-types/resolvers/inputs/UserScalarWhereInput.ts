@@ -42,20 +42,15 @@ export class UserScalarWhereInput {
   })
   updatedAt?: DateTimeFilter | undefined;
 
-  @TypeGraphQL.Field(_type => BoolFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  isLocal?: BoolFilter | undefined;
+  displayName?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
   username?: StringFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringFilter, {
-    nullable: true
-  })
-  displayName?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
@@ -67,13 +62,18 @@ export class UserScalarWhereInput {
   })
   password?: StringNullableFilter | undefined;
 
+  @TypeGraphQL.Field(_type => BoolFilter, {
+    nullable: true
+  })
+  isLocal?: BoolFilter | undefined;
+
   @TypeGraphQL.Field(_type => EnumRoleNullableFilter, {
     nullable: true
   })
   role?: EnumRoleNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  profileId?: StringFilter | undefined;
+  profileId?: StringNullableFilter | undefined;
 }

@@ -26,7 +26,7 @@ export class AttachmentCreateManyInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  attachmentUrl!: string;
+  url!: string;
 
   @TypeGraphQL.Field(_type => AttachmentType, {
     nullable: false
@@ -37,14 +37,4 @@ export class AttachmentCreateManyInput {
     nullable: true
   })
   postId?: string | undefined;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  reportId?: string | undefined;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  creatorId!: string;
 }

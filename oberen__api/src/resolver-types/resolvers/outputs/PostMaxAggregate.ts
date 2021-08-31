@@ -38,6 +38,11 @@ export class PostMaxAggregate {
   })
   type!: "post" | "job" | "organization" | "shift" | "article" | "feedback" | "poll" | null;
 
+  @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
+    nullable: true
+  })
+  likes!: bigint | null;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })

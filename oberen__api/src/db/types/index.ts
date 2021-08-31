@@ -10,7 +10,7 @@ export interface RegisterUserDataType {
   username: string;
   email: string;
   password?: string;
-  avatarUrl?: string;
+  avatarURL?: string;
   bio?: string;
   isLocal: boolean;
 }

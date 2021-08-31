@@ -3,10 +3,13 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AttachmentUpdateManyWithoutPostInput } from "../inputs/AttachmentUpdateManyWithoutPostInput";
-import { CommentUpdateManyWithoutPostInput } from "../inputs/CommentUpdateManyWithoutPostInput";
+import { BigIntFieldUpdateOperationsInput } from "../inputs/BigIntFieldUpdateOperationsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumPostTypeFieldUpdateOperationsInput } from "../inputs/EnumPostTypeFieldUpdateOperationsInput";
+import { HashtagUpdateManyWithoutPostsInput } from "../inputs/HashtagUpdateManyWithoutPostsInput";
+import { LabelUpdateManyWithoutPostsInput } from "../inputs/LabelUpdateManyWithoutPostsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
+import { PostCommentUpdateManyWithoutPostInput } from "../inputs/PostCommentUpdateManyWithoutPostInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { UserUpdateManyWithoutLikedPostsInput } from "../inputs/UserUpdateManyWithoutLikedPostsInput";
 import { UserUpdateOneRequiredWithoutPostsInput } from "../inputs/UserUpdateOneRequiredWithoutPostsInput";
@@ -15,6 +18,11 @@ import { UserUpdateOneRequiredWithoutPostsInput } from "../inputs/UserUpdateOneR
   isAbstract: true
 })
 export class PostUpdateInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
@@ -40,20 +48,35 @@ export class PostUpdateInput {
   })
   type?: EnumPostTypeFieldUpdateOperationsInput | undefined;
 
+  @TypeGraphQL.Field(_type => BigIntFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  likes?: BigIntFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => UserUpdateManyWithoutLikedPostsInput, {
     nullable: true
   })
   likers?: UserUpdateManyWithoutLikedPostsInput | undefined;
 
-  @TypeGraphQL.Field(_type => CommentUpdateManyWithoutPostInput, {
+  @TypeGraphQL.Field(_type => PostCommentUpdateManyWithoutPostInput, {
     nullable: true
   })
-  comments?: CommentUpdateManyWithoutPostInput | undefined;
+  comments?: PostCommentUpdateManyWithoutPostInput | undefined;
 
   @TypeGraphQL.Field(_type => AttachmentUpdateManyWithoutPostInput, {
     nullable: true
   })
   attachments?: AttachmentUpdateManyWithoutPostInput | undefined;
+
+  @TypeGraphQL.Field(_type => HashtagUpdateManyWithoutPostsInput, {
+    nullable: true
+  })
+  hashtags?: HashtagUpdateManyWithoutPostsInput | undefined;
+
+  @TypeGraphQL.Field(_type => LabelUpdateManyWithoutPostsInput, {
+    nullable: true
+  })
+  labels?: LabelUpdateManyWithoutPostsInput | undefined;
 
   @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutPostsInput, {
     nullable: true

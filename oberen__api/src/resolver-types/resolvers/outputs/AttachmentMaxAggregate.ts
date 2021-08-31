@@ -26,7 +26,7 @@ export class AttachmentMaxAggregate {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  attachmentUrl!: string | null;
+  url!: string | null;
 
   @TypeGraphQL.Field(_type => AttachmentType, {
     nullable: true
@@ -37,14 +37,4 @@ export class AttachmentMaxAggregate {
     nullable: true
   })
   postId!: string | null;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  reportId!: string | null;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  creatorId!: string | null;
 }

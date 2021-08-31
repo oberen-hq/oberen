@@ -10,6 +10,11 @@ import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOpe
   isAbstract: true
 })
 export class AttachmentUpdateManyMutationInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
@@ -23,7 +28,7 @@ export class AttachmentUpdateManyMutationInput {
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  attachmentUrl?: StringFieldUpdateOperationsInput | undefined;
+  url?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => EnumAttachmentTypeFieldUpdateOperationsInput, {
     nullable: true

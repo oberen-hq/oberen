@@ -8,4 +8,9 @@ export class CreateManyLabelArgs {
     nullable: false
   })
   data!: LabelCreateManyInput[];
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  skipDuplicates?: boolean | undefined;
 }

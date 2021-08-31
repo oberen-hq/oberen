@@ -1,0 +1,1 @@
+export { LabelPostsArgs } from "./LabelPostsArgs";

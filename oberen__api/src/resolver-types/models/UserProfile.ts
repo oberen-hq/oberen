@@ -4,7 +4,6 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
 import { Label } from "../models/Label";
 import { User } from "../models/User";
-import { Status } from "../enums/Status";
 
 @TypeGraphQL.ObjectType({
   isAbstract: true
@@ -15,22 +14,12 @@ export class UserProfile {
   })
   id!: string;
 
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: false
-  })
-  updatedAt!: Date;
-
   user?: User | null;
-
-  @TypeGraphQL.Field(_type => Status, {
-    nullable: false
-  })
-  status!: "online" | "idle" | "dnd" | "other" | "offline";
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  avatarUrl?: string | null;
+  avatarURL?: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

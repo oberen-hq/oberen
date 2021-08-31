@@ -1,9 +1,7 @@
 export { AttachmentRelationsResolver } from "./Attachment/AttachmentRelationsResolver";
-export { CommentRelationsResolver } from "./Comment/CommentRelationsResolver";
+export { HashtagRelationsResolver } from "./Hashtag/HashtagRelationsResolver";
 export { LabelRelationsResolver } from "./Label/LabelRelationsResolver";
-export { OauthConnectionRelationsResolver } from "./OauthConnection/OauthConnectionRelationsResolver";
 export { PostRelationsResolver } from "./Post/PostRelationsResolver";
-export { ReportRelationsResolver } from "./Report/ReportRelationsResolver";
-export { TokenPairRelationsResolver } from "./TokenPair/TokenPairRelationsResolver";
+export { PostCommentRelationsResolver } from "./PostComment/PostCommentRelationsResolver";
 export { UserRelationsResolver } from "./User/UserRelationsResolver";
 export { UserProfileRelationsResolver } from "./UserProfile/UserProfileRelationsResolver";

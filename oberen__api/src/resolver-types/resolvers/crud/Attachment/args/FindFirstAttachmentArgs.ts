@@ -35,5 +35,5 @@ export class FindFirstAttachmentArgs {
   @TypeGraphQL.Field(_type => [AttachmentScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "createdAt" | "updatedAt" | "attachmentUrl" | "type" | "postId" | "reportId" | "creatorId"> | undefined;
+  distinct?: Array<"id" | "createdAt" | "updatedAt" | "url" | "type" | "postId"> | undefined;
 }

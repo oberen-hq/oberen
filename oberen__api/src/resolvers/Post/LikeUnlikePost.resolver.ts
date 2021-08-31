@@ -1,32 +1,41 @@
 import { ApolloError } from "apollo-server-core";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
-import { Post, User } from "../../resolver-types/models";
+import { Post } from "../../resolver-types/models";
 import { Context } from "../../types";
 import LikeUnlikePostArgs from "./args/LikeUnlikePostArgs";
 
+import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
+import connectIdArray from "../../utils/connectIdArray";
+
 @Resolver()
 export default class LikeUnlikePostResolver {
+  @IsAuthenticated()
   @Mutation(() => Post)
   async likePost(
     @Arg("args") { postId }: LikeUnlikePostArgs,
     @Ctx() { req, prisma }: Context
   ): Promise<Post | ApolloError> {
-    const userId = "6129ebca0050dd980091365e";
+    const user = req.user;
 
-    const likedPost = prisma.post.update({
+    const userOwnsPost = await prisma.post.findFirst({
       where: {
         id: postId,
-      },
-      data: {
-        likers: {
-          connect: [
-            {
-              id: userId,
-            },
-          ],
-        },
+        creatorId: user.id,
       },
     });
+
+    if (userOwnsPost) {
+      throw new ApolloError("You can't like your own post", "user_owns_post");
+    }
+
+    console.log(user.id);
+
+    const likedPost = prisma.post.update({
+      where: { id: postId },
+      data: { likers: { connect: [{ id: user.id }] } },
+    });
+
+    console.log("Here");
 
     if (likedPost) {
       return likedPost;
@@ -40,16 +49,27 @@ export default class LikeUnlikePostResolver {
     @Arg("args") { postId }: LikeUnlikePostArgs,
     @Ctx() { req, prisma }: Context
   ) {
-    const userId = "6129ebca0050dd980091365e";
+    const user = req.user;
 
-    const unlikedPost = prisma.post.update({
+    const userOwnsPost = await prisma.post.findFirst({
+      where: {
+        id: postId,
+        creatorId: user.id,
+      },
+    });
+
+    if (userOwnsPost) {
+      throw new ApolloError("You can't like your own post", "user_owns_post");
+    }
+
+    const unlikedPost = await prisma.post.update({
       where: {
         id: postId,
       },
       data: {
         likers: {
           disconnect: {
-            id: userId,
+            id: user.id,
           },
         },
       },

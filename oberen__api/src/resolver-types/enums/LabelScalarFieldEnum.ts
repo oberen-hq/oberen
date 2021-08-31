@@ -4,9 +4,9 @@ export enum LabelScalarFieldEnum {
   id = "id",
   createdAt = "createdAt",
   updatedAt = "updatedAt",
-  name = "name",
+  title = "title",
+  color = "color",
   description = "description",
-  uses = "uses",
   creatorId = "creatorId",
   profileId = "profileId"
 }

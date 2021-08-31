@@ -2,18 +2,15 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { AttachmentListRelationFilter } from "../inputs/AttachmentListRelationFilter";
 import { BoolFilter } from "../inputs/BoolFilter";
-import { CommentListRelationFilter } from "../inputs/CommentListRelationFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumRoleNullableFilter } from "../inputs/EnumRoleNullableFilter";
+import { HashtagListRelationFilter } from "../inputs/HashtagListRelationFilter";
 import { LabelListRelationFilter } from "../inputs/LabelListRelationFilter";
-import { OauthConnectionListRelationFilter } from "../inputs/OauthConnectionListRelationFilter";
+import { PostCommentListRelationFilter } from "../inputs/PostCommentListRelationFilter";
 import { PostListRelationFilter } from "../inputs/PostListRelationFilter";
-import { ReportListRelationFilter } from "../inputs/ReportListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
-import { TokenPairListRelationFilter } from "../inputs/TokenPairListRelationFilter";
 import { UserListRelationFilter } from "../inputs/UserListRelationFilter";
 import { UserProfileRelationFilter } from "../inputs/UserProfileRelationFilter";
 
@@ -51,20 +48,15 @@ export class UserWhereInput {
   })
   updatedAt?: DateTimeFilter | undefined;
 
-  @TypeGraphQL.Field(_type => BoolFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  isLocal?: BoolFilter | undefined;
+  displayName?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
   username?: StringFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringFilter, {
-    nullable: true
-  })
-  displayName?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
@@ -76,6 +68,11 @@ export class UserWhereInput {
   })
   password?: StringNullableFilter | undefined;
 
+  @TypeGraphQL.Field(_type => BoolFilter, {
+    nullable: true
+  })
+  isLocal?: BoolFilter | undefined;
+
   @TypeGraphQL.Field(_type => EnumRoleNullableFilter, {
     nullable: true
   })
@@ -86,30 +83,30 @@ export class UserWhereInput {
   })
   profile?: UserProfileRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  profileId?: StringFilter | undefined;
+  profileId?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => PostListRelationFilter, {
     nullable: true
   })
   posts?: PostListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => CommentListRelationFilter, {
-    nullable: true
-  })
-  createdComments?: CommentListRelationFilter | undefined;
-
   @TypeGraphQL.Field(_type => PostListRelationFilter, {
     nullable: true
   })
   likedPosts?: PostListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => CommentListRelationFilter, {
+  @TypeGraphQL.Field(_type => PostCommentListRelationFilter, {
     nullable: true
   })
-  likedComments?: CommentListRelationFilter | undefined;
+  likedComments?: PostCommentListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => PostCommentListRelationFilter, {
+    nullable: true
+  })
+  createdPostComments?: PostCommentListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => UserListRelationFilter, {
     nullable: true
@@ -126,23 +123,8 @@ export class UserWhereInput {
   })
   createdLabels?: LabelListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => AttachmentListRelationFilter, {
+  @TypeGraphQL.Field(_type => HashtagListRelationFilter, {
     nullable: true
   })
-  createdAttachments?: AttachmentListRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => ReportListRelationFilter, {
-    nullable: true
-  })
-  reports?: ReportListRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => OauthConnectionListRelationFilter, {
-    nullable: true
-  })
-  oauthConnections?: OauthConnectionListRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => TokenPairListRelationFilter, {
-    nullable: true
-  })
-  tokens?: TokenPairListRelationFilter | undefined;
+  createdHashtags?: HashtagListRelationFilter | undefined;
 }

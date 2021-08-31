@@ -2,9 +2,11 @@ import { PrismaClient } from "@prisma/client/";
 import executeOrFail from "../src/utils/executeOrFail";
 import faker from "faker";
 import { User } from "../src/resolver-types/models";
+import dotenv from "dotenv";
+dotenv.config();
 
 class Seeder extends PrismaClient {
-  createLocalUsersAndPosts = async (amount: number = 30): Promise<void> => {
+  createLocalUsers = async (amount: number = 30): Promise<void> => {
     return executeOrFail(async () => {
       let data: any = [];
 
@@ -21,37 +23,8 @@ class Seeder extends PrismaClient {
             email,
             password,
             isLocal: true,
-            profile: {
-              create: {
-                avatarUrl,
-                bio,
-              },
-            },
-          },
-          include: {
-            profile: true,
           },
         });
-
-        const post = await this.post.create({
-          data: {
-            title: faker.random.word(),
-            description: faker.random.words(),
-            type: "post",
-            creator: {
-              connect: { id: user.id },
-            },
-          },
-          include: {
-            attachments: true,
-          },
-        });
-
-        data.push(user);
-        data.push(post);
-      }
-
-      console.table(data);
     });
   };
 }
@@ -60,7 +33,7 @@ const main = async () => {
   const seed = new Seeder();
 
   await seed.$connect();
-  await seed.createLocalUsersAndPosts();
+  await seed.createLocalUsers();
   await seed.$disconnect();
   process.exit(0);
 };

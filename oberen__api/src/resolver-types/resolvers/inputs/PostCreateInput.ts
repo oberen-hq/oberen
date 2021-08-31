@@ -3,7 +3,9 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AttachmentCreateNestedManyWithoutPostInput } from "../inputs/AttachmentCreateNestedManyWithoutPostInput";
-import { CommentCreateNestedManyWithoutPostInput } from "../inputs/CommentCreateNestedManyWithoutPostInput";
+import { HashtagCreateNestedManyWithoutPostsInput } from "../inputs/HashtagCreateNestedManyWithoutPostsInput";
+import { LabelCreateNestedManyWithoutPostsInput } from "../inputs/LabelCreateNestedManyWithoutPostsInput";
+import { PostCommentCreateNestedManyWithoutPostInput } from "../inputs/PostCommentCreateNestedManyWithoutPostInput";
 import { UserCreateNestedManyWithoutLikedPostsInput } from "../inputs/UserCreateNestedManyWithoutLikedPostsInput";
 import { UserCreateNestedOneWithoutPostsInput } from "../inputs/UserCreateNestedOneWithoutPostsInput";
 import { PostType } from "../../enums/PostType";
@@ -42,20 +44,35 @@ export class PostCreateInput {
   })
   type!: "post" | "job" | "organization" | "shift" | "article" | "feedback" | "poll";
 
+  @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
+    nullable: true
+  })
+  likes?: bigint | undefined;
+
   @TypeGraphQL.Field(_type => UserCreateNestedManyWithoutLikedPostsInput, {
     nullable: true
   })
   likers?: UserCreateNestedManyWithoutLikedPostsInput | undefined;
 
-  @TypeGraphQL.Field(_type => CommentCreateNestedManyWithoutPostInput, {
+  @TypeGraphQL.Field(_type => PostCommentCreateNestedManyWithoutPostInput, {
     nullable: true
   })
-  comments?: CommentCreateNestedManyWithoutPostInput | undefined;
+  comments?: PostCommentCreateNestedManyWithoutPostInput | undefined;
 
   @TypeGraphQL.Field(_type => AttachmentCreateNestedManyWithoutPostInput, {
     nullable: true
   })
   attachments?: AttachmentCreateNestedManyWithoutPostInput | undefined;
+
+  @TypeGraphQL.Field(_type => HashtagCreateNestedManyWithoutPostsInput, {
+    nullable: true
+  })
+  hashtags?: HashtagCreateNestedManyWithoutPostsInput | undefined;
+
+  @TypeGraphQL.Field(_type => LabelCreateNestedManyWithoutPostsInput, {
+    nullable: true
+  })
+  labels?: LabelCreateNestedManyWithoutPostsInput | undefined;
 
   @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutPostsInput, {
     nullable: false

@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { CommentOrderByInput } from "../../../inputs/CommentOrderByInput";
-import { CommentWhereInput } from "../../../inputs/CommentWhereInput";
-import { CommentWhereUniqueInput } from "../../../inputs/CommentWhereUniqueInput";
-import { CommentScalarFieldEnum } from "../../../../enums/CommentScalarFieldEnum";
+import { PostCommentOrderByInput } from "../../../inputs/PostCommentOrderByInput";
+import { PostCommentWhereInput } from "../../../inputs/PostCommentWhereInput";
+import { PostCommentWhereUniqueInput } from "../../../inputs/PostCommentWhereUniqueInput";
+import { PostCommentScalarFieldEnum } from "../../../../enums/PostCommentScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class UserLikedCommentsArgs {
-  @TypeGraphQL.Field(_type => CommentWhereInput, {
+  @TypeGraphQL.Field(_type => PostCommentWhereInput, {
     nullable: true
   })
-  where?: CommentWhereInput | undefined;
+  where?: PostCommentWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [CommentOrderByInput], {
+  @TypeGraphQL.Field(_type => [PostCommentOrderByInput], {
     nullable: true
   })
-  orderBy?: CommentOrderByInput[] | undefined;
+  orderBy?: PostCommentOrderByInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => CommentWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => PostCommentWhereUniqueInput, {
     nullable: true
   })
-  cursor?: CommentWhereUniqueInput | undefined;
+  cursor?: PostCommentWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,8 +32,8 @@ export class UserLikedCommentsArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [CommentScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [PostCommentScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "createdAt" | "updatedAt" | "body" | "creatorId" | "postId" | "reportId" | "edited" | "likes"> | undefined;
+  distinct?: Array<"id" | "createdAt" | "updatedAt" | "body" | "creatorId" | "postId" | "edited" | "likes"> | undefined;
 }

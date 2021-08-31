@@ -9,6 +9,11 @@ import { massOptions } from "./types";
 import { UserResponse } from "../resolvers/User/responses/User.response";
 import { RegisterUserDataType, LoginUserDataType } from "./types";
 
+import Token from "../utils/token";
+import { access } from "fs";
+
+const tokenGen = new Token();
+
 dotenv.config();
 
 export default class LocalUserRepo extends PrismaClient {
@@ -44,46 +49,42 @@ export default class LocalUserRepo extends PrismaClient {
           username: userData.username,
           email: userData.email,
           password: hashedPassword,
-          isLocal: true,
+          isLocal: userData.isLocal,
           profile: {
             create: {
-              avatarUrl: userData?.avatarUrl || "",
-              bio: userData?.bio || "Yet to be decided!",
+              avatarURL: userData.avatarURL,
+              bio: userData.bio,
             },
           },
         },
-        include: {
-          profile: true,
-        },
       });
 
-      let token;
+      const accessSecret = process.env.ACCESS_SECRET as string;
+      const refreshSecret = process.env.REFRESH_SECRET as string;
 
-      try {
-        token = await jwt.sign(user, process.env.JWT_SECRET as string, {
-          expiresIn: "8h",
-        });
-      } catch (err) {
-        throw new ApolloError(err.message, "internal_server_error");
-      }
+      const [accessToken, refreshToken] = await tokenGen.createTokens(
+        user,
+        accessSecret,
+        user.password + refreshSecret
+      );
 
       return {
-        token: `Bearer  ${token}`,
-        user,
+        accessToken: `Bearer  ${accessToken}`,
+        refreshToken: `Bearer ${refreshToken}`,
+        user: user,
       };
     });
   };
 
   login = async (userData: LoginUserDataType): Promise<UserResponse> => {
     return executeOrFail(async () => {
-      const user = await this.user.findUnique({
+      const user = await this.user.findFirst({
         where: {
           email: userData.email,
         },
       });
 
       let correctPassword;
-      let token;
 
       if (user) {
         correctPassword = await bcrypt.compare(
@@ -101,16 +102,18 @@ export default class LocalUserRepo extends PrismaClient {
         throw new ApolloError("Incorrect password", "invalid_credentials");
       }
 
-      try {
-        token = await jwt.sign(user, process.env.JWT_SECRET as string, {
-          expiresIn: "8h",
-        });
-      } catch (err) {
-        throw new ApolloError(err.message, "internal_server_error");
-      }
+      const accessSecret = process.env.ACCESS_SECRET as string;
+      const refreshSecret = process.env.REFRESH_SECRET as string;
+
+      const [accessToken, refreshToken] = await tokenGen.createTokens(
+        user,
+        accessSecret,
+        user.password + refreshSecret
+      );
 
       return {
-        token: `Bearer ${token}`,
+        accessToken: `Bearer  ${accessToken}`,
+        refreshToken: `Bearer ${refreshToken}`,
         user: user,
       };
     });
@@ -131,6 +134,25 @@ export default class LocalUserRepo extends PrismaClient {
         return user;
       } else {
         throw new ApolloError("That user does not exist", "user_doesn't_exist");
+      }
+    });
+  };
+
+  findByName = async (username: string): Promise<User | ApolloError> => {
+    return executeOrFail(async () => {
+      const user = await this.user.findFirst({
+        where: {
+          username: username,
+        },
+        include: {
+          profile: true,
+        },
+      });
+
+      if (user) {
+        return user;
+      } else {
+        throw new ApolloError("That user doesn't exist", "user_doesn't_exist");
       }
     });
   };

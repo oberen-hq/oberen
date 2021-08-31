@@ -25,20 +25,20 @@ export class LabelCreateManyCreatorInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  name!: string;
+  title!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  color?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   description?: string | undefined;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: true
-  })
-  uses?: number | undefined;
-
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  profileId?: string | undefined;
+  profileId!: string;
 }

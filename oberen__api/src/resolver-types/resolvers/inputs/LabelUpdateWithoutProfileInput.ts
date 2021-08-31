@@ -3,8 +3,8 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
-import { IntFieldUpdateOperationsInput } from "../inputs/IntFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
+import { PostUpdateManyWithoutLabelsInput } from "../inputs/PostUpdateManyWithoutLabelsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { UserUpdateOneRequiredWithoutCreatedLabelsInput } from "../inputs/UserUpdateOneRequiredWithoutCreatedLabelsInput";
 
@@ -12,6 +12,11 @@ import { UserUpdateOneRequiredWithoutCreatedLabelsInput } from "../inputs/UserUp
   isAbstract: true
 })
 export class LabelUpdateWithoutProfileInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
@@ -25,20 +30,25 @@ export class LabelUpdateWithoutProfileInput {
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  name?: StringFieldUpdateOperationsInput | undefined;
+  title?: StringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  color?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
   })
   description?: NullableStringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => IntFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  uses?: IntFieldUpdateOperationsInput | undefined;
-
   @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutCreatedLabelsInput, {
     nullable: true
   })
   creator?: UserUpdateOneRequiredWithoutCreatedLabelsInput | undefined;
+
+  @TypeGraphQL.Field(_type => PostUpdateManyWithoutLabelsInput, {
+    nullable: true
+  })
+  posts?: PostUpdateManyWithoutLabelsInput | undefined;
 }

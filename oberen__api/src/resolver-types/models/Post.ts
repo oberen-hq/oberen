@@ -3,7 +3,9 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
 import { Attachment } from "../models/Attachment";
-import { Comment } from "../models/Comment";
+import { Hashtag } from "../models/Hashtag";
+import { Label } from "../models/Label";
+import { PostComment } from "../models/PostComment";
 import { User } from "../models/User";
 import { PostType } from "../enums/PostType";
 
@@ -43,9 +45,18 @@ export class Post {
 
   likers?: User[];
 
-  comments?: Comment[];
+  @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
+    nullable: false
+  })
+  likes!: bigint;
+
+  comments?: PostComment[];
 
   attachments?: Attachment[];
+
+  hashtags?: Hashtag[];
+
+  labels?: Label[];
 
   creator?: User;
 

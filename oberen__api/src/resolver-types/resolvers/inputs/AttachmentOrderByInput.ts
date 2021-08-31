@@ -26,7 +26,7 @@ export class AttachmentOrderByInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  attachmentUrl?: "asc" | "desc" | undefined;
+  url?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
@@ -37,14 +37,4 @@ export class AttachmentOrderByInput {
     nullable: true
   })
   postId?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  reportId?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  creatorId?: "asc" | "desc" | undefined;
 }

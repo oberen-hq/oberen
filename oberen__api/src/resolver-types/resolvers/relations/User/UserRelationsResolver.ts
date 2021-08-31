@@ -1,32 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
-import { Attachment } from "../../../models/Attachment";
-import { Comment } from "../../../models/Comment";
+import { Hashtag } from "../../../models/Hashtag";
 import { Label } from "../../../models/Label";
-import { OauthConnection } from "../../../models/OauthConnection";
 import { Post } from "../../../models/Post";
-import { Report } from "../../../models/Report";
-import { TokenPair } from "../../../models/TokenPair";
+import { PostComment } from "../../../models/PostComment";
 import { User } from "../../../models/User";
 import { UserProfile } from "../../../models/UserProfile";
-import { UserCreatedAttachmentsArgs } from "./args/UserCreatedAttachmentsArgs";
-import { UserCreatedCommentsArgs } from "./args/UserCreatedCommentsArgs";
+import { UserCreatedHashtagsArgs } from "./args/UserCreatedHashtagsArgs";
 import { UserCreatedLabelsArgs } from "./args/UserCreatedLabelsArgs";
+import { UserCreatedPostCommentsArgs } from "./args/UserCreatedPostCommentsArgs";
 import { UserFollowersArgs } from "./args/UserFollowersArgs";
 import { UserFollowingArgs } from "./args/UserFollowingArgs";
 import { UserLikedCommentsArgs } from "./args/UserLikedCommentsArgs";
 import { UserLikedPostsArgs } from "./args/UserLikedPostsArgs";
-import { UserOauthConnectionsArgs } from "./args/UserOauthConnectionsArgs";
 import { UserPostsArgs } from "./args/UserPostsArgs";
-import { UserReportsArgs } from "./args/UserReportsArgs";
-import { UserTokensArgs } from "./args/UserTokensArgs";
 import { transformFields, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
 @TypeGraphQL.Resolver(_of => User)
 export class UserRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => UserProfile, {
-    nullable: false
+    nullable: true
   })
-  async profile(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any): Promise<UserProfile> {
+  async profile(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any): Promise<UserProfile | null> {
     return getPrismaFromContext(ctx).user.findUnique({
       where: {
         id: user.id,
@@ -45,17 +39,6 @@ export class UserRelationsResolver {
     }).posts(args);
   }
 
-  @TypeGraphQL.FieldResolver(_type => [Comment], {
-    nullable: false
-  })
-  async createdComments(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserCreatedCommentsArgs): Promise<Comment[]> {
-    return getPrismaFromContext(ctx).user.findUnique({
-      where: {
-        id: user.id,
-      },
-    }).createdComments(args);
-  }
-
   @TypeGraphQL.FieldResolver(_type => [Post], {
     nullable: false
   })
@@ -67,15 +50,26 @@ export class UserRelationsResolver {
     }).likedPosts(args);
   }
 
-  @TypeGraphQL.FieldResolver(_type => [Comment], {
+  @TypeGraphQL.FieldResolver(_type => [PostComment], {
     nullable: false
   })
-  async likedComments(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserLikedCommentsArgs): Promise<Comment[]> {
+  async likedComments(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserLikedCommentsArgs): Promise<PostComment[]> {
     return getPrismaFromContext(ctx).user.findUnique({
       where: {
         id: user.id,
       },
     }).likedComments(args);
+  }
+
+  @TypeGraphQL.FieldResolver(_type => [PostComment], {
+    nullable: false
+  })
+  async createdPostComments(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserCreatedPostCommentsArgs): Promise<PostComment[]> {
+    return getPrismaFromContext(ctx).user.findUnique({
+      where: {
+        id: user.id,
+      },
+    }).createdPostComments(args);
   }
 
   @TypeGraphQL.FieldResolver(_type => [User], {
@@ -111,47 +105,14 @@ export class UserRelationsResolver {
     }).createdLabels(args);
   }
 
-  @TypeGraphQL.FieldResolver(_type => [Attachment], {
+  @TypeGraphQL.FieldResolver(_type => [Hashtag], {
     nullable: false
   })
-  async createdAttachments(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserCreatedAttachmentsArgs): Promise<Attachment[]> {
+  async createdHashtags(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserCreatedHashtagsArgs): Promise<Hashtag[]> {
     return getPrismaFromContext(ctx).user.findUnique({
       where: {
         id: user.id,
       },
-    }).createdAttachments(args);
-  }
-
-  @TypeGraphQL.FieldResolver(_type => [Report], {
-    nullable: false
-  })
-  async reports(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserReportsArgs): Promise<Report[]> {
-    return getPrismaFromContext(ctx).user.findUnique({
-      where: {
-        id: user.id,
-      },
-    }).reports(args);
-  }
-
-  @TypeGraphQL.FieldResolver(_type => [OauthConnection], {
-    nullable: false
-  })
-  async oauthConnections(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserOauthConnectionsArgs): Promise<OauthConnection[]> {
-    return getPrismaFromContext(ctx).user.findUnique({
-      where: {
-        id: user.id,
-      },
-    }).oauthConnections(args);
-  }
-
-  @TypeGraphQL.FieldResolver(_type => [TokenPair], {
-    nullable: false
-  })
-  async tokens(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserTokensArgs): Promise<TokenPair[]> {
-    return getPrismaFromContext(ctx).user.findUnique({
-      where: {
-        id: user.id,
-      },
-    }).tokens(args);
+    }).createdHashtags(args);
   }
 }

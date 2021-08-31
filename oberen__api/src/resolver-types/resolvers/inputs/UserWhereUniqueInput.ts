@@ -20,5 +20,5 @@ export class UserWhereUniqueInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  email?: string | undefined;
+  profileId?: string | undefined;
 }

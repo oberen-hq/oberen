@@ -5,7 +5,6 @@ import { DecimalJSScalar } from "../../scalars";
 import { UserProfileCountAggregate } from "../outputs/UserProfileCountAggregate";
 import { UserProfileMaxAggregate } from "../outputs/UserProfileMaxAggregate";
 import { UserProfileMinAggregate } from "../outputs/UserProfileMinAggregate";
-import { Status } from "../../enums/Status";
 
 @TypeGraphQL.ObjectType({
   isAbstract: true
@@ -16,20 +15,10 @@ export class UserProfileGroupBy {
   })
   id!: string;
 
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: false
-  })
-  updatedAt!: Date;
-
-  @TypeGraphQL.Field(_type => Status, {
-    nullable: false
-  })
-  status!: "online" | "idle" | "dnd" | "other" | "offline";
-
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  avatarUrl!: string | null;
+  avatarURL!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

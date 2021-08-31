@@ -26,20 +26,15 @@ export class UserGroupBy {
   })
   updatedAt!: Date;
 
-  @TypeGraphQL.Field(_type => Boolean, {
-    nullable: false
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
   })
-  isLocal!: boolean;
+  displayName!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   username!: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  displayName!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -51,15 +46,20 @@ export class UserGroupBy {
   })
   password!: string | null;
 
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: false
+  })
+  isLocal!: boolean;
+
   @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
   role!: "user" | "staff" | "admin" | null;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  profileId!: string;
+  profileId!: string | null;
 
   @TypeGraphQL.Field(_type => UserCountAggregate, {
     nullable: true

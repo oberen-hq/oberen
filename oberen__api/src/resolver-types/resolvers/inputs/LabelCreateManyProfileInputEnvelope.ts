@@ -12,4 +12,9 @@ export class LabelCreateManyProfileInputEnvelope {
     nullable: false
   })
   data!: LabelCreateManyProfileInput[];
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  skipDuplicates?: boolean | undefined;
 }

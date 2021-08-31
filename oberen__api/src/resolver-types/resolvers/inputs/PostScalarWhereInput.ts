@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { BigIntFilter } from "../inputs/BigIntFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumPostTypeFilter } from "../inputs/EnumPostTypeFilter";
 import { StringFilter } from "../inputs/StringFilter";
@@ -55,6 +56,11 @@ export class PostScalarWhereInput {
     nullable: true
   })
   type?: EnumPostTypeFilter | undefined;
+
+  @TypeGraphQL.Field(_type => BigIntFilter, {
+    nullable: true
+  })
+  likes?: BigIntFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true

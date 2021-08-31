@@ -44,7 +44,7 @@ export class AttachmentScalarWhereWithAggregatesInput {
   @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
-  attachmentUrl?: StringWithAggregatesFilter | undefined;
+  url?: StringWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => EnumAttachmentTypeWithAggregatesFilter, {
     nullable: true
@@ -55,14 +55,4 @@ export class AttachmentScalarWhereWithAggregatesInput {
     nullable: true
   })
   postId?: StringNullableWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
-    nullable: true
-  })
-  reportId?: StringNullableWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
-    nullable: true
-  })
-  creatorId?: StringWithAggregatesFilter | undefined;
 }
