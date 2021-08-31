@@ -82,6 +82,18 @@ enum ReportStatus {
   accepted
 }
 
+model Label {
+  id                  String               @id @default(uuid())
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @default(now())
+  title               String
+  color               String               @default("fff")
+  description         String?
+  creator             User                 @relation(fields: [creatorId], references: [id])
+  creatorId           String
+  posts               Post[]               
+}
+
 model Post {
   id                  String               @id @default(uuid())
   createdAt           DateTime             @default(now())
@@ -94,6 +106,7 @@ model Post {
   comments            PostComment[]   
   attachments         Attachment[]  
   hashtags            Hashtag[]
+  labels              Label[]
   creator             User                @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
   creatorId           String  
 }
