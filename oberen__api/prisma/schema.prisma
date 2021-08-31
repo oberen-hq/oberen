@@ -82,6 +82,10 @@ enum ReportStatus {
   accepted
 }
 
+model PostComment {
+  id                  String               @id @default(uuid())
+}
+
 model User {
   id                  String                @id @default(uuid())
   createdAt           DateTime              @default(now())
@@ -100,8 +104,8 @@ model User {
   // Posts
 
   posts               Post[]                @relation("UserOwnedPostsRelation")
-  likedPosts          Posts[]               @relation("UserLikedPostsRelation")
-  likedComments       Comment[]             @relation("UserLikedCommentsRelation")
+  likedPosts          Post[]                @relation("UserLikedPostsRelation")
+  likedComments       PostComment[]         @relation("UserLikedCommentsRelation")
 
   // Followers
 
@@ -115,6 +119,14 @@ model User {
   // Attachments
 
   createdAttachments  Attachment[]
+}
+
+model UserProfile {
+  id                  String                @id @default(uuid())
+  user                User?                 @relation("UserProfileRelation")
+  avatarURL           String
+  bio                 String
+  labels              Label[]
 }
 
 // model TokenPair {
