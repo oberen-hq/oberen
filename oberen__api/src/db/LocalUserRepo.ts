@@ -9,6 +9,11 @@ import { massOptions } from "./types";
 import { UserResponse } from "../resolvers/User/responses/User.response";
 import { RegisterUserDataType, LoginUserDataType } from "./types";
 
+import Token from "../utils/token";
+import { access } from "fs";
+
+const tokenGen = new Token();
+
 dotenv.config();
 
 export default class LocalUserRepo extends PrismaClient {
@@ -43,7 +48,7 @@ export default class LocalUserRepo extends PrismaClient {
         data: {
           username: userData.username,
           email: userData.email,
-          password: userData.password,
+          password: hashedPassword,
           isLocal: userData.isLocal,
           profile: {
             create: {
@@ -54,20 +59,14 @@ export default class LocalUserRepo extends PrismaClient {
         },
       });
 
-      let accessToken;
-      let refreshToken;
+      const accessSecret = process.env.ACCESS_SECRET as string;
+      const refreshSecret = process.env.REFRESH_SECRET as string;
 
-      try {
-        accessToken = await jwt.sign(user, process.env.JWT_SECRET as string, {
-          expiresIn: "1h",
-        });
-
-        refreshToken = await jwt.sign(user, process.env.JWT_SECRET as string, {
-          expiresIn: "7d",
-        });
-      } catch (err) {
-        throw new ApolloError(err.message, "internal_server_error");
-      }
+      const [accessToken, refreshToken] = await tokenGen.createTokens(
+        user,
+        accessSecret,
+        user.password + refreshSecret
+      );
 
       return {
         accessToken: `Bearer  ${accessToken}`,
@@ -86,8 +85,6 @@ export default class LocalUserRepo extends PrismaClient {
       });
 
       let correctPassword;
-      let accessToken;
-      let refreshToken;
 
       if (user) {
         correctPassword = await bcrypt.compare(
@@ -105,17 +102,14 @@ export default class LocalUserRepo extends PrismaClient {
         throw new ApolloError("Incorrect password", "invalid_credentials");
       }
 
-      try {
-        accessToken = await jwt.sign(user, process.env.JWT_SECRET as string, {
-          expiresIn: "1h",
-        });
+      const accessSecret = process.env.ACCESS_SECRET as string;
+      const refreshSecret = process.env.REFRESH_SECRET as string;
 
-        refreshToken = await jwt.sign(user, process.env.JWT_SECRET as string, {
-          expiresIn: "7d",
-        });
-      } catch (err) {
-        throw new ApolloError(err.message, "internal_server_error");
-      }
+      const [accessToken, refreshToken] = await tokenGen.createTokens(
+        user,
+        accessSecret,
+        user.password + refreshSecret
+      );
 
       return {
         accessToken: `Bearer  ${accessToken}`,
