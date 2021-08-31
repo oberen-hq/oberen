@@ -41,6 +41,11 @@ export class PostGroupBy {
   })
   type!: "post" | "job" | "organization" | "shift" | "article" | "feedback" | "poll";
 
+  @TypeGraphQL.Field(_type => [String], {
+    nullable: true
+  })
+  likerIds!: string[] | null;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })

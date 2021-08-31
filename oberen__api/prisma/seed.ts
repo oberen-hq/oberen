@@ -54,13 +54,43 @@ class Seeder extends PrismaClient {
       console.table(data);
     });
   };
+
+  likeOnePost = async (postId: string) => {
+    const userId = "612d3098002d054800ee7322";
+
+    try {
+      const likedPost = this.post.update({
+        where: { id: postId },
+        data: { likers: { connect: [{ id: userId }] } },
+        include: {
+          likers: true,
+        },
+      });
+
+      console.table(likedPost);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  findPost = async (postId: string) => {
+    const post = await this.post.findFirst({
+      where: {
+        id: postId,
+      },
+    });
+
+    console.log(post);
+  };
 }
 
 const main = async () => {
   const seed = new Seeder();
 
   await seed.$connect();
-  await seed.createLocalUsersAndPosts();
+  // await seed.createLocalUsersAndPosts();
+  // await seed.likeOnePost("612cbe8f004ce926002151f2");
+  await seed.findPost("612cbe8f004ce926002151f2");
   await seed.$disconnect();
   process.exit(0);
 };

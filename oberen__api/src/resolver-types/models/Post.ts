@@ -43,6 +43,11 @@ export class Post {
 
   likers?: User[];
 
+  @TypeGraphQL.Field(_type => [String], {
+    nullable: false
+  })
+  likerIds!: string[];
+
   comments?: Comment[];
 
   attachments?: Attachment[];

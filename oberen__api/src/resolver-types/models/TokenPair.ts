@@ -29,9 +29,9 @@ export class TokenPair {
   accessToken!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  refreshToken!: string;
+  refreshToken?: string | null;
 
   user?: User;
 

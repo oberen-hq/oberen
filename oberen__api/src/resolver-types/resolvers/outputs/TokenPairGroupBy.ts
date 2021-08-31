@@ -31,9 +31,9 @@ export class TokenPairGroupBy {
   accessToken!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  refreshToken!: string;
+  refreshToken!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

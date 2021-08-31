@@ -5,6 +5,7 @@ import { Context } from "../../types";
 import LikeUnlikePostArgs from "./args/LikeUnlikePostArgs";
 
 import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
+import connectIdArray from "../../utils/connectIdArray";
 
 @Resolver()
 export default class LikeUnlikePostResolver {
@@ -27,20 +28,14 @@ export default class LikeUnlikePostResolver {
       throw new ApolloError("You can't like your own post", "user_owns_post");
     }
 
-    const likedPost = await prisma.post.update({
-      where: {
-        id: postId,
-      },
-      data: {
-        likers: {
-          connect: [
-            {
-              id: user.id,
-            },
-          ],
-        },
-      },
+    console.log(user.id);
+
+    const likedPost = prisma.post.update({
+      where: { id: postId },
+      data: { likers: { connect: [{ id: user.id }] } },
     });
+
+    console.log("Here");
 
     if (likedPost) {
       return likedPost;

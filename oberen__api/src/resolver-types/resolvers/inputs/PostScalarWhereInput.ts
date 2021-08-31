@@ -6,6 +6,7 @@ import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumPostTypeFilter } from "../inputs/EnumPostTypeFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
+import { StringNullableListFilter } from "../inputs/StringNullableListFilter";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -55,6 +56,11 @@ export class PostScalarWhereInput {
     nullable: true
   })
   type?: EnumPostTypeFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringNullableListFilter, {
+    nullable: true
+  })
+  likerIds?: StringNullableListFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true

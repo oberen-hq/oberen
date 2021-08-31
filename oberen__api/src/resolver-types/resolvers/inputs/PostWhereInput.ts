@@ -8,6 +8,7 @@ import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumPostTypeFilter } from "../inputs/EnumPostTypeFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
+import { StringNullableListFilter } from "../inputs/StringNullableListFilter";
 import { UserListRelationFilter } from "../inputs/UserListRelationFilter";
 import { UserRelationFilter } from "../inputs/UserRelationFilter";
 
@@ -64,6 +65,11 @@ export class PostWhereInput {
     nullable: true
   })
   likers?: UserListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringNullableListFilter, {
+    nullable: true
+  })
+  likerIds?: StringNullableListFilter | undefined;
 
   @TypeGraphQL.Field(_type => CommentListRelationFilter, {
     nullable: true

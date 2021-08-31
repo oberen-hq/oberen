@@ -28,9 +28,9 @@ export class TokenPairCreateManyUserInput {
   accessToken!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  refreshToken!: string;
+  refreshToken?: string | undefined;
 
   @TypeGraphQL.Field(_type => Boolean, {
     nullable: true

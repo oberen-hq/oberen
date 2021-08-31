@@ -40,6 +40,11 @@ export class PostCountAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
+  likerIds!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
   creatorId!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {

@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AttachmentCreateNestedManyWithoutPostInput } from "../inputs/AttachmentCreateNestedManyWithoutPostInput";
 import { CommentCreateNestedManyWithoutPostInput } from "../inputs/CommentCreateNestedManyWithoutPostInput";
+import { PostCreatelikerIdsInput } from "../inputs/PostCreatelikerIdsInput";
 import { UserCreateNestedOneWithoutPostsInput } from "../inputs/UserCreateNestedOneWithoutPostsInput";
 import { PostType } from "../../enums/PostType";
 
@@ -40,6 +41,11 @@ export class PostCreateWithoutLikersInput {
     nullable: false
   })
   type!: "post" | "job" | "organization" | "shift" | "article" | "feedback" | "poll";
+
+  @TypeGraphQL.Field(_type => PostCreatelikerIdsInput, {
+    nullable: true
+  })
+  likerIds?: PostCreatelikerIdsInput | undefined;
 
   @TypeGraphQL.Field(_type => CommentCreateNestedManyWithoutPostInput, {
     nullable: true

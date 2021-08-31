@@ -22,6 +22,8 @@ export default class PostRepo extends PrismaClient {
           description: postData.description,
           type: postData.type,
           attachments: connectIdArray(postData.attachmentIds),
+          likers: connectIdArray(postData.likerIds),
+          comments: connectIdArray(postData.commentIds),
           creator: { connect: { id: userId } },
         };
 

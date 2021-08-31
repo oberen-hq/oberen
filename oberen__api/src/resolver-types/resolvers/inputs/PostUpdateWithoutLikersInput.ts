@@ -7,6 +7,7 @@ import { CommentUpdateManyWithoutPostInput } from "../inputs/CommentUpdateManyWi
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumPostTypeFieldUpdateOperationsInput } from "../inputs/EnumPostTypeFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
+import { PostUpdatelikerIdsInput } from "../inputs/PostUpdatelikerIdsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { UserUpdateOneRequiredWithoutPostsInput } from "../inputs/UserUpdateOneRequiredWithoutPostsInput";
 
@@ -38,6 +39,11 @@ export class PostUpdateWithoutLikersInput {
     nullable: true
   })
   type?: EnumPostTypeFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => PostUpdatelikerIdsInput, {
+    nullable: true
+  })
+  likerIds?: PostUpdatelikerIdsInput | undefined;
 
   @TypeGraphQL.Field(_type => CommentUpdateManyWithoutPostInput, {
     nullable: true

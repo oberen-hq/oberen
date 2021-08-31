@@ -193,7 +193,8 @@ model Post {
 
   // Likes and Comments
 
-  likers   User[]    @relation("UserLikedPostsRelation")
+  likers   User[]    @relation("UserLikedPostsRelation", fields: [likerIds])
+  likerIds String[]  @db.Array(ObjectId)
   comments Comment[]
 
   // TODO: Attachments and labels
@@ -248,7 +249,7 @@ model TokenPair {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   accessToken  String   @unique
-  refreshToken String?   @unique
+  refreshToken String?  @unique
 
   // Connection user
 
