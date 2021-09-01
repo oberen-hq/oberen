@@ -6,11 +6,13 @@ import { BoolFilter } from "../inputs/BoolFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumRoleNullableFilter } from "../inputs/EnumRoleNullableFilter";
 import { HashtagListRelationFilter } from "../inputs/HashtagListRelationFilter";
+import { IntFilter } from "../inputs/IntFilter";
 import { LabelListRelationFilter } from "../inputs/LabelListRelationFilter";
 import { PostCommentListRelationFilter } from "../inputs/PostCommentListRelationFilter";
 import { PostListRelationFilter } from "../inputs/PostListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
+import { TokenPairListRelationFilter } from "../inputs/TokenPairListRelationFilter";
 import { UserListRelationFilter } from "../inputs/UserListRelationFilter";
 import { UserProfileRelationFilter } from "../inputs/UserProfileRelationFilter";
 
@@ -77,6 +79,16 @@ export class UserWhereInput {
     nullable: true
   })
   role?: EnumRoleNullableFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntFilter, {
+    nullable: true
+  })
+  count?: IntFilter | undefined;
+
+  @TypeGraphQL.Field(_type => TokenPairListRelationFilter, {
+    nullable: true
+  })
+  tokens?: TokenPairListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => UserProfileRelationFilter, {
     nullable: true

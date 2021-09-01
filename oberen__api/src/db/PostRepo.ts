@@ -4,7 +4,7 @@ import { ApolloError } from "apollo-server-core";
 import { PostResponse } from "../resolvers/Post/responses/Post.response";
 import connectIdArray from "../utils/connectIdArray";
 import { PostDataType, UpdatePostType } from "./types/index";
-import { Post, User } from "../resolver-types/models";
+import { Post } from "../resolver-types/models";
 import { massOptions } from "./types";
 
 export default class PostRepo extends PrismaClient {

@@ -6,6 +6,7 @@ import { Hashtag } from "../models/Hashtag";
 import { Label } from "../models/Label";
 import { Post } from "../models/Post";
 import { PostComment } from "../models/PostComment";
+import { TokenPair } from "../models/TokenPair";
 import { UserProfile } from "../models/UserProfile";
 import { Role } from "../enums/Role";
 
@@ -57,6 +58,13 @@ export class User {
     nullable: true
   })
   role?: "user" | "staff" | "admin" | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  count!: number;
+
+  tokens?: TokenPair[];
 
   profile?: UserProfile | null;
 

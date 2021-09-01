@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { User } from "../resolver-types/models/";
+import { User } from "../resolver-types/models";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import executeOrFail from "../utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
@@ -10,7 +9,6 @@ import { UserResponse } from "../resolvers/User/responses/User.response";
 import { RegisterUserDataType, LoginUserDataType } from "./types";
 
 import Token from "../utils/token";
-import { access } from "fs";
 
 const tokenGen = new Token();
 
@@ -68,9 +66,20 @@ export default class LocalUserRepo extends PrismaClient {
         user.password + refreshSecret
       );
 
+      const tokenPair = await this.tokenPair.create({
+        data: {
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+          user: {
+            connect: {
+              id: user.id,
+            },
+          },
+        },
+      });
+
       return {
         accessToken: `Bearer  ${accessToken}`,
-        refreshToken: `Bearer ${refreshToken}`,
         user: user,
       };
     });
@@ -111,11 +120,48 @@ export default class LocalUserRepo extends PrismaClient {
         user.password + refreshSecret
       );
 
-      return {
-        accessToken: `Bearer  ${accessToken}`,
-        refreshToken: `Bearer ${refreshToken}`,
-        user: user,
-      };
+      const existingToken = await this.tokenPair.findFirst({
+        where: {
+          userId: user.id,
+        },
+      });
+
+      if (!existingToken) {
+        await this.tokenPair.create({
+          data: {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            user: {
+              connect: {
+                id: user.id,
+              },
+            },
+          },
+        });
+
+        await this.$executeRaw(
+          `UPDATE "User" set count = count + 1 WHERE id = ${user.id}`
+        );
+
+        return {
+          accessToken: `Bearer  ${accessToken}`,
+          user: user,
+        };
+      } else {
+        await this.tokenPair.update({
+          where: {
+            refreshToken: existingToken.refreshToken,
+          },
+          data: {
+            accessToken: accessToken,
+          },
+        });
+
+        return {
+          accessToken: `Bearer  ${accessToken}`,
+          user: user,
+        };
+      }
     });
   };
 

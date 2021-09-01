@@ -53,6 +53,11 @@ export class UserCreateManyInput {
   })
   role?: "user" | "staff" | "admin" | undefined;
 
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  count?: number | undefined;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })

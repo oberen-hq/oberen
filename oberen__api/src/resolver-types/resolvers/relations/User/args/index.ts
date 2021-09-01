@@ -6,3 +6,4 @@ export { UserFollowingArgs } from "./UserFollowingArgs";
 export { UserLikedCommentsArgs } from "./UserLikedCommentsArgs";
 export { UserLikedPostsArgs } from "./UserLikedPostsArgs";
 export { UserPostsArgs } from "./UserPostsArgs";
+export { UserTokensArgs } from "./UserTokensArgs";

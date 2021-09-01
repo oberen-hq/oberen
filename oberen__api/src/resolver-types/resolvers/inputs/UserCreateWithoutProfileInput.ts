@@ -8,6 +8,7 @@ import { PostCommentCreateNestedManyWithoutCreatorInput } from "../inputs/PostCo
 import { PostCommentCreateNestedManyWithoutLikersInput } from "../inputs/PostCommentCreateNestedManyWithoutLikersInput";
 import { PostCreateNestedManyWithoutCreatorInput } from "../inputs/PostCreateNestedManyWithoutCreatorInput";
 import { PostCreateNestedManyWithoutLikersInput } from "../inputs/PostCreateNestedManyWithoutLikersInput";
+import { TokenPairCreateNestedManyWithoutUserInput } from "../inputs/TokenPairCreateNestedManyWithoutUserInput";
 import { UserCreateNestedManyWithoutFollowersInput } from "../inputs/UserCreateNestedManyWithoutFollowersInput";
 import { UserCreateNestedManyWithoutFollowingInput } from "../inputs/UserCreateNestedManyWithoutFollowingInput";
 import { Role } from "../../enums/Role";
@@ -60,6 +61,16 @@ export class UserCreateWithoutProfileInput {
     nullable: true
   })
   role?: "user" | "staff" | "admin" | undefined;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  count?: number | undefined;
+
+  @TypeGraphQL.Field(_type => TokenPairCreateNestedManyWithoutUserInput, {
+    nullable: true
+  })
+  tokens?: TokenPairCreateNestedManyWithoutUserInput | undefined;
 
   @TypeGraphQL.Field(_type => PostCreateNestedManyWithoutCreatorInput, {
     nullable: true

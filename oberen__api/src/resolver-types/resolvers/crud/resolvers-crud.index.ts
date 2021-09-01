@@ -3,5 +3,6 @@ export { HashtagCrudResolver } from "./Hashtag/HashtagCrudResolver";
 export { LabelCrudResolver } from "./Label/LabelCrudResolver";
 export { PostCrudResolver } from "./Post/PostCrudResolver";
 export { PostCommentCrudResolver } from "./PostComment/PostCommentCrudResolver";
+export { TokenPairCrudResolver } from "./TokenPair/TokenPairCrudResolver";
 export { UserCrudResolver } from "./User/UserCrudResolver";
 export { UserProfileCrudResolver } from "./UserProfile/UserProfileCrudResolver";

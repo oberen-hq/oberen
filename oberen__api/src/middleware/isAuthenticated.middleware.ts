@@ -6,66 +6,67 @@ import dotenv from "dotenv";
 import { User } from "../resolver-types/models";
 
 import Token from "../utils/token";
-import { nextTick } from "process";
+import { userInfo } from "os";
 
 const tokenGen = new Token();
 
 dotenv.config();
 
-interface CreatedTokens {
-  token: string;
-  refreshToken: string;
-  user: User;
-}
-
 export const IsAuthenticated = (): any => {
   return createMethodDecorator<Context>(
-    async ({ context: { req, res } }, next) => {
+    async ({ context: { req, prisma } }, next) => {
       const access = req.headers["x-token"] as string;
       const accessToken = access.split(" ")[1];
-
-      console.log(accessToken);
+      const accessSecret = process.env.ACCESS_SECRET as string;
+      const refreshSecret = process.env.REFRESH_SECRET as string;
 
       if (accessToken) {
         try {
-          const user = jwt.verify(
-            accessToken as string,
-            process.env.ACCESS_SECRET as any
-          );
-
+          const user = jwt.verify(accessToken as string, accessSecret);
           req.user = user as User;
-
           return next();
         } catch (err) {
-          const refresh = req.headers["x-refresh-token"] as string;
-          const refreshToken = refresh[1];
-          const accessSecret = process.env.ACCESS_SECRET as string;
-          const refreshSecret = process.env.REFRESH_SECRET as string;
-          const data: CreatedTokens | any = await tokenGen.refreshTokens(
-            refreshToken,
-            accessSecret,
-            refreshSecret
-          );
-
-          if (!data) {
-            throw new ApolloError("Not Authenticated", "not_authenticated");
+          const tokenPair = await prisma.tokenPair.findFirst({
+            where: {
+              accessToken: accessToken,
+            },
+          });
+          if (!tokenPair) {
+            throw new ApolloError("Not authenticated", "not_authenticated");
           }
-
-          if (data.token && data.refreshToken) {
-            res.set(
-              "Access-Control-Expose-Headers",
-              "x-token, x-refresh-token"
+          try {
+            const data: any = await tokenGen.refreshTokens(
+              tokenPair.refreshToken,
+              accessSecret,
+              refreshSecret
             );
-            res.set("x-token", data.token);
-            res.set("x-refresh-token", data.refreshToken);
+
+            if (!data) {
+              throw new ApolloError("Not authenticated", "not_authenticated");
+            }
+            await prisma.tokenPair.update({
+              where: {
+                id: tokenPair.id,
+              },
+              data: {
+                accessToken: data.accessToken,
+                refreshToken: data.refreshToken,
+              },
+            });
+            const user = await prisma.user.findFirst({
+              where: {
+                id: tokenPair.userId,
+              },
+            });
+            req.user = user as any;
+            return next();
+          } catch (err) {
+            throw new ApolloError("Not authenticated", "not_authenticated");
           }
-
-          req.user = data.user as User;
-          return next();
         }
+      } else {
+        throw new ApolloError("Not authenticated", "not_authenticated");
       }
-
-      throw new ApolloError("Not authenticated", "not_authenticated");
     }
   );
 };

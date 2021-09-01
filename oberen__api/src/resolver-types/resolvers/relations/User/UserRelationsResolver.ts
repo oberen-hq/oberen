@@ -3,6 +3,7 @@ import { Hashtag } from "../../../models/Hashtag";
 import { Label } from "../../../models/Label";
 import { Post } from "../../../models/Post";
 import { PostComment } from "../../../models/PostComment";
+import { TokenPair } from "../../../models/TokenPair";
 import { User } from "../../../models/User";
 import { UserProfile } from "../../../models/UserProfile";
 import { UserCreatedHashtagsArgs } from "./args/UserCreatedHashtagsArgs";
@@ -13,10 +14,22 @@ import { UserFollowingArgs } from "./args/UserFollowingArgs";
 import { UserLikedCommentsArgs } from "./args/UserLikedCommentsArgs";
 import { UserLikedPostsArgs } from "./args/UserLikedPostsArgs";
 import { UserPostsArgs } from "./args/UserPostsArgs";
+import { UserTokensArgs } from "./args/UserTokensArgs";
 import { transformFields, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
 @TypeGraphQL.Resolver(_of => User)
 export class UserRelationsResolver {
+  @TypeGraphQL.FieldResolver(_type => [TokenPair], {
+    nullable: false
+  })
+  async tokens(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserTokensArgs): Promise<TokenPair[]> {
+    return getPrismaFromContext(ctx).user.findUnique({
+      where: {
+        id: user.id,
+      },
+    }).tokens(args);
+  }
+
   @TypeGraphQL.FieldResolver(_type => UserProfile, {
     nullable: true
   })

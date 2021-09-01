@@ -5,8 +5,6 @@ import { ObjectType, Field } from "type-graphql";
 export class UserResponse {
   @Field(() => String, { nullable: false })
   accessToken: string;
-  @Field(() => String, { nullable: false })
-  refreshToken: string;
   @Field(() => User, { nullable: false })
   user: User;
 }

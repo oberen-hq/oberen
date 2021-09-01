@@ -10,6 +10,7 @@ export enum UserScalarFieldEnum {
   password = "password",
   isLocal = "isLocal",
   role = "role",
+  count = "count",
   profileId = "profileId"
 }
 TypeGraphQL.registerEnumType(UserScalarFieldEnum, {

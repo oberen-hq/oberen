@@ -53,6 +53,11 @@ export class UserMinAggregate {
   })
   role!: "user" | "staff" | "admin" | null;
 
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  count!: number | null;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })

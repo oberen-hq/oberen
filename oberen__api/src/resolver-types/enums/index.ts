@@ -13,5 +13,6 @@ export { RequestType } from "./RequestType";
 export { Role } from "./Role";
 export { SortOrder } from "./SortOrder";
 export { Status } from "./Status";
+export { TokenPairScalarFieldEnum } from "./TokenPairScalarFieldEnum";
 export { UserProfileScalarFieldEnum } from "./UserProfileScalarFieldEnum";
 export { UserScalarFieldEnum } from "./UserScalarFieldEnum";

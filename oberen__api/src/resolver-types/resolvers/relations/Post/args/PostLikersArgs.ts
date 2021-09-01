@@ -35,5 +35,5 @@ export class PostLikersArgs {
   @TypeGraphQL.Field(_type => [UserScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "createdAt" | "updatedAt" | "displayName" | "username" | "email" | "password" | "isLocal" | "role" | "profileId"> | undefined;
+  distinct?: Array<"id" | "createdAt" | "updatedAt" | "displayName" | "username" | "email" | "password" | "isLocal" | "role" | "count" | "profileId"> | undefined;
 }
