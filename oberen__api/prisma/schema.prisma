@@ -44,6 +44,13 @@ enum BugReportSeverity {
   info
 }
 
+enum ErrorType {
+  internal
+  authentication
+  timeout
+  unavailable
+}
+
 enum Role {
   user
   staff
@@ -90,6 +97,16 @@ model Attachment {
   type      AttachmentType
   post      Post?          @relation(fields: [postId], references: [id])
   postId    String?
+}
+
+model Error {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  type      ErrorType
+  route     String   @default("/")
+  description String 
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 model Hashtag {
@@ -148,6 +165,17 @@ model PostComment {
   likes     BigInt   @default(0)
 }
 
+model Session {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  provider     String?  @default("Unknown")
+  device       String?  @default("Unknown")
+  userAgent    String   
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+}
+
 model TokenPair {
   id           String   @id @default(uuid())
   createdAt    DateTime @default(now())
@@ -176,10 +204,15 @@ model User {
   isLocal     Boolean  @default(true)
   role        Role?    @default(value: user)
 
-  // Tokens
+  // Authentication
 
   count       Int     @default(0)
   tokens      TokenPair[]
+  sessions    Session[]
+
+  // Sessions
+
+
 
   // Profile
   profile  UserProfile? @relation("UserProfileRelation", fields: [profileId], references: [id])
@@ -204,6 +237,10 @@ model User {
   // Hashtags
 
   createdHashtags Hashtag[]
+
+  // Errors
+
+  errors          Error[]
 }
 
 model UserProfile {
