@@ -8,9 +8,9 @@ import { massOptions } from "./types";
 import { UserResponse } from "../resolvers/User/responses/User.response";
 import { RegisterUserDataType, LoginUserDataType } from "./types";
 
-import Token from "../utils/token";
+import TokenPairUtil from "../utils/token/utils/TokenPair";
 
-const tokenGen = new Token();
+const tokenUtil = new TokenPairUtil();
 
 dotenv.config();
 
@@ -57,29 +57,10 @@ export default class LocalUserRepo extends PrismaClient {
         },
       });
 
-      const accessSecret = process.env.ACCESS_SECRET as string;
-      const refreshSecret = process.env.REFRESH_SECRET as string;
-
-      const [accessToken, refreshToken] = await tokenGen.createTokens(
-        user,
-        accessSecret,
-        user.password + refreshSecret
-      );
-
-      const tokenPair = await this.tokenPair.create({
-        data: {
-          accessToken: accessToken,
-          refreshToken: refreshToken,
-          user: {
-            connect: {
-              id: user.id,
-            },
-          },
-        },
-      });
+      const tokens: any = await tokenUtil.generateTokenPair(user);
 
       return {
-        accessToken: `Bearer  ${accessToken}`,
+        accessToken: ("Bearer " + tokens.accessToken) as string,
         user: user,
       };
     });
@@ -111,15 +92,6 @@ export default class LocalUserRepo extends PrismaClient {
         throw new ApolloError("Incorrect password", "invalid_credentials");
       }
 
-      const accessSecret = process.env.ACCESS_SECRET as string;
-      const refreshSecret = process.env.REFRESH_SECRET as string;
-
-      const [accessToken, refreshToken] = await tokenGen.createTokens(
-        user,
-        accessSecret,
-        user.password + refreshSecret
-      );
-
       const existingToken = await this.tokenPair.findFirst({
         where: {
           userId: user.id,
@@ -127,38 +99,26 @@ export default class LocalUserRepo extends PrismaClient {
       });
 
       if (!existingToken) {
-        await this.tokenPair.create({
-          data: {
-            accessToken: accessToken,
-            refreshToken: refreshToken,
-            user: {
-              connect: {
-                id: user.id,
-              },
-            },
-          },
-        });
-
+        const tokens: any = await tokenUtil.generateTokenPair(user);
         await this.$executeRaw(
           `UPDATE "User" set count = count + 1 WHERE id = ${user.id}`
         );
 
         return {
-          accessToken: `Bearer  ${accessToken}`,
+          accessToken: ("Bearer " + tokens.accessToken) as string,
           user: user,
         };
       } else {
-        await this.tokenPair.update({
+        const tokens: any = await tokenUtil.generateTokenPair(user);
+
+        await this.tokenPair.delete({
           where: {
             refreshToken: existingToken.refreshToken,
-          },
-          data: {
-            accessToken: accessToken,
           },
         });
 
         return {
-          accessToken: `Bearer  ${accessToken}`,
+          accessToken: ("Bearer " + tokens.accessToken) as string,
           user: user,
         };
       }

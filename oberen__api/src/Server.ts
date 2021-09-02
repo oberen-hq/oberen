@@ -9,6 +9,10 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import open from "open";
+import TokenPairUtil from "./utils/token/utils/TokenPair";
+import Regenerate from "./utils/token/resolvers/regenerate";
+import Revoke from "./utils/token/resolvers/revoke";
+import Validate from "./utils/token/resolvers/validate";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
 export default class Server {
@@ -16,6 +20,7 @@ export default class Server {
   public schema: GraphQLSchema;
   public gqlserver: ApolloServer;
   public prisma: PrismaClient;
+  public tokens: TokenPairUtil;
 
   public constructor() {
     dotenv.config();
@@ -23,6 +28,7 @@ export default class Server {
     this.initializeApollo();
     this.applyExpressMiddleware();
     this.setupRoutes();
+    this.setupTokens();
   }
 
   private async initializeApollo() {
@@ -57,11 +63,19 @@ export default class Server {
   }
 
   private setupRoutes() {
-    this.app.get("/", function (req, res) {
+    this.app.get("/", function (_, res) {
       return res.status(200).json({
-        message: "Welcome to the Simplify API!",
+        message: "Welcome to the Oberen API!",
       });
     });
+  }
+
+  private setupTokens() {
+    this.tokens = new TokenPairUtil();
+
+    this.app.use("/api/token/regenerate", Regenerate(this.prisma));
+    this.app.use("/api/token/revoke", Revoke(this.prisma));
+    this.app.use("/api/token/validate", Validate(this.prisma));
   }
 
   public run() {
