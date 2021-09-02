@@ -8,7 +8,7 @@ import { NavLink } from "../Link";
 import Image from "../Image";
 
 import items from "./data";
-import { Link } from "react-scroll";
+import { Link, animateScroll as scroll } from "react-scroll";
 
 export default function Navbar() {
   const [state, setState] = useState({
@@ -19,18 +19,13 @@ export default function Navbar() {
     <Provider>
       <header className={styles.header__wrapper}>
         <div className={styles.header__inner}>
-          <Link
-            to="home"
-            spy={true}
-            offset={-70}
-            smooth={true}
-            duration={500}
-            width={80}
-            height={80}
-          >
-            <Logo src="/logo.png" alt="Oberen" draggable={false} />
-            <h1 className={styles.header__title}>Oberen</h1>
-          </Link>
+          <Logo
+            src="/logo.png"
+            alt="Oberen"
+            draggable={false}
+            onClick={() => scroll.scrollToTop()}
+          />
+          <h1 className={styles.header__title}>Oberen</h1>
         </div>
         <nav
           className={styles.navbar}
@@ -46,22 +41,27 @@ export default function Navbar() {
           >
             {items.map(({ path, label }, index) => (
               <li key={index} className={styles.navbar__item}>
-                <NavLink path={path} label={label} />
+                <NavLink
+                  path={path}
+                  label={label}
+                  activeClass={styles.active}
+                />
               </li>
             ))}
           </ul>
-          {/* <div className={styles.navbar__buttons}>
-            <button className={styles.navbar__login}>
-              <Image
-                src={require("../../assets/images/icons/lock.png")}
-                width={30}
-                height={30}
-              />
-              Login
-            </button>
-            <button className={styles.navbar__getStarted}>Get Started</button>
-          </div> */}
         </nav>
+        <div className={styles.navbar__buttons}>
+          <button className={styles.navbar__login}>
+            <Image
+              src={require("../../assets/images/icons/lock.png")}
+              width={24}
+              height={24}
+              className={styles.navbar__login_image}
+            />
+            Login
+          </button>
+          {/* <button className={styles.navbar__getStarted}>Get Started</button> */}
+        </div>
       </header>
     </Provider>
   );

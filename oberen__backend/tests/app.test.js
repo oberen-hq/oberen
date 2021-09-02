@@ -15,7 +15,7 @@ describe("app", () => {
           status: 200,
           message: "Welcome to the API! 🦄",
         },
-        done
+        done,
       );
   });
 

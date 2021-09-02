@@ -81,7 +81,7 @@ const create_organization_job = async (req, res) => {
 
     const result = await Organization.updateOne(
       { _id: organization.id },
-      { $push: { offeringJobs: newJob } }
+      { $push: { offeringJobs: newJob } },
     );
 
     return res.status(200).json({

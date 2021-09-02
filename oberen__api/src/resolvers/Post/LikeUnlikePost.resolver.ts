@@ -13,7 +13,7 @@ export default class LikeUnlikePostResolver {
   @Mutation(() => Post)
   async likePost(
     @Arg("args") { postId }: LikeUnlikePostArgs,
-    @Ctx() { req, prisma }: Context
+    @Ctx() { req, prisma }: Context,
   ): Promise<Post | ApolloError> {
     const user = req.user;
 
@@ -47,7 +47,7 @@ export default class LikeUnlikePostResolver {
   @Mutation(() => Post)
   async unlikePost(
     @Arg("args") { postId }: LikeUnlikePostArgs,
-    @Ctx() { req, prisma }: Context
+    @Ctx() { req, prisma }: Context,
   ) {
     const user = req.user;
 

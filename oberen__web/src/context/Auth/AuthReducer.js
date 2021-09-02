@@ -78,7 +78,7 @@ const AuthReducer = (state, action) => {
         user: {
           ...state.user,
           followers: state.user.followers.filter(
-            (follower) => follower !== action.payload
+            (follower) => follower !== action.payload,
           ),
         },
         isFetching: false,

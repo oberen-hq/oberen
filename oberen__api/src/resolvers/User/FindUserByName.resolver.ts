@@ -10,7 +10,7 @@ const localUser = new LocalUserRepo();
 export default class FindUserByNameResolver {
   @Query(() => User)
   async findUserByName(
-    @Arg("args") args: FindUserByNameArgs
+    @Arg("args") args: FindUserByNameArgs,
   ): Promise<User | ApolloError> {
     return await localUser.findByName(args.username);
   }

@@ -44,7 +44,7 @@ app.use(
   cors({
     origin: "*",
     credentials: true,
-  })
+  }),
 );
 
 // Used to store files from conversations

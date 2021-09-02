@@ -1,0 +1,61 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Users\theal\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\theal\bin;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\erl10.7\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files (x86)\Elixir\bin;C:\WINDOWS\system32\config\systemprofile\.mix\escripts;C:\Users\theal\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\theal\AppData\Local\Programs\Python\Python39\Scripts;C:\Users\theal\AppData\Local\Programs\Python\Python39;C:\Users\theal\AppData\Local\Microsoft\WindowsApps;C:\Users\theal\AppData\Roaming\npm;C:\Program Files\PostgreSQL\13\bin;C:\Users\theal\AppData\Local\GitHubDesktop\bin;C:\src\flutter\bin;C:\Driver;C:\Users\theal\.dotnet\tools;C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin;C:\Program Files\heroku\bin;C:\Users\theal\AppData\Local\Programs\Microsoft VS Code Insiders;C:\Program Files (x86)\Microsoft SDKs\TypeScript\4.0;C:\Program Files\Redis;C:\Users\theal\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\theal\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.11
+
+Node version: 
+  16.8.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: C:\Users\theal\Documents\Programming\oberen\package.json: Unexpected token ] in JSON at position 322
+      at JSON.parse (<anonymous>)
+      at C:\Users\theal\AppData\Roaming\nvm\v16.8.0\node_modules\yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\theal\AppData\Roaming\nvm\v16.8.0\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\theal\AppData\Roaming\nvm\v16.8.0\node_modules\yarn\lib\cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "oberen",
+    "version": "0.0.1",
+    "private": true,
+    "description": "This is the main directory of the oberen packages.",
+    "repository": "https://github.com/oberen-hq/oberen",
+    "author": "Alfie Phillips <17173@st-ives.cornwall.sch.uk>",
+    "workspaces": [
+      "api",
+      "web",
+      "landing",
+      "docker",
+    ],
+    "scripts": {
+      "prettier:format": "yarn prettier:format-all",
+      "prettier:format-all": "prettier --write ."
+    },
+    "devDependencies": {
+      "@typescript-eslint/eslint-plugin": "latest",
+      "@typescript-eslint/parser": "latest",
+      "eslint": "^7.2.0",
+      "eslint-config-airbnb": "latest",
+      "eslint-config-prettier": "^8.3.0",
+      "eslint-import-resolver-typescript": "^2.4.0",
+      "eslint-plugin-import": "^2.24.1",
+      "eslint-plugin-jsx-a11y": "^6.4.1",
+      "eslint-plugin-react": "^7.21.5",
+      "eslint-plugin-react-hooks": "^4",
+      "prettier": "^2.3.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

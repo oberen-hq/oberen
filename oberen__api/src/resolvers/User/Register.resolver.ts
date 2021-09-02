@@ -13,7 +13,7 @@ const localUser = new LocalUserRepo();
 export default class RegisterResolver {
   @Mutation(() => UserResponse)
   async register(
-    @Arg("args") args: RegisterArgs
+    @Arg("args") args: RegisterArgs,
   ): Promise<UserResponse | ApolloError> {
     if (args.isLocal) {
       return await localUser.create(args);

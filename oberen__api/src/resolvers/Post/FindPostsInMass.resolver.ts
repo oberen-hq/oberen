@@ -10,7 +10,7 @@ const post = new PostRepo();
 export default class FindPostsInMassResolver {
   @Query(() => [Post])
   async findPostsInMass(
-    @Arg("args") args: FindPostsInMassArgs
+    @Arg("args") args: FindPostsInMassArgs,
   ): Promise<Post[] | ApolloError> {
     return await post.findInMass(args);
   }

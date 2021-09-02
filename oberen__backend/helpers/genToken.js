@@ -24,7 +24,7 @@ module.exports = (options) => {
     config.jwt_secret(),
     {
       expiresIn: "8h",
-    }
+    },
   );
 
   return token;

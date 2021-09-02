@@ -23,7 +23,7 @@ const CommentSchema = mongoose.Schema(
       default: [],
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Comment", CommentSchema);

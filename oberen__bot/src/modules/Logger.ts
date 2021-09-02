@@ -7,37 +7,39 @@ export default class {
     switch (type) {
       case "log": {
         return console.log(
-          `${timestamp} ${chalk.bgBlue(type.toUpperCase())} ${content} `
+          `${timestamp} ${chalk.bgBlue(type.toUpperCase())} ${content} `,
         );
       }
       case "warn": {
         return console.log(
-          `${timestamp} ${chalk.black.bgYellow(type.toUpperCase())} ${content} `
+          `${timestamp} ${chalk.black.bgYellow(
+            type.toUpperCase(),
+          )} ${content} `,
         );
       }
       case "error": {
         return console.log(
-          `${timestamp} ${chalk.bgRed(type.toUpperCase())} ${content} `
+          `${timestamp} ${chalk.bgRed(type.toUpperCase())} ${content} `,
         );
       }
       case "debug": {
         return console.log(
-          `${timestamp} ${chalk.green(type.toUpperCase())} ${content} `
+          `${timestamp} ${chalk.green(type.toUpperCase())} ${content} `,
         );
       }
       case "cmd": {
         return console.log(
-          `${timestamp} ${chalk.black.bgWhite(type.toUpperCase())} ${content}`
+          `${timestamp} ${chalk.black.bgWhite(type.toUpperCase())} ${content}`,
         );
       }
       case "ready": {
         return console.log(
-          `${timestamp} ${chalk.black.bgGreen(type.toUpperCase())} ${content}`
+          `${timestamp} ${chalk.black.bgGreen(type.toUpperCase())} ${content}`,
         );
       }
       default:
         throw new TypeError(
-          "Logger type must be either warn, debug, log, ready, cmd or error."
+          "Logger type must be either warn, debug, log, ready, cmd or error.",
         );
     }
   }

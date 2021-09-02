@@ -1,0 +1,8 @@
+node_modules
+.next
+resolver-types
+oberen__mobile
+oberen__cli
+.yarn
+.github
+*.config.js

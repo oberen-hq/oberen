@@ -54,7 +54,7 @@ export default class Server {
     this.app.use(
       cors({
         origin: "*",
-      })
+      }),
     );
 
     if (process.env.NODE_ENV === "development") {

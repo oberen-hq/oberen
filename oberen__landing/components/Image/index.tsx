@@ -6,8 +6,9 @@ interface ImageProps {
   src: string;
   width: number;
   height: number;
+  className: any;
 }
 
 export default function Img({ src, ...rest }: ImageProps) {
-  return <Image src={src} className={styles.navbar__image} {...rest} />;
+  return <Image src={src} {...rest} />;
 }

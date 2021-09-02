@@ -4,19 +4,19 @@ export default [
     label: "Home",
   },
   {
-    path: "support",
-    label: "Support",
+    path: "#",
+    label: "Github",
   },
   {
-    path: "features",
-    label: "Feature",
+    path: "#",
+    label: "Discord",
   },
   {
-    path: "pricing",
-    label: "Pricing",
+    path: "#",
+    label: "Twitter",
   },
   {
-    path: "testimonials",
-    label: "Testimonials",
+    path: "#",
+    label: "Contact",
   },
 ];

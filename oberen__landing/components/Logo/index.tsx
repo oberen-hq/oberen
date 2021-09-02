@@ -5,6 +5,7 @@ interface LogoProps {
   src: string;
   alt: string;
   draggable: boolean;
+  onClick: any;
 }
 
 export default function Logo({ src, alt, draggable, ...props }: LogoProps) {

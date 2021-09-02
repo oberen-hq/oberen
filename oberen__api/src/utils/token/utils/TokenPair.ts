@@ -84,7 +84,7 @@ export default class TokenPairUtil extends PrismaClient {
       if (!old_tokens) return null;
 
       await this.$executeRaw(
-        `UPDATE "User" set count = count + 1 WHERE id = ${old_tokens.userId}`
+        `UPDATE "User" set count = count + 1 WHERE id = ${old_tokens.userId}`,
       );
 
       await this.tokenPair.update({

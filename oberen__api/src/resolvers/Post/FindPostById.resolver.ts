@@ -10,7 +10,7 @@ const post = new PostRepo();
 export default class FindPostByIdResolver {
   @Query(() => PostResponse)
   async findPostById(
-    @Arg("args") { postId }: FindPostByIdArgs
+    @Arg("args") { postId }: FindPostByIdArgs,
   ): Promise<PostResponse | ApolloError> {
     return post.findById(postId);
   }

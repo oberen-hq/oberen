@@ -203,7 +203,7 @@ const edit_user = async (req, res) => {
   try {
     const result = await User.findOneAndUpdate(
       { _id: userId },
-      { $set: { options } }
+      { $set: { options } },
     );
 
     res.status(200).json({

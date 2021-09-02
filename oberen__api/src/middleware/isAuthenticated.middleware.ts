@@ -34,6 +34,6 @@ export const IsAuthenticated = (): any => {
 
       req.user = tokenPair.user as User;
       return next();
-    }
+    },
   );
 };

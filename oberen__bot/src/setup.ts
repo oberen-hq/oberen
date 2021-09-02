@@ -80,7 +80,7 @@ let prompts = [
   if (!settings.has("default")) {
     prompts = prompts.slice(1);
     console.log(
-      "First Start! Inserting default guild settings in the database..."
+      "First Start! Inserting default guild settings in the database...",
     );
     await settings.set("default", defaultSettings);
   }

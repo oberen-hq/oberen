@@ -16,7 +16,7 @@ dotenv.config();
 
 export default class LocalUserRepo extends PrismaClient {
   create = async (
-    userData: RegisterUserDataType
+    userData: RegisterUserDataType,
   ): Promise<UserResponse | ApolloError> => {
     return executeOrFail(async () => {
       const existingUser = await this.user.findFirst({
@@ -79,12 +79,12 @@ export default class LocalUserRepo extends PrismaClient {
       if (user) {
         correctPassword = await bcrypt.compare(
           userData.password,
-          user.password as string
+          user.password as string,
         );
       } else {
         throw new ApolloError(
           "User with that email does not exist",
-          "user_doesn't_exist"
+          "user_doesn't_exist",
         );
       }
 
@@ -101,7 +101,7 @@ export default class LocalUserRepo extends PrismaClient {
       if (!existingToken) {
         const tokens: any = await tokenUtil.generateTokenPair(user);
         await this.$executeRaw(
-          `UPDATE "User" set count = count + 1 WHERE id = ${user.id}`
+          `UPDATE "User" set count = count + 1 WHERE id = ${user.id}`,
         );
 
         return {
@@ -164,7 +164,7 @@ export default class LocalUserRepo extends PrismaClient {
   };
 
   findInMass = async (
-    userOptions: massOptions
+    userOptions: massOptions,
   ): Promise<User[] | ApolloError> => {
     return executeOrFail(async () => {
       const users = await this.user.findMany({

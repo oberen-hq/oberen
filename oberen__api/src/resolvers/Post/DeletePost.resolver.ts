@@ -14,7 +14,7 @@ export default class DeletePostResolver {
   @Mutation(() => String)
   async deletePost(
     @Arg("args") args: DeletePostArgs,
-    @Ctx() { req }: Context
+    @Ctx() { req }: Context,
   ): Promise<string | ApolloError> {
     const user = req.user;
     return await post.delete(user.id, args.postId);

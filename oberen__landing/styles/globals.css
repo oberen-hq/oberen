@@ -17,10 +17,6 @@
 }
 
 body {
-  background: #2f303a;
-  padding-left: 30px;
-  padding-right: 30px;
-  color: var(--primary);
   scroll-behavior: smooth;
 }
 

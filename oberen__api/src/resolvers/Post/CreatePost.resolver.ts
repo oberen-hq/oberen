@@ -15,9 +15,9 @@ export default class CreatePostResolver {
   @Mutation(() => PostResponse)
   async createPost(
     @Arg("args") args: CreatePostArgs,
-    @Ctx() {req}: Context
+    @Ctx() { req }: Context,
   ): Promise<PostResponse | ApolloError> {
-    const user = req.user
+    const user = req.user;
     return await post.create(user.id, args);
   }
 }

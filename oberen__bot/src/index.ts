@@ -1,6 +1,6 @@
 if (Number(process.version.slice(1).split(".")[0]) < 16)
   throw new Error(
-    "Node 16.x or higher is required. Update Node on your system."
+    "Node 16.x or higher is required. Update Node on your system.",
   );
 
 import { Client, Collection } from "discord.js";
@@ -27,7 +27,7 @@ const init = async () => {
   // Here we load **commands** into memory, as a collection, so they're accessible
   // here and everywhere else.
   const commands = readdirSync("./commands/").filter((file) =>
-    file.endsWith(".js")
+    file.endsWith(".js"),
   );
   for (const file of commands) {
     const response = client.loadCommand(file);
@@ -36,7 +36,7 @@ const init = async () => {
 
   // Now we load any **slash** commands you may have in the ./slash directory.
   const slashFiles = readdirSync("./slash").filter((file) =>
-    file.endsWith(".js")
+    file.endsWith(".js"),
   );
   for (const file of slashFiles) {
     const command = require(`./slash/${file}`);
@@ -49,7 +49,7 @@ const init = async () => {
 
   // Then we load events, which will include our message and ready event.
   const eventFiles = readdirSync("./events/").filter((file) =>
-    file.endsWith(".js")
+    file.endsWith(".js"),
   );
   for (const file of eventFiles) {
     const eventName = file.split(".")[0];

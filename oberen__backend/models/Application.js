@@ -35,5 +35,5 @@ const ApplicationSchema = mongoose.Schema(
       max: 1000,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );

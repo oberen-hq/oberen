@@ -10,7 +10,7 @@ import { massOptions } from "./types";
 export default class PostRepo extends PrismaClient {
   create = async (
     userId: string,
-    postData: PostDataType
+    postData: PostDataType,
   ): Promise<PostResponse | ApolloError> => {
     return executeOrFail(async () => {
       try {
@@ -46,7 +46,7 @@ export default class PostRepo extends PrismaClient {
 
   update = async (
     userId: string,
-    args: UpdatePostType
+    args: UpdatePostType,
   ): Promise<PostResponse | ApolloError> => {
     return executeOrFail(async () => {
       await this._userIsCreator(userId, args.id);
@@ -82,7 +82,7 @@ export default class PostRepo extends PrismaClient {
 
   delete = async (
     userId: string,
-    postId: string
+    postId: string,
   ): Promise<string | ApolloError> => {
     return executeOrFail(async () => {
       const post = await this.post.findFirst({
@@ -106,7 +106,7 @@ export default class PostRepo extends PrismaClient {
       } else {
         throw new ApolloError(
           "Unauthenticated for this action",
-          "not_authenticated"
+          "not_authenticated",
         );
       }
     });
@@ -135,7 +135,7 @@ export default class PostRepo extends PrismaClient {
   };
 
   findInMass = async (
-    massOptions: massOptions
+    massOptions: massOptions,
   ): Promise<Post[] | ApolloError> => {
     return executeOrFail(async () => {
       const posts = await this.post.findMany({
@@ -154,7 +154,7 @@ export default class PostRepo extends PrismaClient {
   _userIsCreator = async (
     creatorId: string,
     postId: string,
-    validate = true
+    validate = true,
   ) => {
     const userInPost = !!(await this.post.findFirst({
       where: { id: postId, creatorId: creatorId },

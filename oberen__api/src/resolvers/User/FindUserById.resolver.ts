@@ -10,7 +10,7 @@ const localUser = new LocalUserRepo();
 export default class FindUserByIdResolver {
   @Query(() => User)
   async findUserById(
-    @Arg("args") args: FindUserByIdArgs
+    @Arg("args") args: FindUserByIdArgs,
   ): Promise<User | ApolloError> {
     return await localUser.findById(args.id);
   }
