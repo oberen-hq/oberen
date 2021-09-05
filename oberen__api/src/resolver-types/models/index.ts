@@ -1,8 +1,12 @@
 export { Attachment } from "./Attachment";
+export { Error } from "./Error";
 export { Hashtag } from "./Hashtag";
 export { Label } from "./Label";
+export { Organization } from "./Organization";
 export { Post } from "./Post";
 export { PostComment } from "./PostComment";
+export { Session } from "./Session";
 export { TokenPair } from "./TokenPair";
 export { User } from "./User";
 export { UserProfile } from "./UserProfile";
+export { UserSettings } from "./UserSettings";

@@ -26,7 +26,6 @@ export const IsAuthenticated = (): any => {
       });
 
       if (!tokenPair) {
-        console.log("Hello");
         throw new ApolloError("Not authenticated", "not_authenticated");
       }
 

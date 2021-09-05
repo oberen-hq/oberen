@@ -1,8 +1,12 @@
 export { AttachmentCrudResolver } from "./Attachment/AttachmentCrudResolver";
+export { ErrorCrudResolver } from "./Error/ErrorCrudResolver";
 export { HashtagCrudResolver } from "./Hashtag/HashtagCrudResolver";
 export { LabelCrudResolver } from "./Label/LabelCrudResolver";
+export { OrganizationCrudResolver } from "./Organization/OrganizationCrudResolver";
 export { PostCrudResolver } from "./Post/PostCrudResolver";
 export { PostCommentCrudResolver } from "./PostComment/PostCommentCrudResolver";
+export { SessionCrudResolver } from "./Session/SessionCrudResolver";
 export { TokenPairCrudResolver } from "./TokenPair/TokenPairCrudResolver";
 export { UserCrudResolver } from "./User/UserCrudResolver";
 export { UserProfileCrudResolver } from "./UserProfile/UserProfileCrudResolver";
+export { UserSettingsCrudResolver } from "./UserSettings/UserSettingsCrudResolver";

@@ -92,7 +92,7 @@ enum ReportStatus {
 model Attachment {
   id        String         @id @default(uuid())
   createdAt DateTime       @default(now())
-  updatedAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
   url       String
   type      AttachmentType
   post      Post?          @relation(fields: [postId], references: [id])
@@ -100,19 +100,19 @@ model Attachment {
 }
 
 model Error {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  type      ErrorType
-  route     String   @default("/")
-  description String 
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now())
+  type        ErrorType
+  route       String    @default("/")
+  description String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
 }
 
 model Hashtag {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   name      String   @unique
   uses      BigInt
   creator   User     @relation(fields: [creatorId], references: [id])
@@ -123,7 +123,7 @@ model Hashtag {
 model Label {
   id          String      @id @default(uuid())
   createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
   title       String
   color       String      @default("fff")
   description String?
@@ -132,6 +132,15 @@ model Label {
   posts       Post[]
   profile     UserProfile @relation(fields: [profileId], references: [id])
   profileId   String
+}
+
+model Organization {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  owner     User     @relation("UserOwnedOrganizationsRelation", fields: [ownerId], references: [id])
+  ownerId   String
+  employees User[]
 }
 
 model Post {
@@ -154,7 +163,7 @@ model Post {
 model PostComment {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   body      String
   creator   User     @relation(fields: [creatorId], references: [id])
   creatorId String
@@ -166,14 +175,17 @@ model PostComment {
 }
 
 model Session {
-  id           String   @id @default(uuid())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  provider     String?  @default("Unknown")
-  device       String?  @default("Unknown")
-  userAgent    String   
-  user         User     @relation(fields: [userId], references: [id])
-  userId       String
+  id         String    @id @default(uuid())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  provider   String?   @default("Unknown")
+  device     String?   @default("Unknown")
+  userAgent  String
+  ip         String
+  lastLogged DateTime?
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String
+  isCurrent  Boolean   @default(false)
 }
 
 model TokenPair {
@@ -181,7 +193,7 @@ model TokenPair {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   accessToken  String   @unique
-  refreshToken String  @unique
+  refreshToken String   @unique
 
   // Connection user
 
@@ -206,17 +218,17 @@ model User {
 
   // Authentication
 
-  count       Int     @default(0)
-  tokens      TokenPair[]
-  sessions    Session[]
-
-  // Sessions
-
-
+  count    Int         @default(0)
+  tokens   TokenPair[]
+  sessions Session[]
 
   // Profile
-  profile  UserProfile? @relation("UserProfileRelation", fields: [profileId], references: [id])
+  profile   UserProfile? @relation("UserProfileRelation", fields: [profileId], references: [id])
   profileId String?      @unique
+
+  // Organizations
+  ownedOrganizations  Organization[] @relation("UserOwnedOrganizationsRelation")
+  joinedOrganizations Organization[]
 
   // Posts
 
@@ -240,13 +252,26 @@ model User {
 
   // Errors
 
-  errors          Error[]
+  errors       Error[]
 }
 
 model UserProfile {
-  id        String  @id @default(uuid())
-  user      User?   @relation("UserProfileRelation")
+  id        String        @id @default(uuid())
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  user      User?         @relation("UserProfileRelation")
+  settings  UserSettings? @relation("UserSettingsRelation")
   avatarURL String?
-  bio       String? @default("Bio has not been set yet!")
+  bio       String?       @default("Bio has not been set yet!")
   labels    Label[]
+}
+
+model UserSettings {
+  id            String      @id @default(uuid())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  userProfile   UserProfile @relation("UserSettingsRelation", fields: [userProfileId], references: [id])
+  userProfileId String
+  location      String?
+  website       String?
 }

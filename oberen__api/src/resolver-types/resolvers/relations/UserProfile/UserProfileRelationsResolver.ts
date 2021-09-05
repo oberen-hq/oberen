@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import { Label } from "../../../models/Label";
 import { User } from "../../../models/User";
 import { UserProfile } from "../../../models/UserProfile";
+import { UserSettings } from "../../../models/UserSettings";
 import { UserProfileLabelsArgs } from "./args/UserProfileLabelsArgs";
 import { transformFields, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
@@ -16,6 +17,17 @@ export class UserProfileRelationsResolver {
         id: userProfile.id,
       },
     }).user({});
+  }
+
+  @TypeGraphQL.FieldResolver(_type => UserSettings, {
+    nullable: true
+  })
+  async settings(@TypeGraphQL.Root() userProfile: UserProfile, @TypeGraphQL.Ctx() ctx: any): Promise<UserSettings | null> {
+    return getPrismaFromContext(ctx).userProfile.findUnique({
+      where: {
+        id: userProfile.id,
+      },
+    }).settings({});
   }
 
   @TypeGraphQL.FieldResolver(_type => [Label], {

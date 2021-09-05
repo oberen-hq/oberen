@@ -12,6 +12,16 @@ export class UserProfileMaxAggregate {
   })
   id!: string | null;
 
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  createdAt!: Date | null;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt!: Date | null;
+
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })

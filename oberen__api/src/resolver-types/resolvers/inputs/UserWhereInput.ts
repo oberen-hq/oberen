@@ -5,11 +5,14 @@ import { DecimalJSScalar } from "../../scalars";
 import { BoolFilter } from "../inputs/BoolFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumRoleNullableFilter } from "../inputs/EnumRoleNullableFilter";
+import { ErrorListRelationFilter } from "../inputs/ErrorListRelationFilter";
 import { HashtagListRelationFilter } from "../inputs/HashtagListRelationFilter";
 import { IntFilter } from "../inputs/IntFilter";
 import { LabelListRelationFilter } from "../inputs/LabelListRelationFilter";
+import { OrganizationListRelationFilter } from "../inputs/OrganizationListRelationFilter";
 import { PostCommentListRelationFilter } from "../inputs/PostCommentListRelationFilter";
 import { PostListRelationFilter } from "../inputs/PostListRelationFilter";
+import { SessionListRelationFilter } from "../inputs/SessionListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { TokenPairListRelationFilter } from "../inputs/TokenPairListRelationFilter";
@@ -90,6 +93,11 @@ export class UserWhereInput {
   })
   tokens?: TokenPairListRelationFilter | undefined;
 
+  @TypeGraphQL.Field(_type => SessionListRelationFilter, {
+    nullable: true
+  })
+  sessions?: SessionListRelationFilter | undefined;
+
   @TypeGraphQL.Field(_type => UserProfileRelationFilter, {
     nullable: true
   })
@@ -99,6 +107,16 @@ export class UserWhereInput {
     nullable: true
   })
   profileId?: StringNullableFilter | undefined;
+
+  @TypeGraphQL.Field(_type => OrganizationListRelationFilter, {
+    nullable: true
+  })
+  ownedOrganizations?: OrganizationListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => OrganizationListRelationFilter, {
+    nullable: true
+  })
+  joinedOrganizations?: OrganizationListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => PostListRelationFilter, {
     nullable: true
@@ -139,4 +157,9 @@ export class UserWhereInput {
     nullable: true
   })
   createdHashtags?: HashtagListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => ErrorListRelationFilter, {
+    nullable: true
+  })
+  errors?: ErrorListRelationFilter | undefined;
 }

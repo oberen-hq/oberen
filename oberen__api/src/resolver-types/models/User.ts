@@ -2,10 +2,13 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Error } from "../models/Error";
 import { Hashtag } from "../models/Hashtag";
 import { Label } from "../models/Label";
+import { Organization } from "../models/Organization";
 import { Post } from "../models/Post";
 import { PostComment } from "../models/PostComment";
+import { Session } from "../models/Session";
 import { TokenPair } from "../models/TokenPair";
 import { UserProfile } from "../models/UserProfile";
 import { Role } from "../enums/Role";
@@ -66,12 +69,18 @@ export class User {
 
   tokens?: TokenPair[];
 
+  sessions?: Session[];
+
   profile?: UserProfile | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   profileId?: string | null;
+
+  ownedOrganizations?: Organization[];
+
+  joinedOrganizations?: Organization[];
 
   posts?: Post[];
 
@@ -88,4 +97,6 @@ export class User {
   createdLabels?: Label[];
 
   createdHashtags?: Hashtag[];
+
+  errors?: Error[];
 }

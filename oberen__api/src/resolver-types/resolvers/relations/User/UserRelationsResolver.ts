@@ -1,19 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
+import { Error } from "../../../models/Error";
 import { Hashtag } from "../../../models/Hashtag";
 import { Label } from "../../../models/Label";
+import { Organization } from "../../../models/Organization";
 import { Post } from "../../../models/Post";
 import { PostComment } from "../../../models/PostComment";
+import { Session } from "../../../models/Session";
 import { TokenPair } from "../../../models/TokenPair";
 import { User } from "../../../models/User";
 import { UserProfile } from "../../../models/UserProfile";
 import { UserCreatedHashtagsArgs } from "./args/UserCreatedHashtagsArgs";
 import { UserCreatedLabelsArgs } from "./args/UserCreatedLabelsArgs";
 import { UserCreatedPostCommentsArgs } from "./args/UserCreatedPostCommentsArgs";
+import { UserErrorsArgs } from "./args/UserErrorsArgs";
 import { UserFollowersArgs } from "./args/UserFollowersArgs";
 import { UserFollowingArgs } from "./args/UserFollowingArgs";
+import { UserJoinedOrganizationsArgs } from "./args/UserJoinedOrganizationsArgs";
 import { UserLikedCommentsArgs } from "./args/UserLikedCommentsArgs";
 import { UserLikedPostsArgs } from "./args/UserLikedPostsArgs";
+import { UserOwnedOrganizationsArgs } from "./args/UserOwnedOrganizationsArgs";
 import { UserPostsArgs } from "./args/UserPostsArgs";
+import { UserSessionsArgs } from "./args/UserSessionsArgs";
 import { UserTokensArgs } from "./args/UserTokensArgs";
 import { transformFields, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
@@ -30,6 +37,17 @@ export class UserRelationsResolver {
     }).tokens(args);
   }
 
+  @TypeGraphQL.FieldResolver(_type => [Session], {
+    nullable: false
+  })
+  async sessions(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserSessionsArgs): Promise<Session[]> {
+    return getPrismaFromContext(ctx).user.findUnique({
+      where: {
+        id: user.id,
+      },
+    }).sessions(args);
+  }
+
   @TypeGraphQL.FieldResolver(_type => UserProfile, {
     nullable: true
   })
@@ -39,6 +57,28 @@ export class UserRelationsResolver {
         id: user.id,
       },
     }).profile({});
+  }
+
+  @TypeGraphQL.FieldResolver(_type => [Organization], {
+    nullable: false
+  })
+  async ownedOrganizations(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserOwnedOrganizationsArgs): Promise<Organization[]> {
+    return getPrismaFromContext(ctx).user.findUnique({
+      where: {
+        id: user.id,
+      },
+    }).ownedOrganizations(args);
+  }
+
+  @TypeGraphQL.FieldResolver(_type => [Organization], {
+    nullable: false
+  })
+  async joinedOrganizations(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserJoinedOrganizationsArgs): Promise<Organization[]> {
+    return getPrismaFromContext(ctx).user.findUnique({
+      where: {
+        id: user.id,
+      },
+    }).joinedOrganizations(args);
   }
 
   @TypeGraphQL.FieldResolver(_type => [Post], {
@@ -127,5 +167,16 @@ export class UserRelationsResolver {
         id: user.id,
       },
     }).createdHashtags(args);
+  }
+
+  @TypeGraphQL.FieldResolver(_type => [Error], {
+    nullable: false
+  })
+  async errors(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserErrorsArgs): Promise<Error[]> {
+    return getPrismaFromContext(ctx).user.findUnique({
+      where: {
+        id: user.id,
+      },
+    }).errors(args);
   }
 }

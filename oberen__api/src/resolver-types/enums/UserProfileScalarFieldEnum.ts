@@ -2,6 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 
 export enum UserProfileScalarFieldEnum {
   id = "id",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
   avatarURL = "avatarURL",
   bio = "bio"
 }

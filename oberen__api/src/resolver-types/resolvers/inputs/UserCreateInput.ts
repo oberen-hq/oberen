@@ -2,12 +2,16 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { ErrorCreateNestedManyWithoutUserInput } from "../inputs/ErrorCreateNestedManyWithoutUserInput";
 import { HashtagCreateNestedManyWithoutCreatorInput } from "../inputs/HashtagCreateNestedManyWithoutCreatorInput";
 import { LabelCreateNestedManyWithoutCreatorInput } from "../inputs/LabelCreateNestedManyWithoutCreatorInput";
+import { OrganizationCreateNestedManyWithoutEmployeesInput } from "../inputs/OrganizationCreateNestedManyWithoutEmployeesInput";
+import { OrganizationCreateNestedManyWithoutOwnerInput } from "../inputs/OrganizationCreateNestedManyWithoutOwnerInput";
 import { PostCommentCreateNestedManyWithoutCreatorInput } from "../inputs/PostCommentCreateNestedManyWithoutCreatorInput";
 import { PostCommentCreateNestedManyWithoutLikersInput } from "../inputs/PostCommentCreateNestedManyWithoutLikersInput";
 import { PostCreateNestedManyWithoutCreatorInput } from "../inputs/PostCreateNestedManyWithoutCreatorInput";
 import { PostCreateNestedManyWithoutLikersInput } from "../inputs/PostCreateNestedManyWithoutLikersInput";
+import { SessionCreateNestedManyWithoutUserInput } from "../inputs/SessionCreateNestedManyWithoutUserInput";
 import { TokenPairCreateNestedManyWithoutUserInput } from "../inputs/TokenPairCreateNestedManyWithoutUserInput";
 import { UserCreateNestedManyWithoutFollowersInput } from "../inputs/UserCreateNestedManyWithoutFollowersInput";
 import { UserCreateNestedManyWithoutFollowingInput } from "../inputs/UserCreateNestedManyWithoutFollowingInput";
@@ -73,10 +77,25 @@ export class UserCreateInput {
   })
   tokens?: TokenPairCreateNestedManyWithoutUserInput | undefined;
 
+  @TypeGraphQL.Field(_type => SessionCreateNestedManyWithoutUserInput, {
+    nullable: true
+  })
+  sessions?: SessionCreateNestedManyWithoutUserInput | undefined;
+
   @TypeGraphQL.Field(_type => UserProfileCreateNestedOneWithoutUserInput, {
     nullable: true
   })
   profile?: UserProfileCreateNestedOneWithoutUserInput | undefined;
+
+  @TypeGraphQL.Field(_type => OrganizationCreateNestedManyWithoutOwnerInput, {
+    nullable: true
+  })
+  ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput | undefined;
+
+  @TypeGraphQL.Field(_type => OrganizationCreateNestedManyWithoutEmployeesInput, {
+    nullable: true
+  })
+  joinedOrganizations?: OrganizationCreateNestedManyWithoutEmployeesInput | undefined;
 
   @TypeGraphQL.Field(_type => PostCreateNestedManyWithoutCreatorInput, {
     nullable: true
@@ -117,4 +136,9 @@ export class UserCreateInput {
     nullable: true
   })
   createdHashtags?: HashtagCreateNestedManyWithoutCreatorInput | undefined;
+
+  @TypeGraphQL.Field(_type => ErrorCreateNestedManyWithoutUserInput, {
+    nullable: true
+  })
+  errors?: ErrorCreateNestedManyWithoutUserInput | undefined;
 }

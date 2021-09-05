@@ -4,15 +4,19 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperationsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
+import { ErrorUpdateManyWithoutUserInput } from "../inputs/ErrorUpdateManyWithoutUserInput";
 import { HashtagUpdateManyWithoutCreatorInput } from "../inputs/HashtagUpdateManyWithoutCreatorInput";
 import { IntFieldUpdateOperationsInput } from "../inputs/IntFieldUpdateOperationsInput";
 import { LabelUpdateManyWithoutCreatorInput } from "../inputs/LabelUpdateManyWithoutCreatorInput";
 import { NullableEnumRoleFieldUpdateOperationsInput } from "../inputs/NullableEnumRoleFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
+import { OrganizationUpdateManyWithoutEmployeesInput } from "../inputs/OrganizationUpdateManyWithoutEmployeesInput";
+import { OrganizationUpdateManyWithoutOwnerInput } from "../inputs/OrganizationUpdateManyWithoutOwnerInput";
 import { PostCommentUpdateManyWithoutCreatorInput } from "../inputs/PostCommentUpdateManyWithoutCreatorInput";
 import { PostCommentUpdateManyWithoutLikersInput } from "../inputs/PostCommentUpdateManyWithoutLikersInput";
 import { PostUpdateManyWithoutCreatorInput } from "../inputs/PostUpdateManyWithoutCreatorInput";
 import { PostUpdateManyWithoutLikersInput } from "../inputs/PostUpdateManyWithoutLikersInput";
+import { SessionUpdateManyWithoutUserInput } from "../inputs/SessionUpdateManyWithoutUserInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { UserProfileUpdateOneWithoutUserInput } from "../inputs/UserProfileUpdateOneWithoutUserInput";
 import { UserUpdateManyWithoutFollowersInput } from "../inputs/UserUpdateManyWithoutFollowersInput";
@@ -72,10 +76,25 @@ export class UserUpdateWithoutTokensInput {
   })
   count?: IntFieldUpdateOperationsInput | undefined;
 
+  @TypeGraphQL.Field(_type => SessionUpdateManyWithoutUserInput, {
+    nullable: true
+  })
+  sessions?: SessionUpdateManyWithoutUserInput | undefined;
+
   @TypeGraphQL.Field(_type => UserProfileUpdateOneWithoutUserInput, {
     nullable: true
   })
   profile?: UserProfileUpdateOneWithoutUserInput | undefined;
+
+  @TypeGraphQL.Field(_type => OrganizationUpdateManyWithoutOwnerInput, {
+    nullable: true
+  })
+  ownedOrganizations?: OrganizationUpdateManyWithoutOwnerInput | undefined;
+
+  @TypeGraphQL.Field(_type => OrganizationUpdateManyWithoutEmployeesInput, {
+    nullable: true
+  })
+  joinedOrganizations?: OrganizationUpdateManyWithoutEmployeesInput | undefined;
 
   @TypeGraphQL.Field(_type => PostUpdateManyWithoutCreatorInput, {
     nullable: true
@@ -116,4 +135,9 @@ export class UserUpdateWithoutTokensInput {
     nullable: true
   })
   createdHashtags?: HashtagUpdateManyWithoutCreatorInput | undefined;
+
+  @TypeGraphQL.Field(_type => ErrorUpdateManyWithoutUserInput, {
+    nullable: true
+  })
+  errors?: ErrorUpdateManyWithoutUserInput | undefined;
 }

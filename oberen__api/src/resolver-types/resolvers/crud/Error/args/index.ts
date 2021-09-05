@@ -1,0 +1,12 @@
+export { AggregateErrorArgs } from "./AggregateErrorArgs";
+export { CreateErrorArgs } from "./CreateErrorArgs";
+export { CreateManyErrorArgs } from "./CreateManyErrorArgs";
+export { DeleteErrorArgs } from "./DeleteErrorArgs";
+export { DeleteManyErrorArgs } from "./DeleteManyErrorArgs";
+export { FindFirstErrorArgs } from "./FindFirstErrorArgs";
+export { FindManyErrorArgs } from "./FindManyErrorArgs";
+export { FindUniqueErrorArgs } from "./FindUniqueErrorArgs";
+export { GroupByErrorArgs } from "./GroupByErrorArgs";
+export { UpdateErrorArgs } from "./UpdateErrorArgs";
+export { UpdateManyErrorArgs } from "./UpdateManyErrorArgs";
+export { UpsertErrorArgs } from "./UpsertErrorArgs";

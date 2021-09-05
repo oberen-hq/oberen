@@ -1,0 +1,12 @@
+export { AggregateOrganizationArgs } from "./AggregateOrganizationArgs";
+export { CreateManyOrganizationArgs } from "./CreateManyOrganizationArgs";
+export { CreateOrganizationArgs } from "./CreateOrganizationArgs";
+export { DeleteManyOrganizationArgs } from "./DeleteManyOrganizationArgs";
+export { DeleteOrganizationArgs } from "./DeleteOrganizationArgs";
+export { FindFirstOrganizationArgs } from "./FindFirstOrganizationArgs";
+export { FindManyOrganizationArgs } from "./FindManyOrganizationArgs";
+export { FindUniqueOrganizationArgs } from "./FindUniqueOrganizationArgs";
+export { GroupByOrganizationArgs } from "./GroupByOrganizationArgs";
+export { UpdateManyOrganizationArgs } from "./UpdateManyOrganizationArgs";
+export { UpdateOrganizationArgs } from "./UpdateOrganizationArgs";
+export { UpsertOrganizationArgs } from "./UpsertOrganizationArgs";

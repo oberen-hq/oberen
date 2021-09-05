@@ -1,9 +1,13 @@
 export { UserCreatedHashtagsArgs } from "./UserCreatedHashtagsArgs";
 export { UserCreatedLabelsArgs } from "./UserCreatedLabelsArgs";
 export { UserCreatedPostCommentsArgs } from "./UserCreatedPostCommentsArgs";
+export { UserErrorsArgs } from "./UserErrorsArgs";
 export { UserFollowersArgs } from "./UserFollowersArgs";
 export { UserFollowingArgs } from "./UserFollowingArgs";
+export { UserJoinedOrganizationsArgs } from "./UserJoinedOrganizationsArgs";
 export { UserLikedCommentsArgs } from "./UserLikedCommentsArgs";
 export { UserLikedPostsArgs } from "./UserLikedPostsArgs";
+export { UserOwnedOrganizationsArgs } from "./UserOwnedOrganizationsArgs";
 export { UserPostsArgs } from "./UserPostsArgs";
+export { UserSessionsArgs } from "./UserSessionsArgs";
 export { UserTokensArgs } from "./UserTokensArgs";
