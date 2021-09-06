@@ -1,9 +1,11 @@
-import { ApolloError } from "apollo-server-errors";
+// IMPORTS
+
 import { Ctx, Query, Resolver } from "type-graphql";
 import { User } from "../../resolver-types/models";
 import { Context } from "../../types";
-
 import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
+
+// CODES
 
 @Resolver()
 export default class MeResolver {

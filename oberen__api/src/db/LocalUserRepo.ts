@@ -1,20 +1,32 @@
-import { PrismaClient } from "@prisma/client";
-import { User } from "../resolver-types/models";
+// IMPORTS
+
+import TokenPairUtil from "../utils/token/utils/TokenPair";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+
+import { PrismaClient } from "@prisma/client";
+import { User } from "../resolver-types/models";
 import executeOrFail from "../utils/executeOrFail";
 import { ApolloError } from "apollo-server-core";
 import { massOptions } from "./types";
 import { UserResponse } from "../resolvers/User/responses/User.response";
 import { RegisterUserDataType, LoginUserDataType } from "./types";
 
-import TokenPairUtil from "../utils/token/utils/TokenPair";
-
-const tokenUtil = new TokenPairUtil();
+// CODE
 
 dotenv.config();
 
+const tokenUtil = new TokenPairUtil();
+
 export default class LocalUserRepo extends PrismaClient {
+  /**
+   * Generate a unique access token.
+   *
+   * @param   userData
+   * @returns {accessToken, user} The access token and the created user
+   *
+   * **/
+
   create = async (
     userData: RegisterUserDataType,
   ): Promise<UserResponse | ApolloError> => {
@@ -55,6 +67,16 @@ export default class LocalUserRepo extends PrismaClient {
             },
           },
         },
+        include: {
+          profile: true,
+          sessions: true,
+          ownedOrganizations: true,
+          joinedOrganizations: true,
+          posts: true,
+          followers: true,
+          following: true,
+          errors: true,
+        },
       });
 
       const tokens: any = await tokenUtil.generateTokenPair(user);
@@ -65,6 +87,14 @@ export default class LocalUserRepo extends PrismaClient {
       };
     });
   };
+
+  /**
+   * Generate a unique access token.
+   *
+   * @param   userData
+   * @returns {accessToken, user} The access token and the user
+   *
+   * **/
 
   login = async (userData: LoginUserDataType): Promise<UserResponse> => {
     return executeOrFail(async () => {
@@ -95,6 +125,20 @@ export default class LocalUserRepo extends PrismaClient {
       const existingToken = await this.tokenPair.findFirst({
         where: {
           userId: user.id,
+        },
+        include: {
+          user: {
+            include: {
+              profile: true,
+              sessions: true,
+              ownedOrganizations: true,
+              joinedOrganizations: true,
+              posts: true,
+              followers: true,
+              following: true,
+              errors: true,
+            },
+          },
         },
       });
 

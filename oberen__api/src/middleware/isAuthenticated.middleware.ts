@@ -1,9 +1,13 @@
+// IMPORTS
+
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
 import { ApolloError } from "apollo-server-express";
 import { createMethodDecorator } from "type-graphql";
 import { Context } from "../types";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-import { User } from "../resolver-types/models";
+
+// CODE
 
 dotenv.config();
 
@@ -31,7 +35,7 @@ export const IsAuthenticated = (): any => {
 
       await jwt.verify(token, accessSecret);
 
-      req.user = tokenPair.user as User;
+      req.user = tokenPair.user as any;
       return next();
     },
   );

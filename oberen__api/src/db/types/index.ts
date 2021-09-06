@@ -1,5 +1,8 @@
-import { StringFilter } from "src/resolver-types";
+// IMPORTS
+
 import { PostType } from "../../resolver-types/enums";
+
+// CODE
 
 export interface massOptions {
   limit?: number;

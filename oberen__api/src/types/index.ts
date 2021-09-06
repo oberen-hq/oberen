@@ -1,5 +1,9 @@
+// IMPORTS
+
 import { Request, Response } from "express";
 import { PrismaClient } from ".prisma/client";
+
+// CODE
 
 export interface Context {
   prisma: PrismaClient;

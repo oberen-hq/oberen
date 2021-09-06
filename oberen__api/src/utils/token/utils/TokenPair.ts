@@ -1,6 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+// IMPORTS
+
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+
+import { PrismaClient } from "@prisma/client";
+
+// CODE
 
 dotenv.config();
 
@@ -8,6 +13,7 @@ export default class TokenPairUtil extends PrismaClient {
   /**
    * Generate a unique access token.
    *
+   * @param   data
    * @returns {string} The generated access token.
    *
    * **/
@@ -35,6 +41,7 @@ export default class TokenPairUtil extends PrismaClient {
   /**
    * Generate a pair of tokens (access + refresh)
    *
+   * @param   data
    * @returns {[string]} The generated access tokens.
    *
    * **/
@@ -68,6 +75,8 @@ export default class TokenPairUtil extends PrismaClient {
   /**
    * Regenerates a pair of tokens.
    *
+   * @param   refreshToken
+   * @param   data
    * @returns {[string]} The refreshed tokens
    *
    * **/

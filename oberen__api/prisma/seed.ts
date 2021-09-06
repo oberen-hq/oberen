@@ -1,22 +1,31 @@
+// IMPORTS
+
 import { PrismaClient } from "@prisma/client/";
 import executeOrFail from "../src/utils/executeOrFail";
 import faker from "faker";
-import { User } from "../src/resolver-types/models";
 import dotenv from "dotenv";
+
+//CODE
+
 dotenv.config();
 
 class Seeder extends PrismaClient {
+  /**
+   * Generate a unique access token.
+   *
+   * @param   amount
+   * @returns {[users]} The list of users
+   *
+   * **/
+
   createLocalUsers = async (amount: number = 30): Promise<void> => {
     return executeOrFail(async () => {
       let data: any = [];
 
       for (let i = 0; i <= amount; i++) {
         const username = faker.internet.userName();
-        +" " + faker.internet.userName();
         const displayName = faker.internet.userName();
-        +" " + faker.internet.userName();
         const email = faker.internet.email();
-        +faker.internet.email();
         const password = faker.internet.password();
         const avatarUrl = "/";
         const bio = "This bio is cool";
@@ -25,10 +34,12 @@ class Seeder extends PrismaClient {
         const location = faker.address.city();
         const device = faker.random.word();
         const numbers = faker.datatype.number();
+        const userAgent = faker.internet.userAgent();
 
         const user = await this.user.create({
           data: {
             username,
+            displayName,
             email,
             password,
             isLocal: true,
@@ -57,8 +68,7 @@ class Seeder extends PrismaClient {
                 {
                   provider: "Safari",
                   device: device,
-                  userAgent:
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36",
+                  userAgent: userAgent,
                   ip: numbers.toString(),
                   isCurrent: true,
                 },

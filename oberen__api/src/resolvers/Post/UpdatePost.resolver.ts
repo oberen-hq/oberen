@@ -1,10 +1,14 @@
-import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
-import UpdatePostArgs from "./args/UpdatePostArgs";
-import PostRepo from "../../db/PostRepo";
-import { PostResponse } from "./responses/Post.response";
+// IMPORTS
 
+import PostRepo from "../../db/PostRepo";
+import UpdatePostArgs from "./args/UpdatePostArgs";
+
+import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
+import { PostResponse } from "./responses/Post.response";
 import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
 import { Context } from "../../types";
+
+// CODE
 
 const post = new PostRepo();
 

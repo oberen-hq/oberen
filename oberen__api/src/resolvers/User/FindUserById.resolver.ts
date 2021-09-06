@@ -1,9 +1,13 @@
-import { ApolloError } from "apollo-server-express";
-import { Resolver, Query, Arg } from "type-graphql";
+// IMPORTS
+
 import LocalUserRepo from "../../db/LocalUserRepo";
-import { User } from "../../resolver-types/models";
 import FindUserByIdArgs from "./args/FindUserByIdArgs";
 
+import { ApolloError } from "apollo-server-express";
+import { Resolver, Query, Arg } from "type-graphql";
+import { User } from "../../resolver-types/models";
+
+// CODE
 const localUser = new LocalUserRepo();
 
 @Resolver()

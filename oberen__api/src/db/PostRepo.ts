@@ -1,11 +1,16 @@
-import { PrismaClient } from "@prisma/client";
+// IMPORTS
+
+import connectIdArray from "../utils/connectIdArray";
 import executeOrFail from "../utils/executeOrFail";
+
+import { PrismaClient } from "@prisma/client";
 import { ApolloError } from "apollo-server-core";
 import { PostResponse } from "../resolvers/Post/responses/Post.response";
-import connectIdArray from "../utils/connectIdArray";
 import { PostDataType, UpdatePostType } from "./types/index";
 import { Post } from "../resolver-types/models";
 import { massOptions } from "./types";
+
+// CODE
 
 export default class PostRepo extends PrismaClient {
   create = async (
@@ -95,7 +100,7 @@ export default class PostRepo extends PrismaClient {
         throw new ApolloError("That post does not exist", "post_doesn't exist");
       }
 
-      if (this._userIsCreator(userId, postId)) {
+      if (await this._userIsCreator(userId, postId)) {
         await this.post.delete({
           where: {
             id: postId,

@@ -1,9 +1,13 @@
-import { ApolloError } from "apollo-server-errors";
-import { Resolver, Query, Arg } from "type-graphql";
+// IMPORTS
+
 import PostRepo from "../../db/PostRepo";
-import { Post } from "../../resolver-types/models";
 import FindPostsInMassArgs from "./args/FindPostInMassArgs";
 
+import { ApolloError } from "apollo-server-errors";
+import { Resolver, Query, Arg } from "type-graphql";
+import { Post } from "../../resolver-types/models";
+
+// CODE
 const post = new PostRepo();
 
 @Resolver()

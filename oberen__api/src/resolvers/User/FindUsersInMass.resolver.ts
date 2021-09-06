@@ -1,8 +1,13 @@
+// IMPORTS
+
+import LocalUserRepo from "../../db/LocalUserRepo";
+import FindUsersInMassArgs from "./args/FindUsersInMass";
+
 import { ApolloError } from "apollo-server-errors";
 import { Resolver, Query, Arg } from "type-graphql";
-import LocalUserRepo from "../../db/LocalUserRepo";
 import { User } from "../../resolver-types/models";
-import FindUsersInMassArgs from "./args/FindUsersInMass";
+
+// CODE
 
 const localUser = new LocalUserRepo();
 

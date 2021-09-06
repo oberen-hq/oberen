@@ -1,11 +1,15 @@
+// IMPORTS
+
+import connectIdArray from "../../utils/connectIdArray";
+import LikeUnlikePostArgs from "./args/LikeUnlikePostArgs";
+
 import { ApolloError } from "apollo-server-core";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { Post } from "../../resolver-types/models";
 import { Context } from "../../types";
-import LikeUnlikePostArgs from "./args/LikeUnlikePostArgs";
-
 import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
-import connectIdArray from "../../utils/connectIdArray";
+
+// CODE
 
 @Resolver()
 export default class LikeUnlikePostResolver {

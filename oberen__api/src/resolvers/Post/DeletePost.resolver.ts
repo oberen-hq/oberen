@@ -1,10 +1,14 @@
-import { ApolloError } from "apollo-server-express";
-import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
+// IMPORTS
+
 import DeletePostArgs from "./args/DeletePostArgs";
 import PostRepo from "../../db/PostRepo";
 
+import { ApolloError } from "apollo-server-express";
+import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
 import { Context } from "../../types";
+
+// CODE
 
 const post = new PostRepo();
 
