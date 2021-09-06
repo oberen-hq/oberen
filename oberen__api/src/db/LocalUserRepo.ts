@@ -27,11 +27,14 @@ export default class LocalUserRepo extends PrismaClient {
    *
    * **/
 
+  // This is the function for registering a user
+
   create = async (
     userData: RegisterUserDataType,
   ): Promise<UserResponse | ApolloError> => {
     return executeOrFail(async () => {
       const existingUser = await this.user.findFirst({
+        // Find the existing user with the email provided in userData
         where: {
           OR: [
             {
@@ -48,12 +51,19 @@ export default class LocalUserRepo extends PrismaClient {
         },
       });
 
+      // If the user exists, we throw an error
+
       if (existingUser) {
         throw new ApolloError("User already exists!", "already_exists");
       }
 
+      // Password encryption using the bcryptjs library
+
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(userData.password as any, salt);
+
+      // Creating the user, including all relations to be stored in the access token
+
       const user = await this.user.create({
         data: {
           username: userData.username,
@@ -79,7 +89,11 @@ export default class LocalUserRepo extends PrismaClient {
         },
       });
 
+      // Generate a token pair using the user for the data parameter
+
       const tokens: any = await tokenUtil.generateTokenPair(user);
+
+      // Return an access token aswell as the user
 
       return {
         accessToken: ("Bearer " + tokens.accessToken) as string,
@@ -96,9 +110,12 @@ export default class LocalUserRepo extends PrismaClient {
    *
    * **/
 
+  // This is the function for signing in a user
+
   login = async (userData: LoginUserDataType): Promise<UserResponse> => {
     return executeOrFail(async () => {
       const user = await this.user.findFirst({
+        // Find the user from the provided email in userData
         where: {
           email: userData.email,
         },
@@ -106,12 +123,18 @@ export default class LocalUserRepo extends PrismaClient {
 
       let correctPassword;
 
+      // Check if a user exists based on the email
+
       if (user) {
+        // Check if it's the correct password
+
         correctPassword = await bcrypt.compare(
           userData.password,
           user.password as string,
         );
       } else {
+        // Throw an error that a user doesn't exist
+
         throw new ApolloError(
           "User with that email does not exist",
           "user_doesn't_exist",
@@ -123,6 +146,7 @@ export default class LocalUserRepo extends PrismaClient {
       }
 
       const existingToken = await this.tokenPair.findFirst({
+        // Find an existing token pair based of the user id
         where: {
           userId: user.id,
         },
@@ -143,7 +167,10 @@ export default class LocalUserRepo extends PrismaClient {
       });
 
       if (!existingToken) {
+        // If the token doesn't exist, increase the count of times generating a new refresh token
+
         const tokens: any = await tokenUtil.generateTokenPair(user);
+
         await this.$executeRaw(
           `UPDATE "User" set count = count + 1 WHERE id = ${user.id}`,
         );
@@ -153,7 +180,11 @@ export default class LocalUserRepo extends PrismaClient {
           user: user,
         };
       } else {
+        // Generate a new token pair
+
         const tokens: any = await tokenUtil.generateTokenPair(user);
+
+        // Delete the old token pair
 
         await this.tokenPair.delete({
           where: {
@@ -169,9 +200,12 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
+  // This is the function for finding a user by an id
+
   findById = async (userId: string): Promise<User | ApolloError> => {
     return executeOrFail(async () => {
       const user = await this.user.findFirst({
+        // Find the user id based of the userId argument
         where: {
           id: userId,
         },
@@ -187,6 +221,8 @@ export default class LocalUserRepo extends PrismaClient {
       }
     });
   };
+
+  // This is the function for finding a user by name
 
   findByName = async (username: string): Promise<User | ApolloError> => {
     return executeOrFail(async () => {
