@@ -11,9 +11,9 @@ dotenv.config();
 
 class Seeder extends PrismaClient {
   /**
-   * Generate a unique access token.
+   * Creates *amount* of local users with all existing relations
    *
-   * @param   amount
+   * @param   amount @default 30
    * @returns {[users]} The list of users
    *
    * **/

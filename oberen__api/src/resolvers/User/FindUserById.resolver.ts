@@ -8,6 +8,7 @@ import { Resolver, Query, Arg } from "type-graphql";
 import { User } from "../../resolver-types/models";
 
 // CODE
+
 const localUser = new LocalUserRepo();
 
 @Resolver()

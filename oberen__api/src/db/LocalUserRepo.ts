@@ -27,8 +27,6 @@ export default class LocalUserRepo extends PrismaClient {
    *
    * **/
 
-  // This is the function for registering a user
-
   create = async (
     userData: RegisterUserDataType,
   ): Promise<UserResponse | ApolloError> => {
@@ -109,8 +107,6 @@ export default class LocalUserRepo extends PrismaClient {
    * @returns {accessToken, user} The access token and the user
    *
    * **/
-
-  // This is the function for signing in a user
 
   login = async (userData: LoginUserDataType): Promise<UserResponse> => {
     return executeOrFail(async () => {
@@ -200,7 +196,13 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
-  // This is the function for finding a user by an id
+  /**
+   * Find a user by id
+   *
+   * @param   userId
+   * @returns {user} A user based of their id
+   *
+   * **/
 
   findById = async (userId: string): Promise<User | ApolloError> => {
     return executeOrFail(async () => {
@@ -222,11 +224,18 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
-  // This is the function for finding a user by name
+  /**
+   * Find a user by name
+   *
+   * @param   username
+   * @returns {user} A user based of their name
+   *
+   * **/
 
   findByName = async (username: string): Promise<User | ApolloError> => {
     return executeOrFail(async () => {
       const user = await this.user.findFirst({
+        // Find the user based of the username argument
         where: {
           username: username,
         },
@@ -243,11 +252,20 @@ export default class LocalUserRepo extends PrismaClient {
     });
   };
 
+  /**
+   * Find all users
+   *
+   * @param   userOptions
+   * @returns {[user]} A list of users
+   *
+   * **/
+
   findInMass = async (
     userOptions: massOptions,
   ): Promise<User[] | ApolloError> => {
     return executeOrFail(async () => {
       const users = await this.user.findMany({
+        // Find a specific, and refined user amount based of the userOptions argument
         skip: userOptions?.skip,
         take: userOptions?.limit,
       });

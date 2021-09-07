@@ -15,13 +15,13 @@ const post = new PostRepo();
 
 @Resolver()
 export default class CreatePostResolver {
-  @IsAuthenticated()
-  @Mutation(() => PostResponse)
+  @IsAuthenticated() // Middleware
+  @Mutation(() => PostResponse) // Set response for resolver
   async createPost(
     @Arg("args") args: CreatePostArgs,
     @Ctx() { req }: Context,
   ): Promise<PostResponse | ApolloError> {
-    const user = req.user;
-    return await post.create(user.id, args);
+    const user = req.user; // Get current user
+    return await post.create(user.id, args); // Create post
   }
 }

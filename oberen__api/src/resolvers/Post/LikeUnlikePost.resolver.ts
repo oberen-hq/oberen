@@ -13,33 +13,34 @@ import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
 
 @Resolver()
 export default class LikeUnlikePostResolver {
-  @IsAuthenticated()
-  @Mutation(() => Post)
+  @IsAuthenticated() // Middleware
+  @Mutation(() => Post) // Set response for resolver
   async likePost(
     @Arg("args") { postId }: LikeUnlikePostArgs,
     @Ctx() { req, prisma }: Context,
   ): Promise<Post | ApolloError> {
-    const user = req.user;
+    const user = req.user; // Get current user
 
     const userOwnsPost = await prisma.post.findFirst({
+      // Find post from provided postId
       where: {
         id: postId,
         creatorId: user.id,
       },
     });
 
+    // Check user owns post, it's been decided you can't like your own post - subject to change
+
     if (userOwnsPost) {
       throw new ApolloError("You can't like your own post", "user_owns_post");
     }
 
-    console.log(user.id);
+    // Update post and connect user id to the liker
 
-    const likedPost = prisma.post.update({
+    const likedPost = await prisma.post.update({
       where: { id: postId },
       data: { likers: { connect: [{ id: user.id }] } },
     });
-
-    console.log("Here");
 
     if (likedPost) {
       return likedPost;
@@ -48,12 +49,13 @@ export default class LikeUnlikePostResolver {
     }
   }
 
-  @Mutation(() => Post)
+  @IsAuthenticated() // Middleware
+  @Mutation(() => Post) // Set response for resolver
   async unlikePost(
     @Arg("args") { postId }: LikeUnlikePostArgs,
     @Ctx() { req, prisma }: Context,
   ) {
-    const user = req.user;
+    const user = req.user; // Get current user
 
     const userOwnsPost = await prisma.post.findFirst({
       where: {

@@ -8,14 +8,15 @@ import { Resolver, Query, Arg } from "type-graphql";
 import { Post } from "../../resolver-types/models";
 
 // CODE
+
 const post = new PostRepo();
 
 @Resolver()
 export default class FindPostsInMassResolver {
-  @Query(() => [Post])
+  @Query(() => [Post]) // Set response for resolver
   async findPostsInMass(
     @Arg("args") args: FindPostsInMassArgs,
   ): Promise<Post[] | ApolloError> {
-    return await post.findInMass(args);
+    return await post.findInMass(args); // Find all posts and filter options
   }
 }
