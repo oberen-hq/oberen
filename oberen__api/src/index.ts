@@ -1,3 +1,10 @@
+/**
+ * @copyright @alfiephillips
+ * @author @alfiephillips
+ * @license Apache
+ * @version 1.0
+ */
+
 // IMPORTS
 
 import Server from "./server";

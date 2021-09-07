@@ -14,10 +14,10 @@ const post = new PostRepo();
 
 @Resolver()
 export default class UpdatePostResolver {
-  @IsAuthenticated()
-  @Mutation(() => PostResponse)
+  @IsAuthenticated() // Middleware
+  @Mutation(() => PostResponse) // Set response for resolver
   async updatePost(@Arg("args") args: UpdatePostArgs, @Ctx() { req }: Context) {
-    const user = req.user;
-    return await post.update(user.id, args);
+    const user = req.user; // Get current user
+    return await post.update(user.id, args); // Update post
   }
 }

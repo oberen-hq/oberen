@@ -13,10 +13,10 @@ const localUser = new LocalUserRepo();
 
 @Resolver()
 export class LoginResolver {
-  @Mutation(() => UserResponse)
+  @Mutation(() => UserResponse) // Set response for resolver
   async login(
     @Arg("args") args: LoginArgs,
   ): Promise<UserResponse | ApolloError> {
-    return await localUser.login(args);
+    return await localUser.login(args); // Login user
   }
 }

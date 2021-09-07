@@ -58,6 +58,7 @@ export default class LikeUnlikePostResolver {
     const user = req.user; // Get current user
 
     const userOwnsPost = await prisma.post.findFirst({
+      // find user from the provided postId and current user
       where: {
         id: postId,
         creatorId: user.id,
@@ -69,6 +70,7 @@ export default class LikeUnlikePostResolver {
     }
 
     const unlikedPost = await prisma.post.update({
+      // Disconnect the user from the likers of the post
       where: {
         id: postId,
       },

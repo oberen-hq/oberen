@@ -9,10 +9,10 @@ import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
 
 @Resolver()
 export default class MeResolver {
-  @IsAuthenticated()
-  @Query(() => User)
+  @IsAuthenticated() // Middleware
+  @Query(() => User) // Set response for resolver
   me(@Ctx() { req }: Context): Promise<User> {
-    const user = req.user as User;
+    const user = req.user as User; // Get current user
     //@ts-ignore
     return user;
   }

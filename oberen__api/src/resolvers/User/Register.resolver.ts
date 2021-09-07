@@ -13,12 +13,12 @@ const localUser = new LocalUserRepo();
 
 @Resolver()
 export default class RegisterResolver {
-  @Mutation(() => UserResponse)
+  @Mutation(() => UserResponse) // Set response for resolver
   async register(
     @Arg("args") args: RegisterArgs,
   ): Promise<UserResponse | ApolloError> {
     if (args.isLocal) {
-      return await localUser.create(args);
+      return await localUser.create(args); // Register user
     } else {
       throw new ApolloError("Oauth Service is not setup yet!", "400");
     }
