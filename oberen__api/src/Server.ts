@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-import { ApolloServer } from "apollo-server-express";
-import { GraphQLSchema } from "graphql";
+// IMPORTS
+
 import createSchema from "./utils/createSchema";
 import express, { Application } from "express";
-import { Context } from "./types";
-import { host } from "./constants";
 import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
@@ -13,7 +10,15 @@ import TokenPairUtil from "./utils/token/utils/TokenPair";
 import Regenerate from "./utils/token/resolvers/regenerate";
 import Revoke from "./utils/token/resolvers/revoke";
 import Validate from "./utils/token/resolvers/validate";
+
+import { PrismaClient } from "@prisma/client";
+import { ApolloServer } from "apollo-server-express";
+import { GraphQLSchema } from "graphql";
+import { Context } from "./types";
+import { host } from "./constants";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+
+// CODE
 
 export default class Server {
   public app: Application;
@@ -35,6 +40,7 @@ export default class Server {
     this.prisma = new PrismaClient();
     this.schema = await createSchema();
     this.gqlserver = new ApolloServer({
+      introspection: true,
       schema: this.schema,
       context: ({ req, res }: Context) => ({
         req,
@@ -79,7 +85,7 @@ export default class Server {
   }
 
   public run() {
-    const port = process.env.PORT || 8000;
+    const port = process.env.PORT || 4000;
     const url = `${host}:${port}`;
     this.app.listen(port, () => {
       console.log(`Navigate to ${url + "/graphql"}`);

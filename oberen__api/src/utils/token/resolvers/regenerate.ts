@@ -1,7 +1,11 @@
+// IMPORTS
+
+import TokenPairUtil from "../utils/TokenPair";
+
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
-import { TokenPair } from "src/resolver-types";
-import TokenPairUtil from "../utils/TokenPair";
+
+// CODE
 
 const Regenerate = (prisma: PrismaClient) => {
   const tokens = new TokenPairUtil();

@@ -1,23 +1,27 @@
-import { ApolloError } from "apollo-server-express";
-import { PostResponse } from "./responses/Post.response";
-import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
+// IMPORTS
+
 import CreatePostArgs from "./args/CreatePostArgs";
 import PostRepo from "../../db/PostRepo";
 
+import { ApolloError } from "apollo-server-express";
+import { PostResponse } from "./responses/Post.response";
+import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
 import { Context } from "../../types";
+
+// CODE
 
 const post = new PostRepo();
 
 @Resolver()
 export default class CreatePostResolver {
-  @IsAuthenticated()
-  @Mutation(() => PostResponse)
+  @IsAuthenticated() // Middleware
+  @Mutation(() => PostResponse) // Set response for resolver
   async createPost(
     @Arg("args") args: CreatePostArgs,
     @Ctx() { req }: Context,
   ): Promise<PostResponse | ApolloError> {
-    const user = req.user;
-    return await post.create(user.id, args);
+    const user = req.user; // Get current user
+    return await post.create(user.id, args); // Create post
   }
 }

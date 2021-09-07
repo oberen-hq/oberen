@@ -1,5 +1,9 @@
+// IMPORTS
+
 import { PostType } from "../../../resolver-types/enums";
 import { Field, InputType } from "type-graphql";
+
+// CODE
 
 @InputType()
 export default class UpdatePostArgs {

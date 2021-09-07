@@ -1,5 +1,9 @@
+// IMPORTS
+
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
+
+// CODE
 
 const Revoke = (prisma: PrismaClient) => {
   const router = Router();

@@ -1,4 +1,8 @@
+// IMPORTS
+
 import { ApolloError } from "apollo-server-express";
+
+// CODE
 
 export default async function executeOrFail<T>(cb: () => T | Promise<T>) {
   try {

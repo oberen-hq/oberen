@@ -1,26 +1,25 @@
-import { Resolver, Mutation, Arg } from "type-graphql";
-import { UserResponse } from "./responses/User.response";
+// IMPORTS
+
 import RegisterArgs from "./args/RegisterArgs";
 import LocalUserRepo from "../../db/LocalUserRepo";
-// import OauthUserRepo from "../../db/OAuthUserRepo";
-import executeOrFail from "../..//utils/executeOrFail";
+
+import { Resolver, Mutation, Arg } from "type-graphql";
+import { UserResponse } from "./responses/User.response";
 import { ApolloError } from "apollo-server-core";
 
+// CODE
+
 const localUser = new LocalUserRepo();
-// const oauthUser = new OauthUserRepo();
 
 @Resolver()
 export default class RegisterResolver {
-  @Mutation(() => UserResponse)
+  @Mutation(() => UserResponse) // Set response for resolver
   async register(
     @Arg("args") args: RegisterArgs,
   ): Promise<UserResponse | ApolloError> {
     if (args.isLocal) {
-      return await localUser.create(args);
+      return await localUser.create(args); // Register user
     } else {
-      // return executeOrFail(async () => {
-      //   return oauthUser.create(args);
-      // });
       throw new ApolloError("Oauth Service is not setup yet!", "400");
     }
   }

@@ -1,5 +1,8 @@
-import { StringFilter } from "src/resolver-types";
+// IMPORTS
+
 import { PostType } from "../../resolver-types/enums";
+
+// CODE
 
 export interface massOptions {
   limit?: number;
@@ -13,6 +16,10 @@ export interface RegisterUserDataType {
   avatarURL?: string;
   bio?: string;
   isLocal: boolean;
+  provider?: string;
+  device?: string;
+  userAgent: string;
+  ip: string;
 }
 
 export interface LoginUserDataType {
