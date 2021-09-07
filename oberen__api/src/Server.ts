@@ -40,6 +40,7 @@ export default class Server {
     this.prisma = new PrismaClient();
     this.schema = await createSchema();
     this.gqlserver = new ApolloServer({
+      introspection: true,
       schema: this.schema,
       context: ({ req, res }: Context) => ({
         req,
@@ -84,7 +85,7 @@ export default class Server {
   }
 
   public run() {
-    const port = process.env.PORT || 8000;
+    const port = process.env.PORT || 4000;
     const url = `${host}:${port}`;
     this.app.listen(port, () => {
       console.log(`Navigate to ${url + "/graphql"}`);

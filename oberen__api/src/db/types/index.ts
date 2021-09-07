@@ -16,6 +16,10 @@ export interface RegisterUserDataType {
   avatarURL?: string;
   bio?: string;
   isLocal: boolean;
+  provider?: string;
+  device?: string;
+  userAgent: string;
+  ip: string;
 }
 
 export interface LoginUserDataType {

@@ -70,6 +70,16 @@ export default class LocalUserRepo extends PrismaClient {
               bio: userData.bio,
             },
           },
+          sessions: {
+            create: [
+              {
+                provider: userData.provider,
+                device: userData.device,
+                userAgent: userData.userAgent,
+                ip: userData.ip,
+              },
+            ],
+          },
         },
         include: {
           profile: true,
@@ -86,6 +96,18 @@ export default class LocalUserRepo extends PrismaClient {
       // Generate a token pair using the user for the data parameter
 
       const tokens: any = await tokenUtil.generateTokenPair(user);
+
+      await this.tokenPair.create({
+        data: {
+          accessToken: tokens.accessToken as string,
+          refreshToken: tokens.refreshToken as string,
+          user: {
+            connect: {
+              id: user.id,
+            },
+          },
+        },
+      });
 
       // Return an access token aswell as the user
 
@@ -110,6 +132,16 @@ export default class LocalUserRepo extends PrismaClient {
         // Find the user from the provided email in userData
         where: {
           email: userData.email,
+        },
+        include: {
+          profile: true,
+          sessions: true,
+          ownedOrganizations: true,
+          joinedOrganizations: true,
+          posts: true,
+          followers: true,
+          following: true,
+          errors: true,
         },
       });
 
@@ -169,6 +201,13 @@ export default class LocalUserRepo extends PrismaClient {
         },
         include: {
           profile: true,
+          sessions: true,
+          ownedOrganizations: true,
+          joinedOrganizations: true,
+          posts: true,
+          followers: true,
+          following: true,
+          errors: true,
         },
       });
 
@@ -197,6 +236,13 @@ export default class LocalUserRepo extends PrismaClient {
         },
         include: {
           profile: true,
+          sessions: true,
+          ownedOrganizations: true,
+          joinedOrganizations: true,
+          posts: true,
+          followers: true,
+          following: true,
+          errors: true,
         },
       });
 
@@ -224,6 +270,16 @@ export default class LocalUserRepo extends PrismaClient {
         // Find a specific, and refined user amount based of the userOptions argument
         skip: userOptions?.skip,
         take: userOptions?.limit,
+        include: {
+          profile: true,
+          sessions: true,
+          ownedOrganizations: true,
+          joinedOrganizations: true,
+          posts: true,
+          followers: true,
+          following: true,
+          errors: true,
+        },
       });
 
       if (users) {
