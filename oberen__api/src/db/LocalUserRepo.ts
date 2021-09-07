@@ -43,10 +43,6 @@ export default class LocalUserRepo extends PrismaClient {
             },
           ],
         },
-        select: {
-          email: true,
-          username: true,
-        },
       });
 
       // If the user exists, we throw an error
@@ -117,82 +113,42 @@ export default class LocalUserRepo extends PrismaClient {
         },
       });
 
-      let correctPassword;
+      // Check if user exists
 
-      // Check if a user exists based on the email
-
-      if (user) {
-        // Check if it's the correct password
-
-        correctPassword = await bcrypt.compare(
-          userData.password,
-          user.password as string,
-        );
-      } else {
-        // Throw an error that a user doesn't exist
-
+      if (!user) {
         throw new ApolloError(
           "User with that email does not exist",
           "user_doesn't_exist",
         );
       }
 
+      // Check if it is the correct password
+
+      const correctPassword = await bcrypt.compare(
+        userData.password,
+        user.password as string,
+      );
+
       if (!correctPassword) {
         throw new ApolloError("Incorrect password", "invalid_credentials");
       }
 
-      const existingToken = await this.tokenPair.findFirst({
-        // Find an existing token pair based of the user id
-        where: {
-          userId: user.id,
-        },
-        include: {
-          user: {
-            include: {
-              profile: true,
-              sessions: true,
-              ownedOrganizations: true,
-              joinedOrganizations: true,
-              posts: true,
-              followers: true,
-              following: true,
-              errors: true,
-            },
-          },
-        },
-      });
+      // Generate tokens
 
-      if (!existingToken) {
-        // If the token doesn't exist, increase the count of times generating a new refresh token
+      const tokens: any = await tokenUtil.generateTokenPair(user);
 
-        const tokens: any = await tokenUtil.generateTokenPair(user);
+      // Update count for how many times logged in
 
-        await this.$executeRaw(
-          `UPDATE "User" set count = count + 1 WHERE id = ${user.id}`,
-        );
+      await this.$executeRaw(
+        `UPDATE "User" set count = count + 1 WHERE id = ${user.id}`,
+      );
 
-        return {
-          accessToken: ("Bearer " + tokens.accessToken) as string,
-          user: user,
-        };
-      } else {
-        // Generate a new token pair
+      // TODO: Update user session
 
-        const tokens: any = await tokenUtil.generateTokenPair(user);
-
-        // Delete the old token pair
-
-        await this.tokenPair.delete({
-          where: {
-            refreshToken: existingToken.refreshToken,
-          },
-        });
-
-        return {
-          accessToken: ("Bearer " + tokens.accessToken) as string,
-          user: user,
-        };
-      }
+      return {
+        accessToken: ("Bearer " + tokens.accessToken) as string,
+        user: user,
+      };
     });
   };
 
