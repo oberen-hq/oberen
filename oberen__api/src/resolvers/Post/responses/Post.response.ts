@@ -9,6 +9,4 @@ import { ObjectType, Field } from "type-graphql";
 export class PostResponse {
   @Field(() => Post)
   post: Post;
-  @Field(() => [Attachment])
-  attachments: Attachment[];
 }

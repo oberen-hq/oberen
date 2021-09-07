@@ -36,8 +36,8 @@ export default class PostRepo extends PrismaClient {
           description: postData.description,
           type: postData.type,
           attachments: connectIdArray(postData.attachmentIds),
-          likers: connectIdArray(postData.likerIds),
-          comments: connectIdArray(postData.commentIds),
+          hashtags: connectIdArray(postData.hashtagIds),
+          labels: connectIdArray(postData.labelIds),
           creator: { connect: { id: userId } },
         };
 
@@ -47,12 +47,14 @@ export default class PostRepo extends PrismaClient {
           data: post,
           include: {
             attachments: true,
+            hashtags: true,
+            labels: true,
+            creator: true,
           },
         });
 
         return {
           post: createdPost,
-          attachments: createdPost.attachments,
         };
       } catch (err) {
         throw new ApolloError(err.message, "internal_server_error");
@@ -86,6 +88,8 @@ export default class PostRepo extends PrismaClient {
       if (args.description) post.description = args.description;
       if (args.attachmentIds)
         post.attachments = connectIdArray(args.attachmentIds);
+      if (args.hashtagIds) post.hashtags = connectIdArray(args.hashtagIds);
+      if (args.labelIds) post.labels = connectIdArray(args.labelIds);
       if (args.type) post.type = args.type;
 
       // Update the post
@@ -95,13 +99,15 @@ export default class PostRepo extends PrismaClient {
         data: post,
         include: {
           attachments: true,
+          hashtags: true,
+          labels: true,
+          creator: true,
         },
       });
 
       if (updatedPost) {
         return {
           post: updatedPost,
-          attachments: updatedPost?.attachments,
         };
       } else {
         return new ApolloError("Failed updating post", "internal_server_error");

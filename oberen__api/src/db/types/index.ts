@@ -32,8 +32,8 @@ export interface PostDataType {
   description?: string;
   type: PostType;
   attachmentIds?: string[];
-  likerIds?: string[];
-  commentIds?: string[];
+  hashtagIds?: string[];
+  labelIds?: string[];
 }
 
 export interface UpdatePostType {
@@ -42,4 +42,6 @@ export interface UpdatePostType {
   description?: string;
   type?: PostType;
   attachmentIds?: string[];
+  hashtagIds?: string[];
+  labelIds?: string[];
 }
