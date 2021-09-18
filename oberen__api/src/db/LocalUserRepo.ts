@@ -97,18 +97,6 @@ export default class LocalUserRepo extends PrismaClient {
 
       const tokens: any = await tokenUtil.generateTokenPair(user);
 
-      await this.tokenPair.create({
-        data: {
-          accessToken: tokens.accessToken as string,
-          refreshToken: tokens.refreshToken as string,
-          user: {
-            connect: {
-              id: user.id,
-            },
-          },
-        },
-      });
-
       // Return an access token aswell as the user
 
       return {

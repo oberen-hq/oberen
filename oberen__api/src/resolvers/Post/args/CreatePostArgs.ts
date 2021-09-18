@@ -8,12 +8,12 @@ import { InputType, Field } from "type-graphql";
 
 @InputType()
 export default class CreatePostArgs {
-  @Field()
+  @Field(() => String)
   @Length(3, 50)
   title: string;
   @Field({ nullable: true })
   description?: string;
-  @Field()
+  @Field(() => PostType)
   type: PostType;
   @Field(() => [String], { nullable: true })
   attachmentIds?: string[];

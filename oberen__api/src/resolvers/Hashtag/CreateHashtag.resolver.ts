@@ -17,7 +17,7 @@ const hashtag = new HashtagRepo()
 export default class CreateHashtagResolver {
   @IsAuthenticated() // Middleware
   @Mutation(() => Hashtag) // Set response for resolver
-  async createPost(
+  async createHashtag(
     @Arg("args") args: CreateHashtagArgs,
     @Ctx() { req }: Context,
   ): Promise<Hashtag | ApolloError> {
