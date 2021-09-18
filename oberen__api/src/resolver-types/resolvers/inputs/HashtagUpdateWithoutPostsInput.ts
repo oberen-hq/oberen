@@ -2,8 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BigIntFieldUpdateOperationsInput } from "../inputs/BigIntFieldUpdateOperationsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
+import { NullableBigIntFieldUpdateOperationsInput } from "../inputs/NullableBigIntFieldUpdateOperationsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { UserUpdateOneRequiredWithoutCreatedHashtagsInput } from "../inputs/UserUpdateOneRequiredWithoutCreatedHashtagsInput";
 
@@ -31,10 +31,10 @@ export class HashtagUpdateWithoutPostsInput {
   })
   name?: StringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => BigIntFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => NullableBigIntFieldUpdateOperationsInput, {
     nullable: true
   })
-  uses?: BigIntFieldUpdateOperationsInput | undefined;
+  uses?: NullableBigIntFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutCreatedHashtagsInput, {
     nullable: true

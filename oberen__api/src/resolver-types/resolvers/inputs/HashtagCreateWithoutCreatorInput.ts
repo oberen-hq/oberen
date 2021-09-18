@@ -29,9 +29,9 @@ export class HashtagCreateWithoutCreatorInput {
   name!: string;
 
   @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
-    nullable: false
+    nullable: true
   })
-  uses!: bigint;
+  uses?: bigint | undefined;
 
   @TypeGraphQL.Field(_type => PostCreateNestedManyWithoutHashtagsInput, {
     nullable: true

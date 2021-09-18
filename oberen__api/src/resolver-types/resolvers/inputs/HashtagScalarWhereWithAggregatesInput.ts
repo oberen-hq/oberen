@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BigIntWithAggregatesFilter } from "../inputs/BigIntWithAggregatesFilter";
+import { BigIntNullableWithAggregatesFilter } from "../inputs/BigIntNullableWithAggregatesFilter";
 import { DateTimeWithAggregatesFilter } from "../inputs/DateTimeWithAggregatesFilter";
 import { StringWithAggregatesFilter } from "../inputs/StringWithAggregatesFilter";
 
@@ -45,10 +45,10 @@ export class HashtagScalarWhereWithAggregatesInput {
   })
   name?: StringWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => BigIntWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => BigIntNullableWithAggregatesFilter, {
     nullable: true
   })
-  uses?: BigIntWithAggregatesFilter | undefined;
+  uses?: BigIntNullableWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true

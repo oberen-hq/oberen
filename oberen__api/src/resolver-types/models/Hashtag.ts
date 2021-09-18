@@ -30,9 +30,9 @@ export class Hashtag {
   name!: string;
 
   @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
-    nullable: false
+    nullable: true
   })
-  uses!: bigint;
+  uses?: bigint | null;
 
   creator?: User;
 

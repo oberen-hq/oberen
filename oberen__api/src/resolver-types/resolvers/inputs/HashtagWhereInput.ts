@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BigIntFilter } from "../inputs/BigIntFilter";
+import { BigIntNullableFilter } from "../inputs/BigIntNullableFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { PostListRelationFilter } from "../inputs/PostListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
@@ -47,10 +47,10 @@ export class HashtagWhereInput {
   })
   name?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => BigIntFilter, {
+  @TypeGraphQL.Field(_type => BigIntNullableFilter, {
     nullable: true
   })
-  uses?: BigIntFilter | undefined;
+  uses?: BigIntNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => UserRelationFilter, {
     nullable: true

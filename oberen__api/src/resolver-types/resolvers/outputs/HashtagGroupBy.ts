@@ -33,9 +33,9 @@ export class HashtagGroupBy {
   name!: string;
 
   @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
-    nullable: false
+    nullable: true
   })
-  uses!: bigint;
+  uses!: bigint | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

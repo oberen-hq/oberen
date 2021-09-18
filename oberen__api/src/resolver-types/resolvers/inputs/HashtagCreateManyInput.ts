@@ -28,9 +28,9 @@ export class HashtagCreateManyInput {
   name!: string;
 
   @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
-    nullable: false
+    nullable: true
   })
-  uses!: bigint;
+  uses?: bigint | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
