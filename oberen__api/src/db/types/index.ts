@@ -45,3 +45,7 @@ export interface UpdatePostType {
   hashtagIds?: string[];
   labelIds?: string[];
 }
+
+export interface HashtagDataType {
+  name: string;
+}
