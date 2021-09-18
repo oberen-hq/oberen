@@ -5,7 +5,6 @@ import executeOrFail from "../utils/executeOrFail";
 
 import { PrismaClient } from "@prisma/client";
 import { ApolloError } from "apollo-server-core";
-import { PostResponse } from "../resolvers/Post/responses/Post.response";
 import { PostDataType, UpdatePostType } from "./types/index";
 import { Post } from "../resolver-types/models";
 import { massOptions } from "./types";
