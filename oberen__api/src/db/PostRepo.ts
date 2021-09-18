@@ -182,7 +182,7 @@ export default class PostRepo extends PrismaClient {
       if (post) {
         return post;
       } else {
-        throw new ApolloError("That post does not exist", "post_doesn't_exist");
+        throw new ApolloError("That post does not exist", "post_not_found");
       }
     });
   };

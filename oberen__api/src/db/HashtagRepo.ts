@@ -46,4 +46,58 @@ export default class HashtagRepo extends PrismaClient {
         } 
     })
   }
+
+  /**
+   * Find a hashtag by id
+   *
+   * @param   hashtagId
+   * @returns {hashtag} The created hashtag
+   *
+   * **/
+
+  findById = async (hashtagId: string): Promise<Hashtag | ApolloError> => {
+      return executeOrFail(async () => {
+         const hashtag = await this.hashtag.findFirst({
+             where: {
+                 id: hashtagId
+             }, include: {
+                 creator: true,
+                 posts: true,
+             }
+         })
+
+         if (!hashtag) {
+             throw new ApolloError("Could not find a hashtag with that id", "hashtag_not_found")
+         }
+
+         return hashtag
+      })
+  }
+
+  /**
+   * Find a hashtag by name
+   *
+   * @param   hastagName
+   * @returns {hashtag} The created hashtag
+   *
+   * **/
+
+  findByName = async (hashtagName: string): Promise<Hashtag | ApolloError> => {
+      return executeOrFail(async () => {
+          const hashtag = await this.hashtag.findFirst({
+              where: {
+                  name: hashtagName
+              }, include: {
+                  creator: true,
+                  posts: true
+              }
+          })
+
+          if (!hashtag) {
+              throw new ApolloError("Couldn't find a hashtag with that name", "hashtag_not_found")
+          }
+
+          return hashtag;
+      })
+  }
 }
