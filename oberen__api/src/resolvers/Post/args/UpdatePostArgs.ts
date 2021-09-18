@@ -17,4 +17,8 @@ export default class UpdatePostArgs {
   type?: PostType;
   @Field(() => [String], { nullable: true })
   attachmentIds?: string[];
+  @Field(() => [String], { nullable: true })
+  hashtagIds?: string[];
+  @Field(() => [String], { nullable: true })
+  labelIds?: string[];
 }

@@ -8,6 +8,7 @@ import { PostResponse } from "./responses/Post.response";
 import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import { IsAuthenticated } from "../../middleware/isAuthenticated.middleware";
 import { Context } from "../../types";
+import { Post } from "../../resolver-types/models";
 
 // CODE
 
@@ -16,11 +17,11 @@ const post = new PostRepo();
 @Resolver()
 export default class CreatePostResolver {
   @IsAuthenticated() // Middleware
-  @Mutation(() => PostResponse) // Set response for resolver
+  @Mutation(() => Post) // Set response for resolver
   async createPost(
     @Arg("args") args: CreatePostArgs,
     @Ctx() { req }: Context,
-  ): Promise<PostResponse | ApolloError> {
+  ): Promise<Post | ApolloError> {
     const user = req.user; // Get current user
     return await post.create(user.id, args); // Create post
   }
