@@ -51,16 +51,9 @@ export default function Navbar() {
           </ul>
         </nav>
         <div className={styles.navbar__buttons}>
-          <button className={styles.navbar__login}>
-            <Image
-              src={require("../../assets/images/icons/lock.png")}
-              width={24}
-              height={24}
-              className={styles.navbar__login_image}
-            />
-            Login
+          <button className={styles.navbar__getStarted} disabled={true}>
+            Get Started
           </button>
-          {/* <button className={styles.navbar__getStarted}>Get Started</button> */}
         </div>
       </header>
     </Provider>

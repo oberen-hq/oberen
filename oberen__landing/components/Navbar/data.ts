@@ -16,7 +16,7 @@ export default [
     label: "Twitter",
   },
   {
-    path: "#",
+    path: "contact",
     label: "Contact",
   },
 ];
