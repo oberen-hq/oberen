@@ -12,8 +12,7 @@
     "docker"
   ],
   "scripts": {
-    "prettier:format": "yarn prettier:format-all",
-    "prettier:format-all": "prettier --write ."
+    "prettier:format": "prettier --write"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "latest",

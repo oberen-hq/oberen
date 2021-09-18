@@ -1,6 +1,6 @@
 // IMPORTS
 
-import executeOrFail from "../utils/executeOrFail"
+import executeOrFail from "../utils/executeOrFail";
 
 import { PrismaClient } from "@prisma/client";
 import { ApolloError } from "apollo-server-core";
@@ -19,33 +19,36 @@ export default class HashtagRepo extends PrismaClient {
    *
    * **/
 
-  create = async (userId: string, hashtagData: HashtagDataType): Promise<Hashtag | ApolloError> => {
+  create = async (
+    userId: string,
+    hashtagData: HashtagDataType,
+  ): Promise<Hashtag | ApolloError> => {
     return executeOrFail(async () => {
-        try {
-            const createHashtagType = this.hashtag.create;
-            type HashtagType = Parameters<typeof createHashtagType>[0]["data"]; // Define types of hashtag
+      try {
+        const createHashtagType = this.hashtag.create;
+        type HashtagType = Parameters<typeof createHashtagType>[0]["data"]; // Define types of hashtag
 
-            const hashtag: HashtagType = {
-                name: hashtagData.name,
-                creator: {
-                    connect: {
-                        id: userId
-                    }
-                }
-            }
+        const hashtag: HashtagType = {
+          name: hashtagData.name,
+          creator: {
+            connect: {
+              id: userId,
+            },
+          },
+        };
 
-            // Create the hashtag
+        // Create the hashtag
 
-            const createdHashtag = await this.hashtag.create({
-                data: hashtag
-            })
+        const createdHashtag = await this.hashtag.create({
+          data: hashtag,
+        });
 
-            return createdHashtag;
-        } catch (err) {
-            throw new ApolloError(err.message, "internal_server_error")
-        } 
-    })
-  }
+        return createdHashtag;
+      } catch (err) {
+        throw new ApolloError(err.message, "internal_server_error");
+      }
+    });
+  };
 
   /**
    * Find a hashtag by id
@@ -56,23 +59,27 @@ export default class HashtagRepo extends PrismaClient {
    * **/
 
   findById = async (hashtagId: string): Promise<Hashtag | ApolloError> => {
-      return executeOrFail(async () => {
-         const hashtag = await this.hashtag.findFirst({
-             where: {
-                 id: hashtagId
-             }, include: {
-                 creator: true,
-                 posts: true,
-             }
-         })
+    return executeOrFail(async () => {
+      const hashtag = await this.hashtag.findFirst({
+        where: {
+          id: hashtagId,
+        },
+        include: {
+          creator: true,
+          posts: true,
+        },
+      });
 
-         if (!hashtag) {
-             throw new ApolloError("Could not find a hashtag with that id", "hashtag_not_found")
-         }
+      if (!hashtag) {
+        throw new ApolloError(
+          "Could not find a hashtag with that id",
+          "hashtag_not_found",
+        );
+      }
 
-         return hashtag
-      })
-  }
+      return hashtag;
+    });
+  };
 
   /**
    * Find a hashtag by name
@@ -83,21 +90,25 @@ export default class HashtagRepo extends PrismaClient {
    * **/
 
   findByName = async (hashtagName: string): Promise<Hashtag | ApolloError> => {
-      return executeOrFail(async () => {
-          const hashtag = await this.hashtag.findFirst({
-              where: {
-                  name: hashtagName
-              }, include: {
-                  creator: true,
-                  posts: true
-              }
-          })
+    return executeOrFail(async () => {
+      const hashtag = await this.hashtag.findFirst({
+        where: {
+          name: hashtagName,
+        },
+        include: {
+          creator: true,
+          posts: true,
+        },
+      });
 
-          if (!hashtag) {
-              throw new ApolloError("Couldn't find a hashtag with that name", "hashtag_not_found")
-          }
+      if (!hashtag) {
+        throw new ApolloError(
+          "Couldn't find a hashtag with that name",
+          "hashtag_not_found",
+        );
+      }
 
-          return hashtag;
-      })
-  }
+      return hashtag;
+    });
+  };
 }

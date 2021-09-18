@@ -11,7 +11,7 @@ import { Hashtag } from "../../resolver-types/models";
 
 // CODE
 
-const hashtag = new HashtagRepo()
+const hashtag = new HashtagRepo();
 
 @Resolver()
 export default class CreateHashtagResolver {

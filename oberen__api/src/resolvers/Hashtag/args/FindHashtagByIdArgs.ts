@@ -6,6 +6,6 @@ import { InputType, Field } from "type-graphql";
 
 @InputType()
 export default class FindHashtagByIdArgs {
-   @Field(() => String)
-   hashtagId: string;
+  @Field(() => String)
+  hashtagId: string;
 }

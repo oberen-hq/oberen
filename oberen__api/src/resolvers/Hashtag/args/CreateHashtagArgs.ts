@@ -7,7 +7,7 @@ import { InputType, Field } from "type-graphql";
 
 @InputType()
 export default class CreateHashtagArgs {
-   @Field(() => String)
-   @Length(1, 25)
-   name: string 
+  @Field(() => String)
+  @Length(1, 25)
+  name: string;
 }
