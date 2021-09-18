@@ -5,7 +5,6 @@ import executeOrFail from "../utils/executeOrFail";
 
 import { PrismaClient } from "@prisma/client";
 import { ApolloError } from "apollo-server-core";
-import { PostResponse } from "../resolvers/Post/responses/Post.response";
 import { PostDataType, UpdatePostType } from "./types/index";
 import { Post } from "../resolver-types/models";
 import { massOptions } from "./types";
@@ -25,7 +24,7 @@ export default class PostRepo extends PrismaClient {
   create = async (
     userId: string,
     postData: PostDataType,
-  ): Promise<PostResponse | ApolloError> => {
+  ): Promise<Post | ApolloError> => {
     return executeOrFail(async () => {
       try {
         const createPostType = this.post.create;
@@ -36,8 +35,8 @@ export default class PostRepo extends PrismaClient {
           description: postData.description,
           type: postData.type,
           attachments: connectIdArray(postData.attachmentIds),
-          likers: connectIdArray(postData.likerIds),
-          comments: connectIdArray(postData.commentIds),
+          hashtags: connectIdArray(postData.hashtagIds),
+          labels: connectIdArray(postData.labelIds),
           creator: { connect: { id: userId } },
         };
 
@@ -47,13 +46,13 @@ export default class PostRepo extends PrismaClient {
           data: post,
           include: {
             attachments: true,
+            hashtags: true,
+            labels: true,
+            creator: true,
           },
         });
 
-        return {
-          post: createdPost,
-          attachments: createdPost.attachments,
-        };
+        return createdPost;
       } catch (err) {
         throw new ApolloError(err.message, "internal_server_error");
       }
@@ -72,7 +71,7 @@ export default class PostRepo extends PrismaClient {
   update = async (
     userId: string,
     args: UpdatePostType,
-  ): Promise<PostResponse | ApolloError> => {
+  ): Promise<Post | ApolloError> => {
     return executeOrFail(async () => {
       await this._userIsCreator(userId, args.id);
 
@@ -86,6 +85,9 @@ export default class PostRepo extends PrismaClient {
       if (args.description) post.description = args.description;
       if (args.attachmentIds)
         post.attachments = connectIdArray(args.attachmentIds);
+      if (args.hashtagIds) post.hashtags = connectIdArray(args.hashtagIds);
+      if (args.labelIds) post.labels = connectIdArray(args.labelIds);
+
       if (args.type) post.type = args.type;
 
       // Update the post
@@ -95,16 +97,16 @@ export default class PostRepo extends PrismaClient {
         data: post,
         include: {
           attachments: true,
+          hashtags: true,
+          labels: true,
+          creator: true,
         },
       });
 
       if (updatedPost) {
-        return {
-          post: updatedPost,
-          attachments: updatedPost?.attachments,
-        };
+        return post as any;
       } else {
-        return new ApolloError("Failed updating post", "internal_server_error");
+        throw new ApolloError("Failed updating post", "internal_server_error");
       }
     });
   };
@@ -160,7 +162,7 @@ export default class PostRepo extends PrismaClient {
    *
    * **/
 
-  findById = async (postId: string): Promise<PostResponse | ApolloError> => {
+  findById = async (postId: string): Promise<Post | ApolloError> => {
     return executeOrFail(async () => {
       const post = await this.post.findFirst({
         // Find the post from the provided postId
@@ -170,14 +172,16 @@ export default class PostRepo extends PrismaClient {
         include: {
           // Include all public factors and relations to the post
           attachments: true,
+          hashtags: true,
+          labels: true,
+          creator: true,
+          likers: true,
+          comments: true,
         },
       });
 
       if (post) {
-        return {
-          post: post,
-          attachments: post.attachments,
-        };
+        return post;
       } else {
         throw new ApolloError("That post does not exist", "post_doesn't_exist");
       }
@@ -200,6 +204,14 @@ export default class PostRepo extends PrismaClient {
         // Find posts based on the massOptions argument to filter posts
         skip: massOptions?.skip,
         take: massOptions?.limit,
+        include: {
+          attachments: true,
+          hashtags: true,
+          labels: true,
+          creator: true,
+          likers: true,
+          comments: true,
+        },
       });
 
       if (posts) {
