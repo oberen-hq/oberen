@@ -4,11 +4,14 @@ import HashtagRepo from "../../db/HashtagRepo";
 import FindHashtagByIdArgs from "./args/FindHashtagByIdArgs";
 
 import { ApolloError } from "apollo-server-express";
-import { Resolver, Mutation, Arg, Ctx, Query } from "type-graphql";
+import { Resolver, Arg, Query } from "type-graphql";
 import { Hashtag } from "../../resolver-types/models";
 
 const hashtag = new HashtagRepo();
 
+// CODE
+
+@Resolver()
 export default class FindHashtagByIdResolver {
   @Query(() => Hashtag)
   async findHashtagById(
