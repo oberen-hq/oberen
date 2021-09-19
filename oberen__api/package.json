@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "API for simplify",
   "main": "dist/index.js",
-  "repository": "https://github.com/alfiephillips/simplify",
+  "repository": "https://github.com/oberen-hq/oberen",
   "author": "Alfie Phillips",
   "license": "MIT",
   "scripts": {
@@ -15,7 +15,8 @@
     "db:generate": "npx prisma generate",
     "db:seed": "node dist/prisma/seed.js",
     "db:push": "npx prisma db push",
-    "db:format": "npx prisma format"
+    "db:format": "npx prisma format",
+    "db:studio": "npx prisma studio"
   },
   "dependencies": {
     "@prisma/client": "~2.29.0",

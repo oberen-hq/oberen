@@ -51,6 +51,8 @@ export default class PostRepo extends PrismaClient {
           },
         });
 
+        // TODO: Update hashtag uses if there is hashtags
+
         return createdPost;
       } catch (err) {
         throw new ApolloError(err.message, "internal_server_error");
