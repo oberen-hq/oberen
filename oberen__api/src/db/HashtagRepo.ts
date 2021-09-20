@@ -6,7 +6,6 @@ import { PrismaClient } from "@prisma/client";
 import { ApolloError } from "apollo-server-core";
 import { HashtagDataType, massOptions } from "./types/index";
 import { Hashtag } from "../resolver-types/models";
-import { transformDocument } from "@prisma/client/runtime";
 
 // CODE
 
