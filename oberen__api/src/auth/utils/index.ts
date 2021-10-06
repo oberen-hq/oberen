@@ -1,7 +1,11 @@
-import { ConnectionService, ClientInfo } from "../types/";
+// IMPORTS
+
+import { ClientInfo } from "../types/";
+
+// CODE
 
 export function fetchOauthClientInfo(
-    provider: ConnectionService
+    provider: "github" | "google" | "discord" | "twitter" | "facebook" | "apple" | "instagram" | "linkedin"
 ) {
     let info: ClientInfo;
     const cbUrl = `http://localhost:${process.env.PORT as string}/api/auth/${provider as string}`
@@ -62,13 +66,6 @@ export function fetchOauthClientInfo(
                 clientSecret: process.env.LINKEDIN_CLIENT_SECRET!,
                 cbUrl
             };
-            return info;
-        case "local":
-            info = {
-                clientId: "",
-                clientSecret: "",
-                cbUrl: ""
-            }
             return info;
         default:
             throw new Error("Invalid arguments for fetchOauthClientInfo")
