@@ -28,14 +28,20 @@ export default class PostRepo extends PrismaClient {
       try {
         const createPostType = this.post.create;
         type PostType = Parameters<typeof createPostType>[0]["data"]; // Define types of post
+        
+        const attachments = connectIdArray(postData.attachmentIds)
+        const hashtags = connectIdArray(postData.hashtagIds)
+        const labels = connectIdArray(postData.labelIds)
 
+        // Define the post
+        
         const post: PostType = {
           title: postData.title,
           description: postData.description,
           type: postData.type,
-          attachments: connectIdArray(postData.attachmentIds),
-          hashtags: connectIdArray(postData.hashtagIds),
-          labels: connectIdArray(postData.labelIds),
+          attachments: attachments,
+          hashtags: hashtags,
+          labels: labels,
           creator: { connect: { id: userId } },
         };
 
@@ -50,6 +56,8 @@ export default class PostRepo extends PrismaClient {
             creator: true,
           },
         });
+
+        // TODO: Update hashtag uses if there is hashtags
 
         return createdPost;
       } catch (err) {

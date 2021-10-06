@@ -111,4 +111,24 @@ export default class HashtagRepo extends PrismaClient {
       return hashtag;
     });
   };
+
+  findInMass = async (massOptions: massOptions): Promise<Hashtag[] | ApolloError> => {
+    return executeOrFail(async () => {
+      const hashtags = await this.hashtag.findMany({
+        // Find hashtags based on the massOptions argument to filter posts
+        skip: massOptions?.skip,
+        take: massOptions?.limit,
+        include: {
+          creator: true,
+          posts: true
+        }
+      });
+
+      if (!hashtags) {
+        throw new ApolloError("Couldn't find any hashtags", "hashtags_not_found")
+      }
+
+      return hashtags;
+    })
+  }
 }
