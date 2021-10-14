@@ -1,6 +1,6 @@
 // IMPORTS
 
-import { PostType } from "../../resolver-types/enums";
+import { PostType, ErrorType } from "../../resolver-types/enums";
 
 // CODE
 
@@ -48,4 +48,10 @@ export interface UpdatePostType {
 
 export interface HashtagDataType {
   name: string;
+}
+
+export interface ErrorDataType {
+  type: ErrorType;
+  route?: string;
+  description: string;
 }

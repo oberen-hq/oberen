@@ -25,44 +25,40 @@ export default class PostRepo extends PrismaClient {
     postData: PostDataType,
   ): Promise<Post | ApolloError> => {
     return executeOrFail(async () => {
-      try {
-        const createPostType = this.post.create;
-        type PostType = Parameters<typeof createPostType>[0]["data"]; // Define types of post
-        
-        const attachments = connectIdArray(postData.attachmentIds)
-        const hashtags = connectIdArray(postData.hashtagIds)
-        const labels = connectIdArray(postData.labelIds)
+      const createPostType = this.post.create;
+      type PostType = Parameters<typeof createPostType>[0]["data"]; // Define types of post
 
-        // Define the post
-        
-        const post: PostType = {
-          title: postData.title,
-          description: postData.description,
-          type: postData.type,
-          attachments: attachments,
-          hashtags: hashtags,
-          labels: labels,
-          creator: { connect: { id: userId } },
-        };
+      const attachments = connectIdArray(postData.attachmentIds);
+      const hashtags = connectIdArray(postData.hashtagIds);
+      const labels = connectIdArray(postData.labelIds);
 
-        // Create the post
+      // Define the post
 
-        const createdPost = await this.post.create({
-          data: post,
-          include: {
-            attachments: true,
-            hashtags: true,
-            labels: true,
-            creator: true,
-          },
-        });
+      const post: PostType = {
+        title: postData.title,
+        description: postData.description,
+        type: postData.type,
+        attachments: attachments,
+        hashtags: hashtags,
+        labels: labels,
+        creator: { connect: { id: userId } },
+      };
 
-        // TODO: Update hashtag uses if there is hashtags
+      // Create the post
 
-        return createdPost;
-      } catch (err) {
-        throw new ApolloError(err.message, "internal_server_error");
-      }
+      const createdPost = await this.post.create({
+        data: post,
+        include: {
+          attachments: true,
+          hashtags: true,
+          labels: true,
+          creator: true,
+        },
+      });
+
+      // TODO: Update hashtag uses if there is hashtags
+
+      return createdPost;
     });
   };
 

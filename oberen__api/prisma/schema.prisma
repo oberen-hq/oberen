@@ -103,7 +103,7 @@ model Error {
   id          String    @id @default(uuid())
   createdAt   DateTime  @default(now())
   type        ErrorType
-  route       String    @default("/")
+  route       String?    @default("/")
   description String
   user        User      @relation(fields: [userId], references: [id])
   userId      String

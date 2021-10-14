@@ -25,9 +25,9 @@ export class Error {
   type!: "internal" | "authentication" | "timeout" | "unavailable";
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  route!: string;
+  route?: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
