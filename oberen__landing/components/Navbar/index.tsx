@@ -11,9 +11,6 @@ import items from "./data";
 import { Link, animateScroll as scroll } from "react-scroll";
 
 export default function Navbar() {
-  const [state, setState] = useState({
-    isMobileMenu: false,
-  });
 
   return (
     <Provider>
@@ -29,15 +26,9 @@ export default function Navbar() {
         </div>
         <nav
           className={styles.navbar}
-          style={
-            state.isMobileMenu ? { display: "none" } : { display: "block" }
-          }
         >
           <ul
             className={styles.navbar__list}
-            style={
-              state.isMobileMenu ? { display: "none" } : { display: "block" }
-            }
           >
             {items.map(({ path, label }, index) => (
               <li key={index} className={styles.navbar__item}>

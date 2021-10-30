@@ -4,16 +4,16 @@ export default [
     label: "Home",
   },
   {
-    path: "#",
-    label: "Github",
+    path: "about",
+    label: "About",
   },
   {
-    path: "#",
-    label: "Discord",
+    path: "features",
+    label: "Features",
   },
   {
-    path: "#",
-    label: "Twitter",
+    path: "services",
+    label: "Services",
   },
   {
     path: "contact",
