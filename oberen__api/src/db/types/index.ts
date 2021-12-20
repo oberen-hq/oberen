@@ -15,11 +15,11 @@ export interface RegisterUserDataType {
   password?: string;
   avatarURL?: string;
   bio?: string;
-  isLocal: boolean;
+  isLocal?: boolean;
   provider?: string;
   device?: string;
-  userAgent: string;
-  ip: string;
+  userAgent?: string;
+  ip?: string;
 }
 
 export interface LoginUserDataType {

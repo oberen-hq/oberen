@@ -39,7 +39,7 @@ export default class Server {
   private async initializeApollo() {
     this.prisma = new PrismaClient();
     this.schema = await createSchema();
-    this.gqlserver = new ApolloServer({
+    this.gqlserver = new ApolloServer({ 
       introspection: true,
       schema: this.schema,
       context: ({ req, res }: Context) => ({
@@ -51,8 +51,15 @@ export default class Server {
     });
 
     await this.gqlserver.start();
+
+    const corsOptions = {
+      origin: "*",
+      credentials: true
+    };
+
     this.gqlserver.applyMiddleware({
       app: this.app,
+      cors: corsOptions
     });
   }
 
@@ -60,6 +67,7 @@ export default class Server {
     this.app.use(
       cors({
         origin: "*",
+        credentials: true
       }),
     );
 

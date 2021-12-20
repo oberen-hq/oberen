@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BoolWithAggregatesFilter } from "../inputs/BoolWithAggregatesFilter";
+import { BoolNullableWithAggregatesFilter } from "../inputs/BoolNullableWithAggregatesFilter";
 import { DateTimeWithAggregatesFilter } from "../inputs/DateTimeWithAggregatesFilter";
 import { EnumRoleNullableWithAggregatesFilter } from "../inputs/EnumRoleNullableWithAggregatesFilter";
 import { IntWithAggregatesFilter } from "../inputs/IntWithAggregatesFilter";
@@ -63,10 +63,10 @@ export class UserScalarWhereWithAggregatesInput {
   })
   password?: StringNullableWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => BoolWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => BoolNullableWithAggregatesFilter, {
     nullable: true
   })
-  isLocal?: BoolWithAggregatesFilter | undefined;
+  isLocal?: BoolNullableWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => EnumRoleNullableWithAggregatesFilter, {
     nullable: true

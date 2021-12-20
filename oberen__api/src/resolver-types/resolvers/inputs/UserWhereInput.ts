@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BoolFilter } from "../inputs/BoolFilter";
+import { BoolNullableFilter } from "../inputs/BoolNullableFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumRoleNullableFilter } from "../inputs/EnumRoleNullableFilter";
 import { ErrorListRelationFilter } from "../inputs/ErrorListRelationFilter";
@@ -73,10 +73,10 @@ export class UserWhereInput {
   })
   password?: StringNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => BoolFilter, {
+  @TypeGraphQL.Field(_type => BoolNullableFilter, {
     nullable: true
   })
-  isLocal?: BoolFilter | undefined;
+  isLocal?: BoolNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => EnumRoleNullableFilter, {
     nullable: true

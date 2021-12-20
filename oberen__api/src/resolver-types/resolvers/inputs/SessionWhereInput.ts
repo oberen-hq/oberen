@@ -53,15 +53,15 @@ export class SessionWhereInput {
   })
   device?: StringNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  userAgent?: StringFilter | undefined;
+  userAgent?: StringNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  ip?: StringFilter | undefined;
+  ip?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeNullableFilter, {
     nullable: true

@@ -52,15 +52,15 @@ export class SessionScalarWhereWithAggregatesInput {
   })
   device?: StringNullableWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
   })
-  userAgent?: StringWithAggregatesFilter | undefined;
+  userAgent?: StringNullableWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
   })
-  ip?: StringWithAggregatesFilter | undefined;
+  ip?: StringNullableWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeNullableWithAggregatesFilter, {
     nullable: true

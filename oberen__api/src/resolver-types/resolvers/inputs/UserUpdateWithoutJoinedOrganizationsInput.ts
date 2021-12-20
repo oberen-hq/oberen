@@ -2,12 +2,12 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperationsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { ErrorUpdateManyWithoutUserInput } from "../inputs/ErrorUpdateManyWithoutUserInput";
 import { HashtagUpdateManyWithoutCreatorInput } from "../inputs/HashtagUpdateManyWithoutCreatorInput";
 import { IntFieldUpdateOperationsInput } from "../inputs/IntFieldUpdateOperationsInput";
 import { LabelUpdateManyWithoutCreatorInput } from "../inputs/LabelUpdateManyWithoutCreatorInput";
+import { NullableBoolFieldUpdateOperationsInput } from "../inputs/NullableBoolFieldUpdateOperationsInput";
 import { NullableEnumRoleFieldUpdateOperationsInput } from "../inputs/NullableEnumRoleFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { OrganizationUpdateManyWithoutOwnerInput } from "../inputs/OrganizationUpdateManyWithoutOwnerInput";
@@ -61,10 +61,10 @@ export class UserUpdateWithoutJoinedOrganizationsInput {
   })
   password?: NullableStringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => NullableBoolFieldUpdateOperationsInput, {
     nullable: true
   })
-  isLocal?: BoolFieldUpdateOperationsInput | undefined;
+  isLocal?: NullableBoolFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => NullableEnumRoleFieldUpdateOperationsInput, {
     nullable: true

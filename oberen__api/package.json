@@ -10,7 +10,7 @@
     "watch": "tsc -w",
     "build": "tsc -b",
     "start:prod": "node dist/src/index.js",
-    "start:dev": "nodemon dist/src/index.js",
+    "start:dev": "node dist/src/index.js",
     "test:auth": "node dist/tests/auth.test.js",
     "db:generate": "npx prisma generate",
     "db:seed": "node dist/prisma/seed.js",

@@ -36,14 +36,14 @@ export class SessionGroupBy {
   device!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  userAgent!: string;
+  userAgent!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  ip!: string;
+  ip!: string | null;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true

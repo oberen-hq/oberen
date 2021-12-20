@@ -101,6 +101,7 @@ export default class LocalUserRepo extends PrismaClient {
 
       return {
         accessToken: ("Bearer " + tokens.accessToken) as string,
+        refreshToken: ("Bearer " + tokens.refreshToken) as string,
         user: user,
       };
     });
@@ -167,6 +168,7 @@ export default class LocalUserRepo extends PrismaClient {
 
       return {
         accessToken: ("Bearer " + tokens.accessToken) as string,
+        refreshToken: ("Bearer" + tokens.refreshToken) as string,
         user: user,
       };
     });

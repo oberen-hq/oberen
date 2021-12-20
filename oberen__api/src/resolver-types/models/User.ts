@@ -53,9 +53,9 @@ export class User {
   password?: string | null;
 
   @TypeGraphQL.Field(_type => Boolean, {
-    nullable: false
+    nullable: true
   })
-  isLocal!: boolean;
+  isLocal?: boolean | null;
 
   @TypeGraphQL.Field(_type => Role, {
     nullable: true

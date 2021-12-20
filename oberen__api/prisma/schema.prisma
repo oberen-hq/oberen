@@ -180,8 +180,8 @@ model Session {
   updatedAt  DateTime  @updatedAt
   provider   String?   @default("Unknown")
   device     String?   @default("Unknown")
-  userAgent  String
-  ip         String
+  userAgent  String?
+  ip         String?
   lastLogged DateTime?
   user       User      @relation(fields: [userId], references: [id])
   userId     String
@@ -213,7 +213,7 @@ model User {
   username    String   @unique
   email       String
   password    String?
-  isLocal     Boolean  @default(true)
+  isLocal     Boolean?  @default(true)
   role        Role?    @default(value: user)
 
   // Authentication

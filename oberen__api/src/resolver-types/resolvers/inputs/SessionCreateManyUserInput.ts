@@ -33,14 +33,14 @@ export class SessionCreateManyUserInput {
   device?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  userAgent!: string;
+  userAgent?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  ip!: string;
+  ip?: string | undefined;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
