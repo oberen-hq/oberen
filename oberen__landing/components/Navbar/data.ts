@@ -1,13 +1,5 @@
 export default [
   {
-    path: "home",
-    label: "Home",
-  },
-  {
-    path: "about",
-    label: "About",
-  },
-  {
     path: "features",
     label: "Features",
   },
@@ -16,7 +8,7 @@ export default [
     label: "Services",
   },
   {
-    path: "contact",
-    label: "Contact",
+    path: "start",
+    label: "Start Now",
   },
 ];

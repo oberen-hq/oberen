@@ -43,6 +43,11 @@ export class PostGroupBy {
   })
   type!: "post" | "job" | "organization" | "shift" | "article" | "feedback" | "poll";
 
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: false
+  })
+  public!: boolean;
+
   @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
     nullable: false
   })

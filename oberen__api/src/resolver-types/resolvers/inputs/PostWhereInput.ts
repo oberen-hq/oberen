@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AttachmentListRelationFilter } from "../inputs/AttachmentListRelationFilter";
 import { BigIntFilter } from "../inputs/BigIntFilter";
+import { BoolFilter } from "../inputs/BoolFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumPostTypeFilter } from "../inputs/EnumPostTypeFilter";
 import { HashtagListRelationFilter } from "../inputs/HashtagListRelationFilter";
@@ -62,6 +63,11 @@ export class PostWhereInput {
     nullable: true
   })
   type?: EnumPostTypeFilter | undefined;
+
+  @TypeGraphQL.Field(_type => BoolFilter, {
+    nullable: true
+  })
+  public?: BoolFilter | undefined;
 
   @TypeGraphQL.Field(_type => UserListRelationFilter, {
     nullable: true

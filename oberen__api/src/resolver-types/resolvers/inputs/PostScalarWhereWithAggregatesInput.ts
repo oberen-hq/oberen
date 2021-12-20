@@ -3,6 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BigIntWithAggregatesFilter } from "../inputs/BigIntWithAggregatesFilter";
+import { BoolWithAggregatesFilter } from "../inputs/BoolWithAggregatesFilter";
 import { DateTimeWithAggregatesFilter } from "../inputs/DateTimeWithAggregatesFilter";
 import { EnumPostTypeWithAggregatesFilter } from "../inputs/EnumPostTypeWithAggregatesFilter";
 import { StringNullableWithAggregatesFilter } from "../inputs/StringNullableWithAggregatesFilter";
@@ -56,6 +57,11 @@ export class PostScalarWhereWithAggregatesInput {
     nullable: true
   })
   type?: EnumPostTypeWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => BoolWithAggregatesFilter, {
+    nullable: true
+  })
+  public?: BoolWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => BigIntWithAggregatesFilter, {
     nullable: true

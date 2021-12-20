@@ -44,6 +44,14 @@ export default class ErrorRepo extends PrismaClient {
         })
     }
 
+    /**
+   * Find an error by id
+   *
+   * @param   errorId
+   * @returns {error} The error 
+   *
+   * **/
+
     findById = async (
         errorId: string
     ): Promise<Error | ApolloError> => {
