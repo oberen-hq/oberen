@@ -150,6 +150,7 @@ model Post {
   title       String
   description String?
   type        PostType
+  public      Boolean       @default(true)
   likers      User[]        @relation("UserLikedPostsRelation")
   likes       BigInt        @default(0)
   comments    PostComment[]

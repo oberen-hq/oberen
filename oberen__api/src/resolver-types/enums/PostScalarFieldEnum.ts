@@ -7,6 +7,7 @@ export enum PostScalarFieldEnum {
   title = "title",
   description = "description",
   type = "type",
+  "public" = "public",
   likes = "likes",
   creatorId = "creatorId"
 }

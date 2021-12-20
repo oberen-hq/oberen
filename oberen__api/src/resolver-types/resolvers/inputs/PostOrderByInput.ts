@@ -41,6 +41,11 @@ export class PostOrderByInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
+  public?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
   likes?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {

@@ -38,6 +38,11 @@ export class PostMinAggregate {
   })
   type!: "post" | "job" | "organization" | "shift" | "article" | "feedback" | "poll" | null;
 
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  public!: boolean | null;
+
   @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
     nullable: true
   })
