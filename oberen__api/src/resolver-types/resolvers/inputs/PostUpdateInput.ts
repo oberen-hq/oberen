@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { AttachmentUpdateManyWithoutPostInput } from "../inputs/AttachmentUpdateManyWithoutPostInput";
 import { BigIntFieldUpdateOperationsInput } from "../inputs/BigIntFieldUpdateOperationsInput";
+import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperationsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumPostTypeFieldUpdateOperationsInput } from "../inputs/EnumPostTypeFieldUpdateOperationsInput";
 import { HashtagUpdateManyWithoutPostsInput } from "../inputs/HashtagUpdateManyWithoutPostsInput";
@@ -47,6 +48,11 @@ export class PostUpdateInput {
     nullable: true
   })
   type?: EnumPostTypeFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  public?: BoolFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => BigIntFieldUpdateOperationsInput, {
     nullable: true

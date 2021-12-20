@@ -3,6 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BigIntFieldUpdateOperationsInput } from "../inputs/BigIntFieldUpdateOperationsInput";
+import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperationsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumPostTypeFieldUpdateOperationsInput } from "../inputs/EnumPostTypeFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
@@ -41,6 +42,11 @@ export class PostUpdateManyMutationInput {
     nullable: true
   })
   type?: EnumPostTypeFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  public?: BoolFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => BigIntFieldUpdateOperationsInput, {
     nullable: true

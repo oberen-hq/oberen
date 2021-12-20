@@ -44,6 +44,11 @@ export class PostCreateInput {
   })
   type!: "post" | "job" | "organization" | "shift" | "article" | "feedback" | "poll";
 
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  public?: boolean | undefined;
+
   @TypeGraphQL.Field(_type => GraphQLScalars.BigIntResolver, {
     nullable: true
   })
