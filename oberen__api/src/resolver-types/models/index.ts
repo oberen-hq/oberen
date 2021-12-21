@@ -1,5 +1,7 @@
 export { Attachment } from "./Attachment";
 export { Error } from "./Error";
+export { Follower } from "./Follower";
+export { Following } from "./Following";
 export { Hashtag } from "./Hashtag";
 export { Label } from "./Label";
 export { Organization } from "./Organization";

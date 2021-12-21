@@ -6,6 +6,7 @@ const REGISTER_MUTATION = gql`
             user {
                 id
             }
+            refreshToken
             accessToken
         }
     }

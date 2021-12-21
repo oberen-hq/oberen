@@ -1,5 +1,7 @@
 export { AttachmentCrudResolver } from "./Attachment/AttachmentCrudResolver";
 export { ErrorCrudResolver } from "./Error/ErrorCrudResolver";
+export { FollowerCrudResolver } from "./Follower/FollowerCrudResolver";
+export { FollowingCrudResolver } from "./Following/FollowingCrudResolver";
 export { HashtagCrudResolver } from "./Hashtag/HashtagCrudResolver";
 export { LabelCrudResolver } from "./Label/LabelCrudResolver";
 export { OrganizationCrudResolver } from "./Organization/OrganizationCrudResolver";

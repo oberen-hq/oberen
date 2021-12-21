@@ -1,0 +1,12 @@
+export { AggregateFollowingArgs } from "./AggregateFollowingArgs";
+export { CreateFollowingArgs } from "./CreateFollowingArgs";
+export { CreateManyFollowingArgs } from "./CreateManyFollowingArgs";
+export { DeleteFollowingArgs } from "./DeleteFollowingArgs";
+export { DeleteManyFollowingArgs } from "./DeleteManyFollowingArgs";
+export { FindFirstFollowingArgs } from "./FindFirstFollowingArgs";
+export { FindManyFollowingArgs } from "./FindManyFollowingArgs";
+export { FindUniqueFollowingArgs } from "./FindUniqueFollowingArgs";
+export { GroupByFollowingArgs } from "./GroupByFollowingArgs";
+export { UpdateFollowingArgs } from "./UpdateFollowingArgs";
+export { UpdateManyFollowingArgs } from "./UpdateManyFollowingArgs";
+export { UpsertFollowingArgs } from "./UpsertFollowingArgs";

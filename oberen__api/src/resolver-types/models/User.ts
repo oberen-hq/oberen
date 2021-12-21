@@ -3,6 +3,8 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
 import { Error } from "../models/Error";
+import { Follower } from "../models/Follower";
+import { Following } from "../models/Following";
 import { Hashtag } from "../models/Hashtag";
 import { Label } from "../models/Label";
 import { Organization } from "../models/Organization";
@@ -66,7 +68,7 @@ export class User {
     nullable: false
   })
   count!: number;
-
+  
   tokens?: TokenPair[];
 
   sessions?: Session[];
@@ -90,9 +92,9 @@ export class User {
 
   createdPostComments?: PostComment[];
 
-  following?: User[];
+  following?: Following[];
 
-  followers?: User[];
+  followers?: Follower[];
 
   createdLabels?: Label[];
 

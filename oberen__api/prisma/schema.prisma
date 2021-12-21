@@ -240,8 +240,8 @@ model User {
 
   // Followers
 
-  following User[] @relation("UserFollowRelation", references: [id])
-  followers User[] @relation("UserFollowRelation", references: [id])
+  following Following[]
+  followers Follower[]
 
   // Labels
 
@@ -255,6 +255,23 @@ model User {
 
   errors       Error[]
 }
+
+model Following {
+  id       String    @id @default(uuid())
+  name     String
+  avatar   String
+  user     User?  @relation(fields: [userId], references: [id])
+  userId   String?
+}
+
+model Follower {
+  id       String    @id @default(uuid())
+  name     String
+  avatar   String
+  user     User?  @relation(fields: [userId], references: [id])
+  userId   String?
+}
+
 
 model UserProfile {
   id        String        @id @default(uuid())

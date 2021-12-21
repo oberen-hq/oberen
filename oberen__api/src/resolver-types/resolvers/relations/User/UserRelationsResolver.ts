@@ -1,5 +1,7 @@
 import * as TypeGraphQL from "type-graphql";
 import { Error } from "../../../models/Error";
+import { Follower } from "../../../models/Follower";
+import { Following } from "../../../models/Following";
 import { Hashtag } from "../../../models/Hashtag";
 import { Label } from "../../../models/Label";
 import { Organization } from "../../../models/Organization";
@@ -125,10 +127,10 @@ export class UserRelationsResolver {
     }).createdPostComments(args);
   }
 
-  @TypeGraphQL.FieldResolver(_type => [User], {
+  @TypeGraphQL.FieldResolver(_type => [Following], {
     nullable: false
   })
-  async following(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserFollowingArgs): Promise<User[]> {
+  async following(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserFollowingArgs): Promise<Following[]> {
     return getPrismaFromContext(ctx).user.findUnique({
       where: {
         id: user.id,
@@ -136,10 +138,10 @@ export class UserRelationsResolver {
     }).following(args);
   }
 
-  @TypeGraphQL.FieldResolver(_type => [User], {
+  @TypeGraphQL.FieldResolver(_type => [Follower], {
     nullable: false
   })
-  async followers(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserFollowersArgs): Promise<User[]> {
+  async followers(@TypeGraphQL.Root() user: User, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: UserFollowersArgs): Promise<Follower[]> {
     return getPrismaFromContext(ctx).user.findUnique({
       where: {
         id: user.id,

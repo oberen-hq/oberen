@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { ErrorUpdateManyWithoutUserInput } from "../inputs/ErrorUpdateManyWithoutUserInput";
+import { FollowerUpdateManyWithoutUserInput } from "../inputs/FollowerUpdateManyWithoutUserInput";
 import { HashtagUpdateManyWithoutCreatorInput } from "../inputs/HashtagUpdateManyWithoutCreatorInput";
 import { IntFieldUpdateOperationsInput } from "../inputs/IntFieldUpdateOperationsInput";
 import { LabelUpdateManyWithoutCreatorInput } from "../inputs/LabelUpdateManyWithoutCreatorInput";
@@ -20,7 +21,6 @@ import { SessionUpdateManyWithoutUserInput } from "../inputs/SessionUpdateManyWi
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { TokenPairUpdateManyWithoutUserInput } from "../inputs/TokenPairUpdateManyWithoutUserInput";
 import { UserProfileUpdateOneWithoutUserInput } from "../inputs/UserProfileUpdateOneWithoutUserInput";
-import { UserUpdateManyWithoutFollowingInput } from "../inputs/UserUpdateManyWithoutFollowingInput";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -121,10 +121,10 @@ export class UserUpdateWithoutFollowingInput {
   })
   createdPostComments?: PostCommentUpdateManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserUpdateManyWithoutFollowingInput, {
+  @TypeGraphQL.Field(_type => FollowerUpdateManyWithoutUserInput, {
     nullable: true
   })
-  followers?: UserUpdateManyWithoutFollowingInput | undefined;
+  followers?: FollowerUpdateManyWithoutUserInput | undefined;
 
   @TypeGraphQL.Field(_type => LabelUpdateManyWithoutCreatorInput, {
     nullable: true

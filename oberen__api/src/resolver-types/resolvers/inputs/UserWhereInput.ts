@@ -6,6 +6,8 @@ import { BoolNullableFilter } from "../inputs/BoolNullableFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumRoleNullableFilter } from "../inputs/EnumRoleNullableFilter";
 import { ErrorListRelationFilter } from "../inputs/ErrorListRelationFilter";
+import { FollowerListRelationFilter } from "../inputs/FollowerListRelationFilter";
+import { FollowingListRelationFilter } from "../inputs/FollowingListRelationFilter";
 import { HashtagListRelationFilter } from "../inputs/HashtagListRelationFilter";
 import { IntFilter } from "../inputs/IntFilter";
 import { LabelListRelationFilter } from "../inputs/LabelListRelationFilter";
@@ -16,7 +18,6 @@ import { SessionListRelationFilter } from "../inputs/SessionListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { TokenPairListRelationFilter } from "../inputs/TokenPairListRelationFilter";
-import { UserListRelationFilter } from "../inputs/UserListRelationFilter";
 import { UserProfileRelationFilter } from "../inputs/UserProfileRelationFilter";
 
 @TypeGraphQL.InputType({
@@ -138,15 +139,15 @@ export class UserWhereInput {
   })
   createdPostComments?: PostCommentListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => UserListRelationFilter, {
+  @TypeGraphQL.Field(_type => FollowingListRelationFilter, {
     nullable: true
   })
-  following?: UserListRelationFilter | undefined;
+  following?: FollowingListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => UserListRelationFilter, {
+  @TypeGraphQL.Field(_type => FollowerListRelationFilter, {
     nullable: true
   })
-  followers?: UserListRelationFilter | undefined;
+  followers?: FollowerListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => LabelListRelationFilter, {
     nullable: true

@@ -31,6 +31,7 @@ export default function Register() {
                 }
             }
         }).then((res) => {
+            console.log(res.data);
             localStorage.setItem("accessToken", res.data.register.accessToken)
             localStorage.setItem("refreshToken", res.data.register.refreshToken)
             history.push("/home")

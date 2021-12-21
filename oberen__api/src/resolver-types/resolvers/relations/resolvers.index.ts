@@ -1,5 +1,7 @@
 export { AttachmentRelationsResolver } from "./Attachment/AttachmentRelationsResolver";
 export { ErrorRelationsResolver } from "./Error/ErrorRelationsResolver";
+export { FollowerRelationsResolver } from "./Follower/FollowerRelationsResolver";
+export { FollowingRelationsResolver } from "./Following/FollowingRelationsResolver";
 export { HashtagRelationsResolver } from "./Hashtag/HashtagRelationsResolver";
 export { LabelRelationsResolver } from "./Label/LabelRelationsResolver";
 export { OrganizationRelationsResolver } from "./Organization/OrganizationRelationsResolver";

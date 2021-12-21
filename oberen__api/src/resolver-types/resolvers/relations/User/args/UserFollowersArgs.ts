@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { UserOrderByInput } from "../../../inputs/UserOrderByInput";
-import { UserWhereInput } from "../../../inputs/UserWhereInput";
-import { UserWhereUniqueInput } from "../../../inputs/UserWhereUniqueInput";
-import { UserScalarFieldEnum } from "../../../../enums/UserScalarFieldEnum";
+import { FollowerOrderByInput } from "../../../inputs/FollowerOrderByInput";
+import { FollowerWhereInput } from "../../../inputs/FollowerWhereInput";
+import { FollowerWhereUniqueInput } from "../../../inputs/FollowerWhereUniqueInput";
+import { FollowerScalarFieldEnum } from "../../../../enums/FollowerScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class UserFollowersArgs {
-  @TypeGraphQL.Field(_type => UserWhereInput, {
+  @TypeGraphQL.Field(_type => FollowerWhereInput, {
     nullable: true
   })
-  where?: UserWhereInput | undefined;
+  where?: FollowerWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [UserOrderByInput], {
+  @TypeGraphQL.Field(_type => [FollowerOrderByInput], {
     nullable: true
   })
-  orderBy?: UserOrderByInput[] | undefined;
+  orderBy?: FollowerOrderByInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => UserWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => FollowerWhereUniqueInput, {
     nullable: true
   })
-  cursor?: UserWhereUniqueInput | undefined;
+  cursor?: FollowerWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,8 +32,8 @@ export class UserFollowersArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [UserScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [FollowerScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "createdAt" | "updatedAt" | "displayName" | "username" | "email" | "password" | "isLocal" | "role" | "count" | "profileId"> | undefined;
+  distinct?: Array<"id" | "name" | "avatar" | "userId"> | undefined;
 }

@@ -4,6 +4,8 @@ export { BugReportSeverity } from "./BugReportSeverity";
 export { ConnectionService } from "./ConnectionService";
 export { ErrorScalarFieldEnum } from "./ErrorScalarFieldEnum";
 export { ErrorType } from "./ErrorType";
+export { FollowerScalarFieldEnum } from "./FollowerScalarFieldEnum";
+export { FollowingScalarFieldEnum } from "./FollowingScalarFieldEnum";
 export { HashtagScalarFieldEnum } from "./HashtagScalarFieldEnum";
 export { LabelScalarFieldEnum } from "./LabelScalarFieldEnum";
 export { OrganizationScalarFieldEnum } from "./OrganizationScalarFieldEnum";

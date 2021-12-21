@@ -3,6 +3,8 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { ErrorCreateNestedManyWithoutUserInput } from "../inputs/ErrorCreateNestedManyWithoutUserInput";
+import { FollowerCreateNestedManyWithoutUserInput } from "../inputs/FollowerCreateNestedManyWithoutUserInput";
+import { FollowingCreateNestedManyWithoutUserInput } from "../inputs/FollowingCreateNestedManyWithoutUserInput";
 import { HashtagCreateNestedManyWithoutCreatorInput } from "../inputs/HashtagCreateNestedManyWithoutCreatorInput";
 import { OrganizationCreateNestedManyWithoutEmployeesInput } from "../inputs/OrganizationCreateNestedManyWithoutEmployeesInput";
 import { OrganizationCreateNestedManyWithoutOwnerInput } from "../inputs/OrganizationCreateNestedManyWithoutOwnerInput";
@@ -12,8 +14,6 @@ import { PostCreateNestedManyWithoutCreatorInput } from "../inputs/PostCreateNes
 import { PostCreateNestedManyWithoutLikersInput } from "../inputs/PostCreateNestedManyWithoutLikersInput";
 import { SessionCreateNestedManyWithoutUserInput } from "../inputs/SessionCreateNestedManyWithoutUserInput";
 import { TokenPairCreateNestedManyWithoutUserInput } from "../inputs/TokenPairCreateNestedManyWithoutUserInput";
-import { UserCreateNestedManyWithoutFollowersInput } from "../inputs/UserCreateNestedManyWithoutFollowersInput";
-import { UserCreateNestedManyWithoutFollowingInput } from "../inputs/UserCreateNestedManyWithoutFollowingInput";
 import { UserProfileCreateNestedOneWithoutUserInput } from "../inputs/UserProfileCreateNestedOneWithoutUserInput";
 import { Role } from "../../enums/Role";
 
@@ -116,15 +116,15 @@ export class UserCreateWithoutCreatedLabelsInput {
   })
   createdPostComments?: PostCommentCreateNestedManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserCreateNestedManyWithoutFollowersInput, {
+  @TypeGraphQL.Field(_type => FollowingCreateNestedManyWithoutUserInput, {
     nullable: true
   })
-  following?: UserCreateNestedManyWithoutFollowersInput | undefined;
+  following?: FollowingCreateNestedManyWithoutUserInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserCreateNestedManyWithoutFollowingInput, {
+  @TypeGraphQL.Field(_type => FollowerCreateNestedManyWithoutUserInput, {
     nullable: true
   })
-  followers?: UserCreateNestedManyWithoutFollowingInput | undefined;
+  followers?: FollowerCreateNestedManyWithoutUserInput | undefined;
 
   @TypeGraphQL.Field(_type => HashtagCreateNestedManyWithoutCreatorInput, {
     nullable: true

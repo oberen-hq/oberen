@@ -12,6 +12,7 @@ export default class MeResolver {
   @IsAuthenticated() // Middleware
   @Query(() => User) // Set response for resolver
   me(@Ctx() { req }: Context): Promise<User> {
+    console.log(req.user);
     const user = req.user as User; // Get current user
     //@ts-ignore
     return user;

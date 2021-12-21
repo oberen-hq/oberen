@@ -1,0 +1,12 @@
+export { AggregateFollowerArgs } from "./AggregateFollowerArgs";
+export { CreateFollowerArgs } from "./CreateFollowerArgs";
+export { CreateManyFollowerArgs } from "./CreateManyFollowerArgs";
+export { DeleteFollowerArgs } from "./DeleteFollowerArgs";
+export { DeleteManyFollowerArgs } from "./DeleteManyFollowerArgs";
+export { FindFirstFollowerArgs } from "./FindFirstFollowerArgs";
+export { FindManyFollowerArgs } from "./FindManyFollowerArgs";
+export { FindUniqueFollowerArgs } from "./FindUniqueFollowerArgs";
+export { GroupByFollowerArgs } from "./GroupByFollowerArgs";
+export { UpdateFollowerArgs } from "./UpdateFollowerArgs";
+export { UpdateManyFollowerArgs } from "./UpdateManyFollowerArgs";
+export { UpsertFollowerArgs } from "./UpsertFollowerArgs";

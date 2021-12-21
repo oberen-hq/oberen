@@ -3,6 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { ErrorCreateNestedManyWithoutUserInput } from "../inputs/ErrorCreateNestedManyWithoutUserInput";
+import { FollowerCreateNestedManyWithoutUserInput } from "../inputs/FollowerCreateNestedManyWithoutUserInput";
 import { HashtagCreateNestedManyWithoutCreatorInput } from "../inputs/HashtagCreateNestedManyWithoutCreatorInput";
 import { LabelCreateNestedManyWithoutCreatorInput } from "../inputs/LabelCreateNestedManyWithoutCreatorInput";
 import { OrganizationCreateNestedManyWithoutEmployeesInput } from "../inputs/OrganizationCreateNestedManyWithoutEmployeesInput";
@@ -13,7 +14,6 @@ import { PostCreateNestedManyWithoutCreatorInput } from "../inputs/PostCreateNes
 import { PostCreateNestedManyWithoutLikersInput } from "../inputs/PostCreateNestedManyWithoutLikersInput";
 import { SessionCreateNestedManyWithoutUserInput } from "../inputs/SessionCreateNestedManyWithoutUserInput";
 import { TokenPairCreateNestedManyWithoutUserInput } from "../inputs/TokenPairCreateNestedManyWithoutUserInput";
-import { UserCreateNestedManyWithoutFollowingInput } from "../inputs/UserCreateNestedManyWithoutFollowingInput";
 import { UserProfileCreateNestedOneWithoutUserInput } from "../inputs/UserProfileCreateNestedOneWithoutUserInput";
 import { Role } from "../../enums/Role";
 
@@ -116,10 +116,10 @@ export class UserCreateWithoutFollowingInput {
   })
   createdPostComments?: PostCommentCreateNestedManyWithoutCreatorInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserCreateNestedManyWithoutFollowingInput, {
+  @TypeGraphQL.Field(_type => FollowerCreateNestedManyWithoutUserInput, {
     nullable: true
   })
-  followers?: UserCreateNestedManyWithoutFollowingInput | undefined;
+  followers?: FollowerCreateNestedManyWithoutUserInput | undefined;
 
   @TypeGraphQL.Field(_type => LabelCreateNestedManyWithoutCreatorInput, {
     nullable: true

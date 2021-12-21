@@ -1,5 +1,7 @@
 export * from "./Attachment/args";
 export * from "./Error/args";
+export * from "./Follower/args";
+export * from "./Following/args";
 export * from "./Hashtag/args";
 export * from "./Label/args";
 export * from "./Organization/args";
