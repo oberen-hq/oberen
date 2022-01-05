@@ -36,7 +36,15 @@ export const IsAuthenticated = (): any => {
           accessToken: token,
         },
         include: {
-          user: true,
+          user: {
+            include: {
+              sessions: true,
+              profile: true,
+              followers: true,
+              following: true,
+              errors: true,
+            },
+          },
         },
       });
 

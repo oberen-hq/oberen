@@ -14,6 +14,7 @@ import { Session } from "../models/Session";
 import { TokenPair } from "../models/TokenPair";
 import { UserProfile } from "../models/UserProfile";
 import { Role } from "../enums/Role";
+import { profile } from "console";
 
 @TypeGraphQL.ObjectType({
   isAbstract: true
@@ -68,11 +69,17 @@ export class User {
     nullable: false
   })
   count!: number;
-  
+
   tokens?: TokenPair[];
 
+  @TypeGraphQL.Field(_type => [Session], {
+    nullable: true
+  })
   sessions?: Session[];
 
+  @TypeGraphQL.Field(_type => UserProfile, {
+    nullable: true
+  })
   profile?: UserProfile | null;
 
   @TypeGraphQL.Field(_type => String, {
@@ -92,13 +99,22 @@ export class User {
 
   createdPostComments?: PostComment[];
 
+  @TypeGraphQL.Field(_type => [Following], {
+    nullable: true
+  })
   following?: Following[];
 
+  @TypeGraphQL.Field(_type => [Follower], {
+    nullable: true
+  })
   followers?: Follower[];
 
   createdLabels?: Label[];
 
   createdHashtags?: Hashtag[];
 
+  @TypeGraphQL.Field(_type => [Error], {
+    nullable: true
+  })
   errors?: Error[];
 }

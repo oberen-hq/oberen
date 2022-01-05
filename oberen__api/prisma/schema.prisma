@@ -279,7 +279,7 @@ model UserProfile {
   updatedAt DateTime      @updatedAt
   user      User?         @relation("UserProfileRelation")
   settings  UserSettings? @relation("UserSettingsRelation")
-  avatarURL String?
+  avatarURL String?       @default("/")
   bio       String?       @default("Bio has not been set yet!")
   labels    Label[]
 }
