@@ -33,6 +33,7 @@ class UserInput {
   password!: string;
 }
 
+@ObjectType()
 class PaginatedUsers {
   @Field(() => [User])
   users: User[];
@@ -59,14 +60,27 @@ export default class UserResolver {
   }
 
   @Mutation(() => String)
-  async createUser(@Arg("input") args: UserInput): Promise<String | undefined> {
-    const accessToken = jwt.sign({ ...args }, process.env.ACCESS_SECRET);
+  async createUser(
+    @Arg("input") input: UserInput,
+  ): Promise<String | undefined> {
+    const accessToken = jwt.sign({ ...input }, process.env.ACCESS_SECRET, {
+      expiresIn: "365d",
+    });
 
     await User.create({
-      ...args,
+      ...input,
       accessToken,
     }).save();
 
     return accessToken;
+  }
+
+  @Query(() => Boolean)
+  async checkEmailExists(
+    @Arg("email", () => String) email: string,
+  ): Promise<Boolean> {
+    const existingUser = await User.findOne({ email: email });
+
+    return existingUser ? true : false;
   }
 }
