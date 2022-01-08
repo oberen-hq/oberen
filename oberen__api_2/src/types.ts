@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-
-interface User {
-  id: string;
-}
+import User from "./entities/User";
 
 export type MyContext = {
   req: Request & {

@@ -11,7 +11,6 @@ import {
   Int,
   Query,
 } from "type-graphql";
-import { getConnection } from "typeorm";
 import Post from "../entities/Post";
 import { MyContext } from "../types";
 

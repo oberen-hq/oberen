@@ -12,6 +12,7 @@
     "migration:create": "npx typeorm migration:create -n api_migration"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.6",
     "@types/node": "^17.0.8",
     "nodemon": "^2.0.15",
     "ts-node": "^10.4.0",
@@ -22,6 +23,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "graphql": "^15.3.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
