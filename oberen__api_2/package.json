@@ -1,0 +1,26 @@
+{
+  "name": "oberen_api",
+  "version": "1.0.0",
+  "description": "an app",
+  "main": "index.js",
+  "author": "Alfie Phillips",
+  "license": "MIT",
+  "scripts": {
+    "watch": "tsc -w",
+    "start:dev": "nodemon dist/index.js",
+    "start:prod": "node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.8",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@mikro-orm/cli": "^4.5.10",
+    "@mikro-orm/core": "^4.5.10",
+    "@mikro-orm/migrations": "^4.5.10",
+    "@mikro-orm/postgresql": "^4.5.10",
+    "pg": "^8.7.1"
+  }
+}
