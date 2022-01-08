@@ -7,7 +7,9 @@ import "reflect-metadata";
 import path from "path";
 import express from "express";
 import cors from "cors";
+
 import PostResolver from "./resolvers/Post";
+import UserResolver from "./resolvers/User";
 
 import Post from "./entities/Post";
 import User from "./entities/User";
@@ -37,7 +39,7 @@ const run = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PostResolver],
+      resolvers: [PostResolver, UserResolver],
       validate: false,
     }),
     context: ({ req, res }) => ({

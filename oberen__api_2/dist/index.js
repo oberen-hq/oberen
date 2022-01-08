@@ -20,8 +20,9 @@ const path_1 = __importDefault(require("path"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const Post_1 = __importDefault(require("./resolvers/Post"));
+const User_1 = __importDefault(require("./resolvers/User"));
 const Post_2 = __importDefault(require("./entities/Post"));
-const User_1 = __importDefault(require("./entities/User"));
+const User_2 = __importDefault(require("./entities/User"));
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, typeorm_1.createConnection)({
         type: "postgres",
@@ -30,7 +31,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         username: process.env.DATABASE_USERNAME || "postgres",
         password: process.env.DATABASE_PASSWORD || "postgres",
         database: process.env.DATABASE_NAME || "api",
-        entities: [Post_2.default, User_1.default],
+        entities: [Post_2.default, User_2.default],
         migrations: [path_1.default.join(__dirname, "/migrations/*")],
         logging: false,
         synchronize: true,
@@ -43,7 +44,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield (0, type_graphql_1.buildSchema)({
-            resolvers: [Post_1.default],
+            resolvers: [Post_1.default, User_1.default],
             validate: false,
         }),
         context: ({ req, res }) => ({
