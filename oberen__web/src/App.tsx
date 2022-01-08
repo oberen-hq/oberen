@@ -1,43 +1,38 @@
 import IsAuthenticated from "./components/IsAuthenticated";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
-  ApolloClient,
-  ApolloProvider,
-  HttpLink,
-  InMemoryCache,
-} from "@apollo/client";
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
-import { UserProvider } from "./context/user";
-
-const httpLink = new HttpLink({ uri: "http://localhost:4000/graphql" });
-
-const client = new ApolloClient({
-  link: httpLink as any,
-  cache: new InMemoryCache(),
-});
+import { useContext } from "react";
+import UserContext from "./context/user";
 
 function App() {
+  const { user } = useContext(UserContext);
+
   return (
-    <ApolloProvider client={client}>
-      <UserProvider>
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <h1>Sign in or Login Page</h1>
-            </Route>
-            <Route exact path="/register">
-              <Register />
-            </Route>
-            <IsAuthenticated>
-              <Route exact path="/home">
-                <Home />
-              </Route>
-            </IsAuthenticated>
-          </Switch>
-        </Router>
-      </UserProvider>
-    </ApolloProvider>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          {user ? <Redirect to={{ pathname: "/home" }} /> : <h1>Home page</h1>}
+        </Route>
+        <Route exact path="/register">
+          {user ? <Redirect to={{ pathname: "/home" }} /> : <Register />}
+        </Route>
+        <Route exact path="/login">
+          {user ? <Redirect to={{ pathname: "/home" }} /> : <h1>Login Page</h1>}
+        </Route>
+        <IsAuthenticated>
+          <Route exact path="/home">
+            <Home />
+          </Route>
+        </IsAuthenticated>
+      </Switch>
+    </Router>
   );
 }
 

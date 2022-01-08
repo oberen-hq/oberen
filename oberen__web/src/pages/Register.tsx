@@ -1,46 +1,35 @@
 import { useMutation } from "@apollo/client";
-import { isMobile } from "react-device-detect";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { REGISTER_MUTATION } from "../graphql/mutations";
 
-import jwt_decode from "jwt-decode";
-
 export default function Register() {
   const history = useHistory();
-  const [registerUser] = useMutation(REGISTER_MUTATION);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const isLoggedIn = jwt_decode(localStorage.getItem("accessToken") as string);
-
-  if (isLoggedIn) return <Redirect to="/home" />;
+  const [createUser] = useMutation(REGISTER_MUTATION);
+  const [vars, setVars] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
-    registerUser({
+    createUser({
       variables: {
-        args: {
-          username: username,
-          email: email,
-          password: password,
-          isLocal: true,
-          provider: window.navigator.platform.toString(),
-          device: isMobile ? "Phone" : "Computer",
-          userAgent: window.navigator.userAgent.toString(),
-          ip: "127.0.0.1",
+        input: {
+          username: vars.username,
+          email: vars.email,
+          password: vars.password,
         },
       },
     })
       .then((res) => {
-        localStorage.setItem("accessToken", res.data.register.accessToken);
-        localStorage.setItem("refreshToken", res.data.register.refreshToken);
+        localStorage.setItem("accessToken", res.data.createUser);
         history.push("/home");
       })
       .catch((err) => {
-        console.log(JSON.stringify(err, null, 2));
+        // console.log(JSON.stringify(err, null, 2));
         throw err;
       });
   };
@@ -53,7 +42,10 @@ export default function Register() {
           type="text"
           name="username"
           onChange={(event: any) => {
-            setUsername(event.target.value);
+            setVars({
+              ...vars,
+              username: event.target.value,
+            });
           }}
         />
 
@@ -62,7 +54,10 @@ export default function Register() {
           type="text"
           name="email"
           onChange={(event: any) => {
-            setEmail(event.target.value);
+            setVars({
+              ...vars,
+              email: event.target.value,
+            });
           }}
         />
 
@@ -71,7 +66,10 @@ export default function Register() {
           type="password"
           name="password"
           onChange={(event: any) => {
-            setPassword(event.target.value);
+            setVars({
+              ...vars,
+              password: event.target.value,
+            });
           }}
         />
         <button type="submit">Register</button>
