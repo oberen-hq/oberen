@@ -1,4 +1,4 @@
-import IsAuthenticated from "./components/IsAuthenticated";
+import IsAuthenticated from "./components/wrapper/IsAuthenticated";
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import { useContext } from "react";
 import UserContext from "./context/user";
+import UserForm from "./components/auth/UserForm";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -18,7 +19,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          {user ? <Redirect to={{ pathname: "/home" }} /> : <h1>Home page</h1>}
+          {user ? <Redirect to={{ pathname: "/home" }} /> : <UserForm />}
         </Route>
         <Route exact path="/register">
           {user ? <Redirect to={{ pathname: "/home" }} /> : <Register />}

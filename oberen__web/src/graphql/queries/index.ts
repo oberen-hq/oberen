@@ -10,4 +10,10 @@ const ME_QUERY = gql`
   }
 `;
 
-export { ME_QUERY };
+const CHECK_EMAIL_EXISTS_QUERY = gql`
+  query checkEmailExists($email: String!) {
+    checkEmailExists(email: $email)
+  }
+`;
+
+export { ME_QUERY, CHECK_EMAIL_EXISTS_QUERY };

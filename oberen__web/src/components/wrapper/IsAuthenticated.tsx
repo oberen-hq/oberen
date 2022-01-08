@@ -3,7 +3,7 @@ import React from "react";
 
 import jwt_decode from "jwt-decode";
 import { useContext } from "react";
-import UserContext from "../context/user";
+import UserContext from "../../context/user";
 
 interface Props {
   children?: React.ReactNode;
