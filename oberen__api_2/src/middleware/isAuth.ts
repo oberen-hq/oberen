@@ -17,14 +17,12 @@ export const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
   const accessSecret = process.env.ACCESS_SECRET;
 
   if (!token) {
-    console.log("Not authenticated.");
     throw new Error("Not authenticated.");
   }
 
   const existingUser = await User.findOne({ accessToken: token });
 
   if (!existingUser) {
-    console.log("User not found");
     throw new Error("Not authenticated.");
   }
 

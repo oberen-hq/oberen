@@ -49,6 +49,17 @@ export default class PostResolver {
     return Post.find({});
   }
 
+  @Query(() => [Post], { nullable: true })
+  async findPostsByUserId(
+    @Arg("id", () => Int) id: number,
+  ): Promise<Post[] | undefined> {
+    return await Post.find({
+      where: {
+        creatorId: id,
+      },
+    });
+  }
+
   @UseMiddleware(isAuth)
   @Mutation(() => Post)
   async createPost(
