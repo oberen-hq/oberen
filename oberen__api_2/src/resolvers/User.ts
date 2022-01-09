@@ -15,6 +15,7 @@ import { isAuth } from "../middleware/isAuth";
 
 import User from "../entities/User";
 import jwt from "jsonwebtoken";
+import argon from "argon2";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -37,6 +38,9 @@ class UserResponse {
 
   @Field(() => String, { nullable: true })
   token?: string;
+
+  @Field(() => String, { nullable: true })
+  message?: string;
 }
 
 @ObjectType()
@@ -49,10 +53,19 @@ class PaginatedUsers {
 }
 
 @InputType()
-class UserInput {
+class RegisterUserInput {
   @Field()
   username!: string;
 
+  @Field()
+  email!: string;
+
+  @Field()
+  password!: string;
+}
+
+@InputType()
+class LoginUserInput {
   @Field()
   email!: string;
 
@@ -77,6 +90,7 @@ export default class UserResolver {
     } else {
       return {
         user: req.user,
+        message: "Successfully queried user.",
       };
     }
   }
@@ -94,7 +108,10 @@ export default class UserResolver {
         ],
       };
     } else {
-      return { user };
+      return {
+        user,
+        message: "Successfully queried users.",
+      };
     }
   }
 
@@ -105,13 +122,18 @@ export default class UserResolver {
 
   @Mutation(() => UserResponse)
   async createUser(
-    @Arg("input") input: UserInput,
+    @Arg("input") input: RegisterUserInput,
   ): Promise<UserResponse | String> {
-    const accessToken = jwt.sign({ ...input }, process.env.ACCESS_SECRET, {
-      expiresIn: "365d",
-    });
-
     let user;
+    input.password = await argon.hash(input.password);
+
+    const accessToken = jwt.sign(
+      { email: input.email },
+      process.env.ACCESS_SECRET,
+      {
+        expiresIn: "365d",
+      },
+    );
 
     try {
       user = await User.create({
@@ -143,7 +165,70 @@ export default class UserResolver {
     return {
       user,
       token: accessToken,
+      message: "Successfully created user.",
     };
+  }
+
+  @Mutation(() => UserResponse)
+  async loginUser(
+    @Arg("input") input: LoginUserInput,
+  ): Promise<UserResponse | String> {
+    let user: any;
+    let accessToken: string;
+
+    try {
+      user = await User.findOne({ email: input.email });
+
+      accessToken = await jwt.sign(
+        { email: input.email },
+        process.env.ACCESS_SECRET,
+        {
+          expiresIn: "365d",
+        },
+      );
+    } catch (error) {
+      console.error(error);
+      return {
+        errors: [
+          {
+            field: "User",
+            message: "Internal server error.",
+          },
+        ],
+      };
+    }
+
+    if (!user) {
+      return {
+        errors: [
+          {
+            field: "User",
+            message: "A user with that email does not exist.",
+          },
+        ],
+      };
+    }
+
+    const correctPassword = await argon.verify(user.password, input.password);
+
+    if (!correctPassword) {
+      return {
+        errors: [
+          {
+            field: "User",
+            message: "Login failed. Password does not match.",
+          },
+        ],
+      };
+    } else {
+      await User.update({ email: input.email }, { accessToken: accessToken });
+
+      return {
+        token: accessToken,
+        user,
+        message: "Successfully logged in user.",
+      };
+    }
   }
 
   @Query(() => Boolean)

@@ -39,7 +39,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const app = (0, express_1.default)();
     app.set("trust proxy", 1);
     app.use((0, cors_1.default)({
-        origin: "*",
+        origin: ["http://localhost:3000", "https://studio.apollographql.com"],
         credentials: true,
     }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
@@ -53,7 +53,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         }),
     });
     yield apolloServer.start();
-    yield apolloServer.applyMiddleware({
+    apolloServer.applyMiddleware({
         app,
         cors: false,
     });
