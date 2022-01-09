@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 
-import { useQuery } from "@apollo/client";
-import { CHECK_EMAIL_EXISTS_QUERY } from "../../graphql/queries";
+import validator from "validator";
+import { useState } from "react";
+
+import { useCheckEmailExistsQuery } from "../../generated/graphql";
 
 interface Props {
   nextStep: Function;
@@ -14,7 +16,9 @@ interface Props {
 }
 
 export default function EmailForm({ values, nextStep, handleChange }: Props) {
-  const { loading, data, error } = useQuery(CHECK_EMAIL_EXISTS_QUERY, {
+  const [skip, setSkip] = useState(false);
+  const { loading, data, error } = useCheckEmailExistsQuery({
+    skip: skip,
     variables: {
       email: values.email,
     },
@@ -22,10 +26,20 @@ export default function EmailForm({ values, nextStep, handleChange }: Props) {
 
   if (error) throw error;
 
+  useEffect(() => {
+    if (validator.isEmail(values.email)) {
+      if (skip) {
+        setSkip(false);
+      }
+    }
+  }, []);
+
   const moveForward = (event: any) => {
     event.preventDefault();
 
-    if (data.checkEmailExists) {
+    console.log(data?.checkEmailExists);
+
+    if (data?.checkEmailExists) {
       nextStep(2);
     } else {
       nextStep(1);

@@ -14,6 +14,7 @@ import {
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
+  credentials: "include",
 });
 
 const authLink: any = setContext((_, { headers }) => {
