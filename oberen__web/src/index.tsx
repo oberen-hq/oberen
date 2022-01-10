@@ -18,7 +18,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink: any = setContext((_, { headers }) => {
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("OBEREN-ACCESS-TOKEN");
   return {
     headers: {
       ...headers,
@@ -29,7 +29,9 @@ const authLink: any = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink) as any,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    addTypename: false,
+  }),
 });
 
 ReactDOM.render(

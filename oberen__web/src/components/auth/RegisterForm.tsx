@@ -3,10 +3,10 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 
 import { AppBar, TextField } from "material-ui";
-import { useMutation } from "@apollo/client";
-import { useHistory } from "react-router-dom";
-import { useCreateUserMutation } from "../../generated/graphql";
+import { Redirect, useHistory } from "react-router-dom";
+import { MeDocument, useCreateUserMutation } from "../../generated/graphql";
 import { toErrorMap } from "../../utils/toErrorMap";
+import { MeQuery } from "../../generated/graphql";
 
 interface Props {
   values: any;
@@ -39,6 +39,15 @@ export default function RegisterForm({
           password: values.password,
         },
       },
+      update: (cache, { data }) => {
+        cache.writeQuery<MeQuery>({
+          query: MeDocument,
+          data: {
+            __typename: "Query",
+            me: data?.createUser.user as any,
+          },
+        });
+      },
     });
 
     if (response.data?.createUser.errors) {
@@ -49,7 +58,12 @@ export default function RegisterForm({
         "OBEREN-ACCESS-TOKEN",
         response.data?.createUser.token,
       );
+
       history.push("/home");
+
+      setTimeout(() => {
+        window.location.replace("/home");
+      }, 1000);
     } else {
       setErrors([{ field: "User", message: "No data was retrieved." }]);
     }

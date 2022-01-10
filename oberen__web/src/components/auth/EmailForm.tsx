@@ -17,7 +17,7 @@ interface Props {
 
 export default function EmailForm({ values, nextStep, handleChange }: Props) {
   const [skip, setSkip] = useState(false);
-  const { loading, data, error } = useCheckEmailExistsQuery({
+  const { data, error } = useCheckEmailExistsQuery({
     skip: skip,
     variables: {
       email: values.email,
@@ -32,7 +32,7 @@ export default function EmailForm({ values, nextStep, handleChange }: Props) {
         setSkip(false);
       }
     }
-  }, []);
+  }, [skip, values.email]);
 
   const moveForward = (event: any) => {
     event.preventDefault();

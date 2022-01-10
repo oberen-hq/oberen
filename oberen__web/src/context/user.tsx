@@ -1,22 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { gql, useQuery } from "@apollo/client";
-
-const ME_QUERY = gql`
-  query {
-    me {
-      user {
-        id
-        username
-        email
-      }
-      errors {
-        field
-        message
-      }
-    }
-  }
-`;
+import { useMeQuery } from "../generated/graphql";
 
 interface InitialValues {
   user: any;
@@ -31,7 +15,7 @@ const UserContext = React.createContext({
 });
 
 export const UserProvider = (props: any) => {
-  const { loading, data, error } = useQuery(ME_QUERY);
+  const { loading, data, error }: any = useMeQuery();
   const user = data?.me.user;
 
   const values: InitialValues = {
