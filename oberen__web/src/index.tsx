@@ -5,6 +5,7 @@ import App from "./App";
 
 import { UserProvider } from "./context/user";
 import { setContext } from "apollo-link-context";
+
 import {
   ApolloClient,
   ApolloProvider,
@@ -12,10 +13,18 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 
+// Create link to API
+
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
   credentials: "include",
 });
+
+/**
+ * This is our authorization link.
+ * Used to set the authorization header of all our requests.
+ * This will only happen if the access token exists in local storage.
+ * **/
 
 const authLink: any = setContext((_, { headers }) => {
   const token = localStorage.getItem("OBEREN-ACCESS-TOKEN");
@@ -27,12 +36,16 @@ const authLink: any = setContext((_, { headers }) => {
   };
 });
 
+// Initiate our apollo client with our links and cache used to store reusable queries.
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink) as any,
   cache: new InMemoryCache({
     addTypename: false,
   }),
 });
+
+// Render our components - Apollo Provider to pass our client down the component tree - User Provider to detect the user in every component.
 
 ReactDOM.render(
   <React.StrictMode>
