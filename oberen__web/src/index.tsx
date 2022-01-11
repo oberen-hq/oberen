@@ -20,12 +20,7 @@ const httpLink = createHttpLink({
   credentials: "include",
 });
 
-/**
- * This is our authorization link.
- * Used to set the authorization header of all our requests.
- * This will only happen if the access token exists in local storage.
- * **/
-
+// Used to set the authorization header of all our requests.
 const authLink: any = setContext((_, { headers }) => {
   const token = localStorage.getItem("OBEREN-ACCESS-TOKEN");
   return {
