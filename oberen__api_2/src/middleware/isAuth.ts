@@ -17,13 +17,13 @@ export const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
   const accessSecret = process.env.ACCESS_SECRET;
 
   if (!token) {
-    throw new Error("Not authenticated.");
+    return next();
   }
 
   const existingUser = await User.findOne({ accessToken: token });
 
   if (!existingUser) {
-    throw new Error("Not authenticated.");
+    return next();
   }
 
   await jwt.verify(token, accessSecret);
