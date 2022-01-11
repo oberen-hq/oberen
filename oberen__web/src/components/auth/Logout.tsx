@@ -46,6 +46,8 @@ export default function Logout() {
   );
 }
 
+// A function to clear the client cache and redirect the user.
+
 function ClearStore() {
   return (
     <ApolloConsumer>
