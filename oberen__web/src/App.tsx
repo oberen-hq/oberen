@@ -21,6 +21,7 @@ function App() {
 
   return (
     // These are the routes specified either being an 'authenticated' route or base route.
+
     <Router>
       <Switch>
         <Route exact path="/auth">
