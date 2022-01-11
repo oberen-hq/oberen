@@ -3,10 +3,9 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
-
 import validator from "validator";
-import { useState } from "react";
 
+import { useState } from "react";
 import { useCheckEmailExistsQuery } from "../../generated/graphql";
 
 interface Props {
@@ -16,7 +15,12 @@ interface Props {
 }
 
 export default function EmailForm({ values, nextStep, handleChange }: Props) {
+  // Hooks
+
   const [skip, setSkip] = useState(false);
+
+  // CheckEmailExists query.
+
   const { data, error } = useCheckEmailExistsQuery({
     skip: skip,
     variables: {
@@ -24,7 +28,11 @@ export default function EmailForm({ values, nextStep, handleChange }: Props) {
     },
   });
 
+  // Error handling
+
   if (error) throw error;
+
+  // Check the email exists if the email is valid to increase speed.
 
   useEffect(() => {
     if (validator.isEmail(values.email)) {
@@ -34,6 +42,7 @@ export default function EmailForm({ values, nextStep, handleChange }: Props) {
     }
   }, [skip, values.email]);
 
+  // Progress onto the next part of the form depending on if the email already exists.
   const moveForward = (event: any) => {
     event.preventDefault();
 

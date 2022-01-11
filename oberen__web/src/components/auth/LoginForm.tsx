@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 import AppBar from "material-ui/AppBar";
 import TextField from "material-ui/TextField";
-import { Redirect } from "react-router-dom";
+
 import {
   MeDocument,
   MeQuery,
@@ -19,17 +19,27 @@ interface Props {
 }
 
 export default function LoginForm({ handleChange, values, prevStep }: Props) {
+  // Login mutation.
   const [login] = useLoginUserMutation();
+
+  // Hooks
+
   const history = useHistory();
   const [errors, setErrors]: any[] = useState([]);
+
+  // Go back a single step to main user form page.
 
   const returnBack = (event: any) => {
     event.preventDefault();
     prevStep(2);
   };
 
+  // Handle submit and login request.
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+
+    // Gets the response from login mutation.
 
     const response = await login({
       variables: {
@@ -38,6 +48,9 @@ export default function LoginForm({ handleChange, values, prevStep }: Props) {
           password: values.password,
         },
       },
+
+      // Update the cache for the local user.
+
       update: (cache, { data }) => {
         cache.writeQuery<MeQuery>({
           query: MeDocument,
@@ -48,6 +61,8 @@ export default function LoginForm({ handleChange, values, prevStep }: Props) {
         });
       },
     });
+
+    // Error handling.
 
     if (response.data?.loginUser.errors) {
       setErrors(toErrorMap(response.data.loginUser.errors));
