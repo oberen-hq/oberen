@@ -15,6 +15,8 @@ interface Props {
  * */
 
 export default function IsAuthenticated({ children }: Props) {
+  // Check if the page for loading status, error and the user.
+
   const { user, loading, error } = useContext(UserContext);
 
   if (loading) return <p>Loading...</p>;

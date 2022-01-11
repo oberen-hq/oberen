@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import EmailForm from "./EmailForm";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
 export default function UserForm() {
+  // Set the default state.
+
   const [state, setState] = useState({
     step: 1,
     email: "",
@@ -37,6 +39,8 @@ export default function UserForm() {
       [input]: event.target.value,
     });
   };
+
+  // Depending on the step, display the form.
 
   switch (state.step) {
     case 1:
