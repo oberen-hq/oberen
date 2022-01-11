@@ -19,17 +19,28 @@ export default function RegisterForm({
   values,
   prevStep,
 }: Props) {
+  // Register mutation.
+
   const [register] = useCreateUserMutation();
+
+  // Hooks
+
   const history = useHistory();
   const [errors, setErrors]: any[] = useState([]);
+
+  // Go back a single step to main user form page.
 
   const returnBack = (event: any) => {
     event.preventDefault();
     prevStep(1);
   };
 
+  // Handle submit and send register request.
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+
+    // Get the response from mutation.
 
     const response = await register({
       variables: {
@@ -39,6 +50,8 @@ export default function RegisterForm({
           password: values.password,
         },
       },
+      // Update the cache for the local user.
+
       update: (cache, { data }) => {
         cache.writeQuery<MeQuery>({
           query: MeDocument,
@@ -49,6 +62,8 @@ export default function RegisterForm({
         });
       },
     });
+
+    // Error handling
 
     if (response.data?.createUser.errors) {
       setErrors(toErrorMap(response.data.createUser.errors));
