@@ -11,9 +11,9 @@ import {
   UseMiddleware,
 } from "type-graphql";
 import { MyContext } from "../types";
-import { isAuth } from "../middleware/isAuth";
+import { isAuth } from "../middleware/";
+import { User } from "../entities/";
 
-import User from "../entities/User";
 import jwt from "jsonwebtoken";
 import argon from "argon2";
 import dotenv from "dotenv";
@@ -41,15 +41,6 @@ class UserResponse {
 
   @Field(() => String, { nullable: true })
   message?: string;
-}
-
-@ObjectType()
-class PaginatedUsers {
-  @Field(() => [User])
-  users: User[];
-
-  @Field()
-  hasMore: boolean;
 }
 
 @InputType()

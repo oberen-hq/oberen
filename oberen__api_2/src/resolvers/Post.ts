@@ -1,4 +1,4 @@
-import { isAuth } from "../middleware/isAuth";
+import { isAuth } from "../middleware/";
 import {
   Arg,
   Ctx,
@@ -13,7 +13,7 @@ import {
   Query,
   UseMiddleware,
 } from "type-graphql";
-import Post from "../entities/Post";
+import { Post } from "../entities/";
 import { MyContext } from "../types";
 
 @InputType()

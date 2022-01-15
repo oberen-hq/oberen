@@ -12,7 +12,7 @@ import User from "../entities/User";
  *
  * **/
 
-export const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
+const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
   const token = context.req.headers.authorization;
   const accessSecret = process.env.ACCESS_SECRET;
 
@@ -31,3 +31,5 @@ export const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
   context.req.user = existingUser;
   return next();
 };
+
+export default isAuth;

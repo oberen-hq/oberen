@@ -1,31 +1,33 @@
-import { __prod__ } from "./config";
+import "reflect-metadata";
+
+import {
+  __prod__,
+  DATABASE_NAME,
+  DATABASE_USERNAME,
+  DATABASE_PASSWORD,
+} from "./config";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
+import { UserResolver, PostResolver } from "./resolvers/";
+import { User, Post } from "./entities";
 
-import "reflect-metadata";
 import path from "path";
 import express from "express";
 import cors from "cors";
-
-import PostResolver from "./resolvers/Post";
-import UserResolver from "./resolvers/User";
-
-import Post from "./entities/Post";
-import User from "./entities/User";
 
 const run = async () => {
   await createConnection({
     type: "postgres",
     host: "localhost",
     port: 5432,
-    username: (process.env.DATABASE_USERNAME as string) || "postgres",
-    password: (process.env.DATABASE_PASSWORD as string) || "postgres",
-    database: (process.env.DATABASE_NAME as string) || "api",
+    username: DATABASE_USERNAME || "postgres",
+    password: DATABASE_PASSWORD || "postgres",
+    database: DATABASE_NAME || "api",
     entities: [Post, User],
     migrations: [path.join(__dirname, "/migrations/*")],
-    logging: false,
-    synchronize: true,
+    logging: !__prod__,
+    synchronize: !__prod__,
   });
 
   const app = express();

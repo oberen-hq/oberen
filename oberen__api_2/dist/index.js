@@ -12,29 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("reflect-metadata");
+const config_1 = require("./config");
 const typeorm_1 = require("typeorm");
 const apollo_server_express_1 = require("apollo-server-express");
 const type_graphql_1 = require("type-graphql");
-require("reflect-metadata");
+const resolvers_1 = require("./resolvers/");
+const entities_1 = require("./entities");
 const path_1 = __importDefault(require("path"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const Post_1 = __importDefault(require("./resolvers/Post"));
-const User_1 = __importDefault(require("./resolvers/User"));
-const Post_2 = __importDefault(require("./entities/Post"));
-const User_2 = __importDefault(require("./entities/User"));
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, typeorm_1.createConnection)({
         type: "postgres",
         host: "localhost",
         port: 5432,
-        username: process.env.DATABASE_USERNAME || "postgres",
-        password: process.env.DATABASE_PASSWORD || "postgres",
-        database: process.env.DATABASE_NAME || "api",
-        entities: [Post_2.default, User_2.default],
+        username: config_1.DATABASE_USERNAME || "postgres",
+        password: config_1.DATABASE_PASSWORD || "postgres",
+        database: config_1.DATABASE_NAME || "api",
+        entities: [entities_1.Post, entities_1.User],
         migrations: [path_1.default.join(__dirname, "/migrations/*")],
-        logging: false,
-        synchronize: true,
+        logging: !config_1.__prod__,
+        synchronize: !config_1.__prod__,
     });
     const app = (0, express_1.default)();
     app.set("trust proxy", 1);
@@ -44,7 +43,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield (0, type_graphql_1.buildSchema)({
-            resolvers: [Post_1.default, User_1.default],
+            resolvers: [resolvers_1.PostResolver, resolvers_1.UserResolver],
             validate: false,
         }),
         context: ({ req, res }) => ({
