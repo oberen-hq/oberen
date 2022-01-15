@@ -1,13 +1,11 @@
-import * as _config from "../config";
+import * as config from "../config";
 
 export default function checkEnv() {
-  const config = [_config];
-
   for (let item in config) {
     if (item === undefined) {
-      return false;
+      throw new Error("There is an undefined variable in your .env file!");
     }
   }
 
-  return true;
+  console.log("Environment variables checked...");
 }

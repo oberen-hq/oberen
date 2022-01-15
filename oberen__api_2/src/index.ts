@@ -5,6 +5,7 @@ import {
   DATABASE_NAME,
   DATABASE_USERNAME,
   DATABASE_PASSWORD,
+  PORT,
 } from "./config";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
@@ -15,8 +16,11 @@ import { User, Post } from "./entities";
 import path from "path";
 import express from "express";
 import cors from "cors";
+import { logger } from "./helpers/";
 
 const run = async () => {
+  logger.info("Server is starting...");
+
   await createConnection({
     type: "postgres",
     host: "localhost",
@@ -26,7 +30,7 @@ const run = async () => {
     database: DATABASE_NAME || "api",
     entities: [Post, User],
     migrations: [path.join(__dirname, "/migrations/*")],
-    logging: !__prod__,
+    logging: __prod__,
     synchronize: !__prod__,
   });
 
@@ -57,8 +61,12 @@ const run = async () => {
     cors: false,
   });
 
-  app.listen(process.env.PORT || 4000, () => {
-    console.log("server started on http://localhost:4000");
+  app.listen(PORT, () => {
+    logger.info(
+      `Server has started: ${
+        __prod__ ? "https://oberen.com" : "http://localhost:" + PORT
+      }`,
+    );
   });
 };
 

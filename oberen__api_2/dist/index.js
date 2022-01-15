@@ -22,7 +22,9 @@ const entities_1 = require("./entities");
 const path_1 = __importDefault(require("path"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const helpers_1 = require("./helpers/");
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
+    helpers_1.logger.info("Server is starting...");
     yield (0, typeorm_1.createConnection)({
         type: "postgres",
         host: "localhost",
@@ -32,7 +34,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         database: config_1.DATABASE_NAME || "api",
         entities: [entities_1.Post, entities_1.User],
         migrations: [path_1.default.join(__dirname, "/migrations/*")],
-        logging: !config_1.__prod__,
+        logging: config_1.__prod__,
         synchronize: !config_1.__prod__,
     });
     const app = (0, express_1.default)();
@@ -56,8 +58,8 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         app,
         cors: false,
     });
-    app.listen(process.env.PORT || 4000, () => {
-        console.log("server started on http://localhost:4000");
+    app.listen(config_1.PORT, () => {
+        helpers_1.logger.info(`Server has started: ${config_1.__prod__ ? "https://oberen.com" : "http://localhost:" + config_1.PORT}`);
     });
 });
 run().catch((err) => {
