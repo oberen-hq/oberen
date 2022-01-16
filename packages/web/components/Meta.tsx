@@ -1,6 +1,13 @@
 import Head from "next/head";
 
-const Meta = (props: any) => {
+interface MetaProps {
+  title: string;
+  description: string;
+  keywords: string;
+  url: string;
+}
+
+const Meta = (props: MetaProps) => {
   return (
     <Head>
       <title>{props.title}</title>
