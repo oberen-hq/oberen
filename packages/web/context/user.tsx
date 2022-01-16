@@ -10,6 +10,7 @@ export const UserContext = React.createContext({
 });
 
 export const UserConsumer = UserContext.Consumer;
+
 export function useAuthContext() {
   return useContext(UserContext);
 }
