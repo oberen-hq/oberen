@@ -6,7 +6,6 @@ export const UserContext = React.createContext({
   user: null,
   loading: false,
   error: null,
-  logout: null,
 });
 
 export const UserConsumer = UserContext.Consumer;

@@ -1,9 +1,22 @@
-import type { NextPage } from "next";
-import { NextRequest } from "next/server";
-import { useAuthContext } from "../context/user";
+import type { NextPage, GetServerSideProps } from "next";
+import React from "react";
+import { Meta } from "../components";
+import { MeDocument } from "../generated/graphql";
+import { initializeApollo } from "../utils/apolloClient";
 
-export const getServerSideProps = async (context: { req: NextRequest }) => {
-  const { user, error } = useAuthContext();
+interface Props {
+  children?: React.ReactNode;
+  user?: any;
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const client = initializeApollo();
+
+  const { data, loading, error } = await client.query({
+    query: MeDocument,
+  });
+
+  const user = data?.me.user;
 
   if (!user) {
     return {
@@ -11,11 +24,12 @@ export const getServerSideProps = async (context: { req: NextRequest }) => {
         permanent: false,
         destination: "/auth",
       },
-      props: {},
+      props: {
+        error: null,
+        user: null,
+      },
     };
-  }
-
-  if (error) {
+  } else if (error) {
     return {
       redirect: {
         permanent: false,
@@ -23,17 +37,32 @@ export const getServerSideProps = async (context: { req: NextRequest }) => {
       },
       props: {
         error,
+        user: null,
+      },
+    };
+  } else {
+    return {
+      props: {
+        error: null,
+        user,
       },
     };
   }
 };
 
-const Home: NextPage = () => {
-  const { user } = useAuthContext();
+const Home: NextPage = (props: Props) => {
+  const user = props.user;
+
   return (
-    <div>
-      <h1>Home NextPage</h1>
-    </div>
+    <React.Fragment>
+      <Meta
+        title="Home"
+        description="Main home page"
+        keywords="oberen, home page, profile, jobs, employers, employees"
+        url="http://localhost:3000"
+      />
+      <h1>{user.username}</h1>
+    </React.Fragment>
   );
 };
 
