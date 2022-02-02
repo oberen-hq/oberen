@@ -26,7 +26,9 @@ const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
     return next();
   }
 
-  await jwt.verify(token, accessSecret);
+  if (!jwt.verify(token, accessSecret)) {
+    return next();
+  }
 
   context.req.user = existingUser;
   return next();
