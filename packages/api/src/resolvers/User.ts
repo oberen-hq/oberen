@@ -69,6 +69,7 @@ export default class UserResolver {
   @UseMiddleware(isAuth)
   @Query(() => UserResponse, { nullable: true })
   me(@Ctx() { req }: MyContext) {
+    console.log(req.user);
     if (!req.user) {
       return {
         errors: [

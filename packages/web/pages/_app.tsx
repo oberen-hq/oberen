@@ -33,6 +33,7 @@ const UserProvider = (props: { children: React.ReactNode }) => {
 
 function MyApp({ Component, pageProps }: any) {
   const client = useApollo(pageProps);
+
   return (
     <ApolloProvider client={client}>
       <UserProvider>

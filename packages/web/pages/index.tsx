@@ -1,4 +1,6 @@
 import type { NextPage } from "next";
+import { MeDocument } from "../generated/graphql";
+import { initializeApollo } from "../utils/apolloClient";
 
 const Index: NextPage = () => {
   return (
