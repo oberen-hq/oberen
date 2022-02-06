@@ -5,7 +5,6 @@ import {
   FieldResolver,
   InputType,
   Mutation,
-  ObjectType,
   Resolver,
   Root,
   Int,
