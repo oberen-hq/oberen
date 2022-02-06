@@ -13,6 +13,7 @@ import {
 import { MyContext } from "../types";
 import { isAuth } from "../middleware/";
 import { User } from "../entities/";
+import { RegisterUserInput, LoginUserInput } from "./inputs";
 
 import argon from "argon2";
 
@@ -34,27 +35,6 @@ class UserResponse {
 
   @Field(() => String, { nullable: true })
   message?: string;
-}
-
-@InputType()
-class RegisterUserInput {
-  @Field()
-  username!: string;
-
-  @Field()
-  email!: string;
-
-  @Field()
-  password!: string;
-}
-
-@InputType()
-class LoginUserInput {
-  @Field()
-  email!: string;
-
-  @Field()
-  password!: string;
 }
 
 @Resolver(User)

@@ -15,13 +15,7 @@ import { isAuth } from "../middleware/";
 import { Post } from "../entities/";
 import { MyContext } from "../types";
 
-@InputType()
-class PostInput {
-  @Field()
-  title!: string;
-  @Field()
-  text!: string;
-}
+import { PostInput } from "./inputs";
 
 // @ObjectType()
 // class PaginatedPosts {
@@ -70,7 +64,7 @@ export default class PostResolver {
     @Ctx() { req }: MyContext,
   ): Promise<Post> {
     // Create a new post -> TODO: validate input
-    const post = await Post.create({
+    const post: Post | undefined = await Post.create({
       ...input,
       creatorId: req.user.id,
     }).save();
