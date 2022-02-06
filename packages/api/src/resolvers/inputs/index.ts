@@ -3,6 +3,12 @@ import { InputType, Field } from "type-graphql";
 // User inputs
 
 @InputType()
+class UpdateUserInput {
+  @Field({ nullable: false })
+  username: string;
+}
+
+@InputType()
 class RegisterUserInput {
   @Field()
   username!: string;
@@ -33,4 +39,4 @@ class PostInput {
   text!: string;
 }
 
-export { RegisterUserInput, LoginUserInput, PostInput };
+export { UpdateUserInput, RegisterUserInput, LoginUserInput, PostInput };

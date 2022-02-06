@@ -10,7 +10,7 @@ import {
 import { MyContext } from "../types";
 import { isAuth } from "../middleware/";
 import { User } from "../entities/";
-import { RegisterUserInput, LoginUserInput } from "./inputs";
+import { UpdateUserInput, RegisterUserInput, LoginUserInput } from "./inputs";
 import { UserResponse } from "./responses";
 
 import argon from "argon2";
@@ -60,13 +60,42 @@ export default class UserResolver {
     }
   }
 
+  @Mutation(() => UserResponse, { nullable: false })
+  async update(
+    @Arg("id", () => Int) id: number,
+    @Arg("input") input: UpdateUserInput,
+  ): Promise<UserResponse> {
+    // Update a user based on the id provided
+    const user: User | undefined = await User.findOne(id);
+
+    if (!user) {
+      return {
+        errors: [
+          {
+            field: "User",
+            message: "A user with that id doesn't exist.",
+          },
+        ],
+      };
+    }
+
+    await User.update(id, {
+      ...input,
+    });
+
+    return {
+      user,
+      message: "Successfully updated user.",
+    };
+  }
+
   @Query(() => [User], { nullable: true })
   async users(): Promise<User[]> {
     // List users -> TODO: pagination and filtering based on active/inactive
     return await User.find({});
   }
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => UserResponse, { nullable: false })
   async register(
     @Arg("input") input: RegisterUserInput,
     @Ctx() { req }: MyContext,
@@ -111,7 +140,7 @@ export default class UserResolver {
     };
   }
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => UserResponse, { nullable: false })
   async login(
     @Arg("input") input: LoginUserInput,
     @Ctx() { req }: MyContext,
