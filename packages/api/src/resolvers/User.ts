@@ -14,6 +14,7 @@ import { UpdateUserInput, RegisterUserInput, LoginUserInput } from "./inputs";
 import { UserResponse } from "./responses";
 
 import argon from "argon2";
+import { COOKIE_NAME } from "../config";
 
 @Resolver(User)
 export default class UserResolver {
@@ -60,12 +61,25 @@ export default class UserResolver {
     }
   }
 
+  @UseMiddleware(isAuth)
   @Mutation(() => UserResponse, { nullable: false })
   async update(
     @Arg("id", () => Int) id: number,
     @Arg("input") input: UpdateUserInput,
+    @Ctx() { req }: MyContext,
   ): Promise<UserResponse> {
     // Update a user based on the id provided
+    if (req.session.user.id !== id) {
+      return {
+        errors: [
+          {
+            field: "User",
+            message: "You are not authorized to update this user.",
+          },
+        ],
+      };
+    }
+
     const user: User | undefined = await User.findOne(id);
 
     if (!user) {
@@ -83,12 +97,57 @@ export default class UserResolver {
       ...input,
     });
 
+    req.session!.user = user;
+
     return {
       user,
       message: "Successfully updated user.",
     };
   }
 
+  @UseMiddleware(isAuth)
+  @Mutation(() => Boolean)
+  async delete(
+    @Arg("id", () => Int) id: number,
+    @Ctx() { req, res }: MyContext,
+  ): Promise<Boolean> {
+    // Delete a user based on the id provided
+
+    return new Promise(async (resolve) => {
+      if (req.session.user.id !== id) {
+        resolve(false);
+      } else {
+        await User.delete(id);
+
+        req.session!.destroy((err: any) => {
+          res.clearCookie(COOKIE_NAME);
+
+          if (err) {
+            console.error(err);
+          } else {
+            resolve(true);
+          }
+        });
+      }
+    });
+  }
+
+  @UseMiddleware(isAuth)
+  @Mutation(() => Boolean)
+  async logout(@Ctx() { req, res }: MyContext): Promise<Boolean> {
+    // Logout a user and destroy the session
+    return new Promise((resolve) => {
+      req.session!.destroy((err: any) => {
+        res.clearCookie(COOKIE_NAME);
+        if (err) {
+          console.error(err);
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      });
+    });
+  }
   @Query(() => [User], { nullable: true })
   async users(): Promise<User[]> {
     // List users -> TODO: pagination and filtering based on active/inactive

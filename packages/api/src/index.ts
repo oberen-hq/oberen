@@ -9,6 +9,8 @@ import {
   DATABASE_PASSWORD,
   PORT,
   REDIS_URL,
+  COOKIE_NAME,
+  COOKIE_SECRET,
 } from "./config";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
@@ -59,7 +61,7 @@ const run = async () => {
 
   app.use(
     session({
-      name: "qid",
+      name: COOKIE_NAME as string,
       store: new RedisStore({
         client: redis,
         disableTouch: true,
@@ -70,7 +72,7 @@ const run = async () => {
         secure: false,
         sameSite: "lax",
       },
-      secret: "keyboard cat",
+      secret: "keybaord cat",
       resave: false,
       saveUninitialized: false,
     }),
@@ -107,7 +109,9 @@ const run = async () => {
   app.listen(PORT, () => {
     logger.info(
       `Server has started: ${
-        __prod__ ? "https://oberen.com" : "http://localhost:" + PORT
+        __prod__
+          ? "https://oberen.com"
+          : "http://localhost:" + PORT + "/graphql"
       }`,
     );
   });
