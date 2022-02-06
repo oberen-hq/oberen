@@ -1,10 +1,7 @@
 import {
   Arg,
   Ctx,
-  Field,
-  InputType,
   Mutation,
-  ObjectType,
   Resolver,
   Int,
   Query,
@@ -14,28 +11,9 @@ import { MyContext } from "../types";
 import { isAuth } from "../middleware/";
 import { User } from "../entities/";
 import { RegisterUserInput, LoginUserInput } from "./inputs";
+import { UserResponse } from "./responses";
 
 import argon from "argon2";
-
-@ObjectType()
-class FieldError {
-  @Field()
-  field: string;
-  @Field()
-  message: string;
-}
-
-@ObjectType()
-class UserResponse {
-  @Field(() => [FieldError], { nullable: true })
-  errors?: FieldError[];
-
-  @Field(() => User, { nullable: true })
-  user?: User;
-
-  @Field(() => String, { nullable: true })
-  message?: string;
-}
 
 @Resolver(User)
 export default class UserResolver {
