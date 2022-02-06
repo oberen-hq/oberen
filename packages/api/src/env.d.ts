@@ -1,3 +1,5 @@
+// This file is used for types on the environment - easier to view the environment
+
 declare namespace NodeJS {
   export interface ProcessEnv {
     DATABASE_USERNAME: string;

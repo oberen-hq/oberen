@@ -1,4 +1,6 @@
-import "reflect-metadata";
+// Main server file - this is the entry point for the server
+
+import "reflect-metadata"; // Checking types
 
 import {
   __prod__,
