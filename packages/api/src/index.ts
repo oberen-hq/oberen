@@ -6,17 +6,25 @@ import {
   DATABASE_USERNAME,
   DATABASE_PASSWORD,
   PORT,
+  REDIS_URL,
 } from "./config";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
+import {
+  ApolloServerPluginLandingPageProductionDefault,
+  ApolloServerPluginLandingPageGraphQLPlayground,
+} from "apollo-server-core";
 import { buildSchema } from "type-graphql";
 import { UserResolver, PostResolver } from "./resolvers/";
 import { User, Post } from "./entities";
+import { logger } from "./helpers/";
 
 import path from "path";
 import express from "express";
 import cors from "cors";
-import { logger } from "./helpers/";
+import Redis from "ioredis";
+import session from "express-session";
+import connectRedis from "connect-redis";
 
 const run = async () => {
   logger.info("Server is starting...");
@@ -35,11 +43,34 @@ const run = async () => {
   });
 
   const app = express();
+
+  const RedisStore = connectRedis(session);
+  const redis = new Redis(REDIS_URL || "redis://localhost:6379");
+
   app.set("trust proxy", 1);
   app.use(
     cors({
       origin: ["http://localhost:3000", "https://studio.apollographql.com"],
       credentials: true,
+    }),
+  );
+
+  app.use(
+    session({
+      name: "qid",
+      store: new RedisStore({
+        client: redis,
+        disableTouch: true,
+      }),
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
+      },
+      secret: "keyboard cat",
+      resave: false,
+      saveUninitialized: false,
     }),
   );
 
@@ -51,7 +82,17 @@ const run = async () => {
     context: ({ req, res }) => ({
       req,
       res,
+      redis,
     }),
+    plugins: [
+      __prod__
+        ? ApolloServerPluginLandingPageProductionDefault()
+        : ApolloServerPluginLandingPageGraphQLPlayground({
+            settings: {
+              "request.credentials": "include",
+            },
+          }),
+    ],
   });
 
   await apolloServer.start();

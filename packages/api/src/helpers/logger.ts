@@ -1,5 +1,5 @@
 import { __prod__ } from "../config";
-import { createLogger, format, transports, config } from "winston";
+import { createLogger, format, transports } from "winston";
 
 const logger = createLogger({
   transports: [

@@ -1,9 +1,6 @@
 import { MiddlewareFn } from "type-graphql";
 import { MyContext } from "../types";
 
-import jwt from "jsonwebtoken";
-import User from "../entities/User";
-
 /**
  * Authentication middleware
  *
@@ -13,24 +10,10 @@ import User from "../entities/User";
  * **/
 
 const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
-  const token = context.req.headers.authorization;
-  const accessSecret = process.env.ACCESS_SECRET;
-
-  if (!token) {
-    return next();
+  if (!context.req.session.user) {
+    throw new Error("not_authenticated");
   }
 
-  const existingUser = await User.findOne({ accessToken: token });
-
-  if (!existingUser) {
-    return next();
-  }
-
-  if (!jwt.verify(token, accessSecret)) {
-    return next();
-  }
-
-  context.req.user = existingUser;
   return next();
 };
 

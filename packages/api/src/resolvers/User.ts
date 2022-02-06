@@ -14,7 +14,6 @@ import { MyContext } from "../types";
 import { isAuth } from "../middleware/";
 import { User } from "../entities/";
 
-import jwt from "jsonwebtoken";
 import argon from "argon2";
 import dotenv from "dotenv";
 
@@ -35,9 +34,6 @@ class UserResponse {
 
   @Field(() => User, { nullable: true })
   user?: User;
-
-  @Field(() => String, { nullable: true })
-  token?: string;
 
   @Field(() => String, { nullable: true })
   message?: string;
@@ -69,8 +65,7 @@ export default class UserResolver {
   @UseMiddleware(isAuth)
   @Query(() => UserResponse, { nullable: true })
   me(@Ctx() { req }: MyContext) {
-    console.log(req.user);
-    if (!req.user) {
+    if (!req.session.user) {
       return {
         errors: [
           {
@@ -81,7 +76,7 @@ export default class UserResolver {
       };
     } else {
       return {
-        user: req.user,
+        user: req.session.user,
         message: "Successfully queried user.",
       };
     }
@@ -115,22 +110,15 @@ export default class UserResolver {
   @Mutation(() => UserResponse)
   async createUser(
     @Arg("input") input: RegisterUserInput,
+    @Ctx() { req }: MyContext,
   ): Promise<UserResponse | String> {
     let user;
-    input.password = await argon.hash(input.password);
 
-    const accessToken = jwt.sign(
-      { email: input.email },
-      process.env.ACCESS_SECRET,
-      {
-        expiresIn: "365d",
-      },
-    );
+    input.password = await argon.hash(input.password);
 
     try {
       user = await User.create({
         ...input,
-        accessToken,
       }).save();
     } catch (error: any) {
       if (error.code === "23505") {
@@ -154,9 +142,11 @@ export default class UserResolver {
       }
     }
 
+    req.session!.user = user;
+    req.session.save();
+
     return {
       user,
-      token: accessToken,
       message: "Successfully created user.",
     };
   }
@@ -164,20 +154,12 @@ export default class UserResolver {
   @Mutation(() => UserResponse)
   async loginUser(
     @Arg("input") input: LoginUserInput,
+    @Ctx() { req }: MyContext,
   ): Promise<UserResponse | String> {
     let user: any;
-    let accessToken: string;
 
     try {
       user = await User.findOne({ email: input.email });
-
-      accessToken = await jwt.sign(
-        { email: input.email },
-        process.env.ACCESS_SECRET,
-        {
-          expiresIn: "365d",
-        },
-      );
     } catch (error) {
       console.error(error);
       return {
@@ -213,10 +195,11 @@ export default class UserResolver {
         ],
       };
     } else {
-      await User.update({ email: input.email }, { accessToken: accessToken });
+      req.session!.userId = user.id;
+
+      req.session.save();
 
       return {
-        token: accessToken,
         user,
         message: "Successfully logged in user.",
       };
