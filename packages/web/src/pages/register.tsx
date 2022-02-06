@@ -1,5 +1,6 @@
 import React from "react";
 
+import { gql, useMutation } from "urql";
 import { Formik, Form, Field } from "formik";
 import {
   FormControl,
@@ -13,14 +14,35 @@ import { Wrapper, InputField } from "../components";
 
 interface RegisterProps {}
 
+const REGISTER_MUTATION = gql`
+  mutation Register($username: String!, $email: String!, $password: String!) {
+    register(
+      input: { username: $username, email: $email, password: $password }
+    ) {
+      user {
+        id
+        username
+        email
+      }
+      errors {
+        field
+        message
+      }
+      message
+    }
+  }
+`;
+
 const Register: React.FC<RegisterProps> = ({}) => {
+  const [, register] = useMutation(REGISTER_MUTATION);
+
   return (
     <React.Fragment>
       <Wrapper variant="small">
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
-          onSubmit={(values, actions) => {
-            console.log(values);
+          onSubmit={async (values) => {
+            await register(values);
           }}
         >
           {(props) => (
