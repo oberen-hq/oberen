@@ -10,6 +10,7 @@ import { MyContext } from "../types";
  * **/
 
 const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
+  // Verify the user is authenticated by checking if there is an existing session
   if (!context.req.session.user) {
     throw new Error("not_authenticated");
   }

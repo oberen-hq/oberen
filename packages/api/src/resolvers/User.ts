@@ -1,10 +1,7 @@
 import {
   Arg,
   Ctx,
-  Field,
-  InputType,
   Mutation,
-  ObjectType,
   Resolver,
   Int,
   Query,
@@ -13,58 +10,18 @@ import {
 import { MyContext } from "../types";
 import { isAuth } from "../middleware/";
 import { User } from "../entities/";
+import { UpdateUserInput, RegisterUserInput, LoginUserInput } from "./inputs";
+import { UserResponse } from "./responses";
 
 import argon from "argon2";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-@ObjectType()
-class FieldError {
-  @Field()
-  field: string;
-  @Field()
-  message: string;
-}
-
-@ObjectType()
-class UserResponse {
-  @Field(() => [FieldError], { nullable: true })
-  errors?: FieldError[];
-
-  @Field(() => User, { nullable: true })
-  user?: User;
-
-  @Field(() => String, { nullable: true })
-  message?: string;
-}
-
-@InputType()
-class RegisterUserInput {
-  @Field()
-  username!: string;
-
-  @Field()
-  email!: string;
-
-  @Field()
-  password!: string;
-}
-
-@InputType()
-class LoginUserInput {
-  @Field()
-  email!: string;
-
-  @Field()
-  password!: string;
-}
+import { COOKIE_NAME } from "../config";
 
 @Resolver(User)
 export default class UserResolver {
   @UseMiddleware(isAuth)
   @Query(() => UserResponse, { nullable: true })
   me(@Ctx() { req }: MyContext) {
+    // Check if there is a userId on the session
     if (!req.session.user) {
       return {
         errors: [
@@ -81,9 +38,11 @@ export default class UserResolver {
       };
     }
   }
+
   @Query(() => UserResponse, { nullable: true })
   async user(@Arg("id", () => Int) id: number): Promise<UserResponse> {
-    const user = await User.findOne(id);
+    // Get a user based on the id provided
+    const user: User | undefined = await User.findOne(id);
 
     if (!user) {
       return {
@@ -102,19 +61,108 @@ export default class UserResolver {
     }
   }
 
+  @UseMiddleware(isAuth)
+  @Mutation(() => UserResponse, { nullable: false })
+  async update(
+    @Arg("id", () => Int) id: number,
+    @Arg("input") input: UpdateUserInput,
+    @Ctx() { req }: MyContext,
+  ): Promise<UserResponse> {
+    // Update a user based on the id provided
+    if (req.session.user.id !== id) {
+      return {
+        errors: [
+          {
+            field: "User",
+            message: "You are not authorized to update this user.",
+          },
+        ],
+      };
+    }
+
+    const user: User | undefined = await User.findOne(id);
+
+    if (!user) {
+      return {
+        errors: [
+          {
+            field: "User",
+            message: "A user with that id doesn't exist.",
+          },
+        ],
+      };
+    }
+
+    await User.update(id, {
+      ...input,
+    });
+
+    req.session!.user = user;
+
+    return {
+      user,
+      message: "Successfully updated user.",
+    };
+  }
+
+  @UseMiddleware(isAuth)
+  @Mutation(() => Boolean)
+  async delete(
+    @Arg("id", () => Int) id: number,
+    @Ctx() { req, res }: MyContext,
+  ): Promise<Boolean> {
+    // Delete a user based on the id provided
+
+    return new Promise(async (resolve) => {
+      if (req.session.user.id !== id) {
+        resolve(false);
+      } else {
+        await User.delete(id);
+
+        req.session!.destroy((err: any) => {
+          res.clearCookie(COOKIE_NAME);
+
+          if (err) {
+            console.error(err);
+          } else {
+            resolve(true);
+          }
+        });
+      }
+    });
+  }
+
+  @UseMiddleware(isAuth)
+  @Mutation(() => Boolean)
+  async logout(@Ctx() { req, res }: MyContext): Promise<Boolean> {
+    // Logout a user and destroy the session
+    return new Promise((resolve) => {
+      req.session!.destroy((err: any) => {
+        res.clearCookie(COOKIE_NAME);
+        if (err) {
+          console.error(err);
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      });
+    });
+  }
   @Query(() => [User], { nullable: true })
-  async users(): Promise<User[] | undefined> {
+  async users(): Promise<User[]> {
+    // List users -> TODO: pagination and filtering based on active/inactive
     return await User.find({});
   }
 
-  @Mutation(() => UserResponse)
-  async createUser(
+  @Mutation(() => UserResponse, { nullable: false })
+  async register(
     @Arg("input") input: RegisterUserInput,
     @Ctx() { req }: MyContext,
-  ): Promise<UserResponse | String> {
-    let user;
-
+  ): Promise<UserResponse> {
+    // Register a new user and store the session -> TODO: validate input
     input.password = await argon.hash(input.password);
+
+    let user: User;
 
     try {
       user = await User.create({
@@ -151,66 +199,56 @@ export default class UserResolver {
     };
   }
 
-  @Mutation(() => UserResponse)
-  async loginUser(
+  @Mutation(() => UserResponse, { nullable: false })
+  async login(
     @Arg("input") input: LoginUserInput,
     @Ctx() { req }: MyContext,
-  ): Promise<UserResponse | String> {
-    let user: any;
+  ): Promise<UserResponse> {
+    // Login a user and store the session -> TODO: validate input
 
-    try {
-      user = await User.findOne({ email: input.email });
-    } catch (error) {
-      console.error(error);
-      return {
-        errors: [
-          {
-            field: "User",
-            message: "Internal server error.",
-          },
-        ],
-      };
-    }
+    const user: User | undefined = await User.findOne({
+      where: { email: input.email },
+    });
 
     if (!user) {
       return {
         errors: [
           {
             field: "User",
-            message: "A user with that email does not exist.",
+            message: "A user with that email doesn't exist.",
           },
         ],
       };
     }
 
-    const correctPassword = await argon.verify(user.password, input.password);
+    const valid = await argon.verify(user.password, input.password);
 
-    if (!correctPassword) {
+    if (!valid) {
       return {
         errors: [
           {
             field: "User",
-            message: "Login failed. Password does not match.",
+            message: "Login failed. Please check your credentials.",
           },
         ],
       };
-    } else {
-      req.session!.userId = user.id;
-
-      req.session.save();
-
-      return {
-        user,
-        message: "Successfully logged in user.",
-      };
     }
+
+    req.session!.user = user;
+    req.session.save();
+
+    return {
+      user,
+      message: "Successfully logged in.",
+    };
   }
 
   @Query(() => Boolean)
   async checkEmailExists(
     @Arg("email", () => String) email: string,
   ): Promise<Boolean> {
-    const existingUser = await User.findOne({ email: email });
+    // Check if a user exists with the provided email exists
+    const existingUser: User | undefined = await User.findOne({ email: email });
 
     return existingUser ? true : false;
   }
