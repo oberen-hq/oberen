@@ -1,3 +1,5 @@
 import DarkModeSwitch from "./DarkModeSwitch";
+import Wrapper from "./Wrapper";
+import InputField from "./InputField";
 
-export { DarkModeSwitch };
+export { DarkModeSwitch, Wrapper, InputField };
