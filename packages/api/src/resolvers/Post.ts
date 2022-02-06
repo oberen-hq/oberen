@@ -1,4 +1,3 @@
-import { isAuth } from "../middleware/";
 import {
   Arg,
   Ctx,
@@ -13,6 +12,7 @@ import {
   Query,
   UseMiddleware,
 } from "type-graphql";
+import { isAuth } from "../middleware/";
 import { Post } from "../entities/";
 import { MyContext } from "../types";
 
@@ -24,28 +24,31 @@ class PostInput {
   text!: string;
 }
 
-@ObjectType()
-class PaginatedPosts {
-  @Field(() => [Post])
-  posts: Post[];
-  @Field()
-  hasMore: boolean;
-}
+// @ObjectType()
+// class PaginatedPosts {
+//   @Field(() => [Post])
+//   posts: Post[];
+//   @Field()
+//   hasMore: boolean;
+// }
 
 @Resolver(Post)
 export default class PostResolver {
   @FieldResolver(() => String)
   textSnippet(@Root() post: Post) {
+    // Get a text snippet of the post, used for embeds
     return post.text.slice(0, 50);
   }
 
   @Query(() => Post, { nullable: true })
   post(@Arg("id", () => Int) id: number): Promise<Post | undefined> {
+    // Find a post by id
     return Post.findOne(id);
   }
 
   @Query(() => [Post], { nullable: true })
   posts(): Promise<Post[] | undefined> {
+    // Find all posts -> TODO: pagination
     return Post.find({});
   }
 
@@ -53,6 +56,7 @@ export default class PostResolver {
   async findPostsByUserId(
     @Arg("id", () => Int) id: number,
   ): Promise<Post[] | undefined> {
+    // Find all posts by user id
     return await Post.find({
       where: {
         creatorId: id,
@@ -66,6 +70,7 @@ export default class PostResolver {
     @Arg("input") input: PostInput,
     @Ctx() { req }: MyContext,
   ): Promise<Post> {
+    // Create a new post -> TODO: validate input
     const post = await Post.create({
       ...input,
       creatorId: req.user.id,
