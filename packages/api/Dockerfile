@@ -1,12 +1,21 @@
-FROM node:alpine3.11
+FROM node:14
+
+# Create app directory
 
 WORKDIR /usr/app
 
+COPY package.json ./
+COPY yarn.lock ./
+
+RUN yarn
+
 COPY . .
+COPY .env.production .env
 
-RUN yarn && yarn db:generate && yarn build
+RUN yarn build
 
-EXPOSE 4000
-EXPOSE 5432
+ENV NODE_ENV production
 
+EXPOSE 8080
 CMD ["yarn", "start:prod"]
+USER node
