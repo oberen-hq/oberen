@@ -1,52 +1,39 @@
 import React from "react";
 
-import { gql, useMutation } from "urql";
-import { Formik, Form, Field } from "formik";
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Input,
-  Divider,
-  Button,
-} from "@chakra-ui/react";
+import { Formik, Form } from "formik";
+import { Button } from "@chakra-ui/react";
 import { Wrapper, InputField } from "../components";
+
+import { useRegisterMutation } from "../generated/graphql";
+import { useRouter } from "next/router";
+
+import { toErrorMap } from "../utils";
 
 interface RegisterProps {}
 
-const REGISTER_MUTATION = gql`
-  mutation Register($username: String!, $email: String!, $password: String!) {
-    register(
-      input: { username: $username, email: $email, password: $password }
-    ) {
-      user {
-        id
-        username
-        email
-      }
-      errors {
-        field
-        message
-      }
-      message
-    }
-  }
-`;
-
 const Register: React.FC<RegisterProps> = ({}) => {
-  const [, register] = useMutation(REGISTER_MUTATION);
+  const router = useRouter();
+  const [, register] = useRegisterMutation();
 
   return (
     <React.Fragment>
       <Wrapper variant="small">
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
+          onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
             setSubmitting(true);
+
             const response = await register(values);
-            setSubmitting(false);
-            resetForm();
-            return response;
+            if (response.data?.register.errors) {
+              setErrors(toErrorMap(response.data.register.errors));
+              setSubmitting(false);
+            } else if (response.data?.register.user) {
+              setSubmitting(false);
+              resetForm();
+              router.push("/");
+            } else {
+              setSubmitting(false);
+            }
           }}
         >
           {(props) => (
