@@ -41,8 +41,12 @@ const Register: React.FC<RegisterProps> = ({}) => {
       <Wrapper variant="small">
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
-          onSubmit={async (values) => {
-            await register(values);
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            setSubmitting(true);
+            const response = await register(values);
+            setSubmitting(false);
+            resetForm();
+            return response;
           }}
         >
           {(props) => (
@@ -52,6 +56,8 @@ const Register: React.FC<RegisterProps> = ({}) => {
                 label="Username"
                 placeholder="Your username"
                 type="text"
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
                 mt={4}
                 mb={4}
               />
@@ -60,6 +66,8 @@ const Register: React.FC<RegisterProps> = ({}) => {
                 label="Email"
                 placeholder="Your email"
                 type="text"
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
                 mt={4}
                 mb={4}
               />
@@ -68,6 +76,8 @@ const Register: React.FC<RegisterProps> = ({}) => {
                 label="Password"
                 placeholder="Your password"
                 type="password"
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
                 mt={4}
                 mb={6}
               />
