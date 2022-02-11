@@ -12,9 +12,9 @@ import { isAuth } from "../middleware/";
 import { User } from "../entities/";
 import { UpdateUserInput, RegisterUserInput, LoginUserInput } from "./inputs";
 import { UserResponse } from "./responses";
+import { COOKIE_NAME } from "../config";
 
 import argon from "argon2";
-import { COOKIE_NAME } from "../config";
 
 @Resolver(User)
 export default class UserResolver {
