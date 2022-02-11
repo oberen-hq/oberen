@@ -7,9 +7,10 @@ import {
   Column,
   BaseEntity,
   OneToMany,
+  OneToOne,
 } from "typeorm";
-
-import Post from "./Post";
+import { RoleTypes } from "../types";
+import { Profile, Post } from "./";
 
 @ObjectType()
 @Entity()
@@ -29,7 +30,16 @@ export default class User extends BaseEntity {
   @Column()
   password!: string;
 
-  @OneToMany(() => Post, (post) => post.creator)
+  @Field(() => [String])
+  @Column()
+  roles: RoleTypes[];
+
+  @Field(() => Profile)
+  @OneToOne(() => Profile, (profile) => profile.user)
+  profile?: Profile;
+
+  @Field(() => [Post])
+  @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
 
   @Field(() => String)

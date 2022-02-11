@@ -9,12 +9,12 @@ import {
 } from "type-graphql";
 import { MyContext } from "../types";
 import { isAuth } from "../middleware/";
-import { User } from "../entities/";
+import { Profile, User } from "../entities/";
 import { UpdateUserInput, RegisterUserInput, LoginUserInput } from "./inputs";
 import { UserResponse } from "./responses";
+import { COOKIE_NAME } from "../config";
 
 import argon from "argon2";
-import { COOKIE_NAME } from "../config";
 
 @Resolver(User)
 export default class UserResolver {
@@ -63,7 +63,7 @@ export default class UserResolver {
 
   @UseMiddleware(isAuth)
   @Mutation(() => UserResponse, { nullable: false })
-  async update(
+  async updateUser(
     @Arg("id", () => Int) id: number,
     @Arg("input") input: UpdateUserInput,
     @Ctx() { req }: MyContext,
@@ -107,7 +107,7 @@ export default class UserResolver {
 
   @UseMiddleware(isAuth)
   @Mutation(() => Boolean)
-  async delete(
+  async deleteUser(
     @Arg("id", () => Int) id: number,
     @Ctx() { req, res }: MyContext,
   ): Promise<Boolean> {

@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { Redis } from "ioredis";
 import { User } from "./entities";
 
+// Types
+
 export type MyContext = {
   req: Request & {
     session: any & {
@@ -12,3 +14,11 @@ export type MyContext = {
   res: Response;
   redis: Redis;
 };
+
+// Interfaces
+
+export interface RoleTypes {
+  admin: "ADMIN";
+  employee: "EMPLOYEE";
+  employer: "EMPLOYER";
+}

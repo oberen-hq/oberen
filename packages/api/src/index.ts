@@ -72,7 +72,7 @@ const run = async () => {
         secure: false,
         sameSite: "lax",
       },
-      secret: "keybaord cat",
+      secret: COOKIE_SECRET as string,
       resave: false,
       saveUninitialized: false,
     }),
