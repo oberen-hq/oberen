@@ -63,7 +63,7 @@ export default class UserResolver {
 
   @UseMiddleware(isAuth)
   @Mutation(() => UserResponse, { nullable: false })
-  async update(
+  async updateUser(
     @Arg("id", () => Int) id: number,
     @Arg("input") input: UpdateUserInput,
     @Ctx() { req }: MyContext,
@@ -107,7 +107,7 @@ export default class UserResolver {
 
   @UseMiddleware(isAuth)
   @Mutation(() => Boolean)
-  async delete(
+  async deleteUser(
     @Arg("id", () => Int) id: number,
     @Ctx() { req, res }: MyContext,
   ): Promise<Boolean> {
