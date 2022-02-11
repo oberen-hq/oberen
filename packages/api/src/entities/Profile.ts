@@ -1,38 +1,30 @@
 import { ObjectType, Field } from "type-graphql";
 import {
   Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
+  Column,
+  BaseEntity,
+  OneToOne,
+  PrimaryColumn,
 } from "typeorm";
+import { v4 as uuid } from "uuid";
 
-import User from "./User";
+import { User } from "./";
 
 @ObjectType()
 @Entity()
-export default class Post extends BaseEntity {
+export default class Profile extends BaseEntity {
   @Field()
-  @Column()
-  @PrimaryGeneratedColumn()
-  id!: number;
-
-  @Field()
-  @Column()
-  title!: string;
-
-  @Field()
-  @Column()
-  text!: string;
+  @PrimaryColumn({ default: () => uuid() })
+  id!: string;
 
   @Field()
   @Column()
   userId: number;
 
   @Field(() => User)
-  @ManyToOne(() => User, (user) => user.posts)
+  @OneToOne(() => User, (user) => user.profile)
   user: User;
 
   @Field(() => String)
