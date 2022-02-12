@@ -70,7 +70,7 @@ export default class PostResolver {
     // Find all posts by user id
     return await Post.find({
       where: {
-        creatorId: id,
+        userId: id,
       },
     });
   }
