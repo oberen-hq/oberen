@@ -5,8 +5,9 @@ import {
   UpdateDateColumn,
   Column,
   BaseEntity,
-  OneToOne,
   PrimaryColumn,
+  ManyToMany,
+  ManyToOne,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 
@@ -24,8 +25,12 @@ export default class Organization extends BaseEntity {
   creatorId: number;
 
   @Field(() => User)
-  @OneToOne(() => User, (user) => user.profile)
+  @ManyToOne(() => User, (user) => user.profile)
   creator: User;
+
+  @Field(() => [User])
+  @ManyToMany(() => User, (user) => user.joinedOrganizations)
+  members: User[];
 
   @Field(() => String)
   @CreateDateColumn()

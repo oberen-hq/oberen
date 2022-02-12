@@ -7,6 +7,7 @@ import {
   BaseEntity,
   OneToOne,
   PrimaryColumn,
+  ManyToMany,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 
@@ -27,6 +28,9 @@ export default class Job extends BaseEntity {
   @OneToOne(() => User, (user) => user.profile)
   creator: User;
 
+  @Field(() => [User])
+  @ManyToMany(() => User, (user) => user.jobs)
+  employees: User[];
   @Field(() => String)
   @CreateDateColumn()
   createdAt: Date;
