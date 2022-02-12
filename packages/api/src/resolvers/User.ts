@@ -9,7 +9,7 @@ import {
 } from "type-graphql";
 import { MyContext } from "../types";
 import { isAuth } from "../middleware/";
-import { Profile, User } from "../entities/";
+import { User } from "../entities/";
 import { UpdateUserInput, RegisterUserInput, LoginUserInput } from "./inputs";
 import { UserResponse } from "./responses";
 import { COOKIE_NAME } from "../config";

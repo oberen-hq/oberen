@@ -20,7 +20,16 @@ import {
 } from "apollo-server-core";
 import { buildSchema } from "type-graphql";
 import { UserResolver, PostResolver } from "./resolvers/";
-import { User, Post } from "./entities";
+import {
+  User,
+  Post,
+  Profile,
+  Session,
+  Error,
+  Organization,
+  Job,
+  Task,
+} from "./entities";
 import { logger } from "./helpers/";
 
 import path from "path";
@@ -40,7 +49,7 @@ const run = async () => {
     username: DATABASE_USERNAME || "postgres",
     password: DATABASE_PASSWORD || "postgres",
     database: DATABASE_NAME || "api",
-    entities: [Post, User],
+    entities: [User, Post, Profile, Session, Error, Organization, Job, Task],
     migrations: [path.join(__dirname, "/migrations/*")],
     logging: __prod__,
     synchronize: !__prod__,

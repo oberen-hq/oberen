@@ -6,9 +6,8 @@ import {
   Column,
   BaseEntity,
   OneToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from "typeorm";
-import { v4 as uuid } from "uuid";
 
 import { User } from "./";
 
@@ -16,7 +15,7 @@ import { User } from "./";
 @Entity()
 export default class Error extends BaseEntity {
   @Field()
-  @PrimaryColumn({ default: () => uuid() })
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Field()

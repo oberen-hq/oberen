@@ -10,11 +10,9 @@ import {
   OneToOne,
   ManyToMany,
 } from "typeorm";
+
 import { RoleTypes } from "../types";
-import { Profile, Session, Error, Post } from "./";
-import Job from "./Job";
-import Organization from "./Organization";
-import Task from "./Task";
+import { Profile, Session, Error, Post, Organization, Job, Task } from "./";
 
 @ObjectType()
 @Entity()
@@ -34,9 +32,9 @@ export default class User extends BaseEntity {
   @Column()
   password!: string;
 
-  @Field(() => [String])
+  @Field(() => String)
   @Column()
-  roles: RoleTypes[];
+  role: string;
 
   @Field(() => Profile)
   @OneToOne(() => Profile, (profile) => profile.user)

@@ -6,18 +6,16 @@ import {
   Column,
   BaseEntity,
   OneToOne,
-  PrimaryColumn,
   ManyToMany,
+  PrimaryGeneratedColumn,
 } from "typeorm";
-import { v4 as uuid } from "uuid";
-
 import { User } from "./";
 
 @ObjectType()
 @Entity()
 export default class Task extends BaseEntity {
   @Field()
-  @PrimaryColumn({ default: () => uuid() })
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Field()
@@ -31,6 +29,7 @@ export default class Task extends BaseEntity {
   @Field(() => [User])
   @ManyToMany(() => User, (user) => user.tasks)
   assigned?: User[];
+
   @Field(() => String)
   @CreateDateColumn()
   createdAt: Date;

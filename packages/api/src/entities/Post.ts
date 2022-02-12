@@ -15,9 +15,8 @@ import User from "./User";
 @Entity()
 export default class Post extends BaseEntity {
   @Field()
-  @Column()
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
   @Field()
   @Column()
