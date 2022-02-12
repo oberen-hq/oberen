@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
   Column,
   BaseEntity,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 
@@ -35,12 +35,12 @@ export default class Error extends BaseEntity {
   @Column()
   message!: string;
 
-  @Field(() => Number)
+  @Field()
   @Column()
   userId: number;
 
   @Field(() => User)
-  @OneToOne(() => User, (user) => user.profile)
+  @ManyToOne(() => User, (user) => user.profile)
   user: User;
 
   @Field(() => String)

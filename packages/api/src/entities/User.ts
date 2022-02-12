@@ -36,41 +36,40 @@ export default class User extends BaseEntity {
     type: "enum",
     array: true,
     enum: ["admin", "employer", "employee"],
-    default: ["employee"],
   })
-  role!: string[];
+  roles!: string[];
 
-  @Field(() => Profile)
+  @Field(() => Profile, { nullable: true })
   @OneToOne(() => Profile, (profile) => profile.user)
   profile?: Profile;
 
-  @Field(() => [Session])
+  @Field(() => [Session], { nullable: true })
   @OneToMany(() => Session, (session) => session.user)
   sessions?: Session[];
 
-  @Field(() => [Error])
+  @Field(() => [Error], { nullable: true })
   @OneToMany(() => Error, (error) => error.user)
   errors?: Error[];
 
-  @Field(() => [Organization])
+  @Field(() => [Organization], { nullable: true })
   @OneToMany(() => Organization, (organization) => organization.creator)
   ownedOrganizations?: Organization[];
 
-  @Field(() => [Organization])
+  @Field(() => [Organization], { nullable: true })
   @ManyToMany(() => Organization, (organization) => organization.members)
   joinedOrganizations?: Organization[];
 
-  @Field(() => [Job])
+  @Field(() => [Job], { nullable: true })
   @ManyToMany(() => Job, (job) => job.employees)
   jobs?: Job[];
 
-  @Field(() => [Post])
+  @Field(() => [Post], { nullable: true })
   @ManyToMany(() => Task, (task) => task.assigned)
   tasks?: Task[];
 
-  @Field(() => [Post])
+  @Field(() => [Post], { nullable: true })
   @OneToMany(() => Post, (post) => post.user)
-  posts: Post[];
+  posts?: Post[];
 
   @Field(() => String)
   @CreateDateColumn()

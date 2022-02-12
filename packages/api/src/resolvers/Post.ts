@@ -88,8 +88,9 @@ export default class PostResolver {
     try {
       post = await Post.create({
         ...input,
+        user: req.session.user,
         userId: req.session.user.id,
-      });
+      }).save();
     } catch (err: any) {
       return {
         errors: [

@@ -7,8 +7,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  BeforeInsert,
 } from "typeorm";
 
+import { v4 as uuid } from "uuid";
 import User from "./User";
 
 @ObjectType()
@@ -17,6 +19,11 @@ export default class Post extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id!: string;
+
+  @BeforeInsert()
+  setId() {
+    this.id = uuid();
+  }
 
   @Field()
   @Column()

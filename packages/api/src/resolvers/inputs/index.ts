@@ -18,6 +18,9 @@ class RegisterUserInput {
 
   @Field()
   password!: string;
+
+  @Field(() => [String])
+  roles!: string[];
 }
 
 @InputType()

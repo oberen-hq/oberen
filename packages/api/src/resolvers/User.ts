@@ -9,7 +9,7 @@ import {
 } from "type-graphql";
 import { MyContext } from "../types";
 import { isAuth } from "../middleware/";
-import { User } from "../entities/";
+import { User, Error } from "../entities/";
 import { UpdateUserInput, RegisterUserInput, LoginUserInput } from "./inputs";
 import { UserResponse } from "./responses";
 import { COOKIE_NAME } from "../config";
@@ -27,7 +27,7 @@ export default class UserResolver {
         errors: [
           {
             field: "User",
-            message: "Couldn't retrieve current user.",
+            message: "No user found on session.",
           },
         ],
       };
@@ -119,10 +119,15 @@ export default class UserResolver {
       } else {
         await User.delete(id);
 
-        req.session!.destroy((err: any) => {
+        req.session!.destroy(async (err: any) => {
           res.clearCookie(COOKIE_NAME);
 
           if (err) {
+            await Error.create({
+              field: "User",
+              message: "Internal server error. Please try again.",
+              userId: req.session.user.id,
+            }).save();
             console.error(err);
           } else {
             resolve(true);
