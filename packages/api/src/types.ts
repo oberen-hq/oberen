@@ -14,11 +14,3 @@ export type MyContext = {
   res: Response;
   redis: Redis;
 };
-
-// Interfaces
-
-export interface RoleTypes {
-  admin: "ADMIN";
-  employee: "EMPLOYEE";
-  employer: "EMPLOYER";
-}

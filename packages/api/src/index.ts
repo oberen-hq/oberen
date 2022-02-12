@@ -160,7 +160,7 @@ class Server {
     try {
       await this.start();
     } catch (err) {
-      logger.error(err);
+      console.error(err);
     }
   }
 }

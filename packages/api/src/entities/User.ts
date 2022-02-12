@@ -11,7 +11,6 @@ import {
   ManyToMany,
 } from "typeorm";
 
-import { RoleTypes } from "../types";
 import { Profile, Session, Error, Post, Organization, Job, Task } from "./";
 
 @ObjectType()
@@ -32,9 +31,14 @@ export default class User extends BaseEntity {
   @Column()
   password!: string;
 
-  @Field(() => String)
-  @Column()
-  role: string;
+  @Field(() => [String])
+  @Column({
+    type: "enum",
+    array: true,
+    enum: ["admin", "employer", "employee"],
+    default: ["employee"],
+  })
+  role!: string[];
 
   @Field(() => Profile)
   @OneToOne(() => Profile, (profile) => profile.user)
