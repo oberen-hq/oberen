@@ -6,6 +6,7 @@ import {
   Column,
   BaseEntity,
   OneToOne,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 
@@ -13,18 +14,22 @@ import { User } from "./";
 
 @ObjectType()
 @Entity()
-export default class Profile extends BaseEntity {
+export default class Job extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Field()
   @Column()
-  userId: number;
+  creatorId: number;
 
   @Field(() => User)
   @OneToOne(() => User, (user) => user.profile)
-  user: User;
+  creator: User;
+
+  @Field(() => [User])
+  @ManyToMany(() => User, (user) => user.jobs)
+  employees: User[];
 
   @Field(() => String)
   @CreateDateColumn()

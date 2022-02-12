@@ -1,44 +1,29 @@
 import { ObjectType, Field } from "type-graphql";
 import {
   Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
-  BeforeInsert,
+  Column,
+  BaseEntity,
+  OneToOne,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 
-import { v4 as uuid } from "uuid";
-import User from "./User";
+import { User } from "./";
 
 @ObjectType()
 @Entity()
-export default class Post extends BaseEntity {
+export default class Session extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id!: string;
-
-  @BeforeInsert()
-  setId() {
-    this.id = uuid();
-  }
-
-  @Field()
-  @Column()
-  title!: string;
-
-  @Field()
-  @Column()
-  text!: string;
 
   @Field()
   @Column()
   userId: number;
 
   @Field(() => User)
-  @ManyToOne(() => User, (user) => user.posts)
+  @OneToOne(() => User, (user) => user.profile)
   user: User;
 
   @Field(() => String)

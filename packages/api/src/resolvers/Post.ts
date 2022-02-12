@@ -70,7 +70,7 @@ export default class PostResolver {
     // Find all posts by user id
     return await Post.find({
       where: {
-        creatorId: id,
+        userId: id,
       },
     });
   }
@@ -88,8 +88,9 @@ export default class PostResolver {
     try {
       post = await Post.create({
         ...input,
-        creatorId: req.session.user.id,
-      });
+        user: req.session.user,
+        userId: req.session.user.id,
+      }).save();
     } catch (err: any) {
       return {
         errors: [

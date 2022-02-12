@@ -4,8 +4,17 @@ import { InputType, Field } from "type-graphql";
 
 @InputType()
 class UpdateUserInput {
-  @Field({ nullable: false })
-  username: string;
+  @Field({ nullable: true })
+  username?: string;
+
+  @Field({ nullable: true })
+  email?: string;
+
+  @Field({ nullable: true })
+  password?: string;
+
+  @Field(() => [String], { nullable: true })
+  roles?: string[];
 }
 
 @InputType()
@@ -18,6 +27,9 @@ class RegisterUserInput {
 
   @Field()
   password!: string;
+
+  @Field(() => [String])
+  roles!: string[];
 }
 
 @InputType()

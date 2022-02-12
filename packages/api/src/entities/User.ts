@@ -8,9 +8,10 @@ import {
   BaseEntity,
   OneToMany,
   OneToOne,
+  ManyToMany,
 } from "typeorm";
-import { RoleTypes } from "../types";
-import { Profile, Post } from "./";
+
+import { Profile, Session, Error, Post, Organization, Job, Task } from "./";
 
 @ObjectType()
 @Entity()
@@ -31,16 +32,44 @@ export default class User extends BaseEntity {
   password!: string;
 
   @Field(() => [String])
-  @Column()
-  roles: RoleTypes[];
+  @Column({
+    type: "enum",
+    array: true,
+    enum: ["admin", "employer", "employee"],
+  })
+  roles!: string[];
 
-  @Field(() => Profile)
+  @Field(() => Profile, { nullable: true })
   @OneToOne(() => Profile, (profile) => profile.user)
   profile?: Profile;
 
-  @Field(() => [Post])
+  @Field(() => [Session], { nullable: true })
+  @OneToMany(() => Session, (session) => session.user)
+  sessions?: Session[];
+
+  @Field(() => [Error], { nullable: true })
+  @OneToMany(() => Error, (error) => error.user)
+  errors?: Error[];
+
+  @Field(() => [Organization], { nullable: true })
+  @OneToMany(() => Organization, (organization) => organization.creator)
+  ownedOrganizations?: Organization[];
+
+  @Field(() => [Organization], { nullable: true })
+  @ManyToMany(() => Organization, (organization) => organization.members)
+  joinedOrganizations?: Organization[];
+
+  @Field(() => [Job], { nullable: true })
+  @ManyToMany(() => Job, (job) => job.employees)
+  jobs?: Job[];
+
+  @Field(() => [Post], { nullable: true })
+  @ManyToMany(() => Task, (task) => task.assigned)
+  tasks?: Task[];
+
+  @Field(() => [Post], { nullable: true })
   @OneToMany(() => Post, (post) => post.user)
-  posts: Post[];
+  posts?: Post[];
 
   @Field(() => String)
   @CreateDateColumn()
