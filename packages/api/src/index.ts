@@ -39,93 +39,133 @@ import Redis from "ioredis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 
-const run = async () => {
-  logger.info("Server is starting...");
+class Server {
+  private app: express.Application;
+  private apolloServer: ApolloServer;
+  private redis: Redis.Redis;
+  private store: connectRedis.RedisStore;
 
-  await createConnection({
-    type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: DATABASE_USERNAME || "postgres",
-    password: DATABASE_PASSWORD || "postgres",
-    database: DATABASE_NAME || "api",
-    entities: [User, Post, Profile, Session, Error, Organization, Job, Task],
-    migrations: [path.join(__dirname, "/migrations/*")],
-    logging: __prod__,
-    synchronize: !__prod__,
-  });
+  constructor() {
+    this.app = express();
+  }
 
-  const app = express();
+  private async createConnection() {
+    await createConnection({
+      type: "postgres",
+      host: "localhost",
+      port: 5432,
+      username: DATABASE_USERNAME || "postgres",
+      password: DATABASE_PASSWORD || "postgres",
+      database: DATABASE_NAME || "api",
+      entities: [User, Post, Profile, Session, Error, Organization, Job, Task],
+      migrations: [path.join(__dirname, "/migrations/*")],
+      logging: __prod__,
+      synchronize: !__prod__,
+    });
 
-  const RedisStore = connectRedis(session);
-  const redis = new Redis(REDIS_URL || "redis://localhost:6379");
+    logger.info("Connected to the database successfully.");
+  }
 
-  app.set("trust proxy", 1);
-  app.use(
-    cors({
-      origin: ["http://localhost:3000", "https://studio.apollographql.com"],
-      credentials: true,
-    }),
-  );
+  private async createRedis() {
+    this.redis = new Redis(REDIS_URL || "redis://localhost:6379");
+    this.store = connectRedis(session);
 
-  app.use(
-    session({
-      name: COOKIE_NAME as string,
-      store: new RedisStore({
-        client: redis,
-        disableTouch: true,
+    logger.info("Connected to Redis successfully.");
+  }
+
+  private async createMiddleware() {
+    this.app.set("trust proxy", 1);
+    this.app.use(
+      cors({
+        origin: ["http://localhost:3000", "https://studio.apollographql.com"],
+        credentials: true,
       }),
-      cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-      },
-      secret: COOKIE_SECRET as string,
-      resave: false,
-      saveUninitialized: false,
-    }),
-  );
-
-  const apolloServer = new ApolloServer({
-    schema: await buildSchema({
-      resolvers: [PostResolver, UserResolver],
-      validate: false,
-    }),
-    context: ({ req, res }) => ({
-      req,
-      res,
-      redis,
-    }),
-    plugins: [
-      __prod__
-        ? ApolloServerPluginLandingPageProductionDefault()
-        : ApolloServerPluginLandingPageGraphQLPlayground({
-            settings: {
-              "request.credentials": "include",
-            },
-          }),
-    ],
-  });
-
-  await apolloServer.start();
-
-  apolloServer.applyMiddleware({
-    app,
-    cors: false,
-  });
-
-  app.listen(PORT, () => {
-    logger.info(
-      `Server has started: ${
-        __prod__
-          ? "https://oberen.com"
-          : "http://localhost:" + PORT + "/graphql"
-      }`,
     );
-  });
-};
 
-run().catch((err) => {
-  console.error(err);
-});
+    this.app.use(
+      session({
+        name: COOKIE_NAME as string,
+        store: new this.store({
+          client: this.redis,
+          disableTouch: true,
+        }),
+        cookie: {
+          maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
+          httpOnly: true,
+          secure: false,
+          sameSite: "lax",
+        },
+        secret: COOKIE_SECRET as string,
+        resave: false,
+        saveUninitialized: false,
+      }),
+    );
+  }
+
+  private async createApolloServer() {
+    this.apolloServer = new ApolloServer({
+      schema: await buildSchema({
+        resolvers: [PostResolver, UserResolver],
+        validate: false,
+      }),
+      context: ({ req, res }) => ({
+        req,
+        res,
+        redis: this.redis,
+      }),
+      plugins: [
+        __prod__
+          ? ApolloServerPluginLandingPageProductionDefault()
+          : ApolloServerPluginLandingPageGraphQLPlayground({
+              settings: {
+                "request.credentials": "include",
+              },
+            }),
+      ],
+    });
+
+    await this.apolloServer.start();
+
+    this.apolloServer.applyMiddleware({
+      app: this.app,
+      cors: false,
+    });
+  }
+
+  private async createRoutes() {
+    this.app.get("/", (_, res) => {
+      res.send("Hello World!");
+    });
+  }
+
+  private async start() {
+    await this.createConnection();
+    await this.createRedis();
+    await this.createMiddleware();
+    await this.createApolloServer();
+    await this.createRoutes();
+
+    this.app.listen(PORT as number, () => {
+      logger.info(
+        `Server has started: ${
+          __prod__
+            ? "https://oberen.com"
+            : "http://localhost:" + PORT + "/graphql"
+        }`,
+      );
+    });
+  }
+
+  public async startServer() {
+    try {
+      await this.start();
+    } catch (err) {
+      logger.error(err);
+    }
+  }
+}
+
+const server = new Server();
+server.startServer();
+
+export default new Server();
