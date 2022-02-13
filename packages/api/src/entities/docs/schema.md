@@ -21,3 +21,21 @@ The following schemas are used to store specific sets of data using 'type-graphq
 - **posts**: (optional): `Post[]`
 - **createdAt**: `Date`
 - **updatedAt**: `Date`
+
+## Post
+
+- **id**: `uuid<string>`
+- **title**: `string`
+- **text**: `string`
+- **type**: `PostType`
+- **public**: `boolean` default `true`
+- **likers** (optional): `User[]`
+- **likes** (optional): `number`
+- **comments** (optional): `Comment[]`
+- **attachments** (optional): `Attachment[]`
+- **hashtags** (optional): `Hashtag[]`
+- **labels** (optional): `Label[]`
+- **authorId**: `number`
+- **author**: `User`
+- **createdAt**: `Date`
+- **updatedAt**: `Date`

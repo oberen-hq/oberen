@@ -68,7 +68,7 @@ export default class User extends BaseEntity {
   tasks?: Task[];
 
   @Field(() => [Post], { nullable: true })
-  @OneToMany(() => Post, (post) => post.user)
+  @OneToMany(() => Post, (post) => post.author)
   posts?: Post[];
 
   @Field(() => String)
