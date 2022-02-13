@@ -7,11 +7,13 @@
   "license": "MIT",
   "scripts": {
     "watch": "rm -rf ./dist && tsc -w",
+    "build": "rm -rf ./dist && tsc",
     "start:dev": "nodemon dist/index.js",
     "start:prod": "node dist/index.js",
     "migration:create": "npx typeorm migration:create -n api_migration"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/connect-redis": "^0.0.18",
     "@types/express-session": "^1.17.4",
     "@types/faker": "^6.6.9",
@@ -24,7 +26,7 @@
   },
   "dependencies": {
     "apollo-server-express": "^3.6.1",
-    "argon2": "^0.28.3",
+    "bcryptjs": "^2.4.3",
     "connect-redis": "^6.1.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

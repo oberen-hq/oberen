@@ -11,6 +11,7 @@ import {
   REDIS_URL,
   COOKIE_NAME,
   COOKIE_SECRET,
+  DATABASE_HOST,
 } from "./config";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
@@ -52,11 +53,7 @@ class Server {
   private async createConnection() {
     await createConnection({
       type: "postgres",
-      host: "localhost",
-      port: 5432,
-      username: DATABASE_USERNAME || "postgres",
-      password: DATABASE_PASSWORD || "postgres",
-      database: DATABASE_NAME || "api",
+      url: `postgres://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:5432/${DATABASE_NAME}`,
       entities: [User, Post, Profile, Session, Error, Organization, Job, Task],
       migrations: [path.join(__dirname, "/migrations/*")],
       logging: __prod__,

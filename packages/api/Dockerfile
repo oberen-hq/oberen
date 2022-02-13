@@ -5,17 +5,18 @@ FROM node:14
 WORKDIR /usr/app
 
 COPY package.json ./
-COPY yarn.lock ./
 
 RUN yarn
 
 COPY . .
-COPY .env.production .env
+COPY .env .env
 
 RUN yarn build
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
+ENV DATABASE_HOST=db
+ENV REDIS_URL=redis://redis:6379
+ENV PORT=80
 
-EXPOSE 8080
+EXPOSE 80 
 CMD ["yarn", "start:prod"]
-USER node

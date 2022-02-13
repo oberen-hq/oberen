@@ -14,7 +14,7 @@ import { UpdateUserInput, RegisterUserInput, LoginUserInput } from "./inputs";
 import { UserResponse } from "./responses";
 import { COOKIE_NAME } from "../config";
 
-import argon from "argon2";
+import bcrypt from "bcryptjs";
 
 @Resolver(User)
 export default class UserResolver {
@@ -165,7 +165,9 @@ export default class UserResolver {
     @Ctx() { req }: MyContext,
   ): Promise<UserResponse> {
     // Register a new user and store the session -> TODO: validate input
-    input.password = await argon.hash(input.password);
+    const salt = await bcrypt.genSalt(10);
+
+    input.password = await bcrypt.hash(input.password, salt);
 
     let user: User;
 
@@ -226,7 +228,7 @@ export default class UserResolver {
       };
     }
 
-    const valid = await argon.verify(user.password, input.password);
+    const valid = await bcrypt.compare(input.password, user.password);
 
     if (!valid) {
       return {
