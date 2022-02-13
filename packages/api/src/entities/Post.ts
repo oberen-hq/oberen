@@ -45,6 +45,7 @@ export default class Post extends BaseEntity {
   @Field(() => Boolean)
   @Column({ default: true })
   public!: boolean;
+
   @Field()
   @Column()
   authorId: number;
