@@ -10,6 +10,7 @@
     "build": "rm -rf ./dist && tsc",
     "start:dev": "nodemon dist/index.js",
     "start:prod": "node dist/index.js",
+    "start:test": "node dist/tests/env.js",
     "migration:create": "npx typeorm migration:create -n api_migration"
   },
   "devDependencies": {

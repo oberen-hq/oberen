@@ -33,13 +33,26 @@ export default class Post extends BaseEntity {
   @Column()
   text!: string;
 
+  @Field(() => [String])
+  @Column({
+    type: "enum",
+    array: true,
+    enum: ["post", "job", "task", "feedback", "poll", "article"],
+    default: ["post"],
+  })
+  type!: string[];
+
+  @Field(() => Boolean)
+  @Column({ default: true })
+  public!: boolean;
+
   @Field()
   @Column()
-  userId: number;
+  authorId: number;
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.posts)
-  user: User;
+  author: User;
 
   @Field(() => String)
   @CreateDateColumn()
