@@ -13,7 +13,7 @@ import {
   COOKIE_SECRET,
   DATABASE_HOST,
 } from "./config";
-import { createConnection } from "typeorm";
+import { createConnection, Connection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
 import {
   ApolloServerPluginLandingPageProductionDefault,
@@ -40,18 +40,24 @@ import Redis from "ioredis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 
-class Server {
+export default class Server {
   private app: express.Application;
+  private db: Connection | undefined;
   private apolloServer: ApolloServer;
   private redis: Redis.Redis;
   private store: connectRedis.RedisStore;
 
   constructor() {
     this.app = express();
+    this.db;
+  }
+
+  public getConnection() {
+    return this.db;
   }
 
   private async createConnection() {
-    await createConnection({
+    this.db = await createConnection({
       type: "postgres",
       url: `postgres://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:5432/${DATABASE_NAME}`,
       entities: [User, Post, Profile, Session, Error, Organization, Job, Task],
@@ -164,5 +170,3 @@ class Server {
 
 const server = new Server();
 server.startServer();
-
-export default new Server();
