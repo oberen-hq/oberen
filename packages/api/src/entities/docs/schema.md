@@ -1,4 +1,4 @@
-# Schemas for Oberen database:
+# Schemas:
 
 The following schemas are used to store specific sets of data using 'type-graphql- and postgresql.
 
